@@ -19,8 +19,9 @@ Owlet is an RMI client can be used to interact with an Owl webservice.
 Development Team 
 ----
 The developers of this project are
-* Kuschny Daniel
-* Nisandzic Daniel
-* Spiegel Evgeniya 
-* Svoboda Stephan
-* Tscholl Manuel
+
+- Kuschny Daniel
+- Nisandzic Daniel
+- Spiegel Evgeniya 
+- Svoboda Stephan
+- Tscholl Manuel

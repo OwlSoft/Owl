@@ -1,0 +1,15 @@
+# ignore special dirs
+/tmp
+/bin
+/build/classes/*
+/src-gen
+/dist 
+/.settings
+
+# ignore project files
+
+# ignore temp files
+.DS_Store 
+*.bak
+~*
+*.lock

@@ -9,11 +9,15 @@ The owl suite consists of two parts:
 
 Owl 
 ----
+![Owl](https://github.com/OwlSoft/Owl/raw/master/images/owl_150.png "Owl Logo")
+
 Owl is the server system of the owl suite which consists of the database and the whole management system
 provided by a webservice API.
 
 Owlet
 ----
+![Owlet](https://github.com/OwlSoft/Owl/raw/master/images/owlet_150.png "Owlet Logo")
+
 Owlet is an RMI client can be used to interact with an Owl webservice. 
 
 Development Team 

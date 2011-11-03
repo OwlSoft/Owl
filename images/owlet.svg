@@ -1,33 +1,320 @@
-<?xml version="1.0"?><svg width="640" height="480" xmlns="http://www.w3.org/2000/svg">
- <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
- <title>Orange Owl</title>
- <g>
-  <title>Layer 6</title>
-  <path id="svg_18" d="m142,265" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#7f3f00" fill="#7f3f00"/>
-  <path id="svg_19" d="m80,324" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#7f3f00" fill="#7f3f00"/>
-  <line transform="rotate(-13.097025871276855 279.4640502929691,322.0650024414062) " id="svg_21" y2="375.473003" x2="426.332321" y1="268.657015" x1="132.595794" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#7f3f00" fill="none"/>
-  <line id="svg_22" y2="335" x2="389" y1="289" x1="426" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#7f3f00" fill="none"/>
-  <line id="svg_27" y2="372" x2="445" y1="339" x1="409" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#7f3f00" fill="none"/>
-  <line id="svg_28" y2="296" x2="443" y1="307" x1="412" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#7f3f00" fill="none"/>
-  <line id="svg_54" y2="307" x2="413" y1="290" x1="406" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#7f3f00" fill="none"/>
-  <ellipse transform="rotate(-34.114471435546875 434.0000000000001,365) " id="svg_48" ry="17" rx="7" cy="365" cx="434" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#007f00" fill="#5fbf00"/>
-  <ellipse transform="rotate(96.17017364501953 452.99999999999994,343.00000000000006) " id="svg_49" ry="17" rx="7" cy="343" cx="453" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#007f00" fill="#5fbf00"/>
-  <ellipse transform="rotate(76.32868957519531 441.00000000000006,299.9999999999999) " id="svg_50" ry="17" rx="7" cy="300" cx="441" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#007f00" fill="#5fbf00"/>
-  <ellipse transform="rotate(-18.434947967529297 402.99999999999994,279.9999999999999) " id="svg_51" ry="17" rx="7" cy="280" cx="403" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#007f00" fill="#5fbf00"/>
-  <ellipse transform="rotate(9.865806579589844 429.0000000000005,271) " id="svg_52" ry="17" rx="7" cy="271" cx="429" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#007f00" fill="#5fbf00"/>
- </g>
- <g>
-  <title>Layer 1</title>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
 
-  <ellipse ry="94.499997" rx="70" id="svg_1" cy="223.500003" cx="288" stroke-width="5" stroke="#ff7f00" fill="#ff7f00"/>
-  <ellipse ry="107" rx="55" id="svg_2" cy="71" cx="289" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#ffffff" fill="#ffffff"/>
-  <ellipse id="svg_6" ry="22" rx="22.5" cy="210.000001" cx="323.5" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#ffffff" fill="#ffffff"/>
-  <ellipse id="svg_17" ry="22" rx="22.5" cy="211.000001" cx="264.5" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#ffffff" fill="#ffffff"/>
-  <ellipse ry="15.5" rx="14" id="svg_7" cy="214.5" cx="269" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#ffffff" fill="#000000"/>
-  <ellipse ry="12" id="svg_8" cy="236" cx="269" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#ffffff" fill="#000000"/>
-  <ellipse id="svg_9" ry="15.5" rx="14" cy="214.5" cx="321" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#ffffff" fill="#000000"/>
-  <ellipse transform="rotate(27.5972957611084 336,272) " ry="33" rx="13" id="svg_11" cy="272" cx="336" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#ffaa56" fill="#ffaa56"/>
-  <ellipse id="svg_12" transform="rotate(-27.89727020263672 242.00000000000014,272.00000000000006) " ry="33" rx="13" cy="272" cx="242" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#ffaa56" fill="#ffaa56"/>
-  <path id="svg_16" d="m289,230c1,0 12,-1 12,-1c0,0 -4,16 -4,16c0,0 -8,-15 -8,-15z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#ffff00" fill="#ffff00"/>
- </g>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.1 "
+   sodipodi:docname="owlet.svg"
+   inkscape:export-filename="D:\Studium\5. Semester\Owl\Repository\images\owlet.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="386.15395"
+     inkscape:cy="412.50878"
+     inkscape:document-units="px"
+     inkscape:current-layer="g3005"
+     showgrid="false"
+     inkscape:window-width="1680"
+     inkscape:window-height="988"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g3025"
+       transform="translate(75.040717,360.55437)">
+      <g
+         id="g2989">
+        <title
+           id="title2991">Layer 6</title>
+        <path
+           stroke-linejoin="null"
+           stroke-linecap="null"
+           d="M 142,265"
+           id="svg_18"
+           inkscape:connector-curvature="0"
+           style="fill:#7f3f00;stroke:#7f3f00;stroke-width:5;stroke-dasharray:none" />
+        <path
+           stroke-linejoin="null"
+           stroke-linecap="null"
+           d="M 80,324"
+           id="svg_19"
+           inkscape:connector-curvature="0"
+           style="fill:#7f3f00;stroke:#7f3f00;stroke-width:5;stroke-dasharray:none" />
+        <line
+           stroke-linejoin="null"
+           stroke-linecap="null"
+           x1="132.59579"
+           y1="268.65701"
+           x2="426.33231"
+           y2="375.47299"
+           id="svg_21"
+           transform="matrix(0.97398773,-0.22660075,0.22660075,0.97398773,-65.710677,71.704405)"
+           style="fill:none;stroke:#7f3f00;stroke-width:5;stroke-dasharray:none" />
+        <line
+           stroke-linejoin="null"
+           stroke-linecap="null"
+           x1="426"
+           y1="289"
+           x2="389"
+           y2="335"
+           id="svg_22"
+           style="fill:none;stroke:#7f3f00;stroke-width:5;stroke-dasharray:none" />
+        <line
+           stroke-linejoin="null"
+           stroke-linecap="null"
+           x1="409"
+           y1="339"
+           x2="445"
+           y2="372"
+           id="svg_27"
+           style="fill:none;stroke:#7f3f00;stroke-width:5;stroke-dasharray:none" />
+        <line
+           stroke-linejoin="null"
+           stroke-linecap="null"
+           x1="412"
+           y1="307"
+           x2="443"
+           y2="296"
+           id="svg_28"
+           style="fill:none;stroke:#7f3f00;stroke-width:5;stroke-dasharray:none" />
+        <line
+           stroke-linejoin="null"
+           stroke-linecap="null"
+           x1="406"
+           y1="290"
+           x2="413"
+           y2="307"
+           id="svg_54"
+           style="fill:none;stroke:#7f3f00;stroke-width:5;stroke-dasharray:none" />
+        <ellipse
+           stroke-linejoin="null"
+           stroke-linecap="null"
+           cx="434"
+           cy="365"
+           rx="7"
+           ry="17"
+           id="svg_48"
+           transform="matrix(0.82791871,-0.56084812,0.56084812,0.82791871,-130.02628,306.21776)"
+           sodipodi:cx="434"
+           sodipodi:cy="365"
+           sodipodi:rx="7"
+           sodipodi:ry="17"
+           style="fill:#5fbf00;stroke:#007f00;stroke-width:5;stroke-dasharray:none"
+           d="m 441,365 c 0,9.38884 -3.13401,17 -7,17 -3.86599,0 -7,-7.61116 -7,-17 0,-9.38884 3.13401,-17 7,-17 3.86599,0 7,7.61116 7,17 z" />
+        <ellipse
+           stroke-linejoin="null"
+           stroke-linecap="null"
+           cx="453"
+           cy="343"
+           rx="7"
+           ry="17"
+           id="svg_49"
+           transform="matrix(-0.10748182,0.99420705,-0.99420705,-0.10748182,842.70228,-70.50953)"
+           sodipodi:cx="453"
+           sodipodi:cy="343"
+           sodipodi:rx="7"
+           sodipodi:ry="17"
+           style="fill:#5fbf00;stroke:#007f00;stroke-width:5;stroke-dasharray:none"
+           d="m 460,343 c 0,9.38884 -3.13401,17 -7,17 -3.86599,0 -7,-7.61116 -7,-17 0,-9.38884 3.13401,-17 7,-17 3.86599,0 7,7.61116 7,17 z" />
+        <ellipse
+           stroke-linejoin="null"
+           stroke-linecap="null"
+           cx="441"
+           cy="300"
+           rx="7"
+           ry="17"
+           id="svg_50"
+           transform="matrix(0.23635163,0.97166759,-0.97166759,0.23635163,628.26921,-199.4109)"
+           sodipodi:cx="441"
+           sodipodi:cy="300"
+           sodipodi:rx="7"
+           sodipodi:ry="17"
+           style="fill:#5fbf00;stroke:#007f00;stroke-width:5;stroke-dasharray:none"
+           d="m 448,300 c 0,9.38884 -3.13401,17 -7,17 -3.86599,0 -7,-7.61116 -7,-17 0,-9.38884 3.13401,-17 7,-17 3.86599,0 7,7.61116 7,17 z" />
+        <ellipse
+           stroke-linejoin="null"
+           stroke-linecap="null"
+           cx="403"
+           cy="280"
+           rx="7"
+           ry="17"
+           id="svg_51"
+           transform="matrix(0.9486833,-0.31622775,0.31622775,0.9486833,-67.863142,141.80846)"
+           sodipodi:cx="403"
+           sodipodi:cy="280"
+           sodipodi:rx="7"
+           sodipodi:ry="17"
+           style="fill:#5fbf00;stroke:#007f00;stroke-width:5;stroke-dasharray:none"
+           d="m 410,280 c 0,9.38884 -3.13401,17 -7,17 -3.86599,0 -7,-7.61116 -7,-17 0,-9.38884 3.13401,-17 7,-17 3.86599,0 7,7.61116 7,17 z" />
+        <ellipse
+           stroke-linejoin="null"
+           stroke-linecap="null"
+           cx="429"
+           cy="271"
+           rx="7"
+           ry="17"
+           id="svg_52"
+           transform="matrix(0.98521176,0.17134117,-0.17134117,0.98521176,52.777613,-69.497747)"
+           sodipodi:cx="429"
+           sodipodi:cy="271"
+           sodipodi:rx="7"
+           sodipodi:ry="17"
+           style="fill:#5fbf00;stroke:#007f00;stroke-width:5;stroke-dasharray:none"
+           d="m 436,271 c 0,9.38884 -3.13401,17 -7,17 -3.86599,0 -7,-7.61116 -7,-17 0,-9.38884 3.13401,-17 7,-17 3.86599,0 7,7.61116 7,17 z" />
+      </g>
+      <g
+         id="g3005">
+        <title
+           id="title3007">Layer 1</title>
+        <path
+           style="fill:#ff7f00;stroke:#ff7f00;stroke-width:5"
+           d="m 319.34375,510.25 c -16.03071,17.31726 -26.3125,43.93964 -26.3125,73.8125 0,52.19091 31.34007,94.5 70,94.5 38.65993,0 70,-42.30909 70,-94.5 0,-29.1165 -9.7562,-55.16509 -25.09375,-72.5 -11.38667,19.21475 -26.49736,31.1538 -43.54911,31.1538 -17.44381,0 -33.58998,-12.46401 -45.04464,-32.4663 z"
+           transform="translate(-75.040717,-360.55437)"
+           id="svg_1"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="cssscsc" />
+        <ellipse
+           stroke-linejoin="null"
+           stroke-linecap="null"
+           cx="323.5"
+           cy="210"
+           rx="22.5"
+           ry="22"
+           id="svg_6"
+           sodipodi:cx="323.5"
+           sodipodi:cy="210"
+           sodipodi:rx="22.5"
+           sodipodi:ry="22"
+           style="fill:#ffffff;stroke:#ffffff;stroke-width:5;stroke-dasharray:none"
+           d="m 346,210 c 0,12.15026 -10.07359,22 -22.5,22 -12.42641,0 -22.5,-9.84974 -22.5,-22 0,-12.15026 10.07359,-22 22.5,-22 12.42641,0 22.5,9.84974 22.5,22 z" />
+        <ellipse
+           stroke-linejoin="null"
+           stroke-linecap="null"
+           cx="264.5"
+           cy="211"
+           rx="22.5"
+           ry="22"
+           id="svg_17"
+           sodipodi:cx="264.5"
+           sodipodi:cy="211"
+           sodipodi:rx="22.5"
+           sodipodi:ry="22"
+           style="fill:#ffffff;stroke:#ffffff;stroke-width:5;stroke-dasharray:none"
+           d="m 287,211 c 0,12.15026 -10.07359,22 -22.5,22 -12.42641,0 -22.5,-9.84974 -22.5,-22 0,-12.15026 10.07359,-22 22.5,-22 12.42641,0 22.5,9.84974 22.5,22 z" />
+        <ellipse
+           stroke-linejoin="null"
+           stroke-linecap="null"
+           cx="269"
+           cy="214.5"
+           id="svg_7"
+           rx="14"
+           ry="15.5"
+           sodipodi:cx="269"
+           sodipodi:cy="214.5"
+           sodipodi:rx="14"
+           sodipodi:ry="15.5"
+           style="fill:#000000;stroke:#ffffff;stroke-width:5;stroke-dasharray:none"
+           d="m 283,214.5 c 0,8.56041 -6.26801,15.5 -14,15.5 -7.73199,0 -14,-6.93959 -14,-15.5 0,-8.56041 6.26801,-15.5 14,-15.5 7.73199,0 14,6.93959 14,15.5 z" />
+        <ellipse
+           stroke-linejoin="null"
+           stroke-linecap="null"
+           cx="269"
+           cy="236"
+           id="svg_8"
+           ry="12"
+           rx="0"
+           sodipodi:cx="269"
+           sodipodi:cy="236"
+           sodipodi:rx="0"
+           sodipodi:ry="12"
+           style="fill:#000000;stroke:#ffffff;stroke-width:5;stroke-dasharray:none" />
+        <ellipse
+           stroke-linejoin="null"
+           stroke-linecap="null"
+           cx="321"
+           cy="214.5"
+           rx="14"
+           ry="15.5"
+           id="svg_9"
+           sodipodi:cx="321"
+           sodipodi:cy="214.5"
+           sodipodi:rx="14"
+           sodipodi:ry="15.5"
+           style="fill:#000000;stroke:#ffffff;stroke-width:5;stroke-dasharray:none"
+           d="m 335,214.5 c 0,8.56041 -6.26801,15.5 -14,15.5 -7.73199,0 -14,-6.93959 -14,-15.5 0,-8.56041 6.26801,-15.5 14,-15.5 7.73199,0 14,6.93959 14,15.5 z" />
+        <ellipse
+           stroke-linejoin="null"
+           stroke-linecap="null"
+           cx="336"
+           cy="272"
+           id="svg_11"
+           rx="13"
+           ry="33"
+           transform="matrix(0.88622544,0.46325421,-0.46325421,0.88622544,164.2334,-124.70673)"
+           sodipodi:cx="336"
+           sodipodi:cy="272"
+           sodipodi:rx="13"
+           sodipodi:ry="33"
+           style="fill:#ffaa56;stroke:#ffaa56;stroke-width:5;stroke-dasharray:none"
+           d="m 349,272 c 0,18.2254 -5.8203,33 -13,33 -7.1797,0 -13,-14.7746 -13,-33 0,-18.2254 5.8203,-33 13,-33 7.1797,0 13,14.7746 13,33 z" />
+        <ellipse
+           stroke-linejoin="null"
+           stroke-linecap="null"
+           cx="242"
+           cy="272"
+           rx="13"
+           ry="33"
+           transform="matrix(0.88378792,-0.46788771,0.46788771,0.88378792,-99.142134,144.83851)"
+           id="svg_12"
+           sodipodi:cx="242"
+           sodipodi:cy="272"
+           sodipodi:rx="13"
+           sodipodi:ry="33"
+           style="fill:#ffaa56;stroke:#ffaa56;stroke-width:5;stroke-dasharray:none"
+           d="m 255,272 c 0,18.2254 -5.8203,33 -13,33 -7.1797,0 -13,-14.7746 -13,-33 0,-18.2254 5.8203,-33 13,-33 7.1797,0 13,14.7746 13,33 z" />
+        <path
+           stroke-linejoin="null"
+           stroke-linecap="null"
+           d="m 289,230 c 1,0 12,-1 12,-1 0,0 -4,16 -4,16 0,0 -8,-15 -8,-15 z"
+           id="svg_16"
+           inkscape:connector-curvature="0"
+           style="fill:#ffff00;stroke:#ffff00;stroke-width:5;stroke-dasharray:none" />
+      </g>
+    </g>
+  </g>
 </svg>

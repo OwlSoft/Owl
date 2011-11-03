@@ -1,10 +1,9 @@
 # ignore special dirs
-/tmp
-/bin
-/build/classes/*
-/src-gen
-/dist 
-/.settings
+**/tmp/*
+**/bin/*
+**/build/classes/*
+**/src-gen/*
+**/dist 
 
 # ignore project files
 

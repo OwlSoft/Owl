@@ -1,0 +1,33 @@
+<?xml version="1.0"?><svg width="640" height="480" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+ <title>Orange Owl</title>
+ <g>
+  <title>Layer 6</title>
+  <path id="svg_18" d="m142,265" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#7f3f00" fill="#7f3f00"/>
+  <path id="svg_19" d="m80,324" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#7f3f00" fill="#7f3f00"/>
+  <line transform="rotate(-13.097025871276855 279.4640502929691,322.0650024414062) " id="svg_21" y2="375.473003" x2="426.332321" y1="268.657015" x1="132.595794" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#7f3f00" fill="none"/>
+  <line id="svg_22" y2="335" x2="389" y1="289" x1="426" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#7f3f00" fill="none"/>
+  <line id="svg_27" y2="372" x2="445" y1="339" x1="409" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#7f3f00" fill="none"/>
+  <line id="svg_28" y2="296" x2="443" y1="307" x1="412" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#7f3f00" fill="none"/>
+  <line id="svg_54" y2="307" x2="413" y1="290" x1="406" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#7f3f00" fill="none"/>
+  <ellipse transform="rotate(-34.114471435546875 434.0000000000001,365) " id="svg_48" ry="17" rx="7" cy="365" cx="434" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#007f00" fill="#5fbf00"/>
+  <ellipse transform="rotate(96.17017364501953 452.99999999999994,343.00000000000006) " id="svg_49" ry="17" rx="7" cy="343" cx="453" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#007f00" fill="#5fbf00"/>
+  <ellipse transform="rotate(76.32868957519531 441.00000000000006,299.9999999999999) " id="svg_50" ry="17" rx="7" cy="300" cx="441" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#007f00" fill="#5fbf00"/>
+  <ellipse transform="rotate(-18.434947967529297 402.99999999999994,279.9999999999999) " id="svg_51" ry="17" rx="7" cy="280" cx="403" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#007f00" fill="#5fbf00"/>
+  <ellipse transform="rotate(9.865806579589844 429.0000000000005,271) " id="svg_52" ry="17" rx="7" cy="271" cx="429" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#007f00" fill="#5fbf00"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+
+  <ellipse ry="94.499997" rx="70" id="svg_1" cy="223.500003" cx="288" stroke-width="5" stroke="#ff7f00" fill="#ff7f00"/>
+  <ellipse ry="107" rx="55" id="svg_2" cy="71" cx="289" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#ffffff" fill="#ffffff"/>
+  <ellipse id="svg_6" ry="22" rx="22.5" cy="210.000001" cx="323.5" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#ffffff" fill="#ffffff"/>
+  <ellipse id="svg_17" ry="22" rx="22.5" cy="211.000001" cx="264.5" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#ffffff" fill="#ffffff"/>
+  <ellipse ry="15.5" rx="14" id="svg_7" cy="214.5" cx="269" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#ffffff" fill="#000000"/>
+  <ellipse ry="12" id="svg_8" cy="236" cx="269" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#ffffff" fill="#000000"/>
+  <ellipse id="svg_9" ry="15.5" rx="14" cy="214.5" cx="321" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#ffffff" fill="#000000"/>
+  <ellipse transform="rotate(27.5972957611084 336,272) " ry="33" rx="13" id="svg_11" cy="272" cx="336" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#ffaa56" fill="#ffaa56"/>
+  <ellipse id="svg_12" transform="rotate(-27.89727020263672 242.00000000000014,272.00000000000006) " ry="33" rx="13" cy="272" cx="242" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#ffaa56" fill="#ffaa56"/>
+  <path id="svg_16" d="m289,230c1,0 12,-1 12,-1c0,0 -4,16 -4,16c0,0 -8,-15 -8,-15z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#ffff00" fill="#ffff00"/>
+ </g>
+</svg>

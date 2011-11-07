@@ -36,6 +36,7 @@ public class Owl
     {
         DOMConfigurator.configure(Owl.class.getResource(LOG4J_CONFIGURATION));
 
-        logger.debug("Dugge Dugge");
+        logger.debug("Hoot Hoot");
+
     }
 }

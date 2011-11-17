@@ -39,6 +39,43 @@ public class Main
                 "DB4OFILENAME");
         try
         {
+
+            System.out.println();
+            List<Pet> pets = new ArrayList<Pet>();
+            Austrian manuel = new Austrian(pets, "Manuel", 123);
+
+            // _db.store(manuel);
+
+            Austrian newManuel = ((Austrian) _db.queryByExample(manuel).get(0));
+            newManuel.getSlaves().add(new Pet("hansi"));
+            _db.store(newManuel);
+
+            Austrian newNewManuel = ((Austrian) _db.queryByExample(newManuel)
+                    .get(0));
+            //
+            // System.out.println(newNewManuel.getSlaves().get(0).getName());
+
+            //
+            // _db.store(manuel);
+            // Human humanManuel = new Human(pets, "Manuel");
+            // _db.store(humanManuel);
+            //
+            // System.out.println("suche1");
+            // Austrian suche1 = new Austrian(null, "Manuel", 0);
+            //
+            // for (Object item : _db.queryByExample(suche1))
+            // {
+            // System.out.println(((Austrian) item).getName() + ":"
+            // + ((Austrian) item).getInsuranceNumber());
+            // }
+            //
+            // System.out.println("suche2");
+            // IHuman suche2 = new Human(null, "Manuel");
+            // for (Object item : _db.queryByExample(suche2))
+            // {
+            // System.out.println(((IHuman) item).getName() + ":");
+            // }
+
             // Test for Pilot --> this test does not have object references
 
             // save2TestingPilots();
@@ -53,25 +90,25 @@ public class Main
 
             // Test for Pets --> this test does have object references
 
-            List<Pet> pets = new ArrayList<Pet>();
-            pets.add(new Pet("Dana"));
-            Human manuel = new Human(pets, "Manuel");
-            _db.store(manuel);
-
-            listResult(_db.query(Human.class));
-
-            Human tempManuel = _db.query(Human.class).get(0);
-
-            System.out.println(tempManuel.getName());
-            System.out.println(tempManuel.getSlaves().get(0).getName());
-
-            listResult(_db.query(Human.class));
-
-            tempManuel.getSlaves().get(0).setName("4711");
-
-            _db.store(tempManuel);
-
-            listResult(_db.query(Human.class));
+            // List<Pet> pets = new ArrayList<Pet>();
+            // pets.add(new Pet("Dana"));
+            // Human manuel = new Human(pets, "Manuel");
+            // _db.store(manuel);
+            //
+            // listResult(_db.query(Human.class));
+            //
+            // Human tempManuel = _db.query(Human.class).get(0);
+            //
+            // System.out.println(tempManuel.getName());
+            // System.out.println(tempManuel.getSlaves().get(0).getName());
+            //
+            // listResult(_db.query(Human.class));
+            //
+            // tempManuel.getSlaves().get(0).setName("4711");
+            //
+            // _db.store(tempManuel);
+            //
+            // listResult(_db.query(Human.class));
 
         }
         finally

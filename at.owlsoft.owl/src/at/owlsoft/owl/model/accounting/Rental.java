@@ -48,7 +48,17 @@ public class Rental extends Activity
         _endDate = endDate;
     }
 
-    public Iterable<FilingExtension> getFilingExtensions()
+    public int getFilingExtensionCount()
+    {
+        return _filingExtensions.size();
+    }
+
+    public FilingExtension getFilingExtension(int index)
+    {
+        return _filingExtensions.get(index);
+    }
+
+    public List<FilingExtension> getFilingExtensions()
     {
         return Collections.unmodifiableList(_filingExtensions);
     }

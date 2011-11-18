@@ -29,12 +29,12 @@ public abstract class Medium
     private Date                 _entryDate;
     private Date                 _publishedDate;
     private List<Tag>            _tags;
-    private List<MediumExemplar> _mediumExemplar;
+    private List<MediumExemplar> _mediumExemplars;
 
     public Medium()
     {
         _tags = new ArrayList<Tag>();
-        _mediumExemplar = new ArrayList<MediumExemplar>();
+        _mediumExemplars = new ArrayList<MediumExemplar>();
     }
 
     public Medium(int mediumID, String publisher, String name, Date entryDate,
@@ -47,7 +47,7 @@ public abstract class Medium
         _entryDate = entryDate;
         _publishedDate = publishedDate;
         _tags = new ArrayList<Tag>();
-        _mediumExemplar = new ArrayList<MediumExemplar>();
+        _mediumExemplars = new ArrayList<MediumExemplar>();
     }
 
     public int getMediumID()
@@ -100,9 +100,43 @@ public abstract class Medium
         _publishedDate = publishedDate;
     }
 
-    public Iterable<Tag> getTags()
+    public int getTagCount()
+    {
+        return _tags.size();
+    }
+
+    public Tag getTag(int index)
+    {
+        return _tags.get(index);
+    }
+
+    public List<Tag> getTags()
     {
         return Collections.unmodifiableList(_tags);
+    }
+
+    public boolean hasTag(String tagValue)
+    {
+        for (Tag t : _tags)
+        {
+            if (t.getValue().equals(tagValue))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasTag(String tagValue, TagType type)
+    {
+        for (Tag t : _tags)
+        {
+            if (t.getTagType() == type && t.getValue().equals(tagValue))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void clearTags()
@@ -121,24 +155,34 @@ public abstract class Medium
         _tags.remove(tag);
     }
 
-    public Iterable<MediumExemplar> getMediumExemplar()
+    public int getMediumExemplarCount()
     {
-        return Collections.unmodifiableList(_mediumExemplar);
+        return _mediumExemplars.size();
     }
 
-    public void clearMediumExemplar()
+    public MediumExemplar getMediumExemplar(int index)
     {
-        _tags.clear();
+        return _mediumExemplars.get(index);
+    }
+
+    public List<MediumExemplar> getMediumExemplars()
+    {
+        return Collections.unmodifiableList(_mediumExemplars);
+    }
+
+    public void clearMediumExemplars()
+    {
+        _mediumExemplars.clear();
     }
 
     public void addMediumExemplar(MediumExemplar mediumExemplar)
     {
         mediumExemplar.setMedium(this);
-        _mediumExemplar.add(mediumExemplar);
+        _mediumExemplars.add(mediumExemplar);
     }
 
     public void removeMediumExemplar(MediumExemplar mediumExemplar)
     {
-        _mediumExemplar.remove(mediumExemplar);
+        _mediumExemplars.remove(mediumExemplar);
     }
 }

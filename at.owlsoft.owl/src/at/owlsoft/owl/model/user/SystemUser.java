@@ -139,7 +139,17 @@ public class SystemUser
         _birthday = birthday;
     }
 
-    public Iterable<Activity> getActivities()
+    public int getActivityCount()
+    {
+        return _activities.size();
+    }
+
+    public Activity getActivity(int index)
+    {
+        return _activities.get(index);
+    }
+
+    public List<Activity> getActivities()
     {
         return Collections.unmodifiableList(_activities);
     }
@@ -170,7 +180,17 @@ public class SystemUser
         _accountMode = accountMode;
     }
 
-    public Iterable<Role> getRoles()
+    public int getRoleCount()
+    {
+        return _roles.size();
+    }
+
+    public Role getRole(int index)
+    {
+        return _roles.get(index);
+    }
+
+    public List<Role> getRoles()
     {
         return Collections.unmodifiableList(_roles);
     }
@@ -197,7 +217,17 @@ public class SystemUser
         return false;
     }
 
-    public Iterable<SystemUserTransaction> getSystemUserTransactions()
+    public int getSystemUserTransactionCount()
+    {
+        return _systemUserTransactions.size();
+    }
+
+    public SystemUserTransaction getSystemUserTransaction(int index)
+    {
+        return _systemUserTransactions.get(index);
+    }
+
+    public List<SystemUserTransaction> getSystemUserTransactions()
     {
         return Collections.unmodifiableList(_systemUserTransactions);
     }
@@ -220,7 +250,17 @@ public class SystemUser
         _systemUserTransactions.remove(systemUserTransaction);
     }
 
-    public Iterable<SystemUserStatusEntry> getSystemUserStatusEntries()
+    public int getSystemUserStatusEntryCount()
+    {
+        return _systemUserStatusEntries.size();
+    }
+
+    public SystemUserStatusEntry getSystemUserStatusEntry(int index)
+    {
+        return _systemUserStatusEntries.get(index);
+    }
+
+    public List<SystemUserStatusEntry> getSystemUserStatusEntries()
     {
         return Collections.unmodifiableList(_systemUserStatusEntries);
     }

@@ -50,8 +50,8 @@ public class Main
             newManuel.getSlaves().add(new Pet("hansi"));
             _db.store(newManuel);
 
-            Austrian newNewManuel = ((Austrian) _db.queryByExample(newManuel)
-                    .get(0));
+            // Austrian newNewManuel = ((Austrian) _db.queryByExample(newManuel)
+            // .get(0));
             //
             // System.out.println(newNewManuel.getSlaves().get(0).getName());
 
@@ -123,11 +123,11 @@ public class Main
      * 
      * @return
      */
-    public static ObjectSet loadAllPilots()
+    public static ObjectSet<Pilot> loadAllPilots()
     {
 
         Pilot proto = new Pilot(null, 0);
-        ObjectSet result = _db.queryByExample(proto);
+        ObjectSet<Pilot> result = _db.queryByExample(proto);
         return result;
     }
 
@@ -136,7 +136,7 @@ public class Main
      * 
      * @return
      */
-    public static ObjectSet loadAllObjectsFromClass()
+    public static ObjectSet<Pilot> loadAllObjectsFromClass()
     {
         return _db.queryByExample(Pilot.class);
     }
@@ -193,8 +193,8 @@ public class Main
      */
     public static void updatePilot(String name)
     {
-        ObjectSet result = _db.queryByExample(new Pilot(name, 0));
-        Pilot found = (Pilot) result.next();
+        ObjectSet<Pilot> result = _db.queryByExample(new Pilot(name, 0));
+        Pilot found = result.next();
         found.addPoints(11);
         _db.store(found);
         System.out.println("Added 11 points for " + found);
@@ -206,8 +206,8 @@ public class Main
      */
     public static void deletePilot(String name)
     {
-        ObjectSet result = _db.queryByExample(new Pilot(name, 0));
-        Pilot found = (Pilot) result.next();
+        ObjectSet<Pilot> result = _db.queryByExample(new Pilot(name, 0));
+        Pilot found = result.next();
         _db.delete(found);
         System.out.println("Deleted " + found);
     }

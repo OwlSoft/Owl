@@ -24,7 +24,7 @@ import java.util.List;
 import at.owlsoft.owl.model.media.MediumExemplar;
 import at.owlsoft.owl.model.user.SystemUser;
 
-public class Activity
+public abstract class Activity
 {
     private Date                      _startDate;
     private List<ActivityStatusEntry> _activityStatusEntries;
@@ -32,12 +32,12 @@ public class Activity
     private SystemUser                _customer;
     private SystemUser                _creator;
 
-    public Activity()
+    protected Activity()
     {
         _activityStatusEntries = new ArrayList<ActivityStatusEntry>();
     }
 
-    public Activity(Date startDate, MediumExemplar mediumExemplar,
+    protected Activity(Date startDate, MediumExemplar mediumExemplar,
             SystemUser customer, SystemUser creator)
     {
         _startDate = startDate;
@@ -57,7 +57,17 @@ public class Activity
         _startDate = startDate;
     }
 
-    public Iterable<ActivityStatusEntry> getActivityStatusEntries()
+    public int getActivityStatusEntryCount()
+    {
+        return _activityStatusEntries.size();
+    }
+
+    public ActivityStatusEntry getActivityStatusEntry(int index)
+    {
+        return _activityStatusEntries.get(index);
+    }
+
+    public List<ActivityStatusEntry> getActivityStatusEntries()
     {
         return Collections.unmodifiableList(_activityStatusEntries);
     }

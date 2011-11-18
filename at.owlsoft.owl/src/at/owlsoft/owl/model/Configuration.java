@@ -22,6 +22,11 @@ public class Configuration
 {
     private Properties _settings;
 
+    public Configuration()
+    {
+        _settings = new Properties();
+    }
+
     public String getString(String name)
     {
         return getString(name, null);
@@ -42,8 +47,8 @@ public class Configuration
     {
         try
         {
-            String value = _settings.getProperty(name);
-            return value == null ? defaultValue : Byte.parseByte(value);
+            Byte value = (Byte) _settings.get(name);
+            return value == null ? defaultValue : value;
         }
         catch (Exception e)
         {
@@ -61,8 +66,8 @@ public class Configuration
     {
         try
         {
-            String value = _settings.getProperty(name);
-            return value == null ? defaultValue : Short.parseShort(value);
+            Short value = (Short) _settings.get(name);
+            return value == null ? defaultValue : value;
         }
         catch (Exception e)
         {
@@ -80,8 +85,8 @@ public class Configuration
     {
         try
         {
-            String value = _settings.getProperty(name);
-            return value == null ? defaultValue : Integer.parseInt(value);
+            Integer value = (Integer) _settings.get(name);
+            return value == null ? defaultValue : value;
         }
         catch (Exception e)
         {
@@ -99,8 +104,8 @@ public class Configuration
     {
         try
         {
-            String value = _settings.getProperty(name);
-            return value == null ? defaultValue : Long.parseLong(value);
+            Long value = (Long) _settings.get(name);
+            return value == null ? defaultValue : value;
         }
         catch (Exception e)
         {

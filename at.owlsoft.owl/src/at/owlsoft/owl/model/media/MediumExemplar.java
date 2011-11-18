@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import at.owlsoft.owl.model.accounting.Activity;
 
@@ -64,6 +65,11 @@ public class MediumExemplar
         return getMetaData(key, null);
     }
 
+    public Set<String> getMetaDataKeys()
+    {
+        return Collections.unmodifiableSet(_metaData.keySet());
+    }
+
     public Object getMetaData(String key, Object defaultValue)
     {
         Object value = _metaData.get(key);
@@ -85,7 +91,17 @@ public class MediumExemplar
         _medium = medium;
     }
 
-    public Iterable<MediumExemplarStatusEntry> getMediumExemplarStatusEntries()
+    public int getMediumExemplarStatusEntryCount()
+    {
+        return _mediumExemplarStatusEntries.size();
+    }
+
+    public MediumExemplarStatusEntry getMediumExemplarStatusEntry(int index)
+    {
+        return _mediumExemplarStatusEntries.get(index);
+    }
+
+    public List<MediumExemplarStatusEntry> getMediumExemplarStatusEntries()
     {
         return Collections.unmodifiableList(_mediumExemplarStatusEntries);
     }
@@ -108,14 +124,24 @@ public class MediumExemplar
         _mediumExemplarStatusEntries.remove(mediumExemplarStatusEntry);
     }
 
-    public Iterable<Activity> getActivities()
+    public int getActivityCount()
+    {
+        return _activities.size();
+    }
+
+    public Activity getActivity(int index)
+    {
+        return _activities.get(index);
+    }
+
+    public List<Activity> getActivities()
     {
         return Collections.unmodifiableList(_activities);
     }
 
     public void clearActivities()
     {
-        _mediumExemplarStatusEntries.clear();
+        _activities.clear();
     }
 
     public void addActivity(Activity activtiy)

@@ -1,25 +1,36 @@
 package at.owlsoft.owl.dao;
 
+import at.owlsoft.owl.dao.IDao.IActivityDao;
+import at.owlsoft.owl.dao.IDao.IConfigurationDao;
+import at.owlsoft.owl.dao.IDao.IGeneralDao;
+import at.owlsoft.owl.dao.IDao.IMediumDao;
+import at.owlsoft.owl.dao.IDao.IMediumExemplarDao;
+import at.owlsoft.owl.dao.IDao.IRentalDao;
+import at.owlsoft.owl.dao.IDao.ISystemUserDao;
+import at.owlsoft.owl.dao.IDao.ISystemUserStatusEntryDao;
+import at.owlsoft.owl.dao.IDao.ISystemUserTransactionDao;
+import at.owlsoft.owl.dao.IDao.ITagDao;
+
 public interface IDaoFactory
 {
 
-    public Object getActivityDao();
+    public IActivityDao getActivityDao();
 
-    public Object getConfigurationDao();
+    public IConfigurationDao getConfigurationDao();
 
-    public Object getGeneralDao();
+    public IGeneralDao getGeneralDao();
 
-    public Object getMediumDao();
+    public IMediumDao getMediumDao();
 
-    public Object getMediumExemplarDao();
+    public IMediumExemplarDao getMediumExemplarDao();
 
-    public Object getRentalDao();
+    public IRentalDao getRentalDao();
 
-    public Object getSystemUserDao();
+    public ISystemUserDao getSystemUserDao();
 
-    public Object getSystemUserStatusEntryDao();
+    public ISystemUserStatusEntryDao getSystemUserStatusEntryDao();
 
-    public Object getSystemUserTransactionDao();
+    public ISystemUserTransactionDao getSystemUserTransactionDao();
 
-    public Object getTagDao();
+    public ITagDao getTagDao();
 }

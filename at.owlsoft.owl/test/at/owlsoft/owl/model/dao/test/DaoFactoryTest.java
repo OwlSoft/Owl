@@ -3,7 +3,7 @@ package at.owlsoft.owl.model.dao.test;
 import org.junit.Test;
 
 import EDU.purdue.cs.bloat.util.Assert;
-import at.owlsoft.owl.dao.Db4ODaoFactory;
+import at.owlsoft.owl.dao.DaoFactory;
 
 public class DaoFactoryTest
 {
@@ -11,18 +11,18 @@ public class DaoFactoryTest
     public void testDaoSingelton()
     {
 
-        Assert.isNotNull(Db4ODaoFactory.getInstance());
-        Assert.isNotNull(Db4ODaoFactory.getInstance().getConfigurationDao());
-        Assert.isNotNull(Db4ODaoFactory.getInstance().getGeneralDao());
-        Assert.isNotNull(Db4ODaoFactory.getInstance().getMediumDao());
-        Assert.isNotNull(Db4ODaoFactory.getInstance().getMediumExemplarDao());
-        Assert.isNotNull(Db4ODaoFactory.getInstance().getRentalDao());
-        Assert.isNotNull(Db4ODaoFactory.getInstance().getSystemUserDao());
-        Assert.isNotNull(Db4ODaoFactory.getInstance()
+        Assert.isNotNull(DaoFactory.getDb4ODaoInstance());
+        Assert.isNotNull(DaoFactory.getDb4ODaoInstance().getConfigurationDao());
+        Assert.isNotNull(DaoFactory.getDb4ODaoInstance().getGeneralDao());
+        Assert.isNotNull(DaoFactory.getDb4ODaoInstance().getMediumDao());
+        Assert.isNotNull(DaoFactory.getDb4ODaoInstance().getMediumExemplarDao());
+        Assert.isNotNull(DaoFactory.getDb4ODaoInstance().getRentalDao());
+        Assert.isNotNull(DaoFactory.getDb4ODaoInstance().getSystemUserDao());
+        Assert.isNotNull(DaoFactory.getDb4ODaoInstance()
                 .getSystemUserStatusEntryDao());
-        Assert.isNotNull(Db4ODaoFactory.getInstance()
+        Assert.isNotNull(DaoFactory.getDb4ODaoInstance()
                 .getSystemUserTransactionDao());
-        Assert.isNotNull(Db4ODaoFactory.getInstance().getTagDao());
+        Assert.isNotNull(DaoFactory.getDb4ODaoInstance().getTagDao());
     }
 
     @Test

@@ -13,7 +13,7 @@ is free software: you can redistribute it and/or modify
  *  You should have received a copy of the GNU General Public License
  *  along with alphaTab.  If not, see <http://www.gnu.org/licenses/>.
  */
-package at.owlsoft.owl.model.user;
+public package at.owlsoft.owl.model.user;
 
 import java.util.Date;
 

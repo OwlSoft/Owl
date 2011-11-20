@@ -6,6 +6,7 @@
 **/dist 
 
 # ignore project files
+DB40FILENAME
 
 # ignore temp files
 .DS_Store 

@@ -21,6 +21,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import at.owlsoft.owl.model.accounting.Activity;
+
 public abstract class Medium
 {
     private int                  _mediumID;
@@ -30,11 +32,13 @@ public abstract class Medium
     private Date                 _publishedDate;
     private List<Tag>            _tags;
     private List<MediumExemplar> _mediumExemplars;
+    private List<Activity>       _activities;
 
     public Medium()
     {
         _tags = new ArrayList<Tag>();
         _mediumExemplars = new ArrayList<MediumExemplar>();
+        _activities = new ArrayList<Activity>();
     }
 
     public Medium(int mediumID, String publisher, String name, Date entryDate,
@@ -48,6 +52,7 @@ public abstract class Medium
         _publishedDate = publishedDate;
         _tags = new ArrayList<Tag>();
         _mediumExemplars = new ArrayList<MediumExemplar>();
+        _activities = new ArrayList<Activity>();
     }
 
     public int getMediumID()
@@ -184,5 +189,26 @@ public abstract class Medium
     public void removeMediumExemplar(MediumExemplar mediumExemplar)
     {
         _mediumExemplars.remove(mediumExemplar);
+    }
+
+    public List<Activity> getActivities()
+    {
+        return Collections.unmodifiableList(_activities);
+    }
+
+    public void clearActivities()
+    {
+        _activities.clear();
+    }
+
+    public void addActivtiy(Activity activity)
+    {
+        activity.setMedium(this);
+        _activities.add(activity);
+    }
+
+    public void removeActivity(Activity activity)
+    {
+        _activities.remove(activity);
     }
 }

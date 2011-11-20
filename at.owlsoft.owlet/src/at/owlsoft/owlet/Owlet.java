@@ -16,8 +16,12 @@
  */
 package at.owlsoft.owlet;
 
+import javax.swing.UIManager;
+
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
+
+import at.owlsoft.owlet.ui.MainWindow;
 
 /**
  * This is the main application class of the Owlet client.
@@ -34,8 +38,20 @@ public class Owlet
      */
     public static void main(String[] args)
     {
+        try
+        {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        }
+        catch (Exception e)
+        {
+            logger.error("Could not set system look&feel", e);
+        }
+
         DOMConfigurator.configure(Owlet.class.getResource(LOG4J_CONFIGURATION));
 
-        logger.debug("Glugg Glugg");
+        MainWindow mainWindow = new MainWindow();
+        mainWindow.setSize(800, 600);
+        mainWindow.setLocationRelativeTo(null);
+        mainWindow.setVisible(true);
     }
 }

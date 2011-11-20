@@ -2,11 +2,15 @@ package db4o;
 
 import java.util.List;
 
-public class Human
+public class Human implements IHuman
 {
     private List<Pet> _slaves;
     private String    _name;
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String getName()
     {
         return _name;

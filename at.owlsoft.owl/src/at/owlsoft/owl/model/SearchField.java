@@ -5,6 +5,18 @@ public class SearchField
     private String _key;
     private String _value;
 
+    public SearchField()
+    {
+
+    }
+
+    public SearchField(String key, String value)
+    {
+        super();
+        _key = key;
+        _value = value;
+    }
+
     public String getKey()
     {
         return _key;

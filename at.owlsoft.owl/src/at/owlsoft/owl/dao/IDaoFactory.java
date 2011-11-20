@@ -6,6 +6,7 @@ import at.owlsoft.owl.dao.IDao.IGeneralDao;
 import at.owlsoft.owl.dao.IDao.IMediumDao;
 import at.owlsoft.owl.dao.IDao.IMediumExemplarDao;
 import at.owlsoft.owl.dao.IDao.IRentalDao;
+import at.owlsoft.owl.dao.IDao.IReservationDao;
 import at.owlsoft.owl.dao.IDao.ISystemUserDao;
 import at.owlsoft.owl.dao.IDao.ISystemUserStatusEntryDao;
 import at.owlsoft.owl.dao.IDao.ISystemUserTransactionDao;
@@ -25,6 +26,8 @@ public interface IDaoFactory
     public IMediumExemplarDao getMediumExemplarDao();
 
     public IRentalDao getRentalDao();
+
+    public IReservationDao getReservationDao();
 
     public ISystemUserDao getSystemUserDao();
 

@@ -16,6 +16,7 @@
  */
 public package at.owlsoft.owl.model.user;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -23,7 +24,7 @@ import java.util.List;
 
 import at.owlsoft.owl.model.accounting.Activity;
 
-public class SystemUser
+public class SystemUser implements Serializable
 {
     private int                         _userID;
     private int                         _cardID;
@@ -38,6 +39,11 @@ public class SystemUser
     private List<Role>                  _roles;
     private List<SystemUserTransaction> _systemUserTransactions;
     private List<SystemUserStatusEntry> _systemUserStatusEntries;
+
+    public SystemUser()
+    {
+
+    }
 
     public SystemUser(int userID, int cardID, String username, String password,
             String email, String firstName, String lastName, Date birthday,

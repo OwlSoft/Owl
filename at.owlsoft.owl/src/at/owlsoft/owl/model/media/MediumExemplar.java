@@ -18,12 +18,14 @@ public package at.owlsoft.owl.model.media;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import at.owlsoft.owl.model.accounting.Activity;
+import at.owlsoft.owl.model.accounting.Rental;
 
 public class MediumExemplar
 {
@@ -153,5 +155,25 @@ public class MediumExemplar
     public void removeActivity(Activity activity)
     {
         _activities.remove(activity);
+    }
+
+    public Rental getLastRental()
+    {
+        Rental last = null;
+        for (Activity activity : this.getActivities())
+        {
+
+            if (activity.getClass().isInstance(Rental.class))
+            {
+                Date date = activity.getStartDate();
+
+                if (last == null
+                        || date.getTime() > last.getStartDate().getTime())
+                {
+                    last = (Rental) activity;
+                }
+            }
+        }
+        return last;
     }
 }

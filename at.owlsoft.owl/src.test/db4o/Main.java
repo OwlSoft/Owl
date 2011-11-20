@@ -55,15 +55,22 @@ public class Main
 
             List<Pet> pets = new ArrayList<Pet>();
             pets.add(new Pet("Dana"));
+            List<Pet> pets1 = new ArrayList<Pet>();
+            pets1.add(new Pet("Sisi"));
             Human manuel = new Human(pets, "Manuel");
+            Human jane = new Human(pets1, "Jane");
             _db.store(manuel);
+            _db.store(jane);
 
             listResult(_db.query(Human.class));
 
             Human tempManuel = _db.query(Human.class).get(0);
+            Human tempJane = _db.query(Human.class).get(9);
 
             System.out.println(tempManuel.getName());
             System.out.println(tempManuel.getSlaves().get(0).getName());
+            System.out.println(tempJane.getName());
+            System.out.println(tempJane.getSlaves().get(0).getName());
 
             listResult(_db.query(Human.class));
 

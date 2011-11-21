@@ -1,7 +1,8 @@
 public package at.owlsoft.owl.dao.IDao;
 
 import java.util.List;
-import java.util.Map.Entry;
+
+import at.owlsoft.owl.model.SearchFieldDefinition;
 
 public interface IDao<T>
 {
@@ -19,6 +20,6 @@ public interface IDao<T>
      * @return
      */
     public abstract List<T> queryByPropertyList(
-            List<Entry<String, String>> keyValuePairs);
+            SearchFieldDefinition definitions);
 
 }

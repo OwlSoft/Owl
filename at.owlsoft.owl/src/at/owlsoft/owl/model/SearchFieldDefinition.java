@@ -17,7 +17,31 @@ import org.xml.sax.SAXException;
 public class SearchFieldDefinition
 {
 
+    public SearchFieldDefinition()
+    {
+        super();
+        _keys = new ArrayList<SearchField>();
+    }
+
+    private List<SearchField> _keys;
+
+    /**
+     * @return the keys
+     */
     public List<SearchField> getKeys()
+    {
+        return _keys;
+    }
+
+    /**
+     * @param keys the keys to set
+     */
+    public void setKeys(List<SearchField> keys)
+    {
+        _keys = keys;
+    }
+
+    public void loadKeysFromXml()
     {
 
         List<SearchField> temp = new ArrayList<SearchField>();
@@ -60,7 +84,7 @@ public class SearchFieldDefinition
             e.printStackTrace();
         }
 
-        return temp;
+        _keys = temp;
 
     }
 

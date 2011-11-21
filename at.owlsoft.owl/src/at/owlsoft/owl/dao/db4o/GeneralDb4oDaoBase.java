@@ -2,9 +2,10 @@ package at.owlsoft.owl.dao.db4o;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
 
 import at.owlsoft.owl.dao.IDao.IDao;
+import at.owlsoft.owl.model.SearchField;
+import at.owlsoft.owl.model.SearchFieldDefinition;
 
 import com.db4o.ObjectContainer;
 import com.db4o.query.Query;
@@ -76,11 +77,12 @@ public abstract class GeneralDb4oDaoBase<T> implements IDao<T>
      * {@inheritDoc}
      */
     @Override
-    public List<T> queryByPropertyList(List<Entry<String, String>> keyValuePairs)
+    public List<T> queryByPropertyList(SearchFieldDefinition definitions)
     {
         Query query = _db.query();
+
         List<T> tempList = new ArrayList();
-        for (Entry<String, String> entry : keyValuePairs)
+        for (SearchField entry : definitions.getKeys())
         {
             query.descend(entry.getKey()).constrain(entry.getValue());
         }

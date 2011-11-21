@@ -1,6 +1,8 @@
 package at.owlsoft.owl.usecases;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.model.accounting.ActivityStatus;
@@ -15,7 +17,8 @@ import at.owlsoft.owl.model.user.SystemUserStatus;
 
 public class RentalController
 {
-    Rental _rental;
+    Rental                  _rental;
+    List<ValidationMessage> _messages;
 
     public void newRental()
     {
@@ -24,10 +27,18 @@ public class RentalController
         // _rental.setCreator(creator)
     }
 
-    public void setMediumExemplar(Medium medium)
+    /**
+     * 
+     * @param medium
+     * @return If no warnings are found returns empty List.
+     */
+    public List<ValidationMessage> setMediumExemplar(Medium medium)
     {
+        boolean rentableFound = false;
+
         for (MediumExemplar exemplare : medium.getMediumExemplars())
         {
+
             // validate whether rentable or not
             if (exemplare
                     .getMediumExemplarStatusEntry(
@@ -36,26 +47,39 @@ public class RentalController
                     .equals(MediumExemplarStatus.Rentable))
             {
                 _rental.setMediumExemplar(exemplare);
+                rentableFound = true;
                 break;
             }
         }
 
+        validate(ValidationMode.NotStrict);
+        if (!rentableFound)
+        {
+            _messages.add(new ValidationMessage("No rentable copy found.",
+                    ValidationMessageStatus.Error));
+        }
+        return _messages;
     }
 
-    public void setCustomer(SystemUser customer)
+    public List<ValidationMessage> setCustomer(SystemUser customer)
     {
         _rental.setCustomer(customer);
+        validate(ValidationMode.NotStrict);
+        return _messages;
     }
 
-    public void save() throws RentalNotAllowedException,
-            NoRentableCopyException
+    public List<ValidationMessage> save()
     {
-        validate();
-        saveRental();
+        if (validate(ValidationMode.Strict))
+        {
+            saveRental();
+        }
+        return _messages;
     }
 
     private void saveRental()
     {
+
         ActivityStatusEntry ase = new ActivityStatusEntry();
         ase.setActivityStatus(ActivityStatus.Open);
         ase.setDate(new Date());
@@ -77,8 +101,18 @@ public class RentalController
 
     }
 
-    private void validate() throws RentalNotAllowedException
+    /**
+     * 
+     * @param mode
+     * @return true only if _messages has no ValidationMessage with
+     *         ValidationMessageStatus.Error
+     */
+    private boolean validate(ValidationMode mode)
     {
+        boolean hasNoError = true;
+
+        List<ValidationMessage> messages = new ArrayList<ValidationMessage>();
+
         SystemUser renter = _rental.getCustomer();
         SystemUserStatus renterStatus = renter.getSystemUserStatusEntry(
                 renter.getSystemUserStatusEntryCount() - 1)
@@ -86,12 +120,25 @@ public class RentalController
 
         if (!renterStatus.equals(SystemUserStatus.Active))
         {
-            throw new InvalidUserException(renterStatus.name());
+            String message = "Customer " + renter.getFirstName() + " "
+                    + renter.getLastName() + " is inactive with state "
+                    + renterStatus.name();
+            ValidationMessage vm = new ValidationMessage(message,
+                    ValidationMessageStatus.Error);
+            messages.add(vm);
+            hasNoError = false;
         }
+
         if (_rental.getMediumExemplar() == null)
         {
-            throw new NoRentableCopyException();
+            String message = "No copy choosen.";
+            ValidationMessage vm = new ValidationMessage(message,
+                    ValidationMessageStatus.Error);
+            messages.add(vm);
+            hasNoError = false;
         }
+
+        return hasNoError;
 
     }
 

@@ -20,5 +20,4 @@ public interface IDao<T>
      * @return
      */
     public abstract List<T> queryByPropertyList(List<SearchField> keyValuePairs);
-
 }

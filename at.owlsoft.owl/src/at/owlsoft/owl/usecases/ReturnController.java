@@ -21,14 +21,14 @@ public class ReturnController
         ase.setDate(new Date());
         ase.setActivityStatus(ActivityStatus.Returned);
         rental.addActivityStatusEntry(ase);
-        DaoManager.getDb4ODaoInstance().getActivityDao().store(rental);
+        DaoManager.getInstance().getActivityDao().store(rental);
 
         MediumExemplarStatusEntry mese = new MediumExemplarStatusEntry();
         mese.setDate(new Date());
         mese.setMediumExemplarStatus(MediumExemplarStatus.Returned);
         mese.setMediumExemplar(copy);
         copy.addMediumExemplarStatusEntry(mese);
-        DaoManager.getDb4ODaoInstance().getMediumExemplarDao().store(copy);
+        DaoManager.getInstance().getMediumExemplarDao().store(copy);
     }
 
 }

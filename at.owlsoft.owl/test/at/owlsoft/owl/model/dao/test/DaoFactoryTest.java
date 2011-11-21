@@ -11,17 +11,15 @@ public class DaoFactoryTest
     public void testDaoSingelton()
     {
 
-        Assert.isNotNull(DaoManager.getDb4ODaoInstance());
-        Assert.isNotNull(DaoManager.getDb4ODaoInstance().getConfigurationDao());
-        Assert.isNotNull(DaoManager.getDb4ODaoInstance().getMediumDao());
-        Assert.isNotNull(DaoManager.getDb4ODaoInstance().getMediumExemplarDao());
-        Assert.isNotNull(DaoManager.getDb4ODaoInstance().getRentalDao());
-        Assert.isNotNull(DaoManager.getDb4ODaoInstance().getSystemUserDao());
-        Assert.isNotNull(DaoManager.getDb4ODaoInstance()
-                .getSystemUserStatusEntryDao());
-        Assert.isNotNull(DaoManager.getDb4ODaoInstance()
-                .getSystemUserTransactionDao());
-        Assert.isNotNull(DaoManager.getDb4ODaoInstance().getTagDao());
+        Assert.isNotNull(DaoManager.getInstance());
+        Assert.isNotNull(DaoManager.getInstance().getConfigurationDao());
+        Assert.isNotNull(DaoManager.getInstance().getMediumDao());
+        Assert.isNotNull(DaoManager.getInstance().getMediumExemplarDao());
+        Assert.isNotNull(DaoManager.getInstance().getRentalDao());
+        Assert.isNotNull(DaoManager.getInstance().getSystemUserDao());
+        Assert.isNotNull(DaoManager.getInstance().getSystemUserStatusEntryDao());
+        Assert.isNotNull(DaoManager.getInstance().getSystemUserTransactionDao());
+        Assert.isNotNull(DaoManager.getInstance().getTagDao());
     }
 
     @Test

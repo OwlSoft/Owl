@@ -14,31 +14,18 @@
  *  You should have received a copy of the GNU General Public License
  *  along with alphaTab.  If not, see <http://www.gnu.org/licenses/>.
  */
-public package at.owlsoft.owl.model;
+package at.owlsoft.owl.model;
 
-public class InvalidOperationException extends RuntimeException
+import java.io.Serializable;
+import java.util.List;
+
+public interface ISearchFieldCategory extends Serializable
 {
+    String getLabel();
 
-    private static final long serialVersionUID = -5336719454131506769L;
+    int getSearchFieldCount();
 
-    public InvalidOperationException()
-    {
-        super();
-    }
+    ISearchField getSearchField(int index);
 
-    public InvalidOperationException(String message, Throwable cause)
-    {
-        super(message, cause);
-    }
-
-    public InvalidOperationException(String message)
-    {
-        super(message);
-    }
-
-    public InvalidOperationException(Throwable cause)
-    {
-        super(cause);
-    }
-
+    List<? extends ISearchField> getSearchFields();
 }

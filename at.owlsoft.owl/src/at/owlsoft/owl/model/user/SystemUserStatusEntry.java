@@ -17,12 +17,14 @@ public package at.owlsoft.owl.model.user;
 
 import java.util.Date;
 
-public class SystemUserStatusEntry
+public class SystemUserStatusEntry implements ISystemUserStatusEntry
 {
-    private Date             _date;
-    private String           _comment;
-    private SystemUserStatus _systemUserStatus;
-    private SystemUser       _systemUser;
+    private static final long serialVersionUID = 2605994055343800611L;
+
+    private Date              _date;
+    private String            _comment;
+    private SystemUserStatus  _systemUserStatus;
+    private SystemUser        _systemUser;
 
     public SystemUserStatusEntry()
     {
@@ -38,6 +40,7 @@ public class SystemUserStatusEntry
         _systemUser = systemUser;
     }
 
+    @Override
     public Date getDate()
     {
         return _date;
@@ -48,6 +51,7 @@ public class SystemUserStatusEntry
         _date = date;
     }
 
+    @Override
     public String getComment()
     {
         return _comment;
@@ -58,6 +62,7 @@ public class SystemUserStatusEntry
         _comment = comment;
     }
 
+    @Override
     public SystemUserStatus getSystemUserStatus()
     {
         return _systemUserStatus;
@@ -68,6 +73,7 @@ public class SystemUserStatusEntry
         _systemUserStatus = systemUserStatus;
     }
 
+    @Override
     public SystemUser getSystemUser()
     {
         return _systemUser;

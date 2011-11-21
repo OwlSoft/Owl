@@ -16,10 +16,12 @@
  */
 public package at.owlsoft.owl.model.user;
 
-public class Role
+public class Role implements IRole
 {
-    private String _key;
-    private String _label;
+    private static final long serialVersionUID = 8604052644446339554L;
+
+    private String            _key;
+    private String            _label;
 
     public Role()
     {
@@ -32,6 +34,7 @@ public class Role
         _label = label;
     }
 
+    @Override
     public String getKey()
     {
         return _key;
@@ -42,6 +45,7 @@ public class Role
         _key = key;
     }
 
+    @Override
     public String getLabel()
     {
         return _label;

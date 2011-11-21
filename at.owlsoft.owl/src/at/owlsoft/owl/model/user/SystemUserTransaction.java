@@ -17,13 +17,15 @@ public package at.owlsoft.owl.model.user;
 
 import java.util.Date;
 
-public class SystemUserTransaction
+public class SystemUserTransaction implements ISystemUserTransaction
 {
-    private Date            _date;
-    private float           _amount;
-    private String          _comment;
-    private TransactionType _transactionType;
-    private SystemUser      _systemUser;
+    private static final long serialVersionUID = 6517549090639071781L;
+
+    private Date              _date;
+    private float             _amount;
+    private String            _comment;
+    private TransactionType   _transactionType;
+    private SystemUser        _systemUser;
 
     public SystemUserTransaction()
     {
@@ -39,6 +41,7 @@ public class SystemUserTransaction
         _systemUser = systemUser;
     }
 
+    @Override
     public Date getDate()
     {
         return _date;
@@ -49,6 +52,7 @@ public class SystemUserTransaction
         _date = date;
     }
 
+    @Override
     public float getAmount()
     {
         return _amount;
@@ -59,6 +63,7 @@ public class SystemUserTransaction
         _amount = amount;
     }
 
+    @Override
     public String getComment()
     {
         return _comment;
@@ -69,6 +74,7 @@ public class SystemUserTransaction
         _comment = comment;
     }
 
+    @Override
     public TransactionType getTransactionType()
     {
         return _transactionType;
@@ -79,6 +85,7 @@ public class SystemUserTransaction
         _transactionType = transactionType;
     }
 
+    @Override
     public SystemUser getSystemUser()
     {
         return _systemUser;

@@ -2,14 +2,14 @@ package at.owlsoft.owl.dao.db4o;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
 
-import at.owlsoft.owl.dao.IDao.IDao;
+import at.owlsoft.owl.dao.IDao;
+import at.owlsoft.owl.model.SearchField;
 
 import com.db4o.ObjectContainer;
 import com.db4o.query.Query;
 
-public abstract class GeneralDb4oDaoBase<T> implements IDao<T>
+public abstract class Db4oDaoBase<T> implements IDao<T>
 {
 
     private ObjectContainer _db;
@@ -30,7 +30,7 @@ public abstract class GeneralDb4oDaoBase<T> implements IDao<T>
         _db = db;
     }
 
-    protected GeneralDb4oDaoBase(ObjectContainer db)
+    protected Db4oDaoBase(ObjectContainer db)
     {
         super();
         _db = db;
@@ -62,7 +62,7 @@ public abstract class GeneralDb4oDaoBase<T> implements IDao<T>
     @Override
     public List<T> queryByExample(T object)
     {
-        List<T> tempList = new ArrayList();
+        List<T> tempList = new ArrayList<T>();
         for (Object t : _db.queryByExample(object))
         {
             tempList.add((T) t);
@@ -76,11 +76,11 @@ public abstract class GeneralDb4oDaoBase<T> implements IDao<T>
      * {@inheritDoc}
      */
     @Override
-    public List<T> queryByPropertyList(List<Entry<String, String>> keyValuePairs)
+    public List<T> queryByPropertyList(List<SearchField> keyValuePairs)
     {
         Query query = _db.query();
-        List<T> tempList = new ArrayList();
-        for (Entry<String, String> entry : keyValuePairs)
+        List<T> tempList = new ArrayList<T>();
+        for (SearchField entry : keyValuePairs)
         {
             query.descend(entry.getKey()).constrain(entry.getValue());
         }

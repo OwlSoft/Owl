@@ -23,8 +23,10 @@ import java.util.List;
 
 import at.owlsoft.owl.model.accounting.Activity;
 
-public abstract class Medium
+public abstract class Medium implements IMedium
 {
+    private static final long    serialVersionUID = -5970696696729453857L;
+
     private int                  _mediumID;
     private String               _publisher;
     private String               _name;
@@ -55,6 +57,7 @@ public abstract class Medium
         _activities = new ArrayList<Activity>();
     }
 
+    @Override
     public int getMediumID()
     {
         return _mediumID;
@@ -65,6 +68,7 @@ public abstract class Medium
         _mediumID = mediumID;
     }
 
+    @Override
     public String getPublisher()
     {
         return _publisher;
@@ -75,6 +79,7 @@ public abstract class Medium
         _publisher = publisher;
     }
 
+    @Override
     public String getName()
     {
         return _name;
@@ -85,6 +90,7 @@ public abstract class Medium
         _name = name;
     }
 
+    @Override
     public Date getEntryDate()
     {
         return _entryDate;
@@ -95,6 +101,7 @@ public abstract class Medium
         _entryDate = entryDate;
     }
 
+    @Override
     public Date getPublishedDate()
     {
         return _publishedDate;
@@ -105,21 +112,25 @@ public abstract class Medium
         _publishedDate = publishedDate;
     }
 
+    @Override
     public int getTagCount()
     {
         return _tags.size();
     }
 
+    @Override
     public Tag getTag(int index)
     {
         return _tags.get(index);
     }
 
+    @Override
     public List<Tag> getTags()
     {
         return Collections.unmodifiableList(_tags);
     }
 
+    @Override
     public boolean hasTag(String tagValue)
     {
         for (Tag t : _tags)
@@ -132,6 +143,7 @@ public abstract class Medium
         return false;
     }
 
+    @Override
     public boolean hasTag(String tagValue, TagType type)
     {
         for (Tag t : _tags)
@@ -160,16 +172,19 @@ public abstract class Medium
         _tags.remove(tag);
     }
 
+    @Override
     public int getMediumExemplarCount()
     {
         return _mediumExemplars.size();
     }
 
+    @Override
     public MediumExemplar getMediumExemplar(int index)
     {
         return _mediumExemplars.get(index);
     }
 
+    @Override
     public List<MediumExemplar> getMediumExemplars()
     {
         return Collections.unmodifiableList(_mediumExemplars);
@@ -191,6 +206,19 @@ public abstract class Medium
         _mediumExemplars.remove(mediumExemplar);
     }
 
+    @Override
+    public int getActivityCount()
+    {
+        return _activities.size();
+    }
+
+    @Override
+    public Activity getActivity(int index)
+    {
+        return _activities.get(index);
+    }
+
+    @Override
     public List<Activity> getActivities()
     {
         return Collections.unmodifiableList(_activities);

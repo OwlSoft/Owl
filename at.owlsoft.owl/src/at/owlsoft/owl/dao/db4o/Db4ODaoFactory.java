@@ -1,17 +1,16 @@
 package at.owlsoft.owl.dao.db4o;
 
+import at.owlsoft.owl.dao.IActivityDao;
+import at.owlsoft.owl.dao.IConfigurationDao;
 import at.owlsoft.owl.dao.IDaoFactory;
-import at.owlsoft.owl.dao.IDao.IActivityDao;
-import at.owlsoft.owl.dao.IDao.IConfigurationDao;
-import at.owlsoft.owl.dao.IDao.IGeneralDao;
-import at.owlsoft.owl.dao.IDao.IMediumDao;
-import at.owlsoft.owl.dao.IDao.IMediumExemplarDao;
-import at.owlsoft.owl.dao.IDao.IRentalDao;
-import at.owlsoft.owl.dao.IDao.IReservationDao;
-import at.owlsoft.owl.dao.IDao.ISystemUserDao;
-import at.owlsoft.owl.dao.IDao.ISystemUserStatusEntryDao;
-import at.owlsoft.owl.dao.IDao.ISystemUserTransactionDao;
-import at.owlsoft.owl.dao.IDao.ITagDao;
+import at.owlsoft.owl.dao.IMediumDao;
+import at.owlsoft.owl.dao.IMediumExemplarDao;
+import at.owlsoft.owl.dao.IRentalDao;
+import at.owlsoft.owl.dao.IReservationDao;
+import at.owlsoft.owl.dao.ISystemUserDao;
+import at.owlsoft.owl.dao.ISystemUserStatusEntryDao;
+import at.owlsoft.owl.dao.ISystemUserTransactionDao;
+import at.owlsoft.owl.dao.ITagDao;
 
 import com.db4o.ObjectContainer;
 
@@ -58,13 +57,6 @@ public class Db4ODaoFactory implements IDaoFactory
     {
         // TODO Auto-generated method stub
         return ConfigurationDao.getInstance(_db);
-    }
-
-    @Override
-    public IGeneralDao getGeneralDao()
-    {
-        // TODO Auto-generated method stub
-        return GeneralDb4ODao.getInstance(_db);
     }
 
     @Override

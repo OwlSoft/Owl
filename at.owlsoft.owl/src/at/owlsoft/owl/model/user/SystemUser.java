@@ -16,7 +16,6 @@
  */
 public package at.owlsoft.owl.model.user;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -24,8 +23,10 @@ import java.util.List;
 
 import at.owlsoft.owl.model.accounting.Activity;
 
-public class SystemUser implements Serializable
+public class SystemUser implements ISystemUser
 {
+    private static final long           serialVersionUID = 2040300233149274210L;
+
     private int                         _userID;
     private int                         _cardID;
     private String                      _username;
@@ -42,7 +43,10 @@ public class SystemUser implements Serializable
 
     public SystemUser()
     {
-
+        _activities = new ArrayList<Activity>();
+        _roles = new ArrayList<Role>();
+        _systemUserTransactions = new ArrayList<SystemUserTransaction>();
+        _systemUserStatusEntries = new ArrayList<SystemUserStatusEntry>();
     }
 
     public SystemUser(int userID, int cardID, String username, String password,
@@ -65,6 +69,7 @@ public class SystemUser implements Serializable
         _systemUserStatusEntries = new ArrayList<SystemUserStatusEntry>();
     }
 
+    @Override
     public int getUserID()
     {
         return _userID;
@@ -75,6 +80,7 @@ public class SystemUser implements Serializable
         _userID = userID;
     }
 
+    @Override
     public int getCardID()
     {
         return _cardID;
@@ -85,6 +91,7 @@ public class SystemUser implements Serializable
         _cardID = cardID;
     }
 
+    @Override
     public String getUsername()
     {
         return _username;
@@ -95,6 +102,7 @@ public class SystemUser implements Serializable
         _username = username;
     }
 
+    @Override
     public String getPassword()
     {
         return _password;
@@ -105,6 +113,7 @@ public class SystemUser implements Serializable
         _password = password;
     }
 
+    @Override
     public String getEmail()
     {
         return _email;
@@ -115,6 +124,7 @@ public class SystemUser implements Serializable
         _email = email;
     }
 
+    @Override
     public String getFirstName()
     {
         return _firstName;
@@ -125,6 +135,7 @@ public class SystemUser implements Serializable
         _firstName = firstName;
     }
 
+    @Override
     public String getLastName()
     {
         return _lastName;
@@ -135,6 +146,7 @@ public class SystemUser implements Serializable
         _lastName = lastName;
     }
 
+    @Override
     public Date getBirthday()
     {
         return _birthday;
@@ -145,16 +157,19 @@ public class SystemUser implements Serializable
         _birthday = birthday;
     }
 
+    @Override
     public int getActivityCount()
     {
         return _activities.size();
     }
 
+    @Override
     public Activity getActivity(int index)
     {
         return _activities.get(index);
     }
 
+    @Override
     public List<Activity> getActivities()
     {
         return Collections.unmodifiableList(_activities);
@@ -176,6 +191,7 @@ public class SystemUser implements Serializable
         _activities.remove(activity);
     }
 
+    @Override
     public AccountMode getAccountMode()
     {
         return _accountMode;
@@ -186,16 +202,19 @@ public class SystemUser implements Serializable
         _accountMode = accountMode;
     }
 
+    @Override
     public int getRoleCount()
     {
         return _roles.size();
     }
 
+    @Override
     public Role getRole(int index)
     {
         return _roles.get(index);
     }
 
+    @Override
     public List<Role> getRoles()
     {
         return Collections.unmodifiableList(_roles);
@@ -213,7 +232,7 @@ public class SystemUser implements Serializable
 
     public boolean hasRole(String key)
     {
-        for (Role r : _roles)
+        for (IRole r : _roles)
         {
             if (r.getKey().equalsIgnoreCase(key))
             {
@@ -223,16 +242,19 @@ public class SystemUser implements Serializable
         return false;
     }
 
+    @Override
     public int getSystemUserTransactionCount()
     {
         return _systemUserTransactions.size();
     }
 
+    @Override
     public SystemUserTransaction getSystemUserTransaction(int index)
     {
         return _systemUserTransactions.get(index);
     }
 
+    @Override
     public List<SystemUserTransaction> getSystemUserTransactions()
     {
         return Collections.unmodifiableList(_systemUserTransactions);
@@ -256,16 +278,19 @@ public class SystemUser implements Serializable
         _systemUserTransactions.remove(systemUserTransaction);
     }
 
+    @Override
     public int getSystemUserStatusEntryCount()
     {
         return _systemUserStatusEntries.size();
     }
 
+    @Override
     public SystemUserStatusEntry getSystemUserStatusEntry(int index)
     {
         return _systemUserStatusEntries.get(index);
     }
 
+    @Override
     public List<SystemUserStatusEntry> getSystemUserStatusEntries()
     {
         return Collections.unmodifiableList(_systemUserStatusEntries);

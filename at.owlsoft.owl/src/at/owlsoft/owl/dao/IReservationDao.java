@@ -1,4 +1,4 @@
-package at.owlsoft.owl.dao.IDao;
+package at.owlsoft.owl.dao;
 
 import at.owlsoft.owl.model.accounting.Reservation;
 

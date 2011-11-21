@@ -1,11 +1,11 @@
 package at.owlsoft.owl.dao.db4o;
 
-import at.owlsoft.owl.dao.IDao.IRentalDao;
+import at.owlsoft.owl.dao.IRentalDao;
 import at.owlsoft.owl.model.accounting.Rental;
 
 import com.db4o.ObjectContainer;
 
-public class RentalDao extends GeneralDb4oDaoBase<Rental> implements IRentalDao
+public class RentalDao extends Db4oDaoBase<Rental> implements IRentalDao
 
 {
     private static RentalDao _factory;

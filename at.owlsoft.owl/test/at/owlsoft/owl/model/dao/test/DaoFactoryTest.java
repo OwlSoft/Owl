@@ -13,7 +13,6 @@ public class DaoFactoryTest
 
         Assert.isNotNull(DaoManager.getDb4ODaoInstance());
         Assert.isNotNull(DaoManager.getDb4ODaoInstance().getConfigurationDao());
-        Assert.isNotNull(DaoManager.getDb4ODaoInstance().getGeneralDao());
         Assert.isNotNull(DaoManager.getDb4ODaoInstance().getMediumDao());
         Assert.isNotNull(DaoManager.getDb4ODaoInstance().getMediumExemplarDao());
         Assert.isNotNull(DaoManager.getDb4ODaoInstance().getRentalDao());

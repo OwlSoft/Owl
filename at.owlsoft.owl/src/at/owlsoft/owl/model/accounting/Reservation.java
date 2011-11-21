@@ -21,9 +21,11 @@ import java.util.Date;
 import at.owlsoft.owl.model.media.MediumExemplar;
 import at.owlsoft.owl.model.user.SystemUser;
 
-public class Reservation extends Activity
+public class Reservation extends Activity implements IReservation
 {
-    private int _desiredDuration;
+    private static final long serialVersionUID = -1983982838151622776L;
+
+    private int               _desiredDuration;
 
     public Reservation()
     {
@@ -37,6 +39,7 @@ public class Reservation extends Activity
         _desiredDuration = desiredDuration;
     }
 
+    @Override
     public int getDesiredDuration()
     {
         return _desiredDuration;

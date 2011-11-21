@@ -1,13 +1,12 @@
 package at.owlsoft.owl.dao.db4o;
 
-import at.owlsoft.owl.dao.IDao.ISystemUserStatusEntryDao;
+import at.owlsoft.owl.dao.ISystemUserStatusEntryDao;
 import at.owlsoft.owl.model.user.SystemUserStatusEntry;
 
 import com.db4o.ObjectContainer;
 
 public class SystemUserStatusEntryDao extends
-        GeneralDb4oDaoBase<SystemUserStatusEntry> implements
-        ISystemUserStatusEntryDao
+        Db4oDaoBase<SystemUserStatusEntry> implements ISystemUserStatusEntryDao
 {
 
     private static SystemUserStatusEntryDao _factory;

@@ -18,11 +18,13 @@ public package at.owlsoft.owl.model.accounting;
 
 import java.util.Date;
 
-public class ActivityStatusEntry
+public class ActivityStatusEntry implements IActivityStatusEntry
 {
-    private Date           _date;
-    private Activity       _activity;
-    private ActivityStatus _activityStatus;
+    private static final long serialVersionUID = 5276741950499285762L;
+
+    private Date              _date;
+    private Activity          _activity;
+    private ActivityStatus    _activityStatus;
 
     public ActivityStatusEntry()
     {
@@ -37,6 +39,7 @@ public class ActivityStatusEntry
         _activityStatus = activityStatus;
     }
 
+    @Override
     public Date getDate()
     {
         return _date;
@@ -47,6 +50,7 @@ public class ActivityStatusEntry
         _date = date;
     }
 
+    @Override
     public Activity getActivity()
     {
         return _activity;
@@ -57,6 +61,7 @@ public class ActivityStatusEntry
         _activity = activity;
     }
 
+    @Override
     public ActivityStatus getActivityStatus()
     {
         return _activityStatus;

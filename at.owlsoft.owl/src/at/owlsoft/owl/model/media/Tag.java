@@ -16,11 +16,13 @@
  */
 public package at.owlsoft.owl.model.media;
 
-public class Tag
+public class Tag implements ITag
 {
-    private String  value;
-    private TagType tagType;
-    private Medium  medium;
+    private static final long serialVersionUID = 6248847425658132480L;
+
+    private String            value;
+    private TagType           tagType;
+    private Medium            medium;
 
     public Tag()
     {
@@ -34,6 +36,7 @@ public class Tag
         this.medium = medium;
     }
 
+    @Override
     public String getValue()
     {
         return value;
@@ -44,6 +47,7 @@ public class Tag
         this.value = value;
     }
 
+    @Override
     public TagType getTagType()
     {
         return tagType;
@@ -54,6 +58,7 @@ public class Tag
         this.tagType = tagType;
     }
 
+    @Override
     public Medium getMedium()
     {
         return medium;

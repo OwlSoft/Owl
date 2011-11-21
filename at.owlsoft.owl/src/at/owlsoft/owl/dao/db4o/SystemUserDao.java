@@ -1,11 +1,11 @@
 package at.owlsoft.owl.dao.db4o;
 
-import at.owlsoft.owl.dao.IDao.ISystemUserDao;
+import at.owlsoft.owl.dao.ISystemUserDao;
 import at.owlsoft.owl.model.user.SystemUser;
 
 import com.db4o.ObjectContainer;
 
-public class SystemUserDao extends GeneralDb4oDaoBase<SystemUser> implements
+public class SystemUserDao extends Db4oDaoBase<SystemUser> implements
         ISystemUserDao
 {
     private static SystemUserDao _factory;

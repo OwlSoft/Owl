@@ -26,7 +26,7 @@ public class ExtensionController
 
         rental.addFilingExtension(fex);
 
-        DaoManager.getDb4ODaoInstance().getRentalDao().store(rental);
+        DaoManager.getInstance().getRentalDao().store(rental);
 
     }
 

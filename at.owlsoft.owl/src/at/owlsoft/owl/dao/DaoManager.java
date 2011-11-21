@@ -15,7 +15,7 @@ public class DaoManager
     {
     }
 
-    public static IDaoFactory getDb4ODaoInstance()
+    public static IDaoFactory getInstance()
     {
         if (_db == null)
         {

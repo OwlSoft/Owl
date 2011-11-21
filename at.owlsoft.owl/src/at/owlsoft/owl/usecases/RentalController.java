@@ -60,7 +60,7 @@ public class RentalController
         ase.setActivityStatus(ActivityStatus.Open);
         ase.setDate(new Date());
         _rental.addActivityStatusEntry(ase);
-        DaoManager.getDb4ODaoInstance().getRentalDao().store(_rental);
+        DaoManager.getInstance().getRentalDao().store(_rental);
         updateMediumExemplar();
 
     }
@@ -72,7 +72,7 @@ public class RentalController
         mese.setDate(new Date());
         _rental.getMediumExemplar().addMediumExemplarStatusEntry(mese);
         mese.setMediumExemplar(_rental.getMediumExemplar());
-        DaoManager.getDb4ODaoInstance().getMediumExemplarDao()
+        DaoManager.getInstance().getMediumExemplarDao()
                 .store(_rental.getMediumExemplar());
 
     }

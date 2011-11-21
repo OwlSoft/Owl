@@ -58,7 +58,7 @@ public class ReservationController
         ase.setActivityStatus(ActivityStatus.Open);
         ase.setDate(new Date());
         _reservation.addActivityStatusEntry(ase);
-        DaoManager.getDb4ODaoInstance().getReservationDao().store(_reservation);
+        DaoManager.getInstance().getReservationDao().store(_reservation);
         updateMediumExemplar();
 
     }
@@ -70,7 +70,7 @@ public class ReservationController
         mese.setDate(new Date());
         _reservation.getMediumExemplar().addMediumExemplarStatusEntry(mese);
         mese.setMediumExemplar(_reservation.getMediumExemplar());
-        DaoManager.getDb4ODaoInstance().getMediumExemplarDao()
+        DaoManager.getInstance().getMediumExemplarDao()
                 .store(_reservation.getMediumExemplar());
 
     }

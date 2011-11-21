@@ -18,7 +18,7 @@ public class MediumSearchController extends SearchController<Medium>
     public List<Medium> search(List<SearchField> searchFields)
     {
 
-        IDaoFactory daoFactory = DaoManager.getDb4ODaoInstance();
+        IDaoFactory daoFactory = DaoManager.getInstance();
         IMediumDao dao = daoFactory.getMediumDao();
 
         List<Entry<String, String>> properties = new ArrayList<Entry<String, String>>();

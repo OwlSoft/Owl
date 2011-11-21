@@ -18,12 +18,20 @@ import com.db4o.ObjectContainer;
 public class DaoTests
 {
     @Test
+    /**
+     * this test must be executed as administrator otherwise the db file will not be deleted
+     */
     public void testQueryByPropertyList()
     {
+
+        // this test must be executed as administrator otherwise the db file
+        // will not be deleted
 
         File file = new File("testDb");
         if (file.delete())
         {
+            System.out
+                    .println("this test must be executed as administrator otherwise the db file will not be deleted");
             System.out.println("fehler beim löschen der Datenbank");
         }
 

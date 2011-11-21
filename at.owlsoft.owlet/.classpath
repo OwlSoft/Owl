@@ -6,6 +6,7 @@
 	<classpathentry kind="lib" path="lib/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="lib/jgoodies-binding-2.5.0.jar"/>
 	<classpathentry kind="lib" path="lib/jgoodies-common-1.2.1.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/at.owlsoft.owl"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/at.owlsoft.owl.modelbase"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/at.owlsoft.owl.rmi.share"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -80,6 +80,7 @@ public abstract class Db4oDaoBase<T> implements IDao<T>
     {
         Query query = _db.query();
         List<T> tempList = new ArrayList<T>();
+        // TODO: add constraint for class type
         for (SearchField entry : keyValuePairs)
         {
             query.descend(entry.getKey()).constrain(entry.getValue());

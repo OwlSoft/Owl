@@ -67,7 +67,7 @@ public class DaoTests
         System.out.println("test1");
 
         List<SearchField> criterias = new ArrayList<SearchField>();
-        criterias.add(new SearchField("_firstName", "Manuel"));
+        criterias.add(new SearchField("firstName", "Manuel"));
 
         List<SystemUser> users = DaoManager.getInstance(TEST_DB)
                 .getSystemUserDao().queryByPropertyList(criterias);
@@ -76,7 +76,7 @@ public class DaoTests
         {
             System.out.println(systemUser.getFirstName());
         }
-        Assert.assertTrue(!(new Integer(0).equals(users.size())));
+        Assert.assertEquals(1, users.size());
     }
 
     @Test
@@ -96,17 +96,17 @@ public class DaoTests
             System.out.println(systemUser.getFirstName());
         }
 
-        Assert.assertTrue((new Integer(0).equals(users.size())));
+        Assert.assertEquals(0, users.size());
     }
 
     @Test
-    public void testResulSet()
+    public void testResultSet()
     {
         // test 3 --> we have to diffrent users in database only 1 (manuel) must
         // come out with this query
         System.out.println("test 3");
         List<SearchField> criterias = new ArrayList<SearchField>();
-        criterias.add(new SearchField("_firstName", "Manuel"));
+        criterias.add(new SearchField("firstName", "Manuel"));
         List<SystemUser> users = DaoManager.getInstance("testDb")
                 .getSystemUserDao().queryByPropertyList(criterias);
 
@@ -116,6 +116,7 @@ public class DaoTests
             System.out.println(systemUser.getFirstName());
             countUsers++;
         }
+        System.out.println(countUsers);
 
         Assert.assertEquals(users.size(), countUsers);
 

@@ -9,7 +9,6 @@ public class ExtendApi extends UnicastRemoteObject implements IExtendApi
     protected ExtendApi() throws RemoteException
     {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**

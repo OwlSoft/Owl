@@ -1,38 +1,17 @@
 package at.owlsoft.owl.communication.rmi;
 
-import java.net.MalformedURLException;
-import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 public class ApiFactory extends UnicastRemoteObject implements IApiFactory
 {
+    private static final long serialVersionUID = -3901641353524916189L;
 
+    // TODO: Session handling
     public ApiFactory() throws RemoteException
     {
         super();
-        // TODO Auto-generated constructor stub
     }
-
-    public void startRmiService(String name, int port) throws RemoteException,
-            MalformedURLException
-    {
-        System.setProperty("java.rmi.server.codebase", IApiFactory.class
-                .getProtectionDomain().getCodeSource().getLocation().toString());
-
-        // gets the local registry on the default port --> care the registry
-        // must be started manually
-        java.rmi.registry.LocateRegistry.getRegistry();
-        System.out.println("RMI registry ready.");
-
-        Naming.rebind("rmi://localhost/" + name, this);
-
-    }
-
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -3901641353524916189L;
 
     /**
      * {@inheritDoc}

@@ -5,8 +5,6 @@ import java.rmi.RemoteException;
 
 public interface IApiFactory extends Remote
 {
-    public static final String DEFAULT_RMI_NAME = "ApiFactory";
-
     public abstract IExtendApi createExtendApi() throws RemoteException;
 
     public abstract IRentalApi createRentalApi() throws RemoteException;

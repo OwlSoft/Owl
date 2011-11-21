@@ -21,6 +21,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import at.owlsoft.owl.model.InvalidOperationException;
+import at.owlsoft.owl.model.media.Medium;
 import at.owlsoft.owl.model.media.MediumExemplar;
 import at.owlsoft.owl.model.user.SystemUser;
 
@@ -29,6 +31,7 @@ public abstract class Activity
     private Date                      _startDate;
     private List<ActivityStatusEntry> _activityStatusEntries;
     private MediumExemplar            _mediumExemplar;
+    private Medium                    _medium;
     private SystemUser                _customer;
     private SystemUser                _creator;
 
@@ -96,6 +99,11 @@ public abstract class Activity
 
     public void setMediumExemplar(MediumExemplar mediumExemplar)
     {
+        if (_medium != null && mediumExemplar != null)
+        {
+            throw new InvalidOperationException(
+                    "This activity is already assigned to a Medium");
+        }
         _mediumExemplar = mediumExemplar;
     }
 
@@ -119,4 +127,18 @@ public abstract class Activity
         _creator = creator;
     }
 
+    public Medium getMedium()
+    {
+        return _medium;
+    }
+
+    public void setMedium(Medium medium)
+    {
+        if (_mediumExemplar != null && medium != null)
+        {
+            throw new InvalidOperationException(
+                    "This activity is already assigned to a MediumExemplar");
+        }
+        _medium = medium;
+    }
 }

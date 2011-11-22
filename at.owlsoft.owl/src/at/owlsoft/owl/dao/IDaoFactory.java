@@ -1,6 +1,5 @@
 package at.owlsoft.owl.dao;
 
-
 public interface IDaoFactory
 {
 
@@ -23,4 +22,6 @@ public interface IDaoFactory
     public ISystemUserTransactionDao getSystemUserTransactionDao();
 
     public ITagDao getTagDao();
+
+    public boolean closeDbConnection();
 }

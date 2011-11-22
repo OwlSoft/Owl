@@ -3,32 +3,22 @@ package at.owlsoft.owl.dao.db4o;
 import at.owlsoft.owl.dao.IMediumDao;
 import at.owlsoft.owl.model.media.Medium;
 
-import com.db4o.ObjectContainer;
-
 public class MediumDao extends Db4oDaoBase<Medium> implements IMediumDao
 {
-    private static MediumDao _factory;
+    private static MediumDao _instance;
 
-    static MediumDao getInstance(ObjectContainer db)
+    static MediumDao getInstance()
     {
-        if (_factory == null)
+        if (_instance == null)
         {
-            if (db != null)
-            {
-                _factory = new MediumDao(db);
-            }
-            else
-            {
-                throw new NoDatabaseConfiguredException();
-            }
+            _instance = new MediumDao();
         }
 
-        return _factory;
+        return _instance;
     }
 
-    private MediumDao(ObjectContainer db)
+    private MediumDao()
     {
-        super(Medium.class, db);
+        super(Medium.class);
     }
-
 }

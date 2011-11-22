@@ -3,35 +3,27 @@ package at.owlsoft.owl.dao.db4o;
 import at.owlsoft.owl.dao.IReservationDao;
 import at.owlsoft.owl.model.accounting.Reservation;
 
-import com.db4o.ObjectContainer;
-
 public class ReservationDao extends Db4oDaoBase<Reservation> implements
         IReservationDao
 
 {
-    private static ReservationDao _factory;
+    private static ReservationDao _instance;
 
-    static ReservationDao getInstance(ObjectContainer db)
+    static ReservationDao getInstance()
     {
-        if (_factory == null)
+        if (_instance == null)
         {
-            if (db != null)
-            {
-                _factory = new ReservationDao(db);
-            }
-            else
-            {
-                throw new NoDatabaseConfiguredException();
-            }
+
+            _instance = new ReservationDao();
+
         }
 
-        return _factory;
+        return _instance;
     }
 
-    private ReservationDao(ObjectContainer db)
+    private ReservationDao()
     {
-        super(Reservation.class, db);
+        super(Reservation.class);
         // TODO Auto-generated constructor stub
     }
-
 }

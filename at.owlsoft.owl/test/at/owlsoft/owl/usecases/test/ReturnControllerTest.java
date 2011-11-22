@@ -9,6 +9,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.model.accounting.ActivityStatus;
 import at.owlsoft.owl.model.accounting.Rental;
@@ -23,12 +24,15 @@ import at.owlsoft.owl.usecases.ReturnController;
 
 public class ReturnControllerTest
 {
-    private static final String   TEST_DB = "returnTestDb";
-    private static MediumExemplar _copy;
+    private static final String          TEST_DB = "returnTestDb";
+    private static MediumExemplar        _copy;
+
+    private static OwlApplicationContext _context;
 
     @BeforeClass
     public static void setup()
     {
+        _context = new OwlApplicationContext();
         // this test must be executed as administrator otherwise the db file
         // will not be deleted
 
@@ -81,7 +85,7 @@ public class ReturnControllerTest
     @Test
     public void testReturnMediumCopy()
     {
-        ReturnController controller = new ReturnController();
+        ReturnController controller = _context.getReturnController();
         controller.returnMediumCopy(_copy);
         assertEquals(ActivityStatus.Returned, _copy.getActivity(0)
                 .getActivityStatusEntry(0).getActivityStatus());

@@ -3,9 +3,10 @@ package at.owlsoft.owl.usecases.test;
 import java.util.Date;
 
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.model.media.Book;
 import at.owlsoft.owl.model.media.Medium;
 import at.owlsoft.owl.model.media.MediumExemplar;
@@ -18,12 +19,15 @@ import at.owlsoft.owl.usecases.ReservationController;
 public class ReservationControllerTest
 {
 
-    private ReservationController _reservationController;
+    private static ReservationController _reservationController;
 
-    @Before
-    public void setup()
+    private static OwlApplicationContext _context;
+
+    @BeforeClass
+    public static void setup()
     {
-        _reservationController = new ReservationController();
+        _context = new OwlApplicationContext();
+        _reservationController = _context.getReservationController();
         _reservationController.newReservation();
 
     }

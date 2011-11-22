@@ -2,6 +2,8 @@ package at.owlsoft.owl.usecases;
 
 import java.util.Date;
 
+import at.owlsoft.owl.business.ControllerBase;
+import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.model.accounting.ActivityStatus;
 import at.owlsoft.owl.model.accounting.ActivityStatusEntry;
@@ -10,8 +12,13 @@ import at.owlsoft.owl.model.media.Medium;
 import at.owlsoft.owl.model.user.SystemUser;
 import at.owlsoft.owl.model.user.SystemUserStatus;
 
-public class ReservationController
+public class ReservationController extends ControllerBase
 {
+    public ReservationController(OwlApplicationContext context)
+    {
+        super(context);
+    }
+
     Reservation _reservation;
 
     public void newReservation()

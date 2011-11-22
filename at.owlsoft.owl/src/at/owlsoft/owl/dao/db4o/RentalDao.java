@@ -6,23 +6,8 @@ import at.owlsoft.owl.model.accounting.Rental;
 public class RentalDao extends Db4oDaoBase<Rental> implements IRentalDao
 
 {
-    private static RentalDao _instance;
-
-    static RentalDao getInstance()
+    RentalDao(Db4ODaoFactory factory)
     {
-        if (_instance == null)
-        {
-
-            _instance = new RentalDao();
-
-        }
-
-        return _instance;
-    }
-
-    private RentalDao()
-    {
-        super(Rental.class);
-        // TODO Auto-generated constructor stub
+        super(factory, Rental.class);
     }
 }

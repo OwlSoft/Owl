@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import at.owlsoft.owl.business.ControllerBase;
+import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.model.accounting.ActivityStatus;
 import at.owlsoft.owl.model.accounting.ActivityStatusEntry;
@@ -15,10 +17,15 @@ import at.owlsoft.owl.model.media.MediumExemplarStatusEntry;
 import at.owlsoft.owl.model.user.SystemUser;
 import at.owlsoft.owl.model.user.SystemUserStatus;
 
-public class RentalController
+public class RentalController extends ControllerBase
 {
-    Rental                  _rental;
-    List<ValidationMessage> _messages;
+    private Rental                  _rental;
+    private List<ValidationMessage> _messages;
+
+    public RentalController(OwlApplicationContext context)
+    {
+        super(context);
+    }
 
     public void newRental()
     {

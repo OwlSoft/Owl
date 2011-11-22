@@ -7,23 +7,9 @@ public class SystemUserStatusEntryDao extends
         Db4oDaoBase<SystemUserStatusEntry> implements ISystemUserStatusEntryDao
 {
 
-    private static SystemUserStatusEntryDao _instance;
-
-    static SystemUserStatusEntryDao getInstance()
+    protected SystemUserStatusEntryDao(Db4ODaoFactory factory)
     {
-        if (_instance == null)
-        {
-
-            _instance = new SystemUserStatusEntryDao();
-
-        }
-
-        return _instance;
+        super(factory, SystemUserStatusEntry.class);
     }
 
-    private SystemUserStatusEntryDao()
-    {
-        super(SystemUserStatusEntry.class);
-        // TODO Auto-generated constructor stub
-    }
 }

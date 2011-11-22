@@ -5,21 +5,9 @@ import at.owlsoft.owl.model.media.Tag;
 
 public class TagDao extends Db4oDaoBase<Tag> implements ITagDao
 {
-    private static TagDao _instance;
-
-    static TagDao getInstance()
+    protected TagDao(Db4ODaoFactory factory)
     {
-        if (_instance == null)
-        {
-            _instance = new TagDao();
-        }
-
-        return _instance;
+        super(factory, Tag.class);
     }
 
-    private TagDao()
-    {
-        super(Tag.class);
-        // TODO Auto-generated constructor stub
-    }
 }

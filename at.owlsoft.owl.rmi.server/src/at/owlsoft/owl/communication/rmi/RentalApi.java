@@ -2,7 +2,6 @@ package at.owlsoft.owl.communication.rmi;
 
 import java.rmi.RemoteException;
 
-import at.owlsoft.owl.business.GlobalContextController;
 import at.owlsoft.owl.model.user.ISystemUser;
 
 public class RentalApi extends ApiBase implements IRentalApi
@@ -21,7 +20,7 @@ public class RentalApi extends ApiBase implements IRentalApi
     @Override
     public ISystemUser getRentalsForSystemUserCardId(int cardId)
     {
-        return GlobalContextController.getSystemUserSearchController().search(
-                cardId);
+        return getFactory().getContext().getSystemUserSearchController()
+                .search(cardId);
     }
 }

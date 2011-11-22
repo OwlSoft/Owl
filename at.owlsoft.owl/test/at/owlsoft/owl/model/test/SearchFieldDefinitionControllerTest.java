@@ -8,15 +8,24 @@ import java.util.Map.Entry;
 
 import junit.framework.Assert;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import at.owlsoft.owl.PrivatAccessorFramework;
+import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.business.SearchFieldDefinitionController;
 import at.owlsoft.owl.model.SearchFieldCategory;
 import at.owlsoft.owl.model.SearchFieldDefinition;
 
 public class SearchFieldDefinitionControllerTest
 {
+    private static OwlApplicationContext _context;
+
+    @BeforeClass
+    public static void setup()
+    {
+        _context = new OwlApplicationContext();
+    }
 
     @Test
     public void testXmlParsing()
@@ -44,7 +53,8 @@ public class SearchFieldDefinitionControllerTest
         bld.append("</SearchFieldCategories>");
 
         InputStream stream = new ByteArrayInputStream(bld.toString().getBytes());
-        SearchFieldDefinitionController controller = new SearchFieldDefinitionController();
+        SearchFieldDefinitionController controller = new SearchFieldDefinitionController(
+                _context);
         controller.reInitParsXml(stream);
 
         Map<String, SearchFieldDefinition> mapping = PrivatAccessorFramework

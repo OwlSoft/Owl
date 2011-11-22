@@ -3,14 +3,24 @@ package at.owlsoft.owl.communication.rmi;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+import at.owlsoft.owl.business.OwlApplicationContext;
+
 public class ApiFactory extends UnicastRemoteObject implements IApiFactory
 {
-    private static final long serialVersionUID = -3901641353524916189L;
+    private static final long     serialVersionUID = -3901641353524916189L;
+
+    private OwlApplicationContext _context;
+
+    public OwlApplicationContext getContext()
+    {
+        return _context;
+    }
 
     // TODO: Session handling
     public ApiFactory() throws RemoteException
     {
         super();
+        _context = new OwlApplicationContext();
     }
 
     /**

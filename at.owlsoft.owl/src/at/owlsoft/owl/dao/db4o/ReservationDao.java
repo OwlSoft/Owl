@@ -7,23 +7,8 @@ public class ReservationDao extends Db4oDaoBase<Reservation> implements
         IReservationDao
 
 {
-    private static ReservationDao _instance;
-
-    static ReservationDao getInstance()
+    ReservationDao(Db4ODaoFactory factory)
     {
-        if (_instance == null)
-        {
-
-            _instance = new ReservationDao();
-
-        }
-
-        return _instance;
-    }
-
-    private ReservationDao()
-    {
-        super(Reservation.class);
-        // TODO Auto-generated constructor stub
+        super(factory, Reservation.class);
     }
 }

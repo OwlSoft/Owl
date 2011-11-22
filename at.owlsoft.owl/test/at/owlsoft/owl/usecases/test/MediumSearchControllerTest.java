@@ -8,9 +8,10 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.junit.AfterClass;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.dao.IMediumDao;
 import at.owlsoft.owl.model.SearchField;
@@ -23,13 +24,16 @@ import db4oTestObjectGenerator.TestDataBaseConstructor;
 public class MediumSearchControllerTest
 {
 
-    private String _publisher = "EA Sports";
-    private String _name      = "FM2012 Strategy Guide";
-    private Medium _mediumExpected;
+    private static String                _publisher = "EA Sports";
+    private static String                _name      = "FM2012 Strategy Guide";
+    private static Medium                _mediumExpected;
 
-    @Before
-    public void setUp()
+    private static OwlApplicationContext _context;
+
+    @BeforeClass
+    public static void setup()
     {
+        _context = new OwlApplicationContext();
 
         // // setUP
         Medium m1 = new Book();
@@ -62,7 +66,8 @@ public class MediumSearchControllerTest
     public void testSearchListOfSearchField()
     {
 
-        MediumSearchController controller = new MediumSearchController();
+        MediumSearchController controller = _context
+                .getMediumSearchController();
         List<SearchField> criteria = new ArrayList<SearchField>();
 
         // test find many media
@@ -84,7 +89,8 @@ public class MediumSearchControllerTest
     public void dataBaseTest()
     {
         TestDataBaseConstructor.setUpDataBase();
-        MediumSearchController controller = new MediumSearchController();
+        MediumSearchController controller = _context
+                .getMediumSearchController();
         List<SearchField> criteria = new ArrayList<SearchField>();
         criteria.add(new SearchField("_title", "Faust", SearchFieldType.Equals));
         List<Medium> result = controller.search(criteria);

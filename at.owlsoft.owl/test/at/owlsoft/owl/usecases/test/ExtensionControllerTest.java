@@ -10,6 +10,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.model.accounting.Rental;
 import at.owlsoft.owl.model.media.MediumExemplar;
@@ -22,14 +23,17 @@ import at.owlsoft.owl.usecases.ValidationMessage;
 public class ExtensionControllerTest
 {
 
-    private static final String   TEST_DB = "extensionTestDb";
-    private static Rental         _rental;
-    private static MediumExemplar _copy;
-    private static SystemUser     _customer;
+    private static final String          TEST_DB = "extensionTestDb";
+    private static Rental                _rental;
+    private static MediumExemplar        _copy;
+    private static SystemUser            _customer;
+
+    private static OwlApplicationContext _context;
 
     @BeforeClass
     public static void setup()
     {
+        _context = new OwlApplicationContext();
         // this test must be executed as administrator otherwise the db file
         // will not be deleted
 
@@ -74,7 +78,7 @@ public class ExtensionControllerTest
     @Test
     public void test()
     {
-        ExtensionController controller = new ExtensionController();
+        ExtensionController controller = _context.getExtensionController();
         controller.extend(_copy);
         assertEquals(1, _rental.getFilingExtensionCount());
         controller.extend(_copy);

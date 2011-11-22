@@ -17,6 +17,8 @@ public class MediumExemplarTest
 
         MediumExemplarStatusEntry entry = new MediumExemplarStatusEntry();
 
+        mediumExemplar.clearMediumExemplarStatusEntries();
+
         // Adding / Count
         mediumExemplar.addMediumExemplarStatusEntry(entry);
         Assert.assertEquals(1,

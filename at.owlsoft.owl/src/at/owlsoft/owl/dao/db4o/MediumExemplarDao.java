@@ -7,23 +7,10 @@ public class MediumExemplarDao extends Db4oDaoBase<MediumExemplar> implements
         IMediumExemplarDao
 
 {
-    private static MediumExemplarDao _instance;
 
-    static MediumExemplarDao getInstance()
+    MediumExemplarDao(Db4ODaoFactory factory)
     {
-        if (_instance == null)
-        {
-
-            _instance = new MediumExemplarDao();
-
-        }
-
-        return _instance;
+        super(factory, MediumExemplar.class);
     }
 
-    private MediumExemplarDao()
-    {
-        super(MediumExemplar.class);
-        // TODO Auto-generated constructor stub
-    }
 }

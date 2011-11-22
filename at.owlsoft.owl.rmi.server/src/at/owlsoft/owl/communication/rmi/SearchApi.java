@@ -31,9 +31,10 @@ public class SearchApi extends ApiBase implements ISearchApi
     public SearchApi(ApiFactory factory) throws RemoteException
     {
         super(factory);
-        _fieldcontroller = new SearchFieldDefinitionController();
+        _fieldcontroller = factory.getContext()
+                .getClientSearchFieldDefinitionController();
         _searchFields = new HashMap<UUID, SearchField>();
-        _searchController = new MediumSearchController();
+        _searchController = factory.getContext().getMediumSearchController();
     }
 
     /**

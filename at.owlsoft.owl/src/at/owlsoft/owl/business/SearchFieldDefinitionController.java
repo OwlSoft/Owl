@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,7 @@ import at.owlsoft.owl.model.SearchFieldCategory;
 import at.owlsoft.owl.model.SearchFieldDataType;
 import at.owlsoft.owl.model.SearchFieldDefinition;
 
-public class SearchFieldDefinitionController implements
+public class SearchFieldDefinitionController extends ControllerBase implements
         ISearchFieldValueConverter
 {
     private Map<String, SearchFieldDefinition> _mapping;
@@ -38,8 +37,9 @@ public class SearchFieldDefinitionController implements
         return _allCategories;
     }
 
-    public SearchFieldDefinitionController()
+    public SearchFieldDefinitionController(OwlApplicationContext context)
     {
+        super(context);
         _mapping = new HashMap<String, SearchFieldDefinition>();
         _allCategories = new ArrayList<SearchFieldCategory>();
 
@@ -47,8 +47,10 @@ public class SearchFieldDefinitionController implements
                 .getResourceAsStream("/SearchFieldCategories.xml"));
     }
 
-    public SearchFieldDefinitionController(InputStream stream)
+    public SearchFieldDefinitionController(OwlApplicationContext context,
+            InputStream stream)
     {
+        super(context);
         _mapping = new HashMap<String, SearchFieldDefinition>();
         _allCategories = new ArrayList<SearchFieldCategory>();
 
@@ -115,7 +117,7 @@ public class SearchFieldDefinitionController implements
 
                     }
 
-                    String type = searchFieldCategory.getAttribute("type");
+                    // String type = searchFieldCategory.getAttribute("type");
 
                     SearchField sf = new SearchField();
                     sf.setKey(key);
@@ -146,6 +148,7 @@ public class SearchFieldDefinitionController implements
         return _mapping.get(field.getKey());
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <T> T convert(ISearchField searchField)
     {
@@ -166,7 +169,6 @@ public class SearchFieldDefinitionController implements
             {
                 case DateTime:
 
-                    Date date = new Date();
                     String dateFormat = "dd.MM.yyyy";
                     SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
 

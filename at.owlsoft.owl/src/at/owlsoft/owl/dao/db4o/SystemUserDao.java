@@ -6,22 +6,9 @@ import at.owlsoft.owl.model.user.SystemUser;
 public class SystemUserDao extends Db4oDaoBase<SystemUser> implements
         ISystemUserDao
 {
-    private static SystemUserDao _instance;
-
-    static SystemUserDao getInstance()
+    protected SystemUserDao(Db4ODaoFactory factory)
     {
-        if (_instance == null)
-        {
-            _instance = new SystemUserDao();
-        }
-
-        return _instance;
-    }
-
-    private SystemUserDao()
-    {
-        super(SystemUser.class);
-        // TODO Auto-generated constructor stub
+        super(factory, SystemUser.class);
     }
 
 }

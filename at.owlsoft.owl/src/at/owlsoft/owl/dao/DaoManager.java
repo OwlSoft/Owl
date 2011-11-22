@@ -16,18 +16,38 @@ public class DaoManager
 
     public static IDaoFactory getInstance()
     {
-        return getInstance("DB4OFILENAME");
-    }
-
-    public static IDaoFactory getInstance(String connectionString)
-    {
         if (_factory == null)
         {
-            _factory = Db4ODaoFactory.getInstance(connectionString);
+            _factory = Db4ODaoFactory.getInstance();
         }
         else
         {
             _logger.debug("connectionString already instantiated, returning existing Instance");
+        }
+
+        return _factory;
+    }
+
+    private static String _connectionString = null;
+
+    public static IDaoFactory getInstance(String connectionString)
+    {
+        // connection string change?
+        if (_connectionString != null
+                && !_connectionString.equals(connectionString))
+        {
+            closeDbConnection();
+            _factory = null;
+        }
+
+        if (_factory == null)
+        {
+            _connectionString = connectionString;
+            _factory = Db4ODaoFactory.getInstance(connectionString);
+        }
+        else
+        {
+            _logger.debug("connection already instantiated, returning existing Instance");
         }
 
         return _factory;

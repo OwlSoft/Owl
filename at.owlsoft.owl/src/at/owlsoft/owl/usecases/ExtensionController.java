@@ -4,14 +4,21 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import at.owlsoft.owl.business.ControllerBase;
+import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.model.accounting.FilingExtension;
 import at.owlsoft.owl.model.accounting.Rental;
 import at.owlsoft.owl.model.media.MediumExemplar;
 import at.owlsoft.owl.model.user.SystemUserStatus;
 
-public class ExtensionController
+public class ExtensionController extends ControllerBase
 {
+
+    public ExtensionController(OwlApplicationContext context)
+    {
+        super(context);
+    }
 
     private List<ValidationMessage> _messages;
 

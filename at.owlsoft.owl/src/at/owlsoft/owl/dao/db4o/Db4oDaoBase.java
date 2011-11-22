@@ -14,13 +14,15 @@ import com.db4o.query.Query;
  */
 public abstract class Db4oDaoBase<T> implements IDao<T>
 {
-    private static final String DEFAULT_DATABASE = "DB4OFILENAME";
-    private Class<T>            _clazz;
+    private Class<T>       _clazz;
 
-    protected Db4oDaoBase(Class<T> clazz)
+    private Db4ODaoFactory _factory;
+
+    protected Db4oDaoBase(Db4ODaoFactory factory, Class<T> clazz)
     {
         super();
         _clazz = clazz;
+        _factory = factory;
     }
 
     /**
@@ -29,7 +31,7 @@ public abstract class Db4oDaoBase<T> implements IDao<T>
     @Override
     public void delete(T object)
     {
-        Db4ODaoFactory.getInstance(DEFAULT_DATABASE).getDb().delete(object);
+        _factory.getDb().delete(object);
 
     }
 
@@ -39,7 +41,7 @@ public abstract class Db4oDaoBase<T> implements IDao<T>
     @Override
     public void store(T object)
     {
-        Db4ODaoFactory.getInstance(DEFAULT_DATABASE).getDb().store(object);
+        _factory.getDb().store(object);
 
     }
 
@@ -50,8 +52,7 @@ public abstract class Db4oDaoBase<T> implements IDao<T>
     public List<T> queryByExample(T object)
     {
         List<T> tempList = new ArrayList<T>();
-        for (Object t : Db4ODaoFactory.getInstance(DEFAULT_DATABASE).getDb()
-                .queryByExample(object))
+        for (Object t : _factory.getDb().queryByExample(object))
         {
             tempList.add((T) t);
         }
@@ -68,8 +69,7 @@ public abstract class Db4oDaoBase<T> implements IDao<T>
             ISearchFieldValueConverter converter)
     {
 
-        Query query = Db4ODaoFactory.getInstance(DEFAULT_DATABASE).getDb()
-                .query();
+        Query query = _factory.getDb().query();
         query.constrain(_clazz);
         List<T> tempList = new ArrayList<T>();
         // TODO: add constraint for class type

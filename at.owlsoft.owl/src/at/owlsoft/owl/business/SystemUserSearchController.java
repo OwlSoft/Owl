@@ -14,17 +14,16 @@ import at.owlsoft.owl.usecases.SearchController;
 public class SystemUserSearchController extends SearchController<SystemUser>
 {
 
-    public SystemUserSearchController()
+    public SystemUserSearchController(OwlApplicationContext context)
     {
-
+        super(context);
     }
 
     @Override
     public List<SystemUser> search(List<SearchField> searchFields)
     {
-        ISearchFieldValueConverter converter = new SearchFieldDefinitionController(
-                SearchFieldDefinitionController.class
-                        .getResourceAsStream("/SearchFieldCategoriesNoGuiMapping.xml"));
+        ISearchFieldValueConverter converter = getContext()
+                .getServerSearchFieldDefinitionController();
 
         IDaoFactory daoFactory = DaoManager.getInstance();
         ISystemUserDao dao = daoFactory.getSystemUserDao();

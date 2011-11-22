@@ -11,6 +11,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.model.media.Book;
 import at.owlsoft.owl.model.media.Medium;
@@ -27,16 +28,20 @@ import at.owlsoft.owl.usecases.ValidationMessage;
 public class RentalControllerTest
 {
 
-    private static final String   TEST_DB = "rentalTestDb";
-    private static MediumExemplar _copy;
-    private static Medium         _lendable;
-    private static Medium         _unlendable;
-    private static SystemUser     _activeUser;
-    private static SystemUser     _inactiveUser;
+    private static final String          TEST_DB = "rentalTestDb";
+    private static MediumExemplar        _copy;
+    private static Medium                _lendable;
+    private static Medium                _unlendable;
+    private static SystemUser            _activeUser;
+    private static SystemUser            _inactiveUser;
+
+    private static OwlApplicationContext _context;
 
     @BeforeClass
     public static void setup()
     {
+        _context = new OwlApplicationContext();
+
         // this test must be executed as administrator otherwise the db file
         // will not be deleted
 
@@ -95,7 +100,7 @@ public class RentalControllerTest
     public void test()
     {
         System.out.println("Test: user active, medium has a rentable");
-        RentalController controller = new RentalController();
+        RentalController controller = _context.getRentalController();
         controller.setCustomer(_activeUser);
         controller.setMediumExemplar(_lendable);
         List<ValidationMessage> messages = controller.save();
@@ -110,7 +115,7 @@ public class RentalControllerTest
                 new Date(), _copy, MediumExemplarStatus.Rentable));
 
         System.out.println("Test: user active, medium has no rentable");
-        controller = new RentalController();
+        controller = _context.getRentalController();
         controller.setCustomer(_activeUser);
         controller.setMediumExemplar(_unlendable);
         controller.save();
@@ -122,7 +127,7 @@ public class RentalControllerTest
                         .getMediumExemplarStatus());
 
         System.out.println("Test: user inactive, medium has rentable");
-        controller = new RentalController();
+        controller = _context.getRentalController();
         controller.setCustomer(_inactiveUser);
         controller.setMediumExemplar(_lendable);
         controller.save();
@@ -137,7 +142,7 @@ public class RentalControllerTest
                 new Date(), _copy, MediumExemplarStatus.Rentable));
 
         System.out.println("Test: user inactive, medium has no rentable");
-        controller = new RentalController();
+        controller = _context.getRentalController();
         controller.setCustomer(_inactiveUser);
         controller.setMediumExemplar(_unlendable);
         controller.save();

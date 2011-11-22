@@ -10,7 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import at.owlsoft.owl.business.ISearchFieldValueConverter;
-import at.owlsoft.owl.business.SearchFieldDefinitionController;
+import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.dao.ISystemUserDao;
 import at.owlsoft.owl.model.SearchField;
@@ -19,11 +19,14 @@ import at.owlsoft.owl.model.user.SystemUser;
 
 public class DaoTests
 {
-    private static final String TEST_DB = "testDb";
+    private static final String          TEST_DB = "testDb";
+
+    private static OwlApplicationContext _context;
 
     @BeforeClass
     public static void setup()
     {
+        _context = new OwlApplicationContext();
         // this test must be executed as administrator otherwise the db file
         // will not be deleted
 
@@ -64,6 +67,7 @@ public class DaoTests
     @Test
     public void testQueryByExistingEntry()
     {
+        // TODO: Check this unit test, the Application works but this test fails
         // test 1 only manuel must come out of database
         System.out.println("test1");
 
@@ -71,7 +75,8 @@ public class DaoTests
         criterias.add(new SearchField("_firstName", "Manuel",
                 SearchFieldType.Equals));
 
-        ISearchFieldValueConverter controller = new SearchFieldDefinitionController();
+        ISearchFieldValueConverter controller = _context
+                .getClientSearchFieldDefinitionController();
 
         List<SystemUser> users = DaoManager.getInstance(TEST_DB)
                 .getSystemUserDao().queryByPropertyList(criterias, controller);
@@ -86,6 +91,7 @@ public class DaoTests
     @Test
     public void testQueryByNonExistingEntry()
     {
+        // TODO: Check this unit test, the Application works but this test fails
         // test 2 no match --> no users must come out of database
         System.out.println("test2");
 
@@ -97,7 +103,7 @@ public class DaoTests
                 .getInstance(TEST_DB)
                 .getSystemUserDao()
                 .queryByPropertyList(criterias,
-                        new SearchFieldDefinitionController());
+                        _context.getClientSearchFieldDefinitionController());
 
         for (SystemUser systemUser : users)
         {
@@ -120,7 +126,7 @@ public class DaoTests
                 .getInstance(TEST_DB)
                 .getSystemUserDao()
                 .queryByPropertyList(criterias,
-                        new SearchFieldDefinitionController());
+                        _context.getClientSearchFieldDefinitionController());
 
         int countUsers = 0;
         for (SystemUser systemUser : users)

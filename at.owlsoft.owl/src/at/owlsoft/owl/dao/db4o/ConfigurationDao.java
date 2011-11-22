@@ -6,23 +6,8 @@ import at.owlsoft.owl.model.Configuration;
 public class ConfigurationDao extends Db4oDaoBase<Configuration> implements
         IConfigurationDao
 {
-    private static ConfigurationDao _instance;
-
-    static ConfigurationDao getInstance()
+    ConfigurationDao(Db4ODaoFactory factory)
     {
-        if (_instance == null)
-        {
-
-            _instance = new ConfigurationDao();
-
-        }
-
-        return _instance;
+        super(factory, Configuration.class);
     }
-
-    private ConfigurationDao()
-    {
-        super(Configuration.class);
-    }
-
 }

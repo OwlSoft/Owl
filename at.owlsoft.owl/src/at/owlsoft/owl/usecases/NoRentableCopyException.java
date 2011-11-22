@@ -6,21 +6,28 @@ package at.owlsoft.owl.usecases;
 public class NoRentableCopyException extends RentalNotAllowedException
 {
 
-    public NoRentableCopyException()
-    {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
     /**
      * 
      */
     private static final long serialVersionUID = 2566230011850976473L;
 
-    public NoRentableCopyException(String name)
+    public NoRentableCopyException()
     {
-        super(name);
-        // TODO Auto-generated constructor stub
+        super();
     }
 
+    public NoRentableCopyException(String message, Throwable cause)
+    {
+        super(message, cause);
+    }
+
+    public NoRentableCopyException(String message)
+    {
+        super(message);
+    }
+
+    public NoRentableCopyException(Throwable cause)
+    {
+        super(cause);
+    }
 }

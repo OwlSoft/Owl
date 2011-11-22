@@ -2,4 +2,55 @@
 	xmlns:owlet="at.owlsoft.owlet.ui" xmlns:content="org.apache.pivot.wtk.content"
 	xmlns:collections="org.apache.pivot.collections" xmlns="org.apache.pivot.wtk">
 	<Label text="Nobody is here to show a rental!" />
+	<PushButton buttonData="return this rental" bxml:id="returnRentalButton" />
+	
+		<TablePane>
+		<columns>
+			<TablePane.Column width="1*" />
+		</columns>
+		<TablePane.Row height="-1">
+			<Form styles="{fill:true}">
+				<Form.Section heading="User">
+					<Border>
+						<BoxPane orientation="vertical" bxml:id="userPane" styles="{horizontalAlignment:'left', verticalAlignment:'top', fill:true}">
+						</BoxPane>
+					</Border>
+				
+				</Form.Section>
+			</Form>
+		</TablePane.Row>
+		<TablePane.Row height="1*">
+						<Form styles="{fill:true}">
+				<Form.Section heading="Exemplar">
+					<Border>
+						<BoxPane orientation="vertical" bxml:id="exemplarPane" styles="{horizontalAlignment:'left', verticalAlignment:'top', fill:true}">
+						</BoxPane>
+					</Border>
+		
+				</Form.Section>
+			</Form>
+		</TablePane.Row> 
+				<TablePane.Row height="1*">
+						<Form styles="{fill:true}">
+				<Form.Section heading="History">
+					<Border>
+						<BoxPane orientation="vertical" bxml:id="historyPane" styles="{horizontalAlignment:'left', verticalAlignment:'top', fill:true}">
+						</BoxPane>
+					</Border>
+	
+				</Form.Section>
+			</Form>
+		</TablePane.Row> 
+				<TablePane.Row height="1*">
+						<Form styles="{fill:true}">
+				<Form.Section heading="Extension">
+					<Border>
+						<BoxPane orientation="vertical" bxml:id="extensionPane" styles="{horizontalAlignment:'left', verticalAlignment:'top', fill:true}">
+						</BoxPane>
+					</Border>
+		
+				</Form.Section>
+			</Form>
+		</TablePane.Row> 
+	</TablePane>
 </owlet:ShowRentalView>

@@ -12,4 +12,17 @@ public class GlobalContextController
         }
         return _searchFieldValueConverter;
     }
+
+    private static SystemUserSearchController _systemUserSearchController;
+
+    public static SystemUserSearchController getSystemUserSearchController()
+    {
+        if (_systemUserSearchController == null)
+        {
+            _systemUserSearchController = new SystemUserSearchController();
+        }
+        return _systemUserSearchController;
+
+    }
+
 }

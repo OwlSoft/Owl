@@ -19,6 +19,7 @@ public package at.owlsoft.owl.model.accounting;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import at.owlsoft.owl.model.media.IMedium;
 import at.owlsoft.owl.model.media.IMediumExemplar;
@@ -26,6 +27,9 @@ import at.owlsoft.owl.model.user.ISystemUser;
 
 public interface IActivity extends Serializable
 {
+
+    UUID getUUID();
+
     Date getStartDate();
 
     int getActivityStatusEntryCount();

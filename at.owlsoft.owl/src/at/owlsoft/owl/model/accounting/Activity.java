@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import at.owlsoft.owl.model.InvalidOperationException;
 import at.owlsoft.owl.model.media.Medium;
@@ -28,7 +29,17 @@ import at.owlsoft.owl.model.user.SystemUser;
 
 public abstract class Activity implements IActivity
 {
-    private static final long         serialVersionUID = -1202400625902106682L;
+    private static final long serialVersionUID = -1202400625902106682L;
+
+    private UUID              _UUID;
+
+    /**
+     * @return the uUID
+     */
+    public UUID getUUID()
+    {
+        return _UUID;
+    }
 
     private Date                      _startDate;
     private List<ActivityStatusEntry> _activityStatusEntries;
@@ -50,6 +61,7 @@ public abstract class Activity implements IActivity
         _mediumExemplar = mediumExemplar;
         _customer = customer;
         _creator = creator;
+        _UUID = UUID.randomUUID();
     }
 
     @Override

@@ -14,20 +14,18 @@ import at.owlsoft.owl.model.media.Book;
 import at.owlsoft.owl.model.media.Medium;
 import at.owlsoft.owl.usecases.MediumSearchController;
 
-import com.db4o.Db4oEmbedded;
-import com.db4o.ObjectContainer;
-
 public class MediumSearchControllerTest
 {
 
     private String _publisher = "EA Sports";
+    private String _name      = "FM2012 Strategy Guide";
     private Medium _mediumExpected;
 
     @Before
     public void setUp()
     {
 
-        // setUP
+        // // setUP
         Medium m1 = new Book();
         Medium m2 = new Book();
 
@@ -38,12 +36,15 @@ public class MediumSearchControllerTest
         grec.set(2010, 0, 1);
         m2.setPublisher(_publisher);
         m2.setPublishedDate(grec.getTime());
+        m2.setName(_name);
         _mediumExpected = m2;
 
-        ObjectContainer db = Db4oEmbedded.openFile("DB40FILENAME");
-
-        db.store(m1);
-        db.store(m2);
+        // ObjectContainer db = Db4oEmbedded.openFile("DB4OFILENAME");
+        //
+        // db.store(m1);
+        // db.store(m2);
+        //
+        // db.close();
 
     }
 
@@ -54,19 +55,17 @@ public class MediumSearchControllerTest
         MediumSearchController controller = new MediumSearchController();
         List<SearchField> criteria = new ArrayList<SearchField>();
 
-        Calendar grec = Calendar.getInstance();
-        grec.set(2010, 0, 1);
-
+        // test find many media
         criteria.add(new SearchField("_publisher", _publisher));
-        // criteria.add(new SearchField("_publishedDate", grec.getTime()
-        // .toString()));
-
         List<Medium> result = controller.search(criteria);
-        List<Medium> result2 = controller.search(new ArrayList<SearchField>());
-        System.out.println(result2.size());
 
-        assertEquals(2, result.size());
-        assertEquals(_mediumExpected, result.get(0));
+        assertEquals(4, result.size());
+        // test find exaclty one meda
+        criteria.add(new SearchField("_name", _name));
+        result = controller.search(criteria);
+        assertEquals(_mediumExpected.getName(), result.get(0).getName());
+        assertEquals(_mediumExpected.getPublisher(), result.get(0)
+                .getPublisher());
 
     }
 }

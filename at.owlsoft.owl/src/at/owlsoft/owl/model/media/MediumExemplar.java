@@ -42,6 +42,8 @@ public class MediumExemplar implements IMediumExemplar
         _mediumExemplarStatusEntries = new ArrayList<MediumExemplarStatusEntry>();
         _activities = new ArrayList<Activity>();
         _metaData = new HashMap<String, Object>();
+        _mediumExemplarStatusEntries.add(new MediumExemplarStatusEntry(
+                new Date(), this, MediumExemplarStatus.Rentable));
     }
 
     public MediumExemplar(int exemplarID, Medium medium)
@@ -52,6 +54,8 @@ public class MediumExemplar implements IMediumExemplar
         _medium = medium;
         _mediumExemplarStatusEntries = new ArrayList<MediumExemplarStatusEntry>();
         _activities = new ArrayList<Activity>();
+        _mediumExemplarStatusEntries.add(new MediumExemplarStatusEntry(
+                new Date(), this, MediumExemplarStatus.Rentable));
     }
 
     @Override

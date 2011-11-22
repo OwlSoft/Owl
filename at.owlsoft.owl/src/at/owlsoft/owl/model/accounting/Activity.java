@@ -52,6 +52,16 @@ public abstract class Activity implements IActivity
         _creator = creator;
     }
 
+    protected Activity(Date startDate, Medium medium, SystemUser customer,
+            SystemUser creator)
+    {
+        _startDate = startDate;
+        _activityStatusEntries = new ArrayList<ActivityStatusEntry>();
+        _medium = medium;
+        _customer = customer;
+        _creator = creator;
+    }
+
     @Override
     public Date getStartDate()
     {

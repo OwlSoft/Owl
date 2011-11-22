@@ -18,7 +18,7 @@ public package at.owlsoft.owl.model.accounting;
 
 import java.util.Date;
 
-import at.owlsoft.owl.model.media.MediumExemplar;
+import at.owlsoft.owl.model.media.Medium;
 import at.owlsoft.owl.model.user.SystemUser;
 
 public class Reservation extends Activity implements IReservation
@@ -32,10 +32,10 @@ public class Reservation extends Activity implements IReservation
         super();
     }
 
-    public Reservation(Date startDate, MediumExemplar mediumExemplar,
-            SystemUser customer, SystemUser creator, int desiredDuration)
+    public Reservation(Date startDate, Medium medium, SystemUser customer,
+            SystemUser creator, int desiredDuration)
     {
-        super(startDate, mediumExemplar, customer, creator);
+        super(startDate, medium, customer, creator);
         _desiredDuration = desiredDuration;
     }
 

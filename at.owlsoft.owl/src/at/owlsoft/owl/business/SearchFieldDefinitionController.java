@@ -33,6 +33,11 @@ public class SearchFieldDefinitionController implements
     private List<SearchFieldCategory>          _allCategories;
     private Logger                             _logger = Logger.getLogger(SearchFieldDefinitionController.class);
 
+    public List<SearchFieldCategory> getAllCategories()
+    {
+        return _allCategories;
+    }
+
     public SearchFieldDefinitionController()
     {
         _mapping = new HashMap<String, SearchFieldDefinition>();

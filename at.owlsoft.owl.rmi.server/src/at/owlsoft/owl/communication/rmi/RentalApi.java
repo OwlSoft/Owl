@@ -1,15 +1,12 @@
 package at.owlsoft.owl.communication.rmi;
 
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
-public class RentalApi extends UnicastRemoteObject implements IRentalApi
+public class RentalApi extends ApiBase implements IRentalApi
 {
-
-    protected RentalApi() throws RemoteException
+    public RentalApi(ApiFactory factory) throws RemoteException
     {
-        super();
-        // TODO Auto-generated constructor stub
+        super(factory);
     }
 
     /**

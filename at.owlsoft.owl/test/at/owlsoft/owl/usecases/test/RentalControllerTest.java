@@ -11,6 +11,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.model.media.Book;
 import at.owlsoft.owl.model.media.Medium;
 import at.owlsoft.owl.model.media.MediumExemplar;
@@ -22,9 +23,6 @@ import at.owlsoft.owl.model.user.SystemUserStatus;
 import at.owlsoft.owl.model.user.SystemUserStatusEntry;
 import at.owlsoft.owl.usecases.RentalController;
 import at.owlsoft.owl.usecases.ValidationMessage;
-
-import com.db4o.Db4oEmbedded;
-import com.db4o.ObjectContainer;
 
 public class RentalControllerTest
 {
@@ -53,9 +51,6 @@ public class RentalControllerTest
             }
         }
 
-        ObjectContainer _db = Db4oEmbedded.openFile(
-                Db4oEmbedded.newConfiguration(), TEST_DB);
-
         Medium lendable = new Book();
         lendable.setMediumID(0);
         MediumExemplar toLend = new MediumExemplar(0, lendable);
@@ -75,11 +70,11 @@ public class RentalControllerTest
         inactive.addSystemUserStatusEntry(new SystemUserStatusEntry(new Date(),
                 "active", SystemUserStatus.InactiveBecauseMembershipFee, active));
 
-        _db.store(toLend);
-        _db.store(active);
-        _db.store(inactive);
-        _db.store(lendable);
-        _db.store(unlendable);
+        DaoManager.getInstance(TEST_DB).getMediumExemplarDao().store(toLend);
+        DaoManager.getInstance(TEST_DB).getSystemUserDao().store(active);
+        DaoManager.getInstance(TEST_DB).getSystemUserDao().store(inactive);
+        DaoManager.getInstance(TEST_DB).getMediumDao().store(lendable);
+        DaoManager.getInstance(TEST_DB).getMediumDao().store(unlendable);
 
         _lendable = lendable;
         _unlendable = unlendable;
@@ -92,6 +87,7 @@ public class RentalControllerTest
     @AfterClass
     public static void tearDown()
     {
+        DaoManager.closeDbConnection();
         new File(TEST_DB).delete();
     }
 

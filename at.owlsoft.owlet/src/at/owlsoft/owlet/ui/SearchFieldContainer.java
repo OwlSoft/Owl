@@ -47,6 +47,8 @@ public class SearchFieldContainer extends BoxPane
             _searchFieldValue = (TextInput) serializer.getNamespace().get(
                     "searchFieldValue");
 
+            _searchFieldKey.setListData(_viewModel.getSearchFieldDefinitions());
+
             PushButton deleteSearchField = (PushButton) serializer
                     .getNamespace().get("deleteSearchField");
             deleteSearchField.getButtonPressListeners().add(

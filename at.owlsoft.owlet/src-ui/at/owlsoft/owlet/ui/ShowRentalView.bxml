@@ -2,7 +2,7 @@
 	xmlns:owlet="at.owlsoft.owlet.ui" xmlns:content="org.apache.pivot.wtk.content"
 	xmlns:collections="org.apache.pivot.collections" xmlns="org.apache.pivot.wtk">
 	<Label text="Nobody is here to show a rental!" />
-	<PushButton buttonData="return this rental" bxml:id="returnRentalButton" />
+	<PushButton buttonData="Lade user mit cardID 0" bxml:id="loadDefaultUserButton" />
 	
 		<TablePane>
 		<columns>
@@ -13,6 +13,8 @@
 				<Form.Section heading="User">
 					<Border>
 						<BoxPane orientation="vertical" bxml:id="userPane" styles="{horizontalAlignment:'left', verticalAlignment:'top', fill:true}">
+						<Label text="" bxml:id="userFirstName" />
+						<Label text="" bxml:id="userLastName" />
 						</BoxPane>
 					</Border>
 				

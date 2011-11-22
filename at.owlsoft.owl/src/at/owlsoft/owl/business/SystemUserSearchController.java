@@ -33,6 +33,18 @@ public class SystemUserSearchController extends SearchController<SystemUser>
 
     public SystemUser search(int cardId)
     {
+
+        // FIXME --> should come from database
+        SystemUser user = new SystemUser();
+
+        user.setFirstName("Manuel");
+        user.setLastName("Tscholl");
+        user.setCardID(0);
+        if (true)
+        {
+            return user;
+        }
+
         List<SearchField> fields = new ArrayList<SearchField>();
         fields.add(new SearchField("_cardID", new Integer(cardId).toString(),
                 SearchFieldType.Equals));

@@ -14,7 +14,25 @@ import at.owlsoft.owlet.context.RmiContext;
 
 public class ShowRentalViewModel
 {
-    private IRentalApi _currentRentalApi;
+    private IRentalApi  _currentRentalApi;
+
+    private ISystemUser _systemUser;
+
+    /**
+     * @return the systemUser
+     */
+    public ISystemUser getSystemUser()
+    {
+        return _systemUser;
+    }
+
+    /**
+     * @param systemUser the systemUser to set
+     */
+    public void setSystemUser(ISystemUser systemUser)
+    {
+        _systemUser = systemUser;
+    }
 
     /**
      * @return the currentRental
@@ -50,14 +68,14 @@ public class ShowRentalViewModel
 
     private void updateDefinitions() throws RemoteException
     {
-        ISystemUser user = _currentRentalApi.getRentalsForSystemUserCardId(0);
+        _systemUser = _currentRentalApi.getRentalsForSystemUserCardId(0);
         List<IRental> rentals = new ArrayList<IRental>();
 
-        if (user != null)
+        if (_systemUser != null)
         {
-            for (int i = 0; i < user.getActivities().size(); i++)
+            for (int i = 0; i < _systemUser.getActivities().size(); i++)
             {
-                IActivity activity = user.getActivity(i);
+                IActivity activity = _systemUser.getActivity(i);
 
                 if (activity instanceof IRental)
                 {

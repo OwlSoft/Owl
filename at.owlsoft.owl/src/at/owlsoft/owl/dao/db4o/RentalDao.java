@@ -29,7 +29,7 @@ public class RentalDao extends Db4oDaoBase<Rental> implements IRentalDao
 
     private RentalDao(ObjectContainer db)
     {
-        super(db);
+        super(Rental.class, db);
         // TODO Auto-generated constructor stub
     }
 

@@ -29,7 +29,7 @@ public class SystemUserDao extends Db4oDaoBase<SystemUser> implements
 
     private SystemUserDao(ObjectContainer db)
     {
-        super(db);
+        super(SystemUser.class, db);
         // TODO Auto-generated constructor stub
     }
 

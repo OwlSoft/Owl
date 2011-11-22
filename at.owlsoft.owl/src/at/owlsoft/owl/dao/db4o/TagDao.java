@@ -28,7 +28,7 @@ public class TagDao extends Db4oDaoBase<Tag> implements ITagDao
 
     private TagDao(ObjectContainer db)
     {
-        super(db);
+        super(Tag.class, db);
         // TODO Auto-generated constructor stub
     }
 

@@ -30,7 +30,7 @@ public class ReservationDao extends Db4oDaoBase<Reservation> implements
 
     private ReservationDao(ObjectContainer db)
     {
-        super(db);
+        super(Reservation.class, db);
         // TODO Auto-generated constructor stub
     }
 

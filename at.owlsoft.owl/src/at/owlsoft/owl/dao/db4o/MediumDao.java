@@ -28,8 +28,7 @@ public class MediumDao extends Db4oDaoBase<Medium> implements IMediumDao
 
     private MediumDao(ObjectContainer db)
     {
-        super(db);
-        // TODO Auto-generated constructor stub
+        super(Medium.class, db);
     }
 
 }

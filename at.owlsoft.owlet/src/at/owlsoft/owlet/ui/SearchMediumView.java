@@ -16,9 +16,6 @@ import at.owlsoft.owlet.viewmodel.SearchMediumViewModel;
 
 public class SearchMediumView extends OwletView
 {
-    private static final String   KEY              = "SEARCH_MEDIUM";
-    private static final long     serialVersionUID = 980097204234955190L;
-
     private SearchMediumViewModel _viewModel;
     private BoxPane               _searchFieldPane;
     private TableView             _resultView;

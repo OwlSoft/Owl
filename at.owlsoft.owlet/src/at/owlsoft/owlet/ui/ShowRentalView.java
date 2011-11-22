@@ -20,13 +20,6 @@ import at.owlsoft.owlet.viewmodel.ShowRentalViewModel;
 
 public class ShowRentalView extends OwletView
 {
-    /**
-     * 
-     */
-    private static final long   serialVersionUID = -424484658195002415L;
-
-    private static final String KEY              = "SHOW_RENTAL";
-
     private ShowRentalViewModel _viewModel;
     private BoxPane             _userPane;
     private BoxPane             _exemplarPane;

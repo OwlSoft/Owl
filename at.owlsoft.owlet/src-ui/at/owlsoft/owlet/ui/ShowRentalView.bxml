@@ -3,7 +3,7 @@
 	xmlns:collections="org.apache.pivot.collections" xmlns="org.apache.pivot.wtk">
 	<Label text="Nobody is here to show a rental!" />
 	<PushButton buttonData="Lade user mit cardID 0" bxml:id="loadDefaultUserButton" />
-	
+	<ListButton  bxml:id="allRentalsListButton" />
 		<TablePane>
 		<columns>
 			<TablePane.Column width="1*" />
@@ -46,7 +46,8 @@
 				<TablePane.Row height="1*">
 						<Form styles="{fill:true}">
 				<Form.Section heading="Extension">
-					<Border>
+					<Border>					
+					<PushButton buttonData="verlaengern" bxml:id="doExtensionButton" />
 						<BoxPane orientation="vertical" bxml:id="extensionPane" styles="{horizontalAlignment:'left', verticalAlignment:'top', fill:true}">
 						</BoxPane>
 					</Border>

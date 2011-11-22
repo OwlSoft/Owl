@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import at.owlsoft.owl.model.SearchField;
@@ -13,43 +14,58 @@ import at.owlsoft.owl.model.media.Book;
 import at.owlsoft.owl.model.media.Medium;
 import at.owlsoft.owl.usecases.MediumSearchController;
 
-import com.db4o.Db4oEmbedded;
-import com.db4o.ObjectContainer;
-
 public class MediumSearchControllerTest
 {
 
-    @Test
-    public void testSearchListOfSearchField()
+    private String _publisher = "EA Sports";
+    private String _name      = "FM2012 Strategy Guide";
+    private Medium _mediumExpected;
+
+    @Before
+    public void setUp()
     {
-        // setUP
+
+        // // setUP
         Medium m1 = new Book();
         Medium m2 = new Book();
-        String publisher = "EA Sports";
-        m1.setPublisher(publisher);
+
+        m1.setPublisher(_publisher);
         Calendar grec = Calendar.getInstance();
         grec.set(2000, 0, 1);
         m1.setPublishedDate(grec.getTime());
         grec.set(2010, 0, 1);
-        m2.setPublisher(publisher);
+        m2.setPublisher(_publisher);
         m2.setPublishedDate(grec.getTime());
+        m2.setName(_name);
+        _mediumExpected = m2;
 
-        ObjectContainer db = Db4oEmbedded.openFile("DB40FILENAME");
+        // ObjectContainer db = Db4oEmbedded.openFile("DB4OFILENAME");
+        //
+        // db.store(m1);
+        // db.store(m2);
+        //
+        // db.close();
 
-        db.store(m1);
-        db.store(m2);
+    }
+
+    @Test
+    public void testSearchListOfSearchField()
+    {
 
         MediumSearchController controller = new MediumSearchController();
         List<SearchField> criteria = new ArrayList<SearchField>();
 
-        criteria.add(new SearchField("_publisher", publisher));
-        criteria.add(new SearchField("_publishedDate", grec.getTime()
-                .toString()));
-
+        // test find many media
+        criteria.add(new SearchField("_publisher", _publisher));
         List<Medium> result = controller.search(criteria);
 
-        assertEquals(1, result.size());
-        assertEquals(m2, result.get(0));
-    }
+        assertEquals(4, result.size());
+        // test find exaclty one meda
+        criteria.add(new SearchField("_name", _name));
+        result = controller.search(criteria);
+        assertEquals(_mediumExpected.getName(), result.get(0).getName());
+        assertEquals(_mediumExpected.getPublisher(), result.get(0)
+                .getPublisher());
 
+    }
 }

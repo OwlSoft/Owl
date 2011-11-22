@@ -7,17 +7,34 @@
 		</columns>
 		<TablePane.Row height="-1">
 			<Form styles="{fill:true}">
-				<Form.Section heading="Search">
+				<Form.Section heading="Search Criterias">
 					<Border>
-						<BoxPane orientation="vertical" bxml:id="searchFieldPane" styles="{horizontalAlignment:'left', verticalAlignment:'top', fill:true}">
+						<BoxPane orientation="vertical" bxml:id="searchFieldPane"
+							styles="{horizontalAlignment:'left', verticalAlignment:'top', fill:true}">
 						</BoxPane>
 					</Border>
 					<PushButton buttonData="Add new search field" bxml:id="addSearchFieldButton" />
 				</Form.Section>
+				<Form.Section>
+					<PushButton buttonData="Search" bxml:id="doSearchButton" />
+				</Form.Section>
 			</Form>
 		</TablePane.Row>
 		<TablePane.Row height="1*">
-			<Label text="HelloWorld" />
-		</TablePane.Row> 
+			<Border>
+				<ScrollPane>
+					<TableView bxml:id="resultView">
+						<columns>
+							<TableView.Column name="name" width="180" headerData="Name" />
+							<TableView.Column name="mediumExemplarCount" width="60" headerData="Exemplar Count" />
+						</columns>
+					</TableView>
+					<columnHeader>
+						<TableViewHeader tableView="$resultView" />
+					</columnHeader>
+				</ScrollPane>
+			</Border>
+
+		</TablePane.Row>
 	</TablePane>
 </owlet:SearchMediumView>

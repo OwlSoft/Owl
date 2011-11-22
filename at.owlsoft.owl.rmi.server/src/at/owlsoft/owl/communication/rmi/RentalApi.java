@@ -10,6 +10,7 @@ public class RentalApi extends ApiBase implements IRentalApi
     public RentalApi(ApiFactory factory) throws RemoteException
     {
         super(factory);
+
     }
 
     /**

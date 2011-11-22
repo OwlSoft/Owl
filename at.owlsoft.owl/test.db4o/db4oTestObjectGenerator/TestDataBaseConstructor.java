@@ -21,7 +21,7 @@ import at.owlsoft.owl.model.user.SystemUserStatusEntry;
 public class TestDataBaseConstructor
 {
 
-    private static final String TEST_DB = "showCaseDB";
+    private static final String TEST_DB = "DB4OFILENAME";
 
     public static String getTestDBName()
     {
@@ -137,6 +137,11 @@ public class TestDataBaseConstructor
     {
         DaoManager.closeDbConnection();
         new File(TEST_DB).delete();
+    }
+
+    public static void main(String[] args)
+    {
+        resetDataBase();
     }
 
 }

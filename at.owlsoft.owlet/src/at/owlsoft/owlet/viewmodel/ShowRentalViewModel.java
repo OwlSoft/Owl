@@ -14,9 +14,43 @@ import at.owlsoft.owlet.context.RmiContext;
 
 public class ShowRentalViewModel
 {
-    private IRentalApi  _currentRentalApi;
+    private IRentalApi    _currentRentalApi;
 
-    private ISystemUser _systemUser;
+    private ISystemUser   _systemUser;
+    private List<IRental> _rentals;
+    private IRental       _activeRental;
+
+    /**
+     * @return the activeRental
+     */
+    public IRental getActiveRental()
+    {
+        return _activeRental;
+    }
+
+    /**
+     * @param activeRental the activeRental to set
+     */
+    public void setActiveRental(IRental activeRental)
+    {
+        _activeRental = activeRental;
+    }
+
+    /**
+     * @return the rentals
+     */
+    public List<IRental> getRentals()
+    {
+        return _rentals;
+    }
+
+    /**
+     * @param rentals the rentals to set
+     */
+    public void setRentals(List<IRental> rentals)
+    {
+        _rentals = rentals;
+    }
 
     /**
      * @return the systemUser
@@ -69,7 +103,7 @@ public class ShowRentalViewModel
     private void updateDefinitions() throws RemoteException
     {
         _systemUser = _currentRentalApi.getRentalsForSystemUserCardId(0);
-        List<IRental> rentals = new ArrayList<IRental>();
+        _rentals = new ArrayList<IRental>();
 
         if (_systemUser != null)
         {
@@ -79,7 +113,7 @@ public class ShowRentalViewModel
 
                 if (activity instanceof IRental)
                 {
-                    rentals.add((IRental) activity);
+                    _rentals.add((IRental) activity);
                 }
             }
         }

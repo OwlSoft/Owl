@@ -47,6 +47,14 @@ public class SearchFieldDefinitionController implements
                 .getResourceAsStream("/SearchFieldCategories.xml"));
     }
 
+    public SearchFieldDefinitionController(InputStream stream)
+    {
+        _mapping = new HashMap<String, SearchFieldDefinition>();
+        _allCategories = new ArrayList<SearchFieldCategory>();
+
+        reInitParsXml(stream);
+    }
+
     public void reInitParsXml(InputStream stream)
     {
         _mapping = new HashMap<String, SearchFieldDefinition>();

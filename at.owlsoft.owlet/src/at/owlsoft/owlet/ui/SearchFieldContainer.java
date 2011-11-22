@@ -84,7 +84,7 @@ public class SearchFieldContainer extends BoxPane
         getParent().remove(this);
     }
 
-    public void updateViewModel()
+    public void updateServerModel()
     {
         _viewModel.setSearchFieldData(_fieldId,
                 ((ISearchFieldDefinition) _searchFieldKey.getSelectedItem()),

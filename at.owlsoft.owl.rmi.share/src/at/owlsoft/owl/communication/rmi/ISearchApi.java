@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import at.owlsoft.owl.model.ISearchField;
 import at.owlsoft.owl.model.ISearchFieldCategory;
+import at.owlsoft.owl.model.media.IMedium;
 
 public interface ISearchApi extends Remote
 {
@@ -19,4 +20,6 @@ public interface ISearchApi extends Remote
 
     void setSearchFieldData(UUID uniqueId, String key, String value)
             throws RemoteException;
+
+    List<IMedium> search() throws RemoteException;
 }

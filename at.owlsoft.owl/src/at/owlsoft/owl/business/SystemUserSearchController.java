@@ -22,8 +22,9 @@ public class SystemUserSearchController extends SearchController<SystemUser>
     @Override
     public List<SystemUser> search(List<SearchField> searchFields)
     {
-        ISearchFieldValueConverter converter = GlobalContextController
-                .getSearchFieldValueConverter();
+        ISearchFieldValueConverter converter = new SearchFieldDefinitionController(
+                SearchFieldDefinitionController.class
+                        .getResourceAsStream("/SearchFieldCategoriesNoGuiMapping.xml"));
 
         IDaoFactory daoFactory = DaoManager.getInstance();
         ISystemUserDao dao = daoFactory.getSystemUserDao();
@@ -34,19 +35,19 @@ public class SystemUserSearchController extends SearchController<SystemUser>
     public SystemUser search(int cardId)
     {
 
-        // FIXME --> should come from database
-        SystemUser user = new SystemUser();
-
-        user.setFirstName("Manuel");
-        user.setLastName("Tscholl");
-        user.setCardID(0);
-        if (true)
-        {
-            return user;
-        }
+        // // FIXME --> should come from database
+        // SystemUser user = new SystemUser();
+        //
+        // user.setFirstName("Manuel");
+        // user.setLastName("Tscholl");
+        // user.setCardID(0);
+        // if (true)
+        // {
+        // return user;
+        // }
 
         List<SearchField> fields = new ArrayList<SearchField>();
-        fields.add(new SearchField("_cardID", new Integer(cardId).toString(),
+        fields.add(new SearchField("_cardId", new Integer(cardId).toString(),
                 SearchFieldType.Equals));
 
         List<SystemUser> users = search(fields);

@@ -11,7 +11,9 @@ import at.owlsoft.owl.model.ISearchFieldCategory;
 import at.owlsoft.owl.model.ISearchFieldDefinition;
 import at.owlsoft.owl.model.InvalidOperationException;
 import at.owlsoft.owl.model.SearchFieldType;
+import at.owlsoft.owl.model.media.IMedium;
 import at.owlsoft.owlet.context.RmiContext;
+import at.owlsoft.owlet.util.PivotUtils;
 
 public class SearchMediumViewModel
 {
@@ -21,6 +23,8 @@ public class SearchMediumViewModel
     private List<SearchFieldType>        _searchTypes;
 
     private ISearchApi                   _searchApi;
+
+    private List<IMedium>                _searchResults;
 
     public List<ISearchFieldCategory> getSearchFieldCategories()
     {
@@ -40,6 +44,11 @@ public class SearchMediumViewModel
     public SearchMediumViewModel()
     {
         _searchTypes = new ArrayList<SearchFieldType>(SearchFieldType.values());
+    }
+
+    public List<IMedium> getSearchResults()
+    {
+        return _searchResults;
     }
 
     public void initialize() throws InvalidOperationException
@@ -112,6 +121,20 @@ public class SearchMediumViewModel
         try
         {
             _searchApi.removeSearchField(uniqueId);
+        }
+        catch (RemoteException e)
+        {
+            e.printStackTrace();
+            throw new InvalidOperationException("Remote server error:"
+                    + e.getMessage(), e);
+        }
+    }
+
+    public void doSearch()
+    {
+        try
+        {
+            _searchResults = PivotUtils.toPivotList(_searchApi.search());
         }
         catch (RemoteException e)
         {

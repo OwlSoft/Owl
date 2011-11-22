@@ -16,6 +16,7 @@ import at.owlsoft.owl.dao.ITagDao;
 
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
+import com.db4o.config.EmbeddedConfiguration;
 
 public class Db4ODaoFactory implements IDaoFactory
 {
@@ -26,8 +27,9 @@ public class Db4ODaoFactory implements IDaoFactory
 
     private Db4ODaoFactory(String connectionString)
     {
-        _db = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),
-                connectionString);
+        EmbeddedConfiguration configuration = Db4oEmbedded.newConfiguration();
+        configuration.file().lockDatabaseFile(false);
+        _db = Db4oEmbedded.openFile(configuration, connectionString);
     }
 
     public static Db4ODaoFactory getInstance(String connectionString)

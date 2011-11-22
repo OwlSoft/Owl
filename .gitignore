@@ -12,9 +12,9 @@ DB40FILENAME
 **/DB40FILENAME
 
 **/testDB
+
 rentalTestDb
-
-
+testDb
 **/testDB
 
 # ignore temp files

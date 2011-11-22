@@ -23,7 +23,7 @@ public class ReservationController
         _reservation = new Reservation();
     }
 
-    public void setMediumExemplar(Medium medium)
+    public void setMedium(Medium medium)
     {
         _reservation.setMedium(medium);
     }
@@ -54,7 +54,7 @@ public class ReservationController
                 || _reservation.getStartDate() == null)
         {
             throw new RequiredFieldsNotFilledException(
-                    "You need to fill in the customer, medium, and start date.");
+                    "You need to fill in customer, medium, and start date fields.");
         }
 
         if (_reservation.getDesiredDuration() == 0)

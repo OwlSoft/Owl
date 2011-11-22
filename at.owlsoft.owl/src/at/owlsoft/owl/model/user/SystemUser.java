@@ -67,6 +67,9 @@ public class SystemUser implements ISystemUser
         _roles = new ArrayList<Role>();
         _systemUserTransactions = new ArrayList<SystemUserTransaction>();
         _systemUserStatusEntries = new ArrayList<SystemUserStatusEntry>();
+
+        SystemUserStatusEntry suse = new SystemUserStatusEntry(new Date(),
+                "New user", SystemUserStatus.Active, this);
     }
 
     @Override

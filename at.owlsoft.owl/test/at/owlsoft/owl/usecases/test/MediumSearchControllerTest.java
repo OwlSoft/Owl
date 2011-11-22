@@ -18,6 +18,7 @@ import at.owlsoft.owl.model.SearchFieldType;
 import at.owlsoft.owl.model.media.Book;
 import at.owlsoft.owl.model.media.Medium;
 import at.owlsoft.owl.usecases.MediumSearchController;
+import db4oTestObjectGenerator.TestDataBaseConstructor;
 
 public class MediumSearchControllerTest
 {
@@ -77,5 +78,17 @@ public class MediumSearchControllerTest
         assertEquals(_mediumExpected.getPublisher(), result.get(0)
                 .getPublisher());
 
+    }
+
+    @Test
+    public void dataBaseTest()
+    {
+        TestDataBaseConstructor.setUpDataBase();
+        MediumSearchController controller = new MediumSearchController();
+        List<SearchField> criteria = new ArrayList<SearchField>();
+        criteria.add(new SearchField("_title", "Faust", SearchFieldType.Equals));
+        List<Medium> result = controller.search(criteria);
+        assertEquals(1, result.size());
+        assertEquals("Faust", ((Book) result.get(0)).getTitle());
     }
 }

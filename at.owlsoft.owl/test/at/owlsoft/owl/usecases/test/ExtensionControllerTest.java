@@ -67,6 +67,7 @@ public class ExtensionControllerTest
     @AfterClass
     public static void tearDown()
     {
+        DaoManager.closeDbConnection();
         new File(TEST_DB).delete();
     }
 

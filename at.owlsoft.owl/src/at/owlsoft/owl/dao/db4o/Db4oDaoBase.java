@@ -77,7 +77,7 @@ public abstract class Db4oDaoBase<T> implements IDao<T>
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc} Checks for the SearchFieldType --> default use is equals
      */
     @Override
     public List<T> queryByPropertyList(List<SearchField> keyValuePairs)
@@ -88,7 +88,23 @@ public abstract class Db4oDaoBase<T> implements IDao<T>
         // TODO: add constraint for class type
         for (SearchField entry : keyValuePairs)
         {
-            query.descend(entry.getKey()).constrain(entry.getValue());
+            switch (entry.getType())
+            {
+                case Greater:
+                    query.descend(entry.getKey()).constrain(entry.getValue())
+                            .greater();
+                    break;
+
+                case Lesser:
+                    query.descend(entry.getKey()).constrain(entry.getValue())
+                            .smaller();
+                    break;
+
+                default:
+                    query.descend(entry.getKey()).constrain(entry.getValue());
+                    break;
+            }
+
         }
 
         for (Object t : query.execute())

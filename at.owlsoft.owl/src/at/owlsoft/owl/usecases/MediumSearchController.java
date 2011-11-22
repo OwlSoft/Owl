@@ -1,6 +1,5 @@
 package at.owlsoft.owl.usecases;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import at.owlsoft.owl.dao.DaoManager;
@@ -19,12 +18,6 @@ public class MediumSearchController extends SearchController<Medium>
         IDaoFactory daoFactory = DaoManager.getInstance();
         IMediumDao dao = daoFactory.getMediumDao();
 
-        List<SearchField> properties = new ArrayList<SearchField>();
-        for (SearchField sf : searchFields)
-        {
-            properties.add(new SearchField(sf.getKey(), sf.getValue()));
-        }
-
-        return dao.queryByPropertyList(properties);
+        return dao.queryByPropertyList(searchFields);
     }
 }

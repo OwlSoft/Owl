@@ -91,7 +91,7 @@ public class SearchApi extends ApiBase implements ISearchApi
     }
 
     @Override
-    public List<IMedium> search()
+    public List<IMedium> search() throws RemoteException
     {
         try
         {

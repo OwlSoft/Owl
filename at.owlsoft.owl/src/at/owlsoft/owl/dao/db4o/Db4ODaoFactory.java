@@ -45,12 +45,12 @@ public class Db4ODaoFactory implements IDaoFactory
     /**
      * @return the db
      */
-    public static ObjectContainer getDb()
+    public ObjectContainer getDb()
     {
         return _db;
     }
 
-    private static ObjectContainer _db;
+    private ObjectContainer _db;
 
     @Override
     public IActivityDao getActivityDao()

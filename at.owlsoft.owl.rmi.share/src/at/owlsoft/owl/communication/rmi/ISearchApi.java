@@ -8,6 +8,6 @@ import at.owlsoft.owl.model.ISearchFieldCategory;
 
 public interface ISearchApi extends Remote
 {
-    List<? extends ISearchFieldCategory> getSearchFieldCategories()
+    List<ISearchFieldCategory> getSearchFieldCategories()
             throws RemoteException;
 }

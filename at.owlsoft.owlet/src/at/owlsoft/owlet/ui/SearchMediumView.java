@@ -36,7 +36,7 @@ public class SearchMediumView extends OwletView
         }
         catch (Exception e)
         {
-            Prompt.prompt(e.getMessage(), getWindow());
+            Prompt.prompt(e.getMessage(), null);
             setEnabled(false);
         }
 

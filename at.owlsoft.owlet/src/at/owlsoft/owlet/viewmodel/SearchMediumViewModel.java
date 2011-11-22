@@ -50,7 +50,7 @@ public class SearchMediumViewModel
 
     private void updateDefinitions() throws RemoteException
     {
-        java.util.List<? extends ISearchFieldCategory> categories = _searchApi
+        java.util.List<ISearchFieldCategory> categories = _searchApi
                 .getSearchFieldCategories();
 
         _searchFieldCategories = new ArrayList<ISearchFieldCategory>();

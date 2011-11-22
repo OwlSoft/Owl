@@ -1,6 +1,7 @@
 package at.owlsoft.owl.communication.rmi;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 import at.owlsoft.owl.business.SearchFieldDefinitionController;
@@ -22,10 +23,11 @@ public class SearchApi extends ApiBase implements ISearchApi
     private static final long serialVersionUID = 8248250017928395289L;
 
     @Override
-    public List<? extends ISearchFieldCategory> getSearchFieldCategories()
+    public List<ISearchFieldCategory> getSearchFieldCategories()
             throws RemoteException
     {
-        return _controller.getAllCategories();
+        return new ArrayList<ISearchFieldCategory>(
+                _controller.getAllCategories());
     }
 
 }

@@ -32,6 +32,7 @@ import org.apache.pivot.wtk.Display;
 import org.apache.pivot.wtk.Theme;
 import org.apache.pivot.wtk.Window;
 
+import at.owlsoft.owl.communication.rmi.AllPermissionSecurityManager;
 import at.owlsoft.owl.communication.rmi.IApiService;
 import at.owlsoft.owlet.context.RmiContext;
 import at.owlsoft.owlet.ui.MainWindow;
@@ -121,6 +122,7 @@ public class Owlet implements Application
      */
     public static void main(String[] args)
     {
+        System.setSecurityManager(new AllPermissionSecurityManager());
         DOMConfigurator.configure(Owlet.class.getResource(LOG4J_CONFIGURATION));
 
         java.util.List<String> s = new ArrayList<String>(Arrays.asList(args));

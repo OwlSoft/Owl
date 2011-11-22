@@ -2,6 +2,7 @@ package at.owlsoft.owl.usecases;
 
 import java.util.List;
 
+import at.owlsoft.owl.business.GlobalContextController;
 import at.owlsoft.owl.business.ISearchFieldValueConverter;
 import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.dao.IDaoFactory;
@@ -16,9 +17,8 @@ public class MediumSearchController extends SearchController<Medium>
     public List<Medium> search(List<SearchField> searchFields)
     {
 
-        // TODO
-        // FIXME
-        ISearchFieldValueConverter converter = null;
+        ISearchFieldValueConverter converter = GlobalContextController
+                .getSearchFieldValueConverter();
 
         IDaoFactory daoFactory = DaoManager.getInstance();
         IMediumDao dao = daoFactory.getMediumDao();

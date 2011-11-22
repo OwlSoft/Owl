@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
+import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.model.SearchField;
 import at.owlsoft.owl.model.SearchFieldType;
 import at.owlsoft.owl.model.media.Book;
@@ -47,6 +49,12 @@ public class MediumSearchControllerTest
         //
         // db.close();
 
+    }
+
+    @AfterClass
+    public static void tearDown()
+    {
+        DaoManager.closeDbConnection();
     }
 
     @Test

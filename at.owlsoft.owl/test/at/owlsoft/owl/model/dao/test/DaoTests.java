@@ -9,13 +9,13 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import at.owlsoft.owl.business.ISearchFieldValueConverter;
+import at.owlsoft.owl.business.SearchFieldDefinitionController;
 import at.owlsoft.owl.dao.DaoManager;
+import at.owlsoft.owl.dao.ISystemUserDao;
 import at.owlsoft.owl.model.SearchField;
 import at.owlsoft.owl.model.SearchFieldType;
 import at.owlsoft.owl.model.user.SystemUser;
-
-import com.db4o.Db4oEmbedded;
-import com.db4o.ObjectContainer;
 
 public class DaoTests
 {
@@ -38,8 +38,8 @@ public class DaoTests
             }
         }
 
-        ObjectContainer _db = Db4oEmbedded.openFile(
-                Db4oEmbedded.newConfiguration(), TEST_DB);
+        ISystemUserDao systemUserDao = DaoManager.getInstance(TEST_DB)
+                .getSystemUserDao();
 
         SystemUser manuel = new SystemUser();
         manuel.setFirstName("Manuel");
@@ -49,15 +49,15 @@ public class DaoTests
         hans.setFirstName("hans");
         hans.setLastName("plast");
 
-        _db.store(hans);
-        _db.store(manuel);
-        _db.commit();
-        _db.close();
+        systemUserDao.store(hans);
+        systemUserDao.store(manuel);
+
     }
 
     @AfterClass
     public static void tearDown()
     {
+        Assert.assertTrue(DaoManager.closeDbConnection());
         new File(TEST_DB).delete();
     }
 
@@ -71,8 +71,10 @@ public class DaoTests
         criterias.add(new SearchField("_firstName", "Manuel",
                 SearchFieldType.Equals));
 
+        ISearchFieldValueConverter controller = new SearchFieldDefinitionController();
+
         List<SystemUser> users = DaoManager.getInstance(TEST_DB)
-                .getSystemUserDao().queryByPropertyList(criterias);
+                .getSystemUserDao().queryByPropertyList(criterias, controller);
 
         for (SystemUser systemUser : users)
         {
@@ -91,8 +93,11 @@ public class DaoTests
         criterias.add(new SearchField("_firstName", "asdfsadfsadfsadf",
                 SearchFieldType.Equals));
 
-        List<SystemUser> users = DaoManager.getInstance(TEST_DB)
-                .getSystemUserDao().queryByPropertyList(criterias);
+        List<SystemUser> users = DaoManager
+                .getInstance(TEST_DB)
+                .getSystemUserDao()
+                .queryByPropertyList(criterias,
+                        new SearchFieldDefinitionController());
 
         for (SystemUser systemUser : users)
         {
@@ -111,8 +116,11 @@ public class DaoTests
         List<SearchField> criterias = new ArrayList<SearchField>();
         criterias.add(new SearchField("_firstName", "Manuel",
                 SearchFieldType.Equals));
-        List<SystemUser> users = DaoManager.getInstance(TEST_DB)
-                .getSystemUserDao().queryByPropertyList(criterias);
+        List<SystemUser> users = DaoManager
+                .getInstance(TEST_DB)
+                .getSystemUserDao()
+                .queryByPropertyList(criterias,
+                        new SearchFieldDefinitionController());
 
         int countUsers = 0;
         for (SystemUser systemUser : users)

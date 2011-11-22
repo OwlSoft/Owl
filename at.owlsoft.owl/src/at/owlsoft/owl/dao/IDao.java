@@ -2,6 +2,7 @@ public package at.owlsoft.owl.dao;
 
 import java.util.List;
 
+import at.owlsoft.owl.business.ISearchFieldValueConverter;
 import at.owlsoft.owl.model.SearchField;
 
 public interface IDao<T>
@@ -19,5 +20,7 @@ public interface IDao<T>
      * @param keyValuePairs
      * @return
      */
-    public abstract List<T> queryByPropertyList(List<SearchField> keyValuePairs);
+    public abstract List<T> queryByPropertyList(
+            List<SearchField> keyValuePairs,
+            ISearchFieldValueConverter converter);
 }

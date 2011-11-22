@@ -3,6 +3,7 @@ package at.owlsoft.owl.dao.db4o;
 import java.util.ArrayList;
 import java.util.List;
 
+import at.owlsoft.owl.business.ISearchFieldValueConverter;
 import at.owlsoft.owl.dao.IDao;
 import at.owlsoft.owl.model.SearchField;
 
@@ -80,8 +81,10 @@ public abstract class Db4oDaoBase<T> implements IDao<T>
      * {@inheritDoc} Checks for the SearchFieldType --> default use is equals
      */
     @Override
-    public List<T> queryByPropertyList(List<SearchField> keyValuePairs)
+    public List<T> queryByPropertyList(List<SearchField> keyValuePairs,
+            ISearchFieldValueConverter converter)
     {
+
         Query query = _db.query();
         query.constrain(_clazz);
         List<T> tempList = new ArrayList<T>();
@@ -91,17 +94,18 @@ public abstract class Db4oDaoBase<T> implements IDao<T>
             switch (entry.getType())
             {
                 case Greater:
-                    query.descend(entry.getKey()).constrain(entry.getValue())
-                            .greater();
+                    query.descend(entry.getKey())
+                            .constrain(converter.convert(entry)).greater();
                     break;
 
                 case Lesser:
-                    query.descend(entry.getKey()).constrain(entry.getValue())
-                            .smaller();
+                    query.descend(entry.getKey())
+                            .constrain(converter.convert(entry)).smaller();
                     break;
 
                 default:
-                    query.descend(entry.getKey()).constrain(entry.getValue());
+                    query.descend(entry.getKey()).constrain(
+                            converter.convert(entry));
                     break;
             }
 

@@ -1,5 +1,6 @@
 package at.owlsoft.owl.model.dao.test;
 
+import org.junit.AfterClass;
 import org.junit.Test;
 
 import EDU.purdue.cs.bloat.util.Assert;
@@ -20,6 +21,12 @@ public class DaoFactoryTest
         Assert.isNotNull(DaoManager.getInstance().getSystemUserStatusEntryDao());
         Assert.isNotNull(DaoManager.getInstance().getSystemUserTransactionDao());
         Assert.isNotNull(DaoManager.getInstance().getTagDao());
+    }
+
+    @AfterClass
+    public static void tearDown()
+    {
+        Assert.isTrue(DaoManager.closeDbConnection());
     }
 
     @Test

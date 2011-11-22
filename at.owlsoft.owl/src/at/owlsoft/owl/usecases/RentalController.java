@@ -22,7 +22,7 @@ public class RentalController
 
     public void newRental()
     {
-        _rental = new Rental();
+        _rental = new Rental(new Date());
         _messages = null;
         // TODO where comes the creator from??
         // _rental.setCreator(creator)
@@ -53,6 +53,8 @@ public class RentalController
                     .equals(MediumExemplarStatus.Rentable))
             {
                 _rental.setMediumExemplar(exemplare);
+                // TODO Replace dummy endDate with value from config
+                _rental.setEndDate(new Date());
                 rentableFound = true;
                 break;
             }

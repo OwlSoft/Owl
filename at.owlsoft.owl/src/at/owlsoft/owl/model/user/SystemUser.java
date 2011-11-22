@@ -313,4 +313,10 @@ public class SystemUser implements ISystemUser
     {
         _systemUserStatusEntries.remove(systemUserStatusEntry);
     }
+
+    public SystemUserStatusEntry getLastSystemUserStatusEntry()
+    {
+        return _systemUserStatusEntries
+                .get(_systemUserStatusEntries.size() - 1);
+    }
 }

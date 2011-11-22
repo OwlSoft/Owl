@@ -98,6 +98,11 @@ public abstract class Activity implements IActivity
         _activityStatusEntries.remove(activityStatusEntry);
     }
 
+    public ActivityStatusEntry getLastActivityStatusEntry()
+    {
+        return _activityStatusEntries.get(_activityStatusEntries.size() - 1);
+    }
+
     @Override
     public MediumExemplar getMediumExemplar()
     {

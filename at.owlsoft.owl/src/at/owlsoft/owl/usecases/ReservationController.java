@@ -11,7 +11,6 @@ import at.owlsoft.owl.model.accounting.Reservation;
 import at.owlsoft.owl.model.media.Medium;
 import at.owlsoft.owl.model.media.MediumExemplar;
 import at.owlsoft.owl.model.media.MediumExemplarStatus;
-import at.owlsoft.owl.model.media.MediumExemplarStatusEntry;
 import at.owlsoft.owl.model.user.SystemUser;
 import at.owlsoft.owl.model.user.SystemUserStatus;
 
@@ -39,27 +38,30 @@ public class ReservationController
         _reservation.setStartDate(startDate);
     }
 
-    public void save() throws RentalNotAllowedException,
-            NoRentableCopyException
+    public void save() throws ReservationNotPossibleException,
+            InvalidUserException, RequiredFieldsNotFilledException
     {
         validate();
         saveReservation();
     }
 
-    private void validate() throws RentalNotAllowedException
+    private void validate() throws ReservationNotPossibleException,
+            InvalidUserException, RequiredFieldsNotFilledException
     {
         // Check if all fields are set
         if (_reservation.getCustomer() == null
                 || _reservation.getMedium() == null
                 || _reservation.getStartDate() == null)
         {
-            //TODO Throw some exception about not all fields saved
+            throw new RequiredFieldsNotFilledException(
+                    "You need to fill in the customer, medium, and start date.");
         }
 
-        if (_reservation.getDesiredDuration() == 0) {
-            //TODO get max reservation time from configuration
+        if (_reservation.getDesiredDuration() == 0)
+        {
+            // TODO get max reservation time from configuration
         }
-        
+
         // Check if there are any copies free on that date
 
         // Amount of copies available at specified date
@@ -95,37 +97,61 @@ public class ReservationController
 
         // Now check number of reservations within that span of time
         // Counting variable
-        int reservedInTimespam = 0;
-        
+        int reservedInTimespan = 0;
+
         Calendar newReservationStartDate = Calendar.getInstance();
         newReservationStartDate.setTime(_reservation.getStartDate());
+        Calendar newReservationEndDate = Calendar.getInstance();
+        newReservationEndDate.setTime(_reservation.getStartDate());
+        newReservationEndDate.add(Calendar.DATE,
+                _reservation.getDesiredDuration());
 
-
-        
         // Iterate over all reservations
         for (Activity activity : medium.getActivities())
         {
-            // Cast to reservation, because a medium can only have Reservations as Activity
+            // Cast to reservation, because a medium can only have Reservations
+            // as Activity
             Reservation reservation = (Reservation) activity;
-            Calendar endDate = Calendar.getInstance();
-            endDate.setTime(reservation.getStartDate());
-            endDate.add(Calendar.DATE, reservation.getDesiredDuration());
-            if (endDate.before())
+
+            // Reservation still open?
+            ActivityStatusEntry ase = reservation.getLastActivityStatusEntry();
+            if (ase.getActivityStatus() == ActivityStatus.Open)
+            {
+
+                // Get start date of reservation
+                Calendar startDate = Calendar.getInstance();
+                startDate.setTime(reservation.getStartDate());
+                // Get end date of reservation
+                Calendar endDate = Calendar.getInstance();
+                endDate.setTime(reservation.getStartDate());
+                endDate.add(Calendar.DATE, reservation.getDesiredDuration());
+                // Check if reservation falls into same time span
+                if ((startDate.before(newReservationStartDate) && endDate
+                        .after(newReservationStartDate))
+                        || (startDate.before(newReservationEndDate) && endDate
+                                .after(newReservationEndDate)))
+                {
+                    reservedInTimespan++;
+                }
+            }
         }
 
+        if (reservedInTimespan >= copiesAvailable)
+        {
+            throw new ReservationNotPossibleException(
+                    "No copies available in given time span");
+        }
+
+        // Check if user can make a reservation
         SystemUser customer = _reservation.getCustomer();
-        SystemUserStatus renterStatus = customer.getSystemUserStatusEntry(
-                customer.getSystemUserStatusEntryCount() - 1)
-                .getSystemUserStatus();
+        SystemUserStatus reservatorStatus = customer
+                .getLastSystemUserStatusEntry().getSystemUserStatus();
 
-        if (!renterStatus.equals(SystemUserStatus.Active))
+        if (!reservatorStatus.equals(SystemUserStatus.Active))
         {
-            throw new InvalidUserException(renterStatus.name());
+            throw new InvalidUserException(reservatorStatus.name());
         }
-        if (_reservation.getMediumExemplar() == null)
-        {
-            throw new NoReserveableCopyException();
-        }
+
     }
 
     private void saveReservation()
@@ -135,19 +161,5 @@ public class ReservationController
         ase.setDate(new Date());
         _reservation.addActivityStatusEntry(ase);
         DaoManager.getInstance().getReservationDao().store(_reservation);
-        updateMediumExemplar();
-
-    }
-
-    private void updateMediumExemplar()
-    {
-        MediumExemplarStatusEntry mese = new MediumExemplarStatusEntry();
-        mese.setMediumExemplarStatus(MediumExemplarStatus.Rented);
-        mese.setDate(new Date());
-        _reservation.getMediumExemplar().addMediumExemplarStatusEntry(mese);
-        mese.setMediumExemplar(_reservation.getMediumExemplar());
-        DaoManager.getInstance().getMediumExemplarDao()
-                .store(_reservation.getMediumExemplar());
-
     }
 }

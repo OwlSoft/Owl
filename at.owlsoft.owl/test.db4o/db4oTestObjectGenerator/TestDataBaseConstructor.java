@@ -139,4 +139,9 @@ public class TestDataBaseConstructor
         new File(TEST_DB).delete();
     }
 
+    public static void main(String[] args)
+    {
+        resetDataBase();
+    }
+
 }

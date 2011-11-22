@@ -35,9 +35,12 @@ public class DaoManager
 
     public static boolean closeDbConnection()
     {
-        boolean dbClose = _factory.closeDbConnection();
-        _factory = null;
-        return dbClose;
+        if (_factory != null)
+        {
+            boolean dbClose = _factory.closeDbConnection();
+            _factory = null;
+            return dbClose;
+        }
+        return true;
     }
-
 }

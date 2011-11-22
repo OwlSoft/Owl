@@ -2,6 +2,7 @@ package at.owlsoft.owl.usecases.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -11,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import at.owlsoft.owl.dao.DaoManager;
+import at.owlsoft.owl.dao.IMediumDao;
 import at.owlsoft.owl.model.SearchField;
 import at.owlsoft.owl.model.SearchFieldType;
 import at.owlsoft.owl.model.media.Book;
@@ -42,19 +44,17 @@ public class MediumSearchControllerTest
         m2.setName(_name);
         _mediumExpected = m2;
 
-        // ObjectContainer db = Db4oEmbedded.openFile("DB4OFILENAME");
-        //
-        // db.store(m1);
-        // db.store(m2);
-        //
-        // db.close();
-
+        IMediumDao mdao = DaoManager.getInstance("MEDIUMSEARCHCONTROLLERTEST")
+                .getMediumDao();
+        mdao.store(m1);
+        mdao.store(m2);
     }
 
     @AfterClass
     public static void tearDown()
     {
         DaoManager.closeDbConnection();
+        new File("MEDIUMSEARCHCONTROLLERTEST").delete();
     }
 
     @Test
@@ -69,7 +69,7 @@ public class MediumSearchControllerTest
                 SearchFieldType.Equals));
         List<Medium> result = controller.search(criteria);
 
-        assertEquals(4, result.size());
+        assertEquals(2, result.size());
         // test find exaclty one meda
         criteria.add(new SearchField("_name", _name, SearchFieldType.Equals));
         result = controller.search(criteria);

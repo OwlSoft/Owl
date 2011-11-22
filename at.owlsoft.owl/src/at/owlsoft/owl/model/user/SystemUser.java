@@ -47,6 +47,10 @@ public class SystemUser implements ISystemUser
         _roles = new ArrayList<Role>();
         _systemUserTransactions = new ArrayList<SystemUserTransaction>();
         _systemUserStatusEntries = new ArrayList<SystemUserStatusEntry>();
+
+        SystemUserStatusEntry suse = new SystemUserStatusEntry(new Date(),
+                "New user", SystemUserStatus.Active, this);
+        _systemUserStatusEntries.add(suse);
     }
 
     public SystemUser(int userID, int cardID, String username, String password,
@@ -70,6 +74,7 @@ public class SystemUser implements ISystemUser
 
         SystemUserStatusEntry suse = new SystemUserStatusEntry(new Date(),
                 "New user", SystemUserStatus.Active, this);
+        _systemUserStatusEntries.add(suse);
     }
 
     @Override

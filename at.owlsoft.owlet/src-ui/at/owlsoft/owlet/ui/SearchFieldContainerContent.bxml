@@ -10,11 +10,13 @@
 	<TablePane styles="{horizontalSpacing:5}">
 		<columns>
 			<TablePane.Column width="150" />
+			<TablePane.Column width="100" />
 			<TablePane.Column width="1*" />
 			<TablePane.Column width="20" />
 		</columns>
 		<TablePane.Row height="-1">
 			<ListButton bxml:id="searchFieldKey" />
+			<ListButton bxml:id="searchFieldType" />
 			<TextInput bxml:id="searchFieldValue" />
 			<PushButton bxml:id="deleteSearchField" buttonData="x" />
 		</TablePane.Row>

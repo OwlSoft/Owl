@@ -87,6 +87,7 @@ public class RentalControllerTest
     @AfterClass
     public static void tearDown()
     {
+        DaoManager.closeDbConnection();
         new File(TEST_DB).delete();
     }
 

@@ -1,15 +1,12 @@
 package at.owlsoft.owl.communication.rmi;
 
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
-public class ReturnApi extends UnicastRemoteObject implements IReturnApi
+public class ReturnApi extends ApiBase implements IReturnApi
 {
-
-    protected ReturnApi() throws RemoteException
+    public ReturnApi(ApiFactory factory) throws RemoteException
     {
-        super();
-        // TODO Auto-generated constructor stub
+        super(factory);
     }
 
     /**

@@ -26,19 +26,25 @@ public class SearchMediumView extends OwletView
     }
 
     @Override
-    public void initialize(Map<String, Object> ns, URL location,
-            Resources resources)
+    protected void onViewOpened()
     {
-        setEnabled(true);
         try
         {
             _viewModel.initialize();
         }
         catch (Exception e)
         {
-            Prompt.prompt(e.getMessage(), null);
+            Prompt.prompt(e.getMessage(), getWindow());
             setEnabled(false);
         }
+
+    }
+
+    @Override
+    public void initialize(Map<String, Object> ns, URL location,
+            Resources resources)
+    {
+        setEnabled(true);
 
         _searchFieldPane = (BoxPane) ns.get("searchFieldPane");
         ButtonPressListener addSearchFieldListener = new ButtonPressListener()
@@ -61,4 +67,5 @@ public class SearchMediumView extends OwletView
         SearchFieldContainer container = new SearchFieldContainer(_viewModel);
         _searchFieldPane.add(container);
     }
+
 }

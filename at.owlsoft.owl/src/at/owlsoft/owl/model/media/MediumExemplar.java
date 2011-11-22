@@ -177,7 +177,7 @@ public class MediumExemplar implements IMediumExemplar
         for (Activity activity : this.getActivities())
         {
 
-            if (activity.getClass().isInstance(Rental.class))
+            if (activity instanceof Rental)
             {
                 Date date = activity.getStartDate();
 

@@ -5,18 +5,12 @@
 	</SearchFieldCategory>
 	<SearchFieldCategory key="BOOK" label="Books">
 		<SearchFieldDefinition key="_publisher" type="String" label="Publisher" />	
-		<SearchFieldDefinition key="_publishedDate" type="DateTime" label="" />
-		<SearchFieldDefinition key="_author" type="String" label="Publisher" />	
-		<SearchFieldDefinition key="_title" type="String" label="" />	
-		<SearchFieldDefinition key="_abstract" type="String" label="Publisher" />	
-		<SearchFieldDefinition key="_pages" type="Integer" label="" />	
-		<SearchFieldDefinition key="_isbn10" type="String" label="Publisher" />	
-		<SearchFieldDefinition key="_isbn13" type="String" label="" />				
+		<SearchFieldDefinition key="_publishedDate" type="DateTime" label="Published Date" />
+		<SearchFieldDefinition key="_author" type="String" label="Author" />	
+		<SearchFieldDefinition key="_title" type="String" label="Title" />	
+		<SearchFieldDefinition key="_abstract" type="String" label="Abstract" />	
+		<SearchFieldDefinition key="_pages" type="Integer" label="Pages" />	
+		<SearchFieldDefinition key="_isbn10" type="String" label="ISBN-10" />	
+		<SearchFieldDefinition key="_isbn13" type="String" label="ISBN-13" />				
 	</SearchFieldCategory>
-	<SearchFieldCategory key="SYSTEMUSER" label="SystemUsers">
-		<SearchFieldDefinition key="_firstName" type="String" label="Publisher" />	
-		<SearchFieldDefinition key="_lastName" type="String" label="" />			
-	</SearchFieldCategory>
-	
-
 </SearchFieldCategories>

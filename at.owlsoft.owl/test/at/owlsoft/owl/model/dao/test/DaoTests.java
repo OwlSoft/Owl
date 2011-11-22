@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.model.SearchField;
+import at.owlsoft.owl.model.SearchFieldType;
 import at.owlsoft.owl.model.user.SystemUser;
 
 import com.db4o.Db4oEmbedded;
@@ -67,7 +68,8 @@ public class DaoTests
         System.out.println("test1");
 
         List<SearchField> criterias = new ArrayList<SearchField>();
-        criterias.add(new SearchField("_firstName", "Manuel"));
+        criterias.add(new SearchField("_firstName", "Manuel",
+                SearchFieldType.Equals));
 
         List<SystemUser> users = DaoManager.getInstance(TEST_DB)
                 .getSystemUserDao().queryByPropertyList(criterias);
@@ -86,7 +88,8 @@ public class DaoTests
         System.out.println("test2");
 
         List<SearchField> criterias = new ArrayList<SearchField>();
-        criterias.add(new SearchField("_firstName", "asdfsadfsadfsadf"));
+        criterias.add(new SearchField("_firstName", "asdfsadfsadfsadf",
+                SearchFieldType.Equals));
 
         List<SystemUser> users = DaoManager.getInstance(TEST_DB)
                 .getSystemUserDao().queryByPropertyList(criterias);
@@ -106,7 +109,8 @@ public class DaoTests
         // come out with this query
         System.out.println("test 3");
         List<SearchField> criterias = new ArrayList<SearchField>();
-        criterias.add(new SearchField("_firstName", "Manuel"));
+        criterias.add(new SearchField("_firstName", "Manuel",
+                SearchFieldType.Equals));
         List<SystemUser> users = DaoManager.getInstance(TEST_DB)
                 .getSystemUserDao().queryByPropertyList(criterias);
 

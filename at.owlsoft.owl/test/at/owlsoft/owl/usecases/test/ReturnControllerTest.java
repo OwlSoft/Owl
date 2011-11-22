@@ -9,6 +9,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.model.accounting.ActivityStatus;
 import at.owlsoft.owl.model.accounting.Rental;
 import at.owlsoft.owl.model.media.Book;
@@ -19,9 +20,6 @@ import at.owlsoft.owl.model.user.SystemUser;
 import at.owlsoft.owl.model.user.SystemUserStatus;
 import at.owlsoft.owl.model.user.SystemUserStatusEntry;
 import at.owlsoft.owl.usecases.ReturnController;
-
-import com.db4o.Db4oEmbedded;
-import com.db4o.ObjectContainer;
 
 public class ReturnControllerTest
 {
@@ -45,9 +43,6 @@ public class ReturnControllerTest
             }
         }
 
-        ObjectContainer _db = Db4oEmbedded.openFile(
-                Db4oEmbedded.newConfiguration(), TEST_DB);
-
         Medium medium = new Book();
         medium.setMediumID(0);
         MediumExemplar toReturn = new MediumExemplar(0, medium);
@@ -67,10 +62,10 @@ public class ReturnControllerTest
         toReturn.addActivity(rental);
         rental.setCustomer(returner);
 
-        _db.store(toReturn);
-        _db.store(rental);
-        _db.store(returner);
-        _db.store(medium);
+        DaoManager.getInstance(TEST_DB).getMediumExemplarDao().store(toReturn);
+        DaoManager.getInstance(TEST_DB).getActivityDao().store(rental);
+        DaoManager.getInstance(TEST_DB).getSystemUserDao().store(returner);
+        DaoManager.getInstance(TEST_DB).getMediumDao().store(medium);
 
         _copy = toReturn;
 
@@ -79,6 +74,7 @@ public class ReturnControllerTest
     @AfterClass
     public static void tearDown()
     {
+        DaoManager.closeDbConnection();
         new File(TEST_DB).delete();
     }
 

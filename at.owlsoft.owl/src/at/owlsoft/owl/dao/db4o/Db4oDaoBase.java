@@ -7,7 +7,6 @@ import at.owlsoft.owl.business.ISearchFieldValueConverter;
 import at.owlsoft.owl.dao.IDao;
 import at.owlsoft.owl.model.SearchField;
 
-import com.db4o.ObjectContainer;
 import com.db4o.query.Query;
 
 /**
@@ -15,30 +14,12 @@ import com.db4o.query.Query;
  */
 public abstract class Db4oDaoBase<T> implements IDao<T>
 {
-    private Class<T>        _clazz;
-    private ObjectContainer _db;
+    private Class<T> _clazz;
 
-    protected Db4oDaoBase(Class<T> clazz, ObjectContainer db)
+    protected Db4oDaoBase(Class<T> clazz)
     {
         super();
-        _db = db;
         _clazz = clazz;
-    }
-
-    /**
-     * @return the db
-     */
-    public ObjectContainer getDb()
-    {
-        return _db;
-    }
-
-    /**
-     * @param db the db to set
-     */
-    public void setDb(ObjectContainer db)
-    {
-        _db = db;
     }
 
     /**
@@ -47,7 +28,7 @@ public abstract class Db4oDaoBase<T> implements IDao<T>
     @Override
     public void delete(T object)
     {
-        _db.delete(object);
+        Db4ODaoFactory.getInstance("").getDb().delete(object);
 
     }
 
@@ -57,7 +38,7 @@ public abstract class Db4oDaoBase<T> implements IDao<T>
     @Override
     public void store(T object)
     {
-        _db.store(object);
+        Db4ODaoFactory.getInstance("").getDb().store(object);
 
     }
 
@@ -68,7 +49,8 @@ public abstract class Db4oDaoBase<T> implements IDao<T>
     public List<T> queryByExample(T object)
     {
         List<T> tempList = new ArrayList<T>();
-        for (Object t : _db.queryByExample(object))
+        for (Object t : Db4ODaoFactory.getInstance("").getDb()
+                .queryByExample(object))
         {
             tempList.add((T) t);
         }
@@ -85,7 +67,7 @@ public abstract class Db4oDaoBase<T> implements IDao<T>
             ISearchFieldValueConverter converter)
     {
 
-        Query query = _db.query();
+        Query query = Db4ODaoFactory.getInstance("").getDb().query();
         query.constrain(_clazz);
         List<T> tempList = new ArrayList<T>();
         // TODO: add constraint for class type

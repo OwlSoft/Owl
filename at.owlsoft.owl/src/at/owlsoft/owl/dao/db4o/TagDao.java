@@ -3,33 +3,23 @@ package at.owlsoft.owl.dao.db4o;
 import at.owlsoft.owl.dao.ITagDao;
 import at.owlsoft.owl.model.media.Tag;
 
-import com.db4o.ObjectContainer;
-
 public class TagDao extends Db4oDaoBase<Tag> implements ITagDao
 {
-    private static TagDao _factory;
+    private static TagDao _instance;
 
-    static TagDao getInstance(ObjectContainer db)
+    static TagDao getInstance()
     {
-        if (_factory == null)
+        if (_instance == null)
         {
-            if (db != null)
-            {
-                _factory = new TagDao(db);
-            }
-            else
-            {
-                throw new NoDatabaseConfiguredException();
-            }
+            _instance = new TagDao();
         }
 
-        return _factory;
+        return _instance;
     }
 
-    private TagDao(ObjectContainer db)
+    private TagDao()
     {
-        super(Tag.class, db);
+        super(Tag.class);
         // TODO Auto-generated constructor stub
     }
-
 }

@@ -3,33 +3,24 @@ package at.owlsoft.owl.dao.db4o;
 import at.owlsoft.owl.dao.ISystemUserTransactionDao;
 import at.owlsoft.owl.model.user.SystemUserTransaction;
 
-import com.db4o.ObjectContainer;
-
 public class SystemUserTransactionDao extends
         Db4oDaoBase<SystemUserTransaction> implements ISystemUserTransactionDao
 {
-    private static SystemUserTransactionDao _factory;
+    private static SystemUserTransactionDao _instance;
 
-    static SystemUserTransactionDao getInstance(ObjectContainer db)
+    static SystemUserTransactionDao getInstance()
     {
-        if (_factory == null)
+        if (_instance == null)
         {
-            if (db != null)
-            {
-                _factory = new SystemUserTransactionDao(db);
-            }
-            else
-            {
-                throw new NoDatabaseConfiguredException();
-            }
+            _instance = new SystemUserTransactionDao();
         }
 
-        return _factory;
+        return _instance;
     }
 
-    private SystemUserTransactionDao(ObjectContainer db)
+    private SystemUserTransactionDao()
     {
-        super(SystemUserTransaction.class, db);
+        super(SystemUserTransaction.class);
         // TODO Auto-generated constructor stub
     }
 

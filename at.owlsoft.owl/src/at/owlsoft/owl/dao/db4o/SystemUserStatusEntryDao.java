@@ -3,35 +3,27 @@ package at.owlsoft.owl.dao.db4o;
 import at.owlsoft.owl.dao.ISystemUserStatusEntryDao;
 import at.owlsoft.owl.model.user.SystemUserStatusEntry;
 
-import com.db4o.ObjectContainer;
-
 public class SystemUserStatusEntryDao extends
         Db4oDaoBase<SystemUserStatusEntry> implements ISystemUserStatusEntryDao
 {
 
-    private static SystemUserStatusEntryDao _factory;
+    private static SystemUserStatusEntryDao _instance;
 
-    static SystemUserStatusEntryDao getInstance(ObjectContainer db)
+    static SystemUserStatusEntryDao getInstance()
     {
-        if (_factory == null)
+        if (_instance == null)
         {
-            if (db != null)
-            {
-                _factory = new SystemUserStatusEntryDao(db);
-            }
-            else
-            {
-                throw new NoDatabaseConfiguredException();
-            }
+
+            _instance = new SystemUserStatusEntryDao();
+
         }
 
-        return _factory;
+        return _instance;
     }
 
-    private SystemUserStatusEntryDao(ObjectContainer db)
+    private SystemUserStatusEntryDao()
     {
-        super(SystemUserStatusEntry.class, db);
+        super(SystemUserStatusEntry.class);
         // TODO Auto-generated constructor stub
     }
-
 }

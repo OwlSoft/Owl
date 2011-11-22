@@ -3,35 +3,27 @@ package at.owlsoft.owl.dao.db4o;
 import at.owlsoft.owl.dao.IMediumExemplarDao;
 import at.owlsoft.owl.model.media.MediumExemplar;
 
-import com.db4o.ObjectContainer;
-
 public class MediumExemplarDao extends Db4oDaoBase<MediumExemplar> implements
         IMediumExemplarDao
 
 {
-    private static MediumExemplarDao _factory;
+    private static MediumExemplarDao _instance;
 
-    static MediumExemplarDao getInstance(ObjectContainer db)
+    static MediumExemplarDao getInstance()
     {
-        if (_factory == null)
+        if (_instance == null)
         {
-            if (db != null)
-            {
-                _factory = new MediumExemplarDao(db);
-            }
-            else
-            {
-                throw new NoDatabaseConfiguredException();
-            }
+
+            _instance = new MediumExemplarDao();
+
         }
 
-        return _factory;
+        return _instance;
     }
 
-    private MediumExemplarDao(ObjectContainer db)
+    private MediumExemplarDao()
     {
-        super(MediumExemplar.class, db);
+        super(MediumExemplar.class);
         // TODO Auto-generated constructor stub
     }
-
 }

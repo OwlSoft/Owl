@@ -11,6 +11,12 @@ DB4OFILENAME
 DB40FILENAME
 **/DB40FILENAME
 
+**/testDB
+
+rentalTestDb
+testDb
+**/testDB
+
 # ignore temp files
 .DS_Store 
 *.bak

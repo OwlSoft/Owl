@@ -3,33 +3,26 @@ package at.owlsoft.owl.dao.db4o;
 import at.owlsoft.owl.dao.IConfigurationDao;
 import at.owlsoft.owl.model.Configuration;
 
-import com.db4o.ObjectContainer;
-
 public class ConfigurationDao extends Db4oDaoBase<Configuration> implements
         IConfigurationDao
 {
-    private static ConfigurationDao _factory;
+    private static ConfigurationDao _instance;
 
-    static ConfigurationDao getInstance(ObjectContainer db)
+    static ConfigurationDao getInstance()
     {
-        if (_factory == null)
+        if (_instance == null)
         {
-            if (db != null)
-            {
-                _factory = new ConfigurationDao(db);
-            }
-            else
-            {
-                throw new NoDatabaseConfiguredException();
-            }
+
+            _instance = new ConfigurationDao();
+
         }
 
-        return _factory;
+        return _instance;
     }
 
-    private ConfigurationDao(ObjectContainer db)
+    private ConfigurationDao()
     {
-        super(Configuration.class, db);
+        super(Configuration.class);
     }
 
 }

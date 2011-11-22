@@ -3,33 +3,24 @@ package at.owlsoft.owl.dao.db4o;
 import at.owlsoft.owl.dao.IActivityDao;
 import at.owlsoft.owl.model.accounting.Activity;
 
-import com.db4o.ObjectContainer;
-
 public class ActivityDao extends Db4oDaoBase<Activity> implements IActivityDao
 {
 
-    private static ActivityDao _factory;
+    private static ActivityDao _instance;
 
-    static ActivityDao getInstance(ObjectContainer db)
+    static ActivityDao getInstance()
     {
-        if (_factory == null)
+        if (_instance == null)
         {
-            if (db != null)
-            {
-                _factory = new ActivityDao(db);
-            }
-            else
-            {
-                throw new NoDatabaseConfiguredException();
-            }
+            _instance = new ActivityDao();
         }
 
-        return _factory;
+        return _instance;
     }
 
-    private ActivityDao(ObjectContainer db)
+    private ActivityDao()
     {
-        super(Activity.class, db);
+        super(Activity.class);
     }
 
 }

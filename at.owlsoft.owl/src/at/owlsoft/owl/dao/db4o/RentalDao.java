@@ -3,34 +3,26 @@ package at.owlsoft.owl.dao.db4o;
 import at.owlsoft.owl.dao.IRentalDao;
 import at.owlsoft.owl.model.accounting.Rental;
 
-import com.db4o.ObjectContainer;
-
 public class RentalDao extends Db4oDaoBase<Rental> implements IRentalDao
 
 {
-    private static RentalDao _factory;
+    private static RentalDao _instance;
 
-    static RentalDao getInstance(ObjectContainer db)
+    static RentalDao getInstance()
     {
-        if (_factory == null)
+        if (_instance == null)
         {
-            if (db != null)
-            {
-                _factory = new RentalDao(db);
-            }
-            else
-            {
-                throw new NoDatabaseConfiguredException();
-            }
+
+            _instance = new RentalDao();
+
         }
 
-        return _factory;
+        return _instance;
     }
 
-    private RentalDao(ObjectContainer db)
+    private RentalDao()
     {
-        super(Rental.class, db);
+        super(Rental.class);
         // TODO Auto-generated constructor stub
     }
-
 }

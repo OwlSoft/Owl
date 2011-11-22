@@ -1,5 +1,7 @@
 package at.owlsoft.owl.dao.db4o;
 
+import org.apache.log4j.Logger;
+
 import at.owlsoft.owl.dao.IActivityDao;
 import at.owlsoft.owl.dao.IConfigurationDao;
 import at.owlsoft.owl.dao.IDaoFactory;
@@ -12,106 +14,126 @@ import at.owlsoft.owl.dao.ISystemUserStatusEntryDao;
 import at.owlsoft.owl.dao.ISystemUserTransactionDao;
 import at.owlsoft.owl.dao.ITagDao;
 
+import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 
 public class Db4ODaoFactory implements IDaoFactory
 {
 
-    private static Db4ODaoFactory  _factory;
-    private static ObjectContainer _db;
+    private static Db4ODaoFactory _factory;
 
-    private Db4ODaoFactory()
+    private static Logger         _logger = Logger.getLogger(Db4ODaoFactory.class);
+
+    private Db4ODaoFactory(String connectionString)
     {
+        _db = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),
+                connectionString);
     }
 
-    public static IDaoFactory getInstance(ObjectContainer db)
+    public static Db4ODaoFactory getInstance(String connectionString)
     {
-        if (db != null)
-        {
-            _db = db;
-        }
         if (_factory == null)
         {
-            if (_db != null)
-            {
-                _factory = new Db4ODaoFactory();
-            }
-            else
-            {
-                throw new NoDatabaseConfiguredException(
-                        "no database configured in this factory, use getInstance method parameter");
-            }
+            _factory = new Db4ODaoFactory(connectionString);
         }
+
         return _factory;
     }
+
+    /**
+     * @return the db
+     */
+    public static ObjectContainer getDb()
+    {
+        return _db;
+    }
+
+    private static ObjectContainer _db;
 
     @Override
     public IActivityDao getActivityDao()
     {
         // TODO Auto-generated method stub
-        return ActivityDao.getInstance(_db);
+        return ActivityDao.getInstance();
     }
 
     @Override
     public IConfigurationDao getConfigurationDao()
     {
         // TODO Auto-generated method stub
-        return ConfigurationDao.getInstance(_db);
+        return ConfigurationDao.getInstance();
     }
 
     @Override
     public IMediumDao getMediumDao()
     {
         // TODO Auto-generated method stub
-        return MediumDao.getInstance(_db);
+        return MediumDao.getInstance();
     }
 
     @Override
     public IMediumExemplarDao getMediumExemplarDao()
     {
         // TODO Auto-generated method stub
-        return MediumExemplarDao.getInstance(_db);
+        return MediumExemplarDao.getInstance();
     }
 
     @Override
     public IRentalDao getRentalDao()
     {
         // TODO Auto-generated method stub
-        return RentalDao.getInstance(_db);
+        return RentalDao.getInstance();
     }
 
     @Override
     public ISystemUserDao getSystemUserDao()
     {
         // TODO Auto-generated method stub
-        return SystemUserDao.getInstance(_db);
+        return SystemUserDao.getInstance();
     }
 
     @Override
     public ISystemUserStatusEntryDao getSystemUserStatusEntryDao()
     {
         // TODO Auto-generated method stub
-        return SystemUserStatusEntryDao.getInstance(_db);
+        return SystemUserStatusEntryDao.getInstance();
     }
 
     @Override
     public ISystemUserTransactionDao getSystemUserTransactionDao()
     {
         // TODO Auto-generated method stub
-        return SystemUserTransactionDao.getInstance(_db);
+        return SystemUserTransactionDao.getInstance();
     }
 
     @Override
     public ITagDao getTagDao()
     {
         // TODO Auto-generated method stub
-        return TagDao.getInstance(_db);
+        return TagDao.getInstance();
     }
 
     @Override
     public IReservationDao getReservationDao()
     {
         // TODO Auto-generated method stub
-        return ReservationDao.getInstance(_db);
+        return ReservationDao.getInstance();
+    }
+
+    @Override
+    public boolean closeDbConnection()
+    {
+        boolean dbClose = _db.close();
+        if (!dbClose)
+        {
+            _logger.debug("already closed or other error occured");
+        }
+        else
+        {
+            _logger.debug("closing db Connection");
+        }
+        _db = null;
+        _factory = null;
+        return dbClose;
     }
 }

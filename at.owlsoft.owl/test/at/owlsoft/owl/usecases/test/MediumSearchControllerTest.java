@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import at.owlsoft.owl.model.SearchField;
+import at.owlsoft.owl.model.SearchFieldType;
 import at.owlsoft.owl.model.media.Book;
 import at.owlsoft.owl.model.media.Medium;
 import at.owlsoft.owl.usecases.MediumSearchController;
@@ -56,12 +57,13 @@ public class MediumSearchControllerTest
         List<SearchField> criteria = new ArrayList<SearchField>();
 
         // test find many media
-        criteria.add(new SearchField("_publisher", _publisher));
+        criteria.add(new SearchField("_publisher", _publisher,
+                SearchFieldType.Equals));
         List<Medium> result = controller.search(criteria);
 
         assertEquals(4, result.size());
         // test find exaclty one meda
-        criteria.add(new SearchField("_name", _name));
+        criteria.add(new SearchField("_name", _name, SearchFieldType.Equals));
         result = controller.search(criteria);
         assertEquals(_mediumExpected.getName(), result.get(0).getName());
         assertEquals(_mediumExpected.getPublisher(), result.get(0)

@@ -6,21 +6,21 @@ import java.util.List;
 
 public class SearchFieldCategory implements ISearchFieldCategory
 {
-    private static final long serialVersionUID = 7452532013084192465L;
+    private static final long           serialVersionUID = 7452532013084192465L;
 
-    private String            _label;
-    private List<SearchField> _searchFields;
+    private String                      _label;
+    private List<SearchFieldDefinition> _searchFields;
 
     public SearchFieldCategory()
     {
-        _searchFields = new ArrayList<SearchField>();
+        _searchFields = new ArrayList<SearchFieldDefinition>();
     }
 
     public SearchFieldCategory(String label)
     {
         super();
         _label = label;
-        _searchFields = new ArrayList<SearchField>();
+        _searchFields = new ArrayList<SearchFieldDefinition>();
     }
 
     @Override
@@ -36,13 +36,13 @@ public class SearchFieldCategory implements ISearchFieldCategory
     }
 
     @Override
-    public SearchField getSearchField(int index)
+    public SearchFieldDefinition getSearchField(int index)
     {
         return _searchFields.get(index);
     }
 
     @Override
-    public List<SearchField> getSearchFields()
+    public List<SearchFieldDefinition> getSearchFields()
     {
         return Collections.unmodifiableList(_searchFields);
     }
@@ -52,12 +52,12 @@ public class SearchFieldCategory implements ISearchFieldCategory
         _searchFields.clear();
     }
 
-    public void addSearchField(SearchField searchField)
+    public void addSearchField(SearchFieldDefinition searchField)
     {
         _searchFields.add(searchField);
     }
 
-    public void removeSearchField(SearchField searchField)
+    public void removeSearchField(SearchFieldDefinition searchField)
     {
         _searchFields.remove(searchField);
     }

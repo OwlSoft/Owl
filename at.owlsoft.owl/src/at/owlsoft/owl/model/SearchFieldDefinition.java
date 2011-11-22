@@ -2,20 +2,40 @@ package at.owlsoft.owl.model;
 
 public class SearchFieldDefinition implements ISearchFieldDefinition
 {
-    private static final long serialVersionUID = 6935396387381422618L;
+    private static final long   serialVersionUID = 6935396387381422618L;
 
-    private String            _key;
-    private String            _label;
+    private String              _key;
+    private String              _label;
+    private SearchFieldDataType _keyType;
 
     public SearchFieldDefinition()
     {
+        super();
     }
 
-    public SearchFieldDefinition(String key, String label)
+    public SearchFieldDefinition(String key, String label,
+            SearchFieldDataType type)
     {
-        super();
+        this();
         _key = key;
         _label = label;
+        _keyType = type;
+    }
+
+    /**
+     * @return the keyType
+     */
+    public SearchFieldDataType getKeyType()
+    {
+        return _keyType;
+    }
+
+    /**
+     * @param keyType the keyType to set
+     */
+    public void setKeyType(SearchFieldDataType keyType)
+    {
+        _keyType = keyType;
     }
 
     @Override

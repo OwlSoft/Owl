@@ -99,10 +99,6 @@ public class ReservationControllerTest
             _reservationController.setMedium(book);
             _reservationController.save();
         }
-        catch (RequiredFieldsNotFilledException e)
-        {
-            Assert.assertTrue("RequiredFieldsNotFilledException thrown", true);
-        }
         catch (Exception e)
         {
             Assert.assertFalse("Expected Exception not thrown, " + e.getClass()

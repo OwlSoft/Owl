@@ -1,33 +1,17 @@
 package at.owlsoft.owlet.ui;
 
-import javax.swing.JPanel;
+import org.apache.pivot.beans.Bindable;
+import org.apache.pivot.wtk.BoxPane;
+import org.apache.pivot.wtk.Orientation;
 
-public abstract class OwletView extends JPanel
+public abstract class OwletView extends BoxPane implements Bindable
 {
-    private static final long serialVersionUID = 278712600508864416L;
-
-    private String            _title;
-    private String            _key;
-
-    public String getTitle()
+    public OwletView()
     {
-        return _title;
+        setOrientation(Orientation.VERTICAL);
+        getStyles().put("fill", true);
+        getStyles().put("padding", 10);
     }
-
-    public String getKey()
-    {
-        return _key;
-    }
-
-    public OwletView(String key, String title)
-    {
-        super();
-        _key = key;
-        _title = title;
-        initializeComponents();
-    }
-
-    protected abstract void initializeComponents();
 
     protected boolean onViewClosing()
     {
@@ -39,9 +23,8 @@ public abstract class OwletView extends JPanel
 
     }
 
-    protected boolean onViewOpening()
+    protected void onViewOpening()
     {
-        return true;
     }
 
     protected void onViewOpened()

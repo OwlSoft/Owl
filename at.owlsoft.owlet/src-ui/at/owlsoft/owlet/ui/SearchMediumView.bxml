@@ -1,0 +1,23 @@
+<owlet:SearchMediumView xmlns:bxml="http://pivot.apache.org/bxml"
+	xmlns:owlet="at.owlsoft.owlet.ui" xmlns:content="org.apache.pivot.wtk.content"
+	xmlns:collections="org.apache.pivot.collections" xmlns="org.apache.pivot.wtk">
+	<TablePane>
+		<columns>
+			<TablePane.Column width="1*" />
+		</columns>
+		<TablePane.Row height="-1">
+			<Form styles="{fill:true}">
+				<Form.Section heading="Search">
+					<Border>
+						<BoxPane orientation="vertical" bxml:id="searchFieldPane" styles="{horizontalAlignment:'left', verticalAlignment:'top', fill:true}">
+						</BoxPane>
+					</Border>
+					<PushButton buttonData="Add new search field" bxml:id="addSearchFieldButton" />
+				</Form.Section>
+			</Form>
+		</TablePane.Row>
+		<TablePane.Row height="1*">
+			<Label text="HelloWorld" />
+		</TablePane.Row> 
+	</TablePane>
+</owlet:SearchMediumView>

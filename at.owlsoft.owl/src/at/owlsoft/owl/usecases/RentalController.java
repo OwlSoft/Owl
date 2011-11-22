@@ -23,6 +23,7 @@ public class RentalController
     public void newRental()
     {
         _rental = new Rental();
+        _messages = null;
         // TODO where comes the creator from??
         // _rental.setCreator(creator)
     }
@@ -35,6 +36,11 @@ public class RentalController
     public List<ValidationMessage> setMediumExemplar(Medium medium)
     {
         boolean rentableFound = false;
+
+        if (_rental == null)
+        {
+            newRental();
+        }
 
         for (MediumExemplar exemplare : medium.getMediumExemplars())
         {
@@ -63,6 +69,10 @@ public class RentalController
 
     public List<ValidationMessage> setCustomer(SystemUser customer)
     {
+        if (_rental == null)
+        {
+            newRental();
+        }
         _rental.setCustomer(customer);
         validate(ValidationMode.NotStrict);
         return _messages;
@@ -70,6 +80,10 @@ public class RentalController
 
     public List<ValidationMessage> save()
     {
+        if (_rental == null)
+        {
+            newRental();
+        }
         if (validate(ValidationMode.Strict))
         {
             saveRental();
@@ -86,6 +100,7 @@ public class RentalController
         _rental.addActivityStatusEntry(ase);
         DaoManager.getInstance().getRentalDao().store(_rental);
         updateMediumExemplar();
+        _rental = null;
 
     }
 
@@ -96,6 +111,7 @@ public class RentalController
         mese.setDate(new Date());
         _rental.getMediumExemplar().addMediumExemplarStatusEntry(mese);
         mese.setMediumExemplar(_rental.getMediumExemplar());
+        _rental.getMediumExemplar().addActivity(_rental);
         DaoManager.getInstance().getMediumExemplarDao()
                 .store(_rental.getMediumExemplar());
 
@@ -111,7 +127,7 @@ public class RentalController
     {
         boolean hasNoError = true;
 
-        List<ValidationMessage> messages = new ArrayList<ValidationMessage>();
+        _messages = new ArrayList<ValidationMessage>();
 
         SystemUser renter = _rental.getCustomer();
         SystemUserStatus renterStatus = renter.getSystemUserStatusEntry(
@@ -120,12 +136,11 @@ public class RentalController
 
         if (!renterStatus.equals(SystemUserStatus.Active))
         {
-            String message = "Customer " + renter.getFirstName() + " "
-                    + renter.getLastName() + " is inactive with state "
+            String message = "Customer is inactive with state "
                     + renterStatus.name();
             ValidationMessage vm = new ValidationMessage(message,
                     ValidationMessageStatus.Error);
-            messages.add(vm);
+            _messages.add(vm);
             hasNoError = false;
         }
 
@@ -134,7 +149,7 @@ public class RentalController
             String message = "No copy choosen.";
             ValidationMessage vm = new ValidationMessage(message,
                     ValidationMessageStatus.Error);
-            messages.add(vm);
+            _messages.add(vm);
             hasNoError = false;
         }
 

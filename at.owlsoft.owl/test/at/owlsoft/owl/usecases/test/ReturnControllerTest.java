@@ -1,4 +1,4 @@
-package at.owlsoft.owl.usecases;
+package at.owlsoft.owl.usecases.test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,13 +18,14 @@ import at.owlsoft.owl.model.user.AccountMode;
 import at.owlsoft.owl.model.user.SystemUser;
 import at.owlsoft.owl.model.user.SystemUserStatus;
 import at.owlsoft.owl.model.user.SystemUserStatusEntry;
+import at.owlsoft.owl.usecases.ReturnController;
 
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 
 public class ReturnControllerTest
 {
-    private static final String   TEST_DB = "testDb";
+    private static final String   TEST_DB = "returnTestDb";
     private static MediumExemplar _copy;
 
     @BeforeClass

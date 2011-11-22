@@ -1,0 +1,5 @@
+<owlet:CreateReservationView xmlns:bxml="http://pivot.apache.org/bxml"
+	xmlns:owlet="at.owlsoft.owlet.ui" xmlns:content="org.apache.pivot.wtk.content"
+	xmlns:collections="org.apache.pivot.collections" xmlns="org.apache.pivot.wtk">
+	<Label text="Nobody is here to create a reservation!" />
+</owlet:CreateReservationView>

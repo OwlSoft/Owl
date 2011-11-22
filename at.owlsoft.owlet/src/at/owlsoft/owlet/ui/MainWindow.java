@@ -1,133 +1,106 @@
 package at.owlsoft.owlet.ui;
 
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
+import java.net.URL;
 
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
+import org.apache.pivot.beans.Bindable;
+import org.apache.pivot.collections.Map;
+import org.apache.pivot.util.Resources;
+import org.apache.pivot.wtk.Action;
+import org.apache.pivot.wtk.BoxPane;
+import org.apache.pivot.wtk.Component;
+import org.apache.pivot.wtk.MenuBar;
+import org.apache.pivot.wtk.Prompt;
+import org.apache.pivot.wtk.Window;
 
-import at.owlsoft.owlet.ui.rental.CreateRentalView;
-import at.owlsoft.owlet.ui.reservation.CreateReservationView;
-import at.owlsoft.owlet.ui.search.SearchMediumView;
-
-public class MainWindow extends JFrame
+public class MainWindow extends Window implements Bindable
 {
-    private static final String    TITLE_TEMPLATE   = "Owlsoft Owlet - %s";
-    private static final long      serialVersionUID = 3947781234498915049L;
+    // private static final String TITLE_TEMPLATE = "Owlsoft Owlet - %s";
 
-    private Map<String, OwletView> _accessibleViews;
-    private JPanel                 _viewBox;
-    private OwletView              _currentView;
+    private BoxPane _viewBox;
+    private MenuBar _menu;
 
-    public MainWindow()
+    /**
+     * Actions
+     */
+    static
     {
-        _accessibleViews = new HashMap<String, OwletView>();
-
-        // NOTE: As soon we have an authentication system,
-        // we need to check for accessible actions
-        registerView(new CreateRentalView());
-        registerView(new CreateReservationView());
-        registerView(new SearchMediumView());
-
-        initializeComponents();
-    }
-
-    private void registerView(OwletView view)
-    {
-        _accessibleViews.put(view.getKey(), view);
-    }
-
-    private void initializeComponents()
-    {
-        ActionListener changeViewAction = new ActionListener()
+        // Define the actions
+        Action.getNamedActions().put("quitApplication", new Action()
         {
             @Override
-            public void actionPerformed(ActionEvent e)
+            public void perform(Component source)
             {
-                openView(e.getActionCommand());
+                System.exit(0);
             }
-        };
+        });
 
-        //
-        // fileMenu
-        //
-        JMenu fileMenu = new JMenu("File");
-
-        for (OwletView owletView : _accessibleViews.values())
+        Action.getNamedActions().put("todo", new Action()
         {
-            JMenuItem item = new JMenuItem(owletView.getTitle());
-            item.setActionCommand(owletView.getKey());
-            item.addActionListener(changeViewAction);
-            fileMenu.add(item);
-        }
-
-        //
-        // mainMenuBar
-        //
-        JMenuBar mainMenu = new JMenuBar();
-        mainMenu.add(fileMenu);
-
-        //
-        // _viewBox
-        //
-        _viewBox = new JPanel();
-        //
-        // MainWindow
-        //
-        setLayout(new BorderLayout());
-        add(mainMenu, BorderLayout.NORTH);
-        add(_viewBox, BorderLayout.CENTER);
-        setSize(800, 600);
-        setResizable(false);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setDefaultTitle();
-    }
-
-    private void openView(String viewId)
-    {
-        if (!_accessibleViews.containsKey(viewId))
-        {
-            return;
-        }
-
-        if (_currentView != null)
-        {
-            if (!_currentView.onViewClosing())
+            @Override
+            public void perform(Component source)
             {
-                return;
+                Prompt.prompt("This feature is not implemented yet!", source
+                        .getWindow().getRootOwner());
             }
-        }
+        });
 
-        _viewBox.removeAll();
-
-        if (_currentView != null)
+        // other xml views
+        Action.getNamedActions().put("searchMedium", new Action()
         {
-            _currentView.onViewClosed();
-        }
-
-        OwletView view = _accessibleViews.get(viewId);
-        if (view.onViewOpening())
+            @Override
+            public void perform(Component source)
+            {
+                ViewController.getInstance().loadContent("SearchMediumView",
+                        source.getWindow().getRootOwner());
+            }
+        });
+        Action.getNamedActions().put("createRental", new Action()
         {
-            _viewBox.add(_accessibleViews.get(viewId));
-            _viewBox.validate();
-            _viewBox.repaint();
-            view.onViewOpened();
-            setTitle(String.format(TITLE_TEMPLATE, view.getTitle()));
-        }
-        else
+            @Override
+            public void perform(Component source)
+            {
+                ViewController.getInstance().loadContent("CreateRentalView",
+                        source.getWindow().getRootOwner());
+            }
+        });
+        Action.getNamedActions().put("createReservation", new Action()
         {
-            setDefaultTitle();
-        }
+            @Override
+            public void perform(Component source)
+            {
+                ViewController.getInstance().loadContent(
+                        "CreateReservationView",
+                        source.getWindow().getRootOwner());
+            }
+        });
+        Action.getNamedActions().put("showRental", new Action()
+        {
+            @Override
+            public void perform(Component source)
+            {
+                ViewController.getInstance().loadContent("ShowRentalView",
+                        source.getWindow().getRootOwner());
+            }
+        });
     }
 
-    private void setDefaultTitle()
+    public BoxPane getViewBox()
     {
-        setTitle(String.format(TITLE_TEMPLATE, "Dashboard"));
+        return _viewBox;
     }
+
+    public MenuBar getMenu()
+    {
+        return _menu;
+    }
+
+    @Override
+    public void initialize(Map<String, Object> ns, URL loc, Resources es)
+    {
+        _viewBox = (BoxPane) ns.get("content");
+        _menu = (MenuBar) ns.get("menu");
+
+        ViewController.getInstance().loadContent("DashboardView", this);
+    }
+
 }

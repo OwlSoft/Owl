@@ -93,31 +93,39 @@ public class SearchApi extends ApiBase implements ISearchApi
     @Override
     public List<IMedium> search()
     {
-        List<SearchField> fields = new ArrayList<SearchField>();
-        logger.trace("building criterias");
-        for (SearchField searchField : _searchFields.values())
+        try
         {
-            if (searchField != null && searchField.getKey() != null
-                    && searchField.getValue() != null
-                    && !searchField.getValue().trim().isEmpty())
+            List<SearchField> fields = new ArrayList<SearchField>();
+            logger.trace("building criterias");
+            for (SearchField searchField : _searchFields.values())
             {
-                if (searchField.getType() == null)
+                if (searchField != null && searchField.getKey() != null
+                        && searchField.getValue() != null
+                        && !searchField.getValue().trim().isEmpty())
                 {
-                    searchField.setType(SearchFieldType.Equals);
+                    if (searchField.getType() == null)
+                    {
+                        searchField.setType(SearchFieldType.Equals);
+                    }
+                    logger.trace("  Search includes " + searchField.getKey()
+                            + ":" + searchField.getValue());
+
+                    fields.add(searchField);
                 }
-                logger.trace("  Search includes " + searchField.getKey() + ":"
-                        + searchField.getValue());
-
-                fields.add(searchField);
             }
+
+            logger.trace("Searching with " + fields.size() + " criterias");
+
+            List<Medium> result = _searchController.search(fields);
+
+            logger.trace("found: " + result.size());
+
+            return new ArrayList<IMedium>(result);
         }
-
-        logger.trace("Searching with " + fields.size() + " criterias");
-
-        List<Medium> result = _searchController.search(fields);
-
-        logger.trace("found: " + result.size());
-
-        return new ArrayList<IMedium>(result);
+        catch (Exception e)
+        {
+            logger.error("Could not search", e);
+            throw new RemoteException(e.toString());
+        }
     }
 }

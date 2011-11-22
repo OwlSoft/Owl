@@ -4,9 +4,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import at.owlsoft.owl.dao.DaoManager;
@@ -20,8 +20,8 @@ public class DaoTests
 {
     private static final String TEST_DB = "testDb";
 
-    @Before
-    public void setup()
+    @BeforeClass
+    public static void setup()
     {
         // this test must be executed as administrator otherwise the db file
         // will not be deleted
@@ -54,8 +54,8 @@ public class DaoTests
         _db.close();
     }
 
-    @After
-    public void tearDown()
+    @AfterClass
+    public static void tearDown()
     {
         new File(TEST_DB).delete();
     }
@@ -67,7 +67,7 @@ public class DaoTests
         System.out.println("test1");
 
         List<SearchField> criterias = new ArrayList<SearchField>();
-        criterias.add(new SearchField("firstName", "Manuel"));
+        criterias.add(new SearchField("_firstName", "Manuel"));
 
         List<SystemUser> users = DaoManager.getInstance(TEST_DB)
                 .getSystemUserDao().queryByPropertyList(criterias);
@@ -106,8 +106,8 @@ public class DaoTests
         // come out with this query
         System.out.println("test 3");
         List<SearchField> criterias = new ArrayList<SearchField>();
-        criterias.add(new SearchField("firstName", "Manuel"));
-        List<SystemUser> users = DaoManager.getInstance("testDb")
+        criterias.add(new SearchField("_firstName", "Manuel"));
+        List<SystemUser> users = DaoManager.getInstance(TEST_DB)
                 .getSystemUserDao().queryByPropertyList(criterias);
 
         int countUsers = 0;
@@ -118,6 +118,7 @@ public class DaoTests
         }
         System.out.println(countUsers);
 
+        Assert.assertTrue(users.size() > 0);
         Assert.assertEquals(users.size(), countUsers);
 
     }

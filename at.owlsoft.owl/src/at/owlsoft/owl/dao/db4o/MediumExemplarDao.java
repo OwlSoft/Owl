@@ -30,7 +30,7 @@ public class MediumExemplarDao extends Db4oDaoBase<MediumExemplar> implements
 
     private MediumExemplarDao(ObjectContainer db)
     {
-        super(db);
+        super(MediumExemplar.class, db);
         // TODO Auto-generated constructor stub
     }
 

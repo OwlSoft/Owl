@@ -29,7 +29,7 @@ public class SystemUserTransactionDao extends
 
     private SystemUserTransactionDao(ObjectContainer db)
     {
-        super(db);
+        super(SystemUserTransaction.class, db);
         // TODO Auto-generated constructor stub
     }
 

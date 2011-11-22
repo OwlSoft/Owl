@@ -9,10 +9,20 @@ import at.owlsoft.owl.model.SearchField;
 import com.db4o.ObjectContainer;
 import com.db4o.query.Query;
 
+/**
+ * @param <T>
+ */
 public abstract class Db4oDaoBase<T> implements IDao<T>
 {
-
+    private Class<T>        _clazz;
     private ObjectContainer _db;
+
+    protected Db4oDaoBase(Class<T> clazz, ObjectContainer db)
+    {
+        super();
+        _db = db;
+        _clazz = clazz;
+    }
 
     /**
      * @return the db
@@ -27,12 +37,6 @@ public abstract class Db4oDaoBase<T> implements IDao<T>
      */
     public void setDb(ObjectContainer db)
     {
-        _db = db;
-    }
-
-    protected Db4oDaoBase(ObjectContainer db)
-    {
-        super();
         _db = db;
     }
 
@@ -79,6 +83,7 @@ public abstract class Db4oDaoBase<T> implements IDao<T>
     public List<T> queryByPropertyList(List<SearchField> keyValuePairs)
     {
         Query query = _db.query();
+        query.constrain(_clazz);
         List<T> tempList = new ArrayList<T>();
         // TODO: add constraint for class type
         for (SearchField entry : keyValuePairs)

@@ -58,7 +58,7 @@ public class DaoTests
     public static void tearDown()
     {
         Assert.assertTrue(DaoManager.closeDbConnection());
-        // new File(TEST_DB).delete();
+        new File(TEST_DB).delete();
     }
 
     @Test

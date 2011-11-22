@@ -25,7 +25,7 @@ public interface ISearchFieldCategory extends Serializable
 
     int getSearchFieldCount();
 
-    ISearchField getSearchField(int index);
+    ISearchFieldDefinition getSearchField(int index);
 
-    List<? extends ISearchField> getSearchFields();
+    List<? extends ISearchFieldDefinition> getSearchFields();
 }

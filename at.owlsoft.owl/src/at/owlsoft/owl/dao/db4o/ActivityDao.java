@@ -29,8 +29,7 @@ public class ActivityDao extends Db4oDaoBase<Activity> implements IActivityDao
 
     private ActivityDao(ObjectContainer db)
     {
-        super(db);
-        // TODO Auto-generated constructor stub
+        super(Activity.class, db);
     }
 
 }

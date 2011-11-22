@@ -29,8 +29,7 @@ public class ConfigurationDao extends Db4oDaoBase<Configuration> implements
 
     private ConfigurationDao(ObjectContainer db)
     {
-        super(db);
-        // TODO Auto-generated constructor stub
+        super(Configuration.class, db);
     }
 
 }

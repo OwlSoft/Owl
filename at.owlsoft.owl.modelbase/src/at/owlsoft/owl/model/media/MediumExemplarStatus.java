@@ -18,5 +18,5 @@ public package at.owlsoft.owl.model.media;
 
 public enum MediumExemplarStatus
 {
-    Rentable, Rented, Returned, StockItem, Reserved
+    Rentable, Rented, Returned, StockItem
 }

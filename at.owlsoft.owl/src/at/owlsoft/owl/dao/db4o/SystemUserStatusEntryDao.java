@@ -30,7 +30,7 @@ public class SystemUserStatusEntryDao extends
 
     private SystemUserStatusEntryDao(ObjectContainer db)
     {
-        super(db);
+        super(SystemUserStatusEntry.class, db);
         // TODO Auto-generated constructor stub
     }
 

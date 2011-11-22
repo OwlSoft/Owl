@@ -1,0 +1,38 @@
+{  
+	Label: {
+		color: '#2e2e2e'
+	},
+
+	TableViewCellRenderer: {
+		color: '#2e2e2e'
+	},
+
+	MenuBarItem: {
+		font: {
+			name: "Arial",
+			size: 14
+		}
+	},
+
+	infoBox: {
+		cornerRadii: 5,
+		color: '#9ca6af',
+		backgroundColor: '#eef1ff',
+		padding: 5
+	},
+
+	warningBox: {
+		cornerRadii: 5,
+		color: '#ffe993',
+		backgroundColor: '#fff7da',
+		padding: 5
+	},
+
+	errorBox: {
+		cornerRadii: 5,
+		color: '#d26868',
+		backgroundColor: '#ffecec',
+		padding: 5
+	}
+
+}

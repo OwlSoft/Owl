@@ -1,0 +1,58 @@
+<owlet:MainWindow 
+	xmlns:bxml="http://pivot.apache.org/bxml"
+	xmlns:owlet="at.owlsoft.owlet.ui" maximized="true" xmlns:content="org.apache.pivot.wtk.content"
+	xmlns="org.apache.pivot.wtk">
+	<TablePane>
+		<columns>
+			<TablePane.Column width="1*" />
+		</columns>
+		<TablePane.Row height="-1">
+			<StackPane>
+				<ImageView image="@menu_bg.gif" styles="{fill:true, preserveAspectRatio:false}" />
+				<MenuBar bxml:id="menu"
+					styles="{backgroundColor: '0x00000000', color: '#FFFFFF', disabledColor:'#E0E0E0'}">
+					<MenuBar.Item buttonData="File">
+						<Menu>
+							<Menu.Section>
+								<Menu.Item action="searchMedium">
+									<buttonData>
+										<content:MenuItemData text="Search Medium" />
+									</buttonData>
+								</Menu.Item>
+								<Menu.Item action="createRental">
+									<buttonData>
+										<content:MenuItemData text="Rent a Medium" />
+									</buttonData>
+								</Menu.Item>
+								<Menu.Item action="createReservation">
+									<buttonData>
+										<content:MenuItemData text="Reserve a Medium" />
+									</buttonData>
+								</Menu.Item>
+								<Menu.Item action="showRental">
+									<buttonData>
+										<content:MenuItemData text="Show a Rental" />
+									</buttonData>
+								</Menu.Item>
+								<Menu.Item action="quitApplication">
+									<buttonData>
+										<content:MenuItemData text="Beenden"
+											keyboardShortcut="CMD-Q" />
+									</buttonData>
+								</Menu.Item>
+							</Menu.Section>
+						</Menu>
+					</MenuBar.Item>
+
+				</MenuBar>
+			</StackPane>
+		</TablePane.Row>
+		<TablePane.Row height="1*">
+			<ScrollPane>
+				<BoxPane bxml:id="content" orientation="vertical"
+					styles="{fill:true, padding: 5, spacing:10}" preferredWidth="900">
+				</BoxPane>
+			</ScrollPane>
+		</TablePane.Row>
+	</TablePane>
+</owlet:MainWindow>

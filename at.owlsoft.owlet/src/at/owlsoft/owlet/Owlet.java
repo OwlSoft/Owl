@@ -16,46 +16,100 @@
  */
 package at.owlsoft.owlet;
 
-import javax.swing.UIManager;
+import java.awt.Font;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.xml.DOMConfigurator;
+import org.apache.pivot.beans.BXMLSerializer;
+import org.apache.pivot.collections.Map;
+import org.apache.pivot.wtk.Application;
+import org.apache.pivot.wtk.ApplicationContext;
+import org.apache.pivot.wtk.DesktopApplicationContext;
+import org.apache.pivot.wtk.Display;
+import org.apache.pivot.wtk.Theme;
+import org.apache.pivot.wtk.Window;
 
 import at.owlsoft.owlet.ui.MainWindow;
+import at.owlsoft.owlet.ui.ViewController;
 
 /**
  * This is the main application class of the Owlet client.
  */
-public class Owlet
+public class Owlet implements Application
 {
     private static final String LOG4J_CONFIGURATION = "/log4j.xml";
     private static final Logger logger              = Logger.getLogger(Owlet.class);
 
+    private Window              _mainWindow         = null;
+
     /**
-     * This is the main application entry point.
+     * @see org.apache.pivot.wtk.Application#resume()
+     */
+    @Override
+    public void resume() throws Exception
+    {
+    }
+
+    /**
+     * @see org.apache.pivot.wtk.Application#shutdown(boolean)
+     */
+    @Override
+    public boolean shutdown(boolean arg0) throws Exception
+    {
+        logger.trace("Shutdown application");
+        if (_mainWindow != null)
+        {
+            _mainWindow.close();
+        }
+        return false;
+    }
+
+    /**
+     * @see org.apache.pivot.wtk.Application#startup(org.apache.pivot.wtk.Display,
+     *      org.apache.pivot.collections.Map)
+     */
+    @Override
+    public void startup(Display display, Map<String, String> args)
+            throws Exception
+    {
+        // Load custom styles
+        logger.trace("Setup GUI Styles");
+        ApplicationContext
+                .applyStylesheet("/at/owlsoft/owlet/ui/OwlStyles.json");
+        Theme.getTheme().setFont(new Font("Arial", Font.PLAIN, 12));
+
+        // Startup mainwindow
+        logger.trace("Loading UI");
+        BXMLSerializer bxmlSerializer = new BXMLSerializer();
+
+        ViewController.getInstance();
+        _mainWindow = (Window) bxmlSerializer.readObject(MainWindow.class,
+                "MainWindow" + ViewController.PIVOT_FILE_EXTENSION);
+
+        // "EasyDietMainWindow" + ViewController.PIVOT_FILE_EXTENSION);
+
+        _mainWindow.open(display);
+    }
+
+    /**
+     * @see org.apache.pivot.wtk.Application#suspend()
+     */
+    @Override
+    public void suspend() throws Exception
+    {
+        logger.trace("Suspending Owl");
+    }
+
+    /**
+     * The applications main entry point.
      * 
-     * @param args the commandline argument passed to the application
+     * @param args The console arguments formatted in --key=value per element.
      */
     public static void main(String[] args)
     {
-        try
-        {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        }
-        catch (Exception e)
-        {
-            logger.error("Could not set system look&feel", e);
-        }
-
-        DOMConfigurator.configure(Owlet.class.getResource(LOG4J_CONFIGURATION));
-
-        MainWindow mainWindow = new MainWindow();
-        mainWindow.setSize(800, 600);
-        mainWindow.setLocationRelativeTo(null);
-        mainWindow.setVisible(true);
-    }
-
-    public Owlet()
-    {
+        java.util.List<String> s = new ArrayList<String>(Arrays.asList(args));
+        s.add("--maximized=true");
+        DesktopApplicationContext.main(Owlet.class, s.toArray(new String[0]));
     }
 }

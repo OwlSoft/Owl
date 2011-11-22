@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Border
+	styles="{cornerRadii:10, padding:5, backgroundColor: '#F0F0F0'}"
+	xmlns:bxml="http://pivot.apache.org/bxml"
+	xmlns:content="org.apache.pivot.wtk.content"
+	xmlns:effects="org.apache.pivot.wtk.effects"
+	xmlns:collections="org.apache.pivot.collections"
+	xmlns="org.apache.pivot.wtk"
+>
+	<TablePane styles="{horizontalSpacing:5}">
+		<columns>
+			<TablePane.Column width="150" />
+			<TablePane.Column width="1*" />
+			<TablePane.Column width="20" />
+		</columns>
+		<TablePane.Row height="-1">
+			<ListButton bxml:id="searchFieldKey" />
+			<TextInput bxml:id="searchFieldValue" />
+			<PushButton bxml:id="deleteSearchField" buttonData="x" />
+		</TablePane.Row>
+	</TablePane>
+</Border>	

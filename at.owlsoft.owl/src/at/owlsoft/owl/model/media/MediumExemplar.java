@@ -27,8 +27,10 @@ import java.util.Set;
 import at.owlsoft.owl.model.accounting.Activity;
 import at.owlsoft.owl.model.accounting.Rental;
 
-public class MediumExemplar
+public class MediumExemplar implements IMediumExemplar
 {
+    private static final long               serialVersionUID = -8170488267868538262L;
+
     private int                             _exemplarID;
     private Map<String, Object>             _metaData;
     private Medium                          _medium;
@@ -52,6 +54,7 @@ public class MediumExemplar
         _activities = new ArrayList<Activity>();
     }
 
+    @Override
     public int getExemplarID()
     {
         return _exemplarID;
@@ -62,16 +65,19 @@ public class MediumExemplar
         _exemplarID = exemplarID;
     }
 
+    @Override
     public Object getMetaData(String key)
     {
         return getMetaData(key, null);
     }
 
+    @Override
     public Set<String> getMetaDataKeys()
     {
         return Collections.unmodifiableSet(_metaData.keySet());
     }
 
+    @Override
     public Object getMetaData(String key, Object defaultValue)
     {
         Object value = _metaData.get(key);
@@ -83,6 +89,7 @@ public class MediumExemplar
         _metaData.put(key, value);
     }
 
+    @Override
     public Medium getMedium()
     {
         return _medium;
@@ -93,16 +100,19 @@ public class MediumExemplar
         _medium = medium;
     }
 
+    @Override
     public int getMediumExemplarStatusEntryCount()
     {
         return _mediumExemplarStatusEntries.size();
     }
 
+    @Override
     public MediumExemplarStatusEntry getMediumExemplarStatusEntry(int index)
     {
         return _mediumExemplarStatusEntries.get(index);
     }
 
+    @Override
     public List<MediumExemplarStatusEntry> getMediumExemplarStatusEntries()
     {
         return Collections.unmodifiableList(_mediumExemplarStatusEntries);
@@ -126,16 +136,19 @@ public class MediumExemplar
         _mediumExemplarStatusEntries.remove(mediumExemplarStatusEntry);
     }
 
+    @Override
     public int getActivityCount()
     {
         return _activities.size();
     }
 
+    @Override
     public Activity getActivity(int index)
     {
         return _activities.get(index);
     }
 
+    @Override
     public List<Activity> getActivities()
     {
         return Collections.unmodifiableList(_activities);
@@ -157,6 +170,7 @@ public class MediumExemplar
         _activities.remove(activity);
     }
 
+    @Override
     public Rental getLastRental()
     {
         Rental last = null;

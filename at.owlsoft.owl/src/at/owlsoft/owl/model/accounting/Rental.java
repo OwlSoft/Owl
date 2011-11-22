@@ -21,8 +21,9 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class Rental extends Activity
+public class Rental extends Activity implements IRental
 {
+    private static final long     serialVersionUID = 7711071715379325765L;
     private Date                  _endDate;
     private List<FilingExtension> _filingExtensions;
 
@@ -38,6 +39,7 @@ public class Rental extends Activity
         _filingExtensions = new ArrayList<FilingExtension>();
     }
 
+    @Override
     public Date getEndDate()
     {
         return _endDate;
@@ -48,16 +50,19 @@ public class Rental extends Activity
         _endDate = endDate;
     }
 
+    @Override
     public int getFilingExtensionCount()
     {
         return _filingExtensions.size();
     }
 
+    @Override
     public FilingExtension getFilingExtension(int index)
     {
         return _filingExtensions.get(index);
     }
 
+    @Override
     public List<FilingExtension> getFilingExtensions()
     {
         return Collections.unmodifiableList(_filingExtensions);

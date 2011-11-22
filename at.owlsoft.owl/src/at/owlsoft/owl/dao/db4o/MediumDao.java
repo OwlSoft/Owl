@@ -1,11 +1,11 @@
 package at.owlsoft.owl.dao.db4o;
 
-import at.owlsoft.owl.dao.IDao.IMediumDao;
+import at.owlsoft.owl.dao.IMediumDao;
 import at.owlsoft.owl.model.media.Medium;
 
 import com.db4o.ObjectContainer;
 
-public class MediumDao extends GeneralDb4oDaoBase<Medium> implements IMediumDao
+public class MediumDao extends Db4oDaoBase<Medium> implements IMediumDao
 {
     private static MediumDao _factory;
 
@@ -28,8 +28,7 @@ public class MediumDao extends GeneralDb4oDaoBase<Medium> implements IMediumDao
 
     private MediumDao(ObjectContainer db)
     {
-        super(db);
-        // TODO Auto-generated constructor stub
+        super(Medium.class, db);
     }
 
 }

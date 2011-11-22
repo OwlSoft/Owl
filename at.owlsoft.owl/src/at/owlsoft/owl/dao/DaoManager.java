@@ -17,10 +17,15 @@ public class DaoManager
 
     public static IDaoFactory getInstance()
     {
+        return getInstance("DB4OFILENAME");
+    }
+
+    public static IDaoFactory getInstance(String connectionString)
+    {
         if (_db == null)
         {
             _db = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),
-                    "DB4OFILENAME");
+                    connectionString);
         }
 
         if (_factory == null)

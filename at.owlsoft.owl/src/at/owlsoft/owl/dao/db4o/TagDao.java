@@ -1,11 +1,11 @@
 package at.owlsoft.owl.dao.db4o;
 
-import at.owlsoft.owl.dao.IDao.ITagDao;
+import at.owlsoft.owl.dao.ITagDao;
 import at.owlsoft.owl.model.media.Tag;
 
 import com.db4o.ObjectContainer;
 
-public class TagDao extends GeneralDb4oDaoBase<Tag> implements ITagDao
+public class TagDao extends Db4oDaoBase<Tag> implements ITagDao
 {
     private static TagDao _factory;
 
@@ -28,7 +28,7 @@ public class TagDao extends GeneralDb4oDaoBase<Tag> implements ITagDao
 
     private TagDao(ObjectContainer db)
     {
-        super(db);
+        super(Tag.class, db);
         // TODO Auto-generated constructor stub
     }
 

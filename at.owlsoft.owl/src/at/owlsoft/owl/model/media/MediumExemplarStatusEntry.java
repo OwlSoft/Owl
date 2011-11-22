@@ -18,8 +18,10 @@ public package at.owlsoft.owl.model.media;
 
 import java.util.Date;
 
-public class MediumExemplarStatusEntry
+public class MediumExemplarStatusEntry implements IMediumExemplarStatusEntry
 {
+    private static final long    serialVersionUID = -4347999909310077006L;
+
     private Date                 _date;
     private MediumExemplar       _mediumExemplar;
     private MediumExemplarStatus _mediumExemplarStatus;
@@ -37,6 +39,7 @@ public class MediumExemplarStatusEntry
         _mediumExemplarStatus = mediumExemplarStatus;
     }
 
+    @Override
     public Date getDate()
     {
         return _date;
@@ -47,6 +50,7 @@ public class MediumExemplarStatusEntry
         _date = date;
     }
 
+    @Override
     public MediumExemplar getMediumExemplar()
     {
         return _mediumExemplar;
@@ -57,6 +61,7 @@ public class MediumExemplarStatusEntry
         _mediumExemplar = mediumExemplar;
     }
 
+    @Override
     public MediumExemplarStatus getMediumExemplarStatus()
     {
         return _mediumExemplarStatus;

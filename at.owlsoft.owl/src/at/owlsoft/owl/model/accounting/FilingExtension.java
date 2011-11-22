@@ -18,11 +18,13 @@ public package at.owlsoft.owl.model.accounting;
 
 import java.util.Date;
 
-public class FilingExtension
+public class FilingExtension implements IFilingExtension
 {
-    private Date   _creationDate;
-    private Date   _newEndDate;
-    private Rental _rental;
+    private static final long serialVersionUID = -5339901293481078352L;
+
+    private Date              _creationDate;
+    private Date              _newEndDate;
+    private Rental            _rental;
 
     public FilingExtension()
     {
@@ -36,6 +38,7 @@ public class FilingExtension
         _rental = rental;
     }
 
+    @Override
     public Date getCreationDate()
     {
         return _creationDate;
@@ -46,6 +49,7 @@ public class FilingExtension
         _creationDate = creationDate;
     }
 
+    @Override
     public Date getNewEndDate()
     {
         return _newEndDate;
@@ -56,6 +60,7 @@ public class FilingExtension
         _newEndDate = newEndDate;
     }
 
+    @Override
     public Rental getRental()
     {
         return _rental;

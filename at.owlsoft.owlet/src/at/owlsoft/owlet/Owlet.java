@@ -54,4 +54,8 @@ public class Owlet
         mainWindow.setLocationRelativeTo(null);
         mainWindow.setVisible(true);
     }
+
+    public Owlet()
+    {
+    }
 }

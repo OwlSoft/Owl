@@ -1,7 +1,6 @@
 package at.owlsoft.owlet.ui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -84,7 +83,8 @@ public class MainWindow extends JFrame
         setLayout(new BorderLayout());
         add(mainMenu, BorderLayout.NORTH);
         add(_viewBox, BorderLayout.CENTER);
-        setMinimumSize(new Dimension(500, 400));
+        setSize(800, 600);
+        setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setDefaultTitle();
     }

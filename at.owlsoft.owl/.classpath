@@ -12,5 +12,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/at.owlsoft.owl/lib/junit-4.10-doc.zip!/javadoc"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/at.owlsoft.owl.modelbase"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

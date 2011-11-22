@@ -39,15 +39,19 @@ public class Main
         try
         {
 
-            System.out.println();
+            Austrian manuel = new Austrian(null, "Manuel", 123);
+
             List<Pet> pets = new ArrayList<Pet>();
-            Austrian manuel = new Austrian(pets, "Manuel", 123);
+            pets.add(new Pet("manuelsPet"));
 
-            // _db.store(manuel);
+            manuel.setSlaves(pets);
 
-            Austrian newManuel = ((Austrian) _db.queryByExample(manuel).get(0));
-            newManuel.getSlaves().add(new Pet("hansi"));
-            _db.store(newManuel);
+            _db.store(manuel);
+
+            pets.add(new Pet("drKlausMaus"));
+
+            _db.store(pets);
+            _db.store(manuel);
 
             // Austrian newNewManuel = ((Austrian) _db.queryByExample(newManuel)
             // .get(0));

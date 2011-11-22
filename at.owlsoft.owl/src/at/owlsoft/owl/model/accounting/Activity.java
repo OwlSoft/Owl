@@ -26,8 +26,10 @@ import at.owlsoft.owl.model.media.Medium;
 import at.owlsoft.owl.model.media.MediumExemplar;
 import at.owlsoft.owl.model.user.SystemUser;
 
-public abstract class Activity
+public abstract class Activity implements IActivity
 {
+    private static final long         serialVersionUID = -1202400625902106682L;
+
     private Date                      _startDate;
     private List<ActivityStatusEntry> _activityStatusEntries;
     private MediumExemplar            _mediumExemplar;
@@ -50,6 +52,7 @@ public abstract class Activity
         _creator = creator;
     }
 
+    @Override
     public Date getStartDate()
     {
         return _startDate;
@@ -60,16 +63,19 @@ public abstract class Activity
         _startDate = startDate;
     }
 
+    @Override
     public int getActivityStatusEntryCount()
     {
         return _activityStatusEntries.size();
     }
 
+    @Override
     public ActivityStatusEntry getActivityStatusEntry(int index)
     {
         return _activityStatusEntries.get(index);
     }
 
+    @Override
     public List<ActivityStatusEntry> getActivityStatusEntries()
     {
         return Collections.unmodifiableList(_activityStatusEntries);
@@ -92,6 +98,7 @@ public abstract class Activity
         _activityStatusEntries.remove(activityStatusEntry);
     }
 
+    @Override
     public MediumExemplar getMediumExemplar()
     {
         return _mediumExemplar;
@@ -107,6 +114,7 @@ public abstract class Activity
         _mediumExemplar = mediumExemplar;
     }
 
+    @Override
     public SystemUser getCustomer()
     {
         return _customer;
@@ -117,6 +125,7 @@ public abstract class Activity
         _customer = customer;
     }
 
+    @Override
     public SystemUser getCreator()
     {
         return _creator;
@@ -127,6 +136,7 @@ public abstract class Activity
         _creator = creator;
     }
 
+    @Override
     public Medium getMedium()
     {
         return _medium;

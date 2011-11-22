@@ -1,12 +1,12 @@
 package at.owlsoft.owl.dao.db4o;
 
-import at.owlsoft.owl.dao.IDao.IConfigurationDao;
+import at.owlsoft.owl.dao.IConfigurationDao;
 import at.owlsoft.owl.model.Configuration;
 
 import com.db4o.ObjectContainer;
 
-public class ConfigurationDao extends GeneralDb4oDaoBase<Configuration>
-        implements IConfigurationDao
+public class ConfigurationDao extends Db4oDaoBase<Configuration> implements
+        IConfigurationDao
 {
     private static ConfigurationDao _factory;
 
@@ -29,8 +29,7 @@ public class ConfigurationDao extends GeneralDb4oDaoBase<Configuration>
 
     private ConfigurationDao(ObjectContainer db)
     {
-        super(db);
-        // TODO Auto-generated constructor stub
+        super(Configuration.class, db);
     }
 
 }

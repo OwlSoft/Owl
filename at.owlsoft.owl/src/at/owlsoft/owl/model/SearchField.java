@@ -1,13 +1,13 @@
 package at.owlsoft.owl.model;
 
-public class SearchField
+public class SearchField implements ISearchField
 {
-    private String _key;
-    private String _value;
+    private static final long serialVersionUID = 1250114775836058087L;
+    private String            _key;
+    private String            _value;
 
     public SearchField()
     {
-
     }
 
     public SearchField(String key, String value)
@@ -17,11 +17,13 @@ public class SearchField
         _value = value;
     }
 
+    @Override
     public String getKey()
     {
         return _key;
     }
 
+    @Override
     public String getValue()
     {
         return _value;

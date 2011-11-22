@@ -1,12 +1,11 @@
 package at.owlsoft.owl.dao.db4o;
 
-import at.owlsoft.owl.dao.IDao.IActivityDao;
+import at.owlsoft.owl.dao.IActivityDao;
 import at.owlsoft.owl.model.accounting.Activity;
 
 import com.db4o.ObjectContainer;
 
-public class ActivityDao extends GeneralDb4oDaoBase<Activity> implements
-        IActivityDao
+public class ActivityDao extends Db4oDaoBase<Activity> implements IActivityDao
 {
 
     private static ActivityDao _factory;
@@ -30,8 +29,7 @@ public class ActivityDao extends GeneralDb4oDaoBase<Activity> implements
 
     private ActivityDao(ObjectContainer db)
     {
-        super(db);
-        // TODO Auto-generated constructor stub
+        super(Activity.class, db);
     }
 
 }

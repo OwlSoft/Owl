@@ -18,14 +18,16 @@ public package at.owlsoft.owl.model.media;
 
 import java.util.Date;
 
-public class Book extends Medium
+public class Book extends Medium implements IBook
 {
-    private String _author;
-    private String _title;
-    private String _abstract;
-    private int    _pages;
-    private String _isbn10;
-    private String _isbn13;
+    private static final long serialVersionUID = -4334382438346892118L;
+
+    private String            _author;
+    private String            _title;
+    private String            _abstract;
+    private int               _pages;
+    private String            _isbn10;
+    private String            _isbn13;
 
     public Book()
     {
@@ -45,6 +47,7 @@ public class Book extends Medium
         _isbn13 = isbn13;
     }
 
+    @Override
     public String getAuthor()
     {
         return _author;
@@ -55,6 +58,7 @@ public class Book extends Medium
         _author = author;
     }
 
+    @Override
     public String getTitle()
     {
         return _title;
@@ -65,6 +69,7 @@ public class Book extends Medium
         _title = title;
     }
 
+    @Override
     public String getAbstract()
     {
         return _abstract;
@@ -75,6 +80,7 @@ public class Book extends Medium
         _abstract = abstract1;
     }
 
+    @Override
     public int getPages()
     {
         return _pages;
@@ -85,6 +91,7 @@ public class Book extends Medium
         _pages = pages;
     }
 
+    @Override
     public String getIsbn10()
     {
         return _isbn10;
@@ -95,6 +102,7 @@ public class Book extends Medium
         _isbn10 = isbn10;
     }
 
+    @Override
     public String getIsbn13()
     {
         return _isbn13;

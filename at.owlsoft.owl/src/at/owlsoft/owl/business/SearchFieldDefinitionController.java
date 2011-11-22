@@ -26,6 +26,11 @@ public class SearchFieldDefinitionController
     private Map<String, SearchFieldDefinition> _mapping;
     private List<SearchFieldCategory>          _allCategories;
 
+    public List<SearchFieldCategory> getAllCategories()
+    {
+        return _allCategories;
+    }
+
     public SearchFieldDefinitionController(String searchFieldCategoriesXmlPath)
     {
         _mapping = new HashMap<String, SearchFieldDefinition>();

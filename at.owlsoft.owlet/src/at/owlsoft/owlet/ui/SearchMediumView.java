@@ -7,6 +7,7 @@ import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.BoxPane;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
+import org.apache.pivot.wtk.Prompt;
 import org.apache.pivot.wtk.PushButton;
 
 import at.owlsoft.owlet.viewmodel.SearchMediumViewModel;
@@ -28,6 +29,17 @@ public class SearchMediumView extends OwletView
     public void initialize(Map<String, Object> ns, URL location,
             Resources resources)
     {
+        setEnabled(true);
+        try
+        {
+            _viewModel.initialize();
+        }
+        catch (Exception e)
+        {
+            Prompt.prompt(e.getMessage(), getWindow());
+            setEnabled(false);
+        }
+
         _searchFieldPane = (BoxPane) ns.get("searchFieldPane");
         ButtonPressListener addSearchFieldListener = new ButtonPressListener()
         {

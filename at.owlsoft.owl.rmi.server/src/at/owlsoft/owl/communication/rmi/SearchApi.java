@@ -1,20 +1,31 @@
 package at.owlsoft.owl.communication.rmi;
 
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
-public class SearchApi extends UnicastRemoteObject implements ISearchApi
+import at.owlsoft.owl.business.SearchFieldDefinitionController;
+import at.owlsoft.owl.model.ISearchFieldCategory;
+
+public class SearchApi extends ApiBase implements ISearchApi
 {
+    private SearchFieldDefinitionController _controller;
 
-    protected SearchApi() throws RemoteException
+    public SearchApi(ApiFactory factory) throws RemoteException
     {
-        super();
-        // TODO Auto-generated constructor stub
+        super(factory);
+        _controller = new SearchFieldDefinitionController();
     }
 
     /**
      * 
      */
     private static final long serialVersionUID = 8248250017928395289L;
+
+    @Override
+    public List<? extends ISearchFieldCategory> getSearchFieldCategories()
+            throws RemoteException
+    {
+        return _controller.getAllCategories();
+    }
 
 }

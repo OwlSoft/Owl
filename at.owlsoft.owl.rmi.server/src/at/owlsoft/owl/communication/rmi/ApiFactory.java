@@ -21,7 +21,7 @@ public class ApiFactory extends UnicastRemoteObject implements IApiFactory
     @Override
     public IExtendApi createExtendApi() throws RemoteException
     {
-        return new ExtendApi();
+        return new ExtendApi(this);
     }
 
     /**
@@ -32,7 +32,7 @@ public class ApiFactory extends UnicastRemoteObject implements IApiFactory
     @Override
     public IRentalApi createRentalApi() throws RemoteException
     {
-        return new RentalApi();
+        return new RentalApi(this);
     }
 
     /**
@@ -43,7 +43,7 @@ public class ApiFactory extends UnicastRemoteObject implements IApiFactory
     @Override
     public IReservationApi createReservationApi() throws RemoteException
     {
-        return new ReservationApi();
+        return new ReservationApi(this);
     }
 
     /**
@@ -54,7 +54,7 @@ public class ApiFactory extends UnicastRemoteObject implements IApiFactory
     @Override
     public IReturnApi createReturnApi() throws RemoteException
     {
-        return new ReturnApi();
+        return new ReturnApi(this);
     }
 
     /**
@@ -65,6 +65,6 @@ public class ApiFactory extends UnicastRemoteObject implements IApiFactory
     @Override
     public ISearchApi createSearchApi() throws RemoteException
     {
-        return new SearchApi();
+        return new SearchApi(this);
     }
 }

@@ -40,12 +40,18 @@ public class SearchFieldDefinitionController extends ControllerBase implements
 
     public SearchFieldDefinitionController(OwlApplicationContext context)
     {
+        this(context, SearchFieldDefinitionControllerConfigFiles.Default);
+    }
+
+    public SearchFieldDefinitionController(OwlApplicationContext context,
+            SearchFieldDefinitionControllerConfigFiles fileType)
+    {
         super(context);
         _mapping = new HashMap<String, SearchFieldDefinition>();
         _allCategories = new ArrayList<SearchFieldCategory>();
 
         reInitParsXml(SearchFieldDefinitionController.class
-                .getResourceAsStream("/SearchFieldCategories.xml"));
+                .getResourceAsStream(fileType.getText()));
     }
 
     public SearchFieldDefinitionController(OwlApplicationContext context,

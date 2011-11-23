@@ -65,6 +65,7 @@ public class ShowRentalView extends OwletView
                     {
                         _viewModel.createNewExtension(_viewModel
                                 .getActiveRental());
+                        setRentalData();
 
                     }
                 });

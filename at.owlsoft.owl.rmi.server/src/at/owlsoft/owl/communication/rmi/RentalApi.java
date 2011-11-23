@@ -5,16 +5,19 @@ import java.util.UUID;
 
 import at.owlsoft.owl.model.user.ISystemUser;
 import at.owlsoft.owl.usecases.ExtensionController;
+import at.owlsoft.owl.usecases.ReturnController;
 
 public class RentalApi extends ApiBase implements IRentalApi
 {
     private ExtensionController _extensionController;
+    private ReturnController    _returnController;
 
     public RentalApi(ApiFactory factory) throws RemoteException
     {
         super(factory);
 
         _extensionController = factory.getContext().getExtensionController();
+        _returnController = factory.getContext().getReturnController();
     }
 
     /**
@@ -34,5 +37,11 @@ public class RentalApi extends ApiBase implements IRentalApi
     {
         _extensionController.extend(uuid);
 
+    }
+
+    @Override
+    public void returnRental(UUID uuid)
+    {
+        _returnController.returnMediumCopy(uuid);
     }
 }

@@ -100,4 +100,15 @@ public class OwlApplicationContext
         }
         return _returnController;
     }
+
+    private RentalSearchController _rentalSearchController;
+
+    public RentalSearchController getRentalSearchController()
+    {
+        if (_rentalSearchController == null)
+        {
+            _rentalSearchController = new RentalSearchController(this);
+        }
+        return _rentalSearchController;
+    }
 }

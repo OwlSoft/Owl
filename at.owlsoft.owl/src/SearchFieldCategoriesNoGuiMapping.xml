@@ -17,7 +17,7 @@
 		<SearchFieldDefinition key="_cardID" type="Integer" label="CardId" />				
 	</SearchFieldCategory>
 			<SearchFieldCategory key="ACTIVITY" label="Activity">
-		<SearchFieldDefinition key="UUID" type="UUID" label="UUID" />				
+		<SearchFieldDefinition key="_UUID" type="UUID" label="UUID" />				
 	</SearchFieldCategory>
 	
 </SearchFieldCategories>

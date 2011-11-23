@@ -6,8 +6,8 @@ package at.owlsoft.owl.business;
  */
 public enum SearchFieldDefinitionControllerConfigFiles
 {
-    Default("SearchFieldCategories.xml"), NoGuiMapping(
-            "SearchFieldCategoriesNoGuiMapping.xml");
+    Default("/SearchFieldCategories.xml"), NoGuiMapping(
+            "/SearchFieldCategoriesNoGuiMapping.xml");
 
     private String text;
 

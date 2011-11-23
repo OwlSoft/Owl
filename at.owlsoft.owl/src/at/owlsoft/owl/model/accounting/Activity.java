@@ -36,6 +36,7 @@ public abstract class Activity implements IActivity
     /**
      * @return the uUID
      */
+    @Override
     public UUID getUUID()
     {
         return _UUID;
@@ -51,6 +52,7 @@ public abstract class Activity implements IActivity
     protected Activity()
     {
         _activityStatusEntries = new ArrayList<ActivityStatusEntry>();
+        _UUID = UUID.randomUUID();
     }
 
     protected Activity(Date startDate, MediumExemplar mediumExemplar,
@@ -72,6 +74,7 @@ public abstract class Activity implements IActivity
         _medium = medium;
         _customer = customer;
         _creator = creator;
+        _UUID = UUID.randomUUID();
     }
 
     @Override

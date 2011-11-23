@@ -56,7 +56,6 @@ public class ShowRentalView extends OwletView
                     @Override
                     public void selectedItemChanged(ListButton arg0, Object arg1)
                     {
-                        // TODO Auto-generated method stub
                         _viewModel.setActiveRental((IRental) arg1);
                         setRentalData();
                     }

@@ -46,7 +46,7 @@ public class SystemUserSearchController extends SearchController<SystemUser>
         // }
 
         List<SearchField> fields = new ArrayList<SearchField>();
-        fields.add(new SearchField("_cardId", new Integer(cardId).toString(),
+        fields.add(new SearchField("_cardID", new Integer(cardId).toString(),
                 SearchFieldType.Equals));
 
         List<SystemUser> users = search(fields);

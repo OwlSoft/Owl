@@ -1,6 +1,7 @@
 package at.owlsoft.owl.usecases;
 
 import java.util.Date;
+import java.util.UUID;
 
 import at.owlsoft.owl.business.ControllerBase;
 import at.owlsoft.owl.business.OwlApplicationContext;
@@ -37,6 +38,17 @@ public class ReturnController extends ControllerBase
         mese.setMediumExemplar(copy);
         copy.addMediumExemplarStatusEntry(mese);
         DaoManager.getInstance().getMediumExemplarDao().store(copy);
+    }
+
+    /**
+     * Searches the rental with the UUID and returns the medium
+     * 
+     * @param uuid Rental UUID
+     */
+    public void returnMediumCopy(UUID uuid)
+    {
+        // TODO Auto-generated method stub
+
     }
 
 }

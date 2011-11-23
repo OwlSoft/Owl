@@ -76,7 +76,7 @@ public class ShowRentalView extends OwletView
                     @Override
                     public void buttonPressed(Button arg0)
                     {
-                        // TODO Auto-generated method stub
+                        _viewModel.returnRental(_viewModel.getActiveRental());
 
                     }
                 });

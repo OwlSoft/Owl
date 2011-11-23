@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -39,12 +40,18 @@ public class SearchFieldDefinitionController extends ControllerBase implements
 
     public SearchFieldDefinitionController(OwlApplicationContext context)
     {
+        this(context, SearchFieldDefinitionControllerConfigFiles.Default);
+    }
+
+    public SearchFieldDefinitionController(OwlApplicationContext context,
+            SearchFieldDefinitionControllerConfigFiles fileType)
+    {
         super(context);
         _mapping = new HashMap<String, SearchFieldDefinition>();
         _allCategories = new ArrayList<SearchFieldCategory>();
 
         reInitParsXml(SearchFieldDefinitionController.class
-                .getResourceAsStream("/SearchFieldCategories.xml"));
+                .getResourceAsStream(fileType.getText()));
     }
 
     public SearchFieldDefinitionController(OwlApplicationContext context,
@@ -180,6 +187,8 @@ public class SearchFieldDefinitionController extends ControllerBase implements
 
                 case String:
                     return (T) searchField.getValue();
+                case UUID:
+                    return (T) UUID.fromString(searchField.getValue());
 
                 default:
                     _logger.debug("no convertable type found correct type found");

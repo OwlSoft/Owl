@@ -28,8 +28,7 @@ public class OwlApplicationContext
         {
             _serverSearchFieldDefinitionController = new SearchFieldDefinitionController(
                     this,
-                    SearchFieldDefinitionController.class
-                            .getResourceAsStream("/SearchFieldCategoriesNoGuiMapping.xml"));
+                    SearchFieldDefinitionControllerConfigFiles.NoGuiMapping);
         }
         return _serverSearchFieldDefinitionController;
     }

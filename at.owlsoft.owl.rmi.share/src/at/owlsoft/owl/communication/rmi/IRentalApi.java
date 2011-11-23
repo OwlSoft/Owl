@@ -12,4 +12,6 @@ public interface IRentalApi extends Remote
             throws RemoteException;
 
     public void createNewExtension(UUID uuid);
+
+    public void returnRental(UUID uuid);
 }

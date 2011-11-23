@@ -119,4 +119,10 @@ public class ShowRentalViewModel
         }
 
     }
+
+    public void createNewExtension(IRental activeRental)
+    {
+        _currentRentalApi.createNewExtension(activeRental.getUUID());
+
+    }
 }

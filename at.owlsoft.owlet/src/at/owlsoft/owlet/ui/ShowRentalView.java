@@ -29,6 +29,9 @@ public class ShowRentalView extends OwletView
     private Label               _userLastName;
     private Button              _loadDefaultUserButton;
     private Button              _doExtensionButton;
+    private Label               _exemplarID;
+    private Label               _exemplarName;
+    private Label               _extensionCount;
     private ListButton          _allRentalsListButton;
 
     public ShowRentalView()
@@ -47,24 +50,47 @@ public class ShowRentalView extends OwletView
         _extensionPane = (BoxPane) ns.get("extensionPane");
         _userFirstName = (Label) ns.get("userFirstName");
         _userLastName = (Label) ns.get("userLastName");
+        _exemplarID = (Label) ns.get("exemplarID");
+        _exemplarName = (Label) ns.get("exemplarName");
+        _extensionCount = (Label) ns.get("extensionCount");
         _allRentalsListButton = (ListButton) ns.get("allRentalsListButton");
 
+        Button _createNewExtensionButton = (Button) ns
+                .get("createNewExtensionButton");
+        _createNewExtensionButton.getButtonPressListeners().add(
+                new ButtonPressListener()
+                {
+                    @Override
+                    public void buttonPressed(Button arg0)
+                    {
+                        _viewModel.createNewExtension(_viewModel
+                                .getActiveRental());
+
+                    }
+                });
+
+        Button _returnRentalButton = (Button) ns.get("returnRentalButton");
+        _returnRentalButton.getButtonPressListeners().add(
+                new ButtonPressListener()
+                {
+                    @Override
+                    public void buttonPressed(Button arg0)
+                    {
+                        // TODO Auto-generated method stub
+
+                    }
+                });
+
         _allRentalsListButton.getListButtonSelectionListeners().add(
-                new ListButtonSelectionListener()
+                new ListButtonSelectionListener.Adapter()
                 {
 
                     @Override
-                    public void selectedItemChanged(ListButton arg0, Object arg1)
+                    public void selectedItemChanged(ListButton arg0,
+                            Object previousItem)
                     {
-                        _viewModel.setActiveRental((IRental) arg1);
-                        setRentalData();
-                    }
-
-                    @Override
-                    public void selectedIndexChanged(ListButton arg0, int arg1)
-                    {
-                        _viewModel.setActiveRental((IRental) arg0.getListData()
-                                .get(arg1));
+                        _viewModel.setActiveRental((IRental) arg0
+                                .getSelectedItem());
                         setRentalData();
 
                     }
@@ -104,8 +130,16 @@ public class ShowRentalView extends OwletView
     private void setRentalData()
     {
         List<IFilingExtension> extensions = new ArrayList<IFilingExtension>();
-
+        _viewModel.getActiveRental().getMediumExemplar();
         _viewModel.getActiveRental().getFilingExtensions();
+        _exemplarID.setText(new Integer(_viewModel.getActiveRental()
+                .getMediumExemplar().getExemplarID()).toString());
+
+        _exemplarName.setText(_viewModel.getActiveRental().getMediumExemplar()
+                .getMedium().getName());
+
+        _extensionCount.setText(new Integer(_viewModel.getActiveRental()
+                .getFilingExtensionCount()).toString());
 
     }
 

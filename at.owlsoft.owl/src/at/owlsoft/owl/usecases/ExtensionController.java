@@ -3,6 +3,7 @@ package at.owlsoft.owl.usecases;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import at.owlsoft.owl.business.ControllerBase;
 import at.owlsoft.owl.business.OwlApplicationContext;
@@ -76,6 +77,12 @@ public class ExtensionController extends ControllerBase
         }
 
         return hasNoError;
+
+    }
+
+    public void extend(UUID uuid)
+    {
+        // FIXME Auto-generated method stub
 
     }
 

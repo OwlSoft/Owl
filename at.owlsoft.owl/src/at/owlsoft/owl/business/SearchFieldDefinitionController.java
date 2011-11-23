@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -180,6 +181,8 @@ public class SearchFieldDefinitionController extends ControllerBase implements
 
                 case String:
                     return (T) searchField.getValue();
+                case UUID:
+                    return (T) UUID.fromString(searchField.getValue());
 
                 default:
                     _logger.debug("no convertable type found correct type found");

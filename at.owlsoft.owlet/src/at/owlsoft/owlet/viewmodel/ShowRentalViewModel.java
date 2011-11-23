@@ -126,7 +126,7 @@ public class ShowRentalViewModel
 
     }
 
-    void returnRental(IRental activeRental)
+    public void returnRental(IRental activeRental)
     {
         _currentRentalApi.returnRental(activeRental.getUUID());
 

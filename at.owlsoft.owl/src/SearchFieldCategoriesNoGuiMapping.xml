@@ -14,8 +14,10 @@
 		<SearchFieldDefinition key="_isbn13" type="String" label="ISBN-13" />				
 	</SearchFieldCategory>
 		<SearchFieldCategory key="SYSTEMUSER" label="Systemuser">
-		<SearchFieldDefinition key="_cardID" type="Integer" label="CardId" />
-				
+		<SearchFieldDefinition key="_cardID" type="Integer" label="CardId" />				
+	</SearchFieldCategory>
+			<SearchFieldCategory key="ACTIVITY" label="Activity">
+		<SearchFieldDefinition key="UUID" type="UUID" label="UUID" />				
 	</SearchFieldCategory>
 	
 </SearchFieldCategories>

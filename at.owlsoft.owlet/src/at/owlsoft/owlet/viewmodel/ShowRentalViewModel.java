@@ -122,13 +122,29 @@ public class ShowRentalViewModel
 
     public void createNewExtension(IRental activeRental)
     {
-        _currentRentalApi.createNewExtension(activeRental.getUUID());
+        try
+        {
+            _currentRentalApi.createNewExtension(activeRental.getUUID());
+        }
+        catch (RemoteException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
     }
 
     public void returnRental(IRental activeRental)
     {
-        _currentRentalApi.returnRental(activeRental.getUUID());
+        try
+        {
+            _currentRentalApi.returnRental(activeRental.getUUID());
+        }
+        catch (RemoteException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
     }
 }

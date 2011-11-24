@@ -87,7 +87,7 @@ public class ExtensionController extends ControllerBase
         List<ValidationMessage> temp = new ArrayList<ValidationMessage>();
 
         List<SearchField> searchFields = new ArrayList<SearchField>();
-        searchFields.add(new SearchField("UUID", uuid.toString(),
+        searchFields.add(new SearchField("_UUID", uuid.toString(),
                 SearchFieldType.Equals));
 
         List<Rental> rentals = getContext().getRentalSearchController().search(

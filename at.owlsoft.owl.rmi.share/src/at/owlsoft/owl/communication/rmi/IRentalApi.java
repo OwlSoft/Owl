@@ -11,7 +11,7 @@ public interface IRentalApi extends Remote
     public ISystemUser getRentalsForSystemUserCardId(int cardId)
             throws RemoteException;
 
-    public void createNewExtension(UUID uuid);
+    public void createNewExtension(UUID uuid) throws RemoteException;
 
-    public void returnRental(UUID uuid);
+    public void returnRental(UUID uuid) throws RemoteException;
 }

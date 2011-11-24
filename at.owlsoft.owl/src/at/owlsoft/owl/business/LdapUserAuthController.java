@@ -40,11 +40,13 @@ public class LdapUserAuthController extends ControllerBase
 
         System.out.println(principal);
 
-        // TODO Put properties into jndi.properties file - didn't work?
+        // TODO Put properties into jndi.properties file - didn't work at first
         Properties env = new Properties();
         env.put(Context.INITIAL_CONTEXT_FACTORY,
                 "com.sun.jndi.ldap.LdapCtxFactory");
         env.put(Context.PROVIDER_URL, "ldap://localhost:10389");
+        // TODO Use FHV data, if it starts working
+        // env.put(Context.PROVIDER_URL, "ldaps://ldap.fhv.at:389");
         env.put(Context.SECURITY_AUTHENTICATION, "simple");
         env.put(Context.SECURITY_PRINCIPAL, principal);
         env.put(Context.SECURITY_CREDENTIALS, password);

@@ -11,6 +11,8 @@ import at.owlsoft.owl.model.accounting.FilingExtension;
 import at.owlsoft.owl.model.accounting.Rental;
 import at.owlsoft.owl.model.media.MediumExemplar;
 import at.owlsoft.owl.model.user.SystemUserStatus;
+import at.owlsoft.owl.validation.ValidationMessage;
+import at.owlsoft.owl.validation.ValidationMessageStatus;
 
 public class ExtensionController extends ControllerBase
 {

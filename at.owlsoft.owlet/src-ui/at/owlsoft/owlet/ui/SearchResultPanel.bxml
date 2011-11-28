@@ -1,0 +1,23 @@
+<owlet:SearchResultPanel xmlns:bxml="http://pivot.apache.org/bxml"
+	xmlns:owlet="at.owlsoft.owlet.ui" xmlns:content="org.apache.pivot.wtk.content"
+	xmlns:collections="org.apache.pivot.collections" xmlns="org.apache.pivot.wtk">
+	<TableView>
+		<columns>
+			<TableView.Column width="1*" />
+			<TableView.Column width="300" />
+			<TableView.Column width="30" />
+		</columns>
+		<TableView.Row>
+			<Label bxml:id="mediumTitle" />
+			<Label text="Anzahl Exemplare" />
+			<Label bxml:id="exemplarCount" />
+		</TableView.Row>
+		<TableView.Row>
+			<Label bxml:id="publisher" />
+		</TableView.Row>
+		<TableView.Row>
+			<Expander title="Copies" bxml:id="copies">
+			</Expander>
+		</TableView.Row>
+	</TableView>
+</owlet:SearchResultPanel>

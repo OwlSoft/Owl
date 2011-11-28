@@ -23,7 +23,7 @@ import at.owlsoft.owl.model.user.SystemUser;
 import at.owlsoft.owl.model.user.SystemUserStatus;
 import at.owlsoft.owl.model.user.SystemUserStatusEntry;
 import at.owlsoft.owl.usecases.RentalController;
-import at.owlsoft.owl.usecases.ValidationMessage;
+import at.owlsoft.owl.validation.ValidationMessage;
 
 public class RentalControllerTest
 {

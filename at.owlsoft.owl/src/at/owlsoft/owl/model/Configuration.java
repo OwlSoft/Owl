@@ -138,4 +138,132 @@ public class Configuration
     {
         _settings.put(name, value);
     }
+
+    public void loadProperties(Properties properties)
+    {
+        _settings.putAll(properties);
+    }
+
+    //
+    // Class specific
+    //
+
+    public String getString(Class<?> clz, String name)
+    {
+        return getString(name, null);
+    }
+
+    public String getString(Class<?> clz, String name, String defaultValue)
+    {
+        String value = _settings.getProperty(getClassProperty(clz, name));
+        return value == null ? defaultValue : value;
+    }
+
+    public byte getByte(Class<?> clz, String name)
+    {
+        return getByte(name, (byte) 0);
+    }
+
+    public byte getByte(Class<?> clz, String name, byte defaultValue)
+    {
+        try
+        {
+            Byte value = (Byte) _settings.get(getClassProperty(clz, name));
+            return value == null ? defaultValue : value;
+        }
+        catch (Exception e)
+        {
+            throw new InvalidOperationException(
+                    "Could not parse property as byte");
+        }
+    }
+
+    public short getShort(Class<?> clz, String name)
+    {
+        return getShort(name, (short) 0);
+    }
+
+    public short getShort(Class<?> clz, String name, short defaultValue)
+    {
+        try
+        {
+            Short value = (Short) _settings.get(getClassProperty(clz, name));
+            return value == null ? defaultValue : value;
+        }
+        catch (Exception e)
+        {
+            throw new InvalidOperationException(
+                    "Could not parse property as short");
+        }
+    }
+
+    public int getInt(Class<?> clz, String name)
+    {
+        return getInt(name, 0);
+    }
+
+    public int getInt(Class<?> clz, String name, int defaultValue)
+    {
+        try
+        {
+            Integer value = (Integer) _settings
+                    .get(getClassProperty(clz, name));
+            return value == null ? defaultValue : value;
+        }
+        catch (Exception e)
+        {
+            throw new InvalidOperationException(
+                    "Could not parse property as integer");
+        }
+    }
+
+    public long getLong(Class<?> clz, String name)
+    {
+        return getLong(name, 0l);
+    }
+
+    public long getLong(Class<?> clz, String name, Long defaultValue)
+    {
+        try
+        {
+            Long value = (Long) _settings.get(getClassProperty(clz, name));
+            return value == null ? defaultValue : value;
+        }
+        catch (Exception e)
+        {
+            throw new InvalidOperationException(
+                    "Could not parse property as long");
+        }
+    }
+
+    public void set(Class<?> clz, String name, String value)
+    {
+        _settings.put(getClassProperty(clz, name), value);
+    }
+
+    public void set(Class<?> clz, String name, byte value)
+    {
+        _settings.put(getClassProperty(clz, name), value);
+    }
+
+    public void set(Class<?> clz, String name, short value)
+    {
+        _settings.put(getClassProperty(clz, name), value);
+    }
+
+    public void set(Class<?> clz, String name, int value)
+    {
+        _settings.put(getClassProperty(clz, name), value);
+    }
+
+    public void set(Class<?> clz, String name, long value)
+    {
+        _settings.put(getClassProperty(clz, name), value);
+    }
+
+    private String getClassProperty(Class<?> clz, String name)
+    {
+        return clz.getName().concat(".").concat(name);
+    }
+
 }

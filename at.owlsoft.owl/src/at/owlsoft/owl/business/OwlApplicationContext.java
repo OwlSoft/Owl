@@ -110,4 +110,15 @@ public class OwlApplicationContext
         }
         return _rentalSearchController;
     }
+
+    private LdapUserAuthController _ldapUserAuthController;
+
+    public LdapUserAuthController getLdapUserAuthController()
+    {
+        if (_ldapUserAuthController == null)
+        {
+            _ldapUserAuthController = new LdapUserAuthController(this);
+        }
+        return _ldapUserAuthController;
+    }
 }

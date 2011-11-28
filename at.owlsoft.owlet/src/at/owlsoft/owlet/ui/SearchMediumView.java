@@ -2,6 +2,8 @@ package at.owlsoft.owlet.ui;
 
 import java.net.URL;
 
+import org.apache.log4j.Logger;
+import org.apache.pivot.beans.BXMLSerializer;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.BoxPane;
@@ -10,15 +12,17 @@ import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.Prompt;
 import org.apache.pivot.wtk.PushButton;
-import org.apache.pivot.wtk.TableView;
 
+import at.owlsoft.owl.model.media.IMedium;
 import at.owlsoft.owlet.viewmodel.SearchMediumViewModel;
 
 public class SearchMediumView extends OwletView
 {
+    private static final Logger   logger = Logger.getLogger(SearchMediumView.class);
+
     private SearchMediumViewModel _viewModel;
     private BoxPane               _searchFieldPane;
-    private TableView             _resultView;
+    private BoxPane               _resultView;
 
     public SearchMediumView()
     {
@@ -45,7 +49,7 @@ public class SearchMediumView extends OwletView
     public void initialize(Map<String, Object> ns, URL location,
             Resources resources)
     {
-        _resultView = (TableView) ns.get("resultView");
+        _resultView = (BoxPane) ns.get("resultView");
 
         _searchFieldPane = (BoxPane) ns.get("searchFieldPane");
         ButtonPressListener addSearchFieldListener = new ButtonPressListener()
@@ -74,7 +78,12 @@ public class SearchMediumView extends OwletView
                     container.updateServerModel();
                 }
                 _viewModel.doSearch();
-                _resultView.setTableData(_viewModel.getSearchResults());
+
+                _resultView.clear();
+                for (IMedium result : _viewModel.getSearchResults())
+                {
+                    createPanelForResult(result);
+                }
             }
         });
     }
@@ -85,4 +94,20 @@ public class SearchMediumView extends OwletView
         _searchFieldPane.add(container);
     }
 
+    private void createPanelForResult(IMedium result)
+    {
+        BXMLSerializer serializer = new BXMLSerializer();
+        try
+        {
+            SearchResultPanel content = (SearchResultPanel) serializer
+                    .readObject(SearchFieldContainer.class, "SearchResultPanel"
+                            + ViewController.PIVOT_FILE_EXTENSION);
+            content.updatePane(result);
+            _resultView.add(content);
+        }
+        catch (Exception e)
+        {
+            logger.error(e);
+        }
+    }
 }

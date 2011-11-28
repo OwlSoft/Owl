@@ -22,18 +22,9 @@
 		</TablePane.Row>
 		<TablePane.Row height="1*">
 			<Border>
-				<ScrollPane>
-					<TableView bxml:id="resultView">
-						<columns>
-							<TableView.Column name="mediumID" width="20" headerData="ID" />
-							<TableView.Column name="name" width="200" headerData="Name" />
-							<TableView.Column name="title" width="100" headerData="Title" />
-							<TableView.Column name="mediumExemplarCount" width="150" headerData="Exemplar Count" />
-						</columns>
-					</TableView>
-					<columnHeader>
-						<TableViewHeader tableView="$resultView" />
-					</columnHeader>
+				<ScrollPane horizontalScrollBarPolicy="fill">
+					<BoxPane orientation="vertical" styles="{fill: true}" bxml:id="resultView">
+					</BoxPane>
 				</ScrollPane>
 			</Border>
 		</TablePane.Row>

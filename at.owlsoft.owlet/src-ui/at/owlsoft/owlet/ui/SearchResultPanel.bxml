@@ -1,23 +1,36 @@
 <owlet:SearchResultPanel xmlns:bxml="http://pivot.apache.org/bxml"
 	xmlns:owlet="at.owlsoft.owlet.ui" xmlns:content="org.apache.pivot.wtk.content"
-	xmlns:collections="org.apache.pivot.collections" xmlns="org.apache.pivot.wtk">
-	<TableView>
+	xmlns:collections="org.apache.pivot.collections" xmlns="org.apache.pivot.wtk"
+	styles="{padding: 5}">
+	<TablePane>
 		<columns>
-			<TableView.Column width="1*" />
-			<TableView.Column width="300" />
-			<TableView.Column width="30" />
+			<TablePane.Column width="1*" />
+			<TablePane.Column width="300" />
+			<TablePane.Column width="30" />
 		</columns>
-		<TableView.Row>
+		<TablePane.Row>
 			<Label bxml:id="mediumTitle" />
 			<Label text="Anzahl Exemplare" />
-			<Label bxml:id="exemplarCount" />
-		</TableView.Row>
-		<TableView.Row>
+			<Label bxml:id="copyCount" />
+		</TablePane.Row>
+		<TablePane.Row>
 			<Label bxml:id="publisher" />
-		</TableView.Row>
-		<TableView.Row>
-			<Expander title="Copies" bxml:id="copies">
+		</TablePane.Row>
+		<TablePane.Row>
+			<Expander TablePane.columnSpan="3" title="Copies">
+				<ScrollPane horizontalScrollBarPolicy="fill">
+					<TableView bxml:id="copiesView">
+						<columns>
+							<TableView.Column name="exemplarID" headerData="ID" width="-1" />
+							<TableView.Column name="medium.name" headerData="Title" width="1*" />
+							<!-- <TableView.Column name="currentState" headerData="State" width="200" /> -->
+						</columns>
+					</TableView>
+					<columnHeader>
+		                <TableViewHeader tableView="$copiesView"/>
+		            </columnHeader>
+				</ScrollPane>
 			</Expander>
-		</TableView.Row>
-	</TableView>
+		</TablePane.Row>
+	</TablePane>
 </owlet:SearchResultPanel>

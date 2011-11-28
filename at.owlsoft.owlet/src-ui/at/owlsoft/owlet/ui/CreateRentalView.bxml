@@ -1,14 +1,6 @@
 <owlet:CreateRentalView xmlns:bxml="http://pivot.apache.org/bxml"
 	xmlns:owlet="at.owlsoft.owlet.ui" xmlns:content="org.apache.pivot.wtk.content"
 	xmlns:collections="org.apache.pivot.collections" xmlns="org.apache.pivot.wtk">
-	<bxml:script>
-    function toName(systemUser) {
-    	if(systemUser == null) {
-    		return "No user selected!";
-    	}
-        return systemUser.getFirstName() + " " + systemUser.getLastName();
-    }
-    </bxml:script>
 	<Form>
 		<Form.Section heading="Setup">
 

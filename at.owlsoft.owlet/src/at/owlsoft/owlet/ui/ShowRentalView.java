@@ -2,7 +2,7 @@ package at.owlsoft.owlet.ui;
 
 import java.net.URL;
 
-import org.apache.pivot.collections.ArrayList;
+import org.apache.log4j.Logger;
 import org.apache.pivot.collections.List;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
@@ -13,9 +13,13 @@ import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.ListButton;
 import org.apache.pivot.wtk.ListButtonSelectionListener;
 import org.apache.pivot.wtk.Prompt;
+import org.apache.pivot.wtk.TableView;
+import org.apache.pivot.wtk.TextInput;
+import org.apache.pivot.wtk.TextInputContentListener;
 
 import at.owlsoft.owl.model.accounting.IFilingExtension;
 import at.owlsoft.owl.model.accounting.IRental;
+import at.owlsoft.owlet.util.PivotUtils;
 import at.owlsoft.owlet.viewmodel.ShowRentalViewModel;
 
 public class ShowRentalView extends OwletView
@@ -28,11 +32,13 @@ public class ShowRentalView extends OwletView
     private Label               _userFirstName;
     private Label               _userLastName;
     private Button              _loadDefaultUserButton;
-    private Button              _doExtensionButton;
     private Label               _exemplarID;
     private Label               _exemplarName;
     private Label               _extensionCount;
     private ListButton          _allRentalsListButton;
+    private TableView           _extensionDataTableView;
+    private TableView           _historyDataTableView;
+    private static Logger       LOGGER = Logger.getLogger(ShowRentalView.class);
 
     public ShowRentalView()
     {
@@ -54,23 +60,24 @@ public class ShowRentalView extends OwletView
         _exemplarName = (Label) ns.get("exemplarName");
         _extensionCount = (Label) ns.get("extensionCount");
         _allRentalsListButton = (ListButton) ns.get("allRentalsListButton");
+        _extensionDataTableView = (TableView) ns.get("extensionDataTableView");
+        _historyDataTableView = (TableView) ns.get("historyDataTableView");
 
         Button _createNewExtensionButton = (Button) ns
                 .get("createNewExtensionButton");
+
         _createNewExtensionButton.getButtonPressListeners().add(
                 new ButtonPressListener()
                 {
                     @Override
                     public void buttonPressed(Button arg0)
                     {
-                        _viewModel.createNewExtension(_viewModel
-                                .getActiveRental());
-
-                        // debugcode
-                        _viewModel.initialize();
-
-                        setRentalData();
-
+                        if (_viewModel.getActiveRental() != null)
+                        {
+                            _viewModel.createNewExtension(_viewModel
+                                    .getActiveRental());
+                            refresh();
+                        }
                     }
                 });
 
@@ -82,7 +89,7 @@ public class ShowRentalView extends OwletView
                     public void buttonPressed(Button arg0)
                     {
                         _viewModel.returnRental(_viewModel.getActiveRental());
-
+                        refresh();
                     }
                 });
 
@@ -101,17 +108,6 @@ public class ShowRentalView extends OwletView
                     }
                 });
 
-        Button _doExtensionButton = (Button) ns.get("doExtensionButton");
-        _doExtensionButton.getButtonPressListeners().add(
-                new ButtonPressListener()
-                {
-                    @Override
-                    public void buttonPressed(Button arg0)
-                    {
-
-                    }
-                });
-
         _loadDefaultUserButton = (Button) ns.get("loadDefaultUserButton");
         _loadDefaultUserButton.getButtonPressListeners().add(
                 new ButtonPressListener()
@@ -119,9 +115,47 @@ public class ShowRentalView extends OwletView
                     @Override
                     public void buttonPressed(Button arg0)
                     {
+                        _viewModel.reloadSystemUser();
                         setUserData();
                     }
                 });
+
+        ((TextInput) ns.get("userId")).getTextInputContentListeners().add(
+                new TextInputContentListener.Adapter()
+                {
+
+                    /**
+                     * {@inheritDoc}
+                     */
+                    @Override
+                    public void textChanged(TextInput textInput)
+                    {
+                        Integer cardId = _viewModel.getUserCardId();
+                        try
+                        {
+                            cardId = Integer.parseInt(textInput.getText());
+                        }
+                        catch (Exception e)
+                        {
+                            textInput.setText(cardId.toString());
+                        }
+
+                        _viewModel.setUserCardId(cardId);
+                    }
+
+                });
+
+        _allRentalsListButton
+                .setDataRenderer(RentalFieldDefinitionDataRenderer.INSTANCE);
+        _allRentalsListButton
+                .setItemRenderer(RentalFieldDefinitionItemRenderer.INSTANCE);
+
+    }
+
+    private void refresh()
+    {
+        setUserData();
+        setRentalData();
 
     }
 
@@ -129,14 +163,36 @@ public class ShowRentalView extends OwletView
     {
         _userFirstName.setText(_viewModel.getSystemUser().getFirstName());
         _userLastName.setText(_viewModel.getSystemUser().getLastName());
+
+        IRental active = _viewModel.getActiveRental();
         _allRentalsListButton.setListData(_viewModel.getRentals());
+        if (_viewModel.getActiveRental() != null)
+        {
+            _allRentalsListButton.setSelectedItem(active);
+        }
+        _viewModel.setActiveRental(active);
+
     }
 
     private void setRentalData()
     {
-        List<IFilingExtension> extensions = new ArrayList<IFilingExtension>();
-        _viewModel.getActiveRental().getMediumExemplar();
-        _viewModel.getActiveRental().getFilingExtensions();
+        if (_viewModel.getActiveRental() == null)
+        {
+            return;
+        }
+
+        List<IFilingExtension> extensions = (List<IFilingExtension>) PivotUtils
+                .toPivotList(_viewModel.getActiveRental().getFilingExtensions());
+
+        List<IFilingExtension> historyData = (List<IFilingExtension>) PivotUtils
+                .toPivotList(_viewModel.getActiveRental()
+                        .getActivityStatusEntries());
+
+        LOGGER.debug("History Datensätze:" + historyData.getLength());
+
+        _extensionDataTableView.setTableData(extensions);
+        _historyDataTableView.setTableData(historyData);
+
         _exemplarID.setText(new Integer(_viewModel.getActiveRental()
                 .getMediumExemplar().getExemplarID()).toString());
 

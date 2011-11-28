@@ -19,6 +19,7 @@ public class ShowRentalViewModel
     private ISystemUser   _systemUser;
     private List<IRental> _rentals;
     private IRental       _activeRental;
+    private Integer       _userCardId;
 
     /**
      * @return the activeRental
@@ -26,6 +27,22 @@ public class ShowRentalViewModel
     public IRental getActiveRental()
     {
         return _activeRental;
+    }
+
+    /**
+     * @return the userCardId
+     */
+    public Integer getUserCardId()
+    {
+        return _userCardId;
+    }
+
+    /**
+     * @param userCardId the userCardId to set
+     */
+    public void setUserCardId(Integer userCardId)
+    {
+        _userCardId = userCardId;
     }
 
     /**
@@ -86,23 +103,40 @@ public class ShowRentalViewModel
 
     public void initialize() throws InvalidOperationException
     {
+    }
+
+    public ShowRentalViewModel()
+    {
         try
         {
-            setCurrentRental(RmiContext.getInstance().getFactory()
-                    .createRentalApi());
-            updateDefinitions();
+            _currentRentalApi = RmiContext.getInstance().getFactory()
+                    .createRentalApi();
         }
         catch (RemoteException e)
         {
-            throw new InvalidOperationException(
-                    "Could not establish connection to server", e);
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
 
     }
 
+    public void reloadSystemUser()
+    {
+        try
+        {
+            setSystemUser(_currentRentalApi
+                    .getRentalsForSystemUserCardId(_userCardId));
+            updateDefinitions();
+        }
+        catch (RemoteException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
     private void updateDefinitions() throws RemoteException
     {
-        _systemUser = _currentRentalApi.getRentalsForSystemUserCardId(0);
         _rentals = new ArrayList<IRental>();
 
         if (_systemUser != null)
@@ -118,6 +152,18 @@ public class ShowRentalViewModel
             }
         }
 
+        if (_activeRental != null)
+        {
+            for (IRental rental : _rentals)
+            {
+                if (rental.getUUID().equals(_activeRental.getUUID()))
+                {
+                    _activeRental = rental;
+                }
+            }
+
+        }
+
     }
 
     public void createNewExtension(IRental activeRental)
@@ -125,6 +171,7 @@ public class ShowRentalViewModel
         try
         {
             _currentRentalApi.createNewExtension(activeRental.getUUID());
+            reloadSystemUser();
         }
         catch (RemoteException e)
         {
@@ -139,6 +186,7 @@ public class ShowRentalViewModel
         try
         {
             _currentRentalApi.returnRental(activeRental.getUUID());
+            reloadSystemUser();
         }
         catch (RemoteException e)
         {

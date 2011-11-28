@@ -82,6 +82,16 @@ public class TestDataBaseConstructor
 
         // add medium exemplare
         MediumExemplar bookOneCopy = new MediumExemplar(2, bookOne);
+
+        try
+        {
+
+            Thread.sleep(50);
+        }
+        catch (Exception e)
+        {
+            System.out.println("Warning");
+        }
         bookOne.addMediumExemplar(bookOneCopy);
         bookOneCopy.addMediumExemplarStatusEntry(new MediumExemplarStatusEntry(
                 new Date(), bookOneCopy, MediumExemplarStatus.StockItem));

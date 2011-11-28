@@ -91,6 +91,7 @@ public class TestDataBaseConstructor
         calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DATE) + 7, 0, 0, 0);
         Rental rental = new Rental(calendar.getTime());
+        rental.setStartDate(new Date());
         rental.setCustomer(userZero);
         userZero.addActivity(rental);
         rental.setMediumExemplar(bookZeroCopy);

@@ -82,7 +82,7 @@ public class TestDataBaseConstructor
 
         // add medium exemplare
         MediumExemplar bookOneCopy = new MediumExemplar(2, bookOne);
-        bookOne.addMediumExemplar(bookZeroCopy);
+        bookOne.addMediumExemplar(bookOneCopy);
         bookOneCopy.addMediumExemplarStatusEntry(new MediumExemplarStatusEntry(
                 new Date(), bookOneCopy, MediumExemplarStatus.StockItem));
 
@@ -91,6 +91,7 @@ public class TestDataBaseConstructor
         calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DATE) + 7, 0, 0, 0);
         Rental rental = new Rental(calendar.getTime());
+        rental.setStartDate(new Date());
         rental.setCustomer(userZero);
         userZero.addActivity(rental);
         rental.setMediumExemplar(bookZeroCopy);

@@ -10,7 +10,6 @@ import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.model.accounting.ActivityStatus;
 import at.owlsoft.owl.model.accounting.ActivityStatusEntry;
 import at.owlsoft.owl.model.accounting.Rental;
-import at.owlsoft.owl.model.media.IMedium;
 import at.owlsoft.owl.model.media.Medium;
 import at.owlsoft.owl.model.media.MediumExemplar;
 import at.owlsoft.owl.model.media.MediumExemplarStatus;
@@ -70,7 +69,7 @@ public class RentalController extends ControllerBase
         }
 
         int days = getContext().getConfigurationController().getInt(
-                IMedium.class, "maxRentalDays", DEFAULT_MAX_RENTAL);
+                exemplare.getClass(), "maxRentalDays", DEFAULT_MAX_RENTAL);
 
         _rental.updateEndDate(days);
 

@@ -48,4 +48,6 @@ public interface IMediumExemplar extends Serializable
     List<? extends IActivity> getActivities();
 
     IRental getLastRental();
+
+    MediumExemplarStatus getCurrentState();
 }

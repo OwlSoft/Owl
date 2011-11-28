@@ -16,7 +16,6 @@ public class ApiFactory extends UnicastRemoteObject implements IApiFactory
         return _context;
     }
 
-    // TODO: Session handling
     public ApiFactory() throws RemoteException
     {
         super();
@@ -76,5 +75,11 @@ public class ApiFactory extends UnicastRemoteObject implements IApiFactory
     public ISearchApi createSearchApi() throws RemoteException
     {
         return new SearchApi(this);
+    }
+
+    @Override
+    public ISystemUserApi createSystemUserApi() throws RemoteException
+    {
+        return new SystemUserApi(this);
     }
 }

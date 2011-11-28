@@ -1,6 +1,7 @@
 package at.owlsoft.owl.business;
 
 import at.owlsoft.owl.usecases.ExtensionController;
+import at.owlsoft.owl.usecases.MediumExemplarSearchController;
 import at.owlsoft.owl.usecases.MediumSearchController;
 import at.owlsoft.owl.usecases.RentalController;
 import at.owlsoft.owl.usecases.ReservationController;
@@ -8,6 +9,17 @@ import at.owlsoft.owl.usecases.ReturnController;
 
 public class OwlApplicationContext
 {
+    private ConfigurationController _configurationController;
+
+    public ConfigurationController getConfigurationController()
+    {
+        if (_configurationController == null)
+        {
+            _configurationController = new ConfigurationController(this);
+        }
+        return _configurationController;
+    }
+
     private SearchFieldDefinitionController _clientSearchFieldDefinitionController;
 
     public SearchFieldDefinitionController getClientSearchFieldDefinitionController()
@@ -54,6 +66,18 @@ public class OwlApplicationContext
             _extensionController = new ExtensionController(this);
         }
         return _extensionController;
+    }
+
+    private MediumExemplarSearchController _mediumExemplarSearchController;
+
+    public MediumExemplarSearchController getMediumExemplarSearchController()
+    {
+        if (_mediumExemplarSearchController == null)
+        {
+            _mediumExemplarSearchController = new MediumExemplarSearchController(
+                    this);
+        }
+        return _mediumExemplarSearchController;
     }
 
     private MediumSearchController _mediumSearchController;

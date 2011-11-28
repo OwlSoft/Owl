@@ -1,5 +1,89 @@
 <owlet:CreateRentalView xmlns:bxml="http://pivot.apache.org/bxml"
 	xmlns:owlet="at.owlsoft.owlet.ui" xmlns:content="org.apache.pivot.wtk.content"
 	xmlns:collections="org.apache.pivot.collections" xmlns="org.apache.pivot.wtk">
-	<Label text="Nobody is here to create a rental!" />
+	<bxml:script>
+    function toName(systemUser) {
+    	if(systemUser == null) {
+    		return "No user selected!";
+    	}
+        return systemUser.getFirstName() + " " + systemUser.getLastName();
+    }
+    </bxml:script>
+	<Form>
+		<Form.Section heading="Setup">
+
+			<TablePane styles="{horizontalSpacing:5}" bxml:id="infoPane">
+				<columns>
+					<TablePane.Column width="1*" />
+					<TablePane.Column width="30" />
+					<TablePane.Column width="1*" />
+					<TablePane.Column width="30" />
+				</columns>
+				<TablePane.Row height="25">
+					<Label text="Kunde" />
+					<TablePane.Filler />
+					<Label text="Exemplar" />
+					<TablePane.Filler />
+				</TablePane.Row>
+				<TablePane.Row height="25">
+					<TextInput bxml:id="cardID" />
+					<PushButton buttonData="v" bxml:id="loadCustomer" />
+					<TextInput bxml:id="exemplarID" />
+					<PushButton buttonData="v" bxml:id="loadExemplar" />
+				</TablePane.Row>
+				<TablePane.Row height="25">
+					<Label bxml:id="customerNameLabel" TablePane.columnSpan="2" />
+					<TablePane.Filler />
+					<Label bxml:id="exemplarTitleLabel" TablePane.columnSpan="2" />
+					<TablePane.Filler />
+				</TablePane.Row>
+				<TablePane.Row height="25">
+					<Label bxml:id="cardIDLabel" TablePane.columnSpan="2" />
+					<TablePane.Filler />
+					<Label bxml:id="exemplarIDLabel" TablePane.columnSpan="2" />
+					<TablePane.Filler />
+				</TablePane.Row>
+				<TablePane.Row height="25">
+					<Label text="Start Date" TablePane.columnSpan="2" />
+					<TablePane.Filler />
+					<Label text="End Date" TablePane.columnSpan="2" />
+					<TablePane.Filler />
+				</TablePane.Row>
+				<TablePane.Row height="25">
+					<CalendarButton TablePane.columnSpan="2" bxml:id="startDate" />
+					<TablePane.Filler />
+					<Label TablePane.columnSpan="2" text="End Date" bxml:id="endDate" />
+					<TablePane.Filler />
+				</TablePane.Row>
+				<TablePane.Row height="25">
+					<Label TablePane.columnSpan="2" text="Duration" bxml:id="duration" />
+				</TablePane.Row>
+			</TablePane>
+		</Form.Section>
+		<Form.Section heading="Errors">
+			<Border>
+				<ScrollPane>
+					<TableView bxml:id="errorView">
+						<columns>
+							<TableView.Column name="message" width="500" headerData="Message" />
+						</columns>
+					</TableView>
+				</ScrollPane>
+			</Border>
+		</Form.Section>
+		<Form.Section heading="Warnings">
+			<Border>
+				<ScrollPane>
+					<TableView bxml:id="warningView">
+						<columns>
+							<TableView.Column name="message" width="500" headerData="Message" />
+						</columns>
+					</TableView>
+				</ScrollPane>
+			</Border>
+		</Form.Section>
+		<Form.Section>
+			<PushButton buttonData="Rent Medium" />
+		</Form.Section>
+	</Form>
 </owlet:CreateRentalView>

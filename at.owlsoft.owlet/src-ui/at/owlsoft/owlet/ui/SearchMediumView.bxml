@@ -25,7 +25,9 @@
 				<ScrollPane>
 					<TableView bxml:id="resultView">
 						<columns>
-							<TableView.Column name="name" width="400" headerData="Name" />
+							<TableView.Column name="mediumID" width="20" headerData="ID" />
+							<TableView.Column name="name" width="200" headerData="Name" />
+							<TableView.Column name="title" width="100" headerData="Title" />
 							<TableView.Column name="mediumExemplarCount" width="150" headerData="Exemplar Count" />
 						</columns>
 					</TableView>
@@ -34,7 +36,6 @@
 					</columnHeader>
 				</ScrollPane>
 			</Border>
-
 		</TablePane.Row>
 	</TablePane>
 </owlet:SearchMediumView>

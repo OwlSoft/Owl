@@ -34,35 +34,35 @@ public class LdapUserAuthController extends ControllerBase
     }
 
     public boolean CheckLdapAuth(String userName, String password)
-            throws NamingException
     {
         String principal = getRdn(userName);
+        try
+        {
 
-        System.out.println(principal);
+            // TODO Put properties into jndi.properties file - didn't work at
+            // first
+            Properties env = new Properties();
+            env.put(Context.INITIAL_CONTEXT_FACTORY,
+                    "com.sun.jndi.ldap.LdapCtxFactory");
+            env.put(Context.PROVIDER_URL, "ldaps://ldap.fhv.at:636");
+            env.put(Context.SECURITY_AUTHENTICATION, "simple");
+            env.put(Context.SECURITY_PRINCIPAL, principal);
+            env.put(Context.SECURITY_CREDENTIALS, password);
 
-        // TODO Put properties into jndi.properties file - didn't work at first
-        Properties env = new Properties();
-        env.put(Context.INITIAL_CONTEXT_FACTORY,
-                "com.sun.jndi.ldap.LdapCtxFactory");
-        env.put(Context.PROVIDER_URL, "ldap://localhost:10389");
-        // TODO Use FHV data, if it starts working
-        // env.put(Context.PROVIDER_URL, "ldaps://ldap.fhv.at:389");
-        env.put(Context.SECURITY_AUTHENTICATION, "simple");
-        env.put(Context.SECURITY_PRINCIPAL, principal);
-        env.put(Context.SECURITY_CREDENTIALS, password);
-
-        InitialDirContext ctx = new InitialDirContext(env);
-        ctx.close();
-        return true;
-
+            InitialDirContext ctx = new InitialDirContext(env);
+            ctx.close();
+            return true;
+        }
+        catch (NamingException e)
+        {
+            // Authentication failed
+            return false;
+        }
     }
 
     private String getRdn(String userName)
     {
-        // TODO Get FHV LDAP to work, goddamnit
-        // return "uid=" + userName + ",ou=fhv,ou=People,dc=uclv,dc=net";
-
-        // Local LDAP server
-        return "uid=" + userName + ",ou=system";
+        // DN for user name check
+        return "uid=" + userName + ",ou=fhv,ou=People,dc=uclv,dc=net";
     }
 }

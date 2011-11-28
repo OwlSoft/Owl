@@ -1,4 +1,4 @@
-package at.owlsoft.owl.usecases;
+package at.owlsoft.owl.validation;
 
 public enum ValidationMode
 {

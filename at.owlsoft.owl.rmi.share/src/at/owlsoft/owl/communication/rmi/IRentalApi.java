@@ -3,6 +3,7 @@ package at.owlsoft.owl.communication.rmi;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.UUID;
 
 import at.owlsoft.owl.model.media.IMediumExemplar;
 import at.owlsoft.owl.model.user.ISystemUser;
@@ -22,4 +23,8 @@ public interface IRentalApi extends Remote
 
     public List<ValidationMessage> getValidationMessages()
             throws RemoteException;
+
+    public void createNewExtension(UUID uuid) throws RemoteException;
+
+    public void returnRental(UUID uuid) throws RemoteException;
 }

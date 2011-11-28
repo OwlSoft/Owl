@@ -119,4 +119,32 @@ public class ShowRentalViewModel
         }
 
     }
+
+    public void createNewExtension(IRental activeRental)
+    {
+        try
+        {
+            _currentRentalApi.createNewExtension(activeRental.getUUID());
+        }
+        catch (RemoteException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+
+    public void returnRental(IRental activeRental)
+    {
+        try
+        {
+            _currentRentalApi.returnRental(activeRental.getUUID());
+        }
+        catch (RemoteException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
 }

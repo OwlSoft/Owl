@@ -38,8 +38,9 @@ public class RentalController extends ControllerBase
         _rental.setStartDate(new Date());
         _rental.updateEndDate(DEFAULT_MAX_RENTAL);
         _messages = null;
-        _rental.setCreator(getContext().getAuthenticationController()
-                .getCurrentUser());
+        // TODO: Set current user
+        // _rental.setCreator(getContext().getLdap()
+        // .getCurrentUser());
     }
 
     /**

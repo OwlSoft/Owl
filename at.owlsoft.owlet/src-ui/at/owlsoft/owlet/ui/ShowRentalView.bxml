@@ -1,9 +1,9 @@
 <owlet:ShowRentalView xmlns:bxml="http://pivot.apache.org/bxml"
 	xmlns:owlet="at.owlsoft.owlet.ui" xmlns:content="org.apache.pivot.wtk.content"
 	xmlns:collections="org.apache.pivot.collections" xmlns="org.apache.pivot.wtk">
-	<Label text="Nobody is here to show a rental!" />
 	<PushButton buttonData="Lade user mit cardID 0" bxml:id="loadDefaultUserButton" />
 	<ListButton  bxml:id="allRentalsListButton" />
+	<PushButton buttonData="ausgewaehlten Aufgabe zurueckgeben" bxml:id="returnRentalButton" />
 		<TablePane>
 		<columns>
 			<TablePane.Column width="1*" />
@@ -26,6 +26,7 @@
 				<Form.Section heading="Exemplar">
 					<Border>
 						<BoxPane orientation="vertical" bxml:id="exemplarPane" styles="{horizontalAlignment:'left', verticalAlignment:'top', fill:true}">
+						<Label text="" bxml:id="exemplarID" /><Label text="" bxml:id="exemplarName" />
 						</BoxPane>
 					</Border>
 		
@@ -49,6 +50,8 @@
 					<Border>					
 					<PushButton buttonData="verlaengern" bxml:id="doExtensionButton" />
 						<BoxPane orientation="vertical" bxml:id="extensionPane" styles="{horizontalAlignment:'left', verticalAlignment:'top', fill:true}">
+						<Label text="Anzahl der Verlaengerungen:"/> <Label text="" bxml:id="extensionCount" />
+						<PushButton buttonData="verlaengern" bxml:id="createNewExtensionButton" />
 						</BoxPane>
 					</Border>
 		

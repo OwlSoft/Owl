@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<batchResponse xmlns:xsd="http://www.w3c.org/2001/XMLSchema" xmlns:xsi="http://www.w3c.org/2001/XMLSchema-instance">
+   <searchResponse>
+      <searchResultEntry dn="ou=system">
+         <attr name="ou">
+            <value>system</value>
+         </attr>
+         <attr name="objectclass">
+            <value>organizationalUnit</value>
+            <value>extensibleObject</value>
+            <value>top</value>
+         </attr>
+      </searchResultEntry>
+      <searchResultEntry dn="uid=admin,ou=system">
+         <attr name="uid">
+            <value>admin</value>
+         </attr>
+         <attr name="privatekeyformat">
+            <value>PKCS#8</value>
+         </attr>
+         <attr name="userpassword">
+            <value xsi:type="xsd:base64Binary">c2VjcmV0</value>
+         </attr>
+         <attr name="sn">
+            <value>administrator</value>
+         </attr>
+         <attr name="cn">
+            <value>system administrator</value>
+         </attr>
+         <attr name="keyalgorithm">
+            <value>RSA</value>
+         </attr>
+         <attr name="publickey">
+            <value xsi:type="xsd:base64Binary">MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAO/ISplnJG/y62SxSuJeC208VXznVvP7c+eDl+B7BH5DzDro3XmnkrEvcCdumnIYZFEVmkiD1dBFvYmSc8P8fC0CAwEAAQ==</value>
+         </attr>
+         <attr name="objectclass">
+            <value>person</value>
+            <value>organizationalPerson</value>
+            <value>inetOrgPerson</value>
+            <value>tlsKeyInfo</value>
+            <value>top</value>
+         </attr>
+         <attr name="privatekey">
+            <value xsi:type="xsd:base64Binary">MIIBVQIBADANBgkqhkiG9w0BAQEFAASCAT8wggE7AgEAAkEA78hKmWckb/LrZLFK4l4LbTxVfOdW8/tz54OX4HsEfkPMOujdeaeSsS9wJ26achhkURWaSIPV0EW9iZJzw/x8LQIDAQABAkEA0MgtbHUKnQ9/NyXIdmI8wNiP9znX1IlV2ngSfjufJfBjHQPX6hh/HBEJ7eaCwErPAlPRfr4esSx3toANDP2QYQIhAPrtMEWA7XhDQFlub91DybFxHFM856mzr/TxDeoJQUXLAiEA9KFrjXcXlw2kRKFOVssepVJOGmxVhHBfeo8CEErjRucCIDozg8vLQMlxR962d+npjEHFC53e9ZjuHbUBqImNRf+LAiBaArMCQFmruNdCcV/Ty7Ug+2HFkyr8KiTXgZsux39M7QIhALwAWTazzeKaru/NWL7IzdNJiZ3MJiH/kWJSs6Jcc2cO</value>
+         </attr>
+         <attr name="publickeyformat">
+            <value>X.509</value>
+         </attr>
+         <attr name="displayname">
+            <value>Directory Superuser</value>
+         </attr>
+         <attr name="usercertificate">
+            <value xsi:type="xsd:base64Binary">MIIBczCCAR0CBgEz1TWOdjANBgkqhkiG9w0BAQUFADBCMQswCQYDVQQGEwJVUzEMMAoGA1UEChMDQVNGMRIwEAYDVQQLEwlEaXJlY3RvcnkxETAPBgNVBAMTCEFwYWNoZURTMB4XDTExMTEyNDEwNTMzNloXDTEyMTEyMzEwNTMzNlowQjELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0FTRjESMBAGA1UECxMJRGlyZWN0b3J5MREwDwYDVQQDEwhBcGFjaGVEUzBcMA0GCSqGSIb3DQEBAQUAA0sAMEgCQQDvyEqZZyRv8utksUriXgttPFV851bz+3Png5fgewR+Q8w66N15p5KxL3AnbppyGGRRFZpIg9XQRb2JknPD/HwtAgMBAAEwDQYJKoZIhvcNAQEFBQADQQALre9KSERoBQ1Y+MgGxF3ZgqqeDOZIIaGVUiEuKXHFEK2S+mfHghabBXbZkUq0IvgAFVkehqO1qNo0ii27zBse</value>
+         </attr>
+      </searchResultEntry>
+      <searchResultEntry dn="ou=users,ou=system">
+         <attr name="ou">
+            <value>users</value>
+         </attr>
+         <attr name="objectclass">
+            <value>organizationalUnit</value>
+            <value>top</value>
+         </attr>
+      </searchResultEntry>
+      <searchResultEntry dn="ou=groups,ou=system">
+         <attr name="ou">
+            <value>groups</value>
+         </attr>
+         <attr name="objectclass">
+            <value>organizationalUnit</value>
+            <value>top</value>
+         </attr>
+      </searchResultEntry>
+      <searchResultEntry dn="cn=Administrators,ou=groups,ou=system">
+         <attr name="uniquemember">
+            <value>0.9.2342.19200300.100.1.1=admin,2.5.4.11=system</value>
+         </attr>
+         <attr name="cn">
+            <value>Administrators</value>
+         </attr>
+         <attr name="objectclass">
+            <value>groupOfUniqueNames</value>
+            <value>top</value>
+         </attr>
+      </searchResultEntry>
+      <searchResultEntry dn="ou=configuration,ou=system">
+         <attr name="ou">
+            <value>configuration</value>
+         </attr>
+         <attr name="objectclass">
+            <value>organizationalUnit</value>
+            <value>top</value>
+         </attr>
+      </searchResultEntry>
+      <searchResultEntry dn="ou=partitions,ou=configuration,ou=system">
+         <attr name="ou">
+            <value>partitions</value>
+         </attr>
+         <attr name="objectclass">
+            <value>organizationalUnit</value>
+            <value>top</value>
+         </attr>
+      </searchResultEntry>
+      <searchResultEntry dn="ou=services,ou=configuration,ou=system">
+         <attr name="ou">
+            <value>services</value>
+         </attr>
+         <attr name="objectclass">
+            <value>organizationalUnit</value>
+            <value>top</value>
+         </attr>
+      </searchResultEntry>
+      <searchResultEntry dn="ou=interceptors,ou=configuration,ou=system">
+         <attr name="ou">
+            <value>interceptors</value>
+         </attr>
+         <attr name="objectclass">
+            <value>organizationalUnit</value>
+            <value>top</value>
+         </attr>
+      </searchResultEntry>
+      <searchResultEntry dn="prefNodeName=sysPrefRoot,ou=system">
+         <attr name="prefnodename">
+            <value>sysPrefRoot</value>
+         </attr>
+         <attr name="objectclass">
+            <value>organizationalUnit</value>
+            <value>extensibleObject</value>
+            <value>top</value>
+         </attr>
+      </searchResultEntry>
+      <searchResultEntry dn="uid=nisi,ou=system">
+         <attr name="uid">
+            <value>nisi</value>
+         </attr>
+         <attr name="sn">
+            <value>Nisandzic</value>
+         </attr>
+         <attr name="userpassword">
+            <value xsi:type="xsd:base64Binary">cGFzc3dvcnQ=</value>
+         </attr>
+         <attr name="cn">
+            <value>Daniel Nisnadzic</value>
+         </attr>
+         <attr name="objectclass">
+            <value>organizationalPerson</value>
+            <value>person</value>
+            <value>inetOrgPerson</value>
+            <value>top</value>
+         </attr>
+      </searchResultEntry>
+      <searchResultDone>
+         <resultCode code="0" descr="success"/>
+      </searchResultDone>
+   </searchResponse>
+</batchResponse>

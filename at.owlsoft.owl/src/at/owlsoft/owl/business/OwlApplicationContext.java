@@ -40,8 +40,7 @@ public class OwlApplicationContext
         {
             _serverSearchFieldDefinitionController = new SearchFieldDefinitionController(
                     this,
-                    SearchFieldDefinitionController.class
-                            .getResourceAsStream("/SearchFieldCategoriesNoGuiMapping.xml"));
+                    SearchFieldDefinitionControllerConfigFiles.NoGuiMapping);
         }
         return _serverSearchFieldDefinitionController;
     }
@@ -125,14 +124,25 @@ public class OwlApplicationContext
         return _returnController;
     }
 
-    private AuthenticationController _authenticationController;
+    private RentalSearchController _rentalSearchController;
 
-    public AuthenticationController getAuthenticationController()
+    public RentalSearchController getRentalSearchController()
     {
-        if (_authenticationController == null)
+        if (_rentalSearchController == null)
         {
-            _authenticationController = new AuthenticationController(this);
+            _rentalSearchController = new RentalSearchController(this);
         }
-        return _authenticationController;
+        return _rentalSearchController;
+    }
+
+    private LdapUserAuthController _ldapUserAuthController;
+
+    public LdapUserAuthController getLdapUserAuthController()
+    {
+        if (_ldapUserAuthController == null)
+        {
+            _ldapUserAuthController = new LdapUserAuthController(this);
+        }
+        return _ldapUserAuthController;
     }
 }

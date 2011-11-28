@@ -194,4 +194,21 @@ public class MediumExemplar implements IMediumExemplar
         }
         return last;
     }
+
+    @Override
+    public MediumExemplarStatus getCurrentState()
+    {
+        MediumExemplarStatus status = MediumExemplarStatus.Rentable;
+        Date newest = new Date(0);
+        for (MediumExemplarStatusEntry entry : _mediumExemplarStatusEntries)
+        {
+            if (newest.before(entry.getDate()))
+            {
+                newest = entry.getDate();
+                status = entry.getMediumExemplarStatus();
+            }
+
+        }
+        return status;
+    }
 }

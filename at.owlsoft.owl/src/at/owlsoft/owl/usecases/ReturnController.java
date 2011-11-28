@@ -32,23 +32,31 @@ public class ReturnController extends ControllerBase
 
     public List<ValidationMessage> returnMediumCopy(MediumExemplar copy)
     {
-        Rental rental = copy.getLastRental();
+        if (copy.getCurrentState() == MediumExemplarStatus.Rented)
+        {
+            Rental rental = copy.getLastRental();
 
-        ActivityStatusEntry ase = new ActivityStatusEntry();
-        ase.setDate(new Date());
-        ase.setActivityStatus(ActivityStatus.Returned);
-        rental.addActivityStatusEntry(ase);
+            ActivityStatusEntry ase = new ActivityStatusEntry();
+            ase.setDate(new Date());
+            ase.setActivityStatus(ActivityStatus.Returned);
+            rental.addActivityStatusEntry(ase);
 
-        DaoManager.getInstance().getActivityDao().store(rental);
+            DaoManager.getInstance().getActivityDao().store(rental);
 
-        MediumExemplarStatusEntry mese = new MediumExemplarStatusEntry();
-        mese.setDate(new Date());
-        mese.setMediumExemplarStatus(MediumExemplarStatus.Returned);
-        mese.setMediumExemplar(copy);
+            MediumExemplarStatusEntry mese = new MediumExemplarStatusEntry();
+            mese.setDate(new Date());
+            mese.setMediumExemplarStatus(MediumExemplarStatus.Returned);
+            mese.setMediumExemplar(copy);
 
-        copy.addMediumExemplarStatusEntry(mese);
+            copy.addMediumExemplarStatusEntry(mese);
 
-        DaoManager.getInstance().getMediumExemplarDao().store(copy);
+            DaoManager.getInstance().getMediumExemplarDao().store(copy);
+        }
+        else
+        {
+            _messages.add(new ValidationMessage("Copy is not rented.",
+                    ValidationMessageStatus.Error));
+        }
 
         return _messages;
     }

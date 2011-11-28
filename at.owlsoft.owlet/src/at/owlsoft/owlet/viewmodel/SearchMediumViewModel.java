@@ -105,7 +105,11 @@ public class SearchMediumViewModel
     {
         try
         {
-            _searchApi.setSearchFieldData(uniqueId, definition.getKey(), value);
+            if (definition != null)
+            {
+                _searchApi.setSearchFieldData(uniqueId, definition.getKey(),
+                        value);
+            }
         }
         catch (RemoteException e)
         {

@@ -17,6 +17,7 @@
 public package at.owlsoft.owl.model.accounting;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -84,4 +85,11 @@ public class Rental extends Activity implements IRental
         _filingExtensions.remove(filingExtension);
     }
 
+    public void updateEndDate(int days)
+    {
+        Calendar c = Calendar.getInstance();
+        c.setTime(getStartDate());
+        c.add(Calendar.DATE, days);
+        setEndDate(c.getTime());
+    }
 }

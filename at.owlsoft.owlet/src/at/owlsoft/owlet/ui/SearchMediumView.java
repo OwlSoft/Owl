@@ -28,6 +28,7 @@ public class SearchMediumView extends OwletView
     @Override
     protected void onViewOpened()
     {
+        setEnabled(true);
         try
         {
             _viewModel.initialize();
@@ -44,8 +45,6 @@ public class SearchMediumView extends OwletView
     public void initialize(Map<String, Object> ns, URL location,
             Resources resources)
     {
-        setEnabled(true);
-
         _resultView = (TableView) ns.get("resultView");
 
         _searchFieldPane = (BoxPane) ns.get("searchFieldPane");

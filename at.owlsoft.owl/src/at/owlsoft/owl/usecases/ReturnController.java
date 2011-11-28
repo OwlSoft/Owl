@@ -16,6 +16,8 @@ import at.owlsoft.owl.model.accounting.Rental;
 import at.owlsoft.owl.model.media.MediumExemplar;
 import at.owlsoft.owl.model.media.MediumExemplarStatus;
 import at.owlsoft.owl.model.media.MediumExemplarStatusEntry;
+import at.owlsoft.owl.validation.ValidationMessage;
+import at.owlsoft.owl.validation.ValidationMessageStatus;
 
 // FIXME: A exemplar return should get handled in the rental controller
 public class ReturnController extends ControllerBase

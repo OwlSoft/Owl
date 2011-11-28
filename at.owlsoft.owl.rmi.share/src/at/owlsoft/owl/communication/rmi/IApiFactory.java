@@ -16,4 +16,6 @@ public interface IApiFactory extends Remote
 
     public abstract ISearchApi createSearchApi() throws RemoteException;
 
+    public abstract ISystemUserApi createSystemUserApi() throws RemoteException;
+
 }

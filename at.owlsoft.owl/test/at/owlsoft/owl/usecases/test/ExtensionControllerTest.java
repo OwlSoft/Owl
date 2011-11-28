@@ -18,7 +18,7 @@ import at.owlsoft.owl.model.user.SystemUser;
 import at.owlsoft.owl.model.user.SystemUserStatus;
 import at.owlsoft.owl.model.user.SystemUserStatusEntry;
 import at.owlsoft.owl.usecases.ExtensionController;
-import at.owlsoft.owl.usecases.ValidationMessage;
+import at.owlsoft.owl.validation.ValidationMessage;
 
 public class ExtensionControllerTest
 {

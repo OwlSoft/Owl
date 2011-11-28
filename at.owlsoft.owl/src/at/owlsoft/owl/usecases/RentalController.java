@@ -10,15 +10,20 @@ import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.model.accounting.ActivityStatus;
 import at.owlsoft.owl.model.accounting.ActivityStatusEntry;
 import at.owlsoft.owl.model.accounting.Rental;
+import at.owlsoft.owl.model.media.IMedium;
 import at.owlsoft.owl.model.media.Medium;
 import at.owlsoft.owl.model.media.MediumExemplar;
 import at.owlsoft.owl.model.media.MediumExemplarStatus;
 import at.owlsoft.owl.model.media.MediumExemplarStatusEntry;
 import at.owlsoft.owl.model.user.SystemUser;
 import at.owlsoft.owl.model.user.SystemUserStatus;
+import at.owlsoft.owl.validation.ValidationMessage;
+import at.owlsoft.owl.validation.ValidationMessageStatus;
+import at.owlsoft.owl.validation.ValidationMode;
 
 public class RentalController extends ControllerBase
 {
+    private static final int        DEFAULT_MAX_RENTAL = 10;
     private Rental                  _rental;
     private List<ValidationMessage> _messages;
 
@@ -29,10 +34,53 @@ public class RentalController extends ControllerBase
 
     public void newRental()
     {
-        _rental = new Rental(new Date());
+        _rental = new Rental();
+        _rental.setStartDate(new Date());
+        _rental.updateEndDate(DEFAULT_MAX_RENTAL);
         _messages = null;
-        // TODO where comes the creator from??
-        // _rental.setCreator(creator)
+        // TODO: Set current user
+        // _rental.setCreator(getContext().getLdap()
+        // .getCurrentUser());
+    }
+
+    /**
+     * 
+     * @param medium
+     * @return If no warnings are found returns empty List.
+     */
+    public List<ValidationMessage> setMediumExemplar(MediumExemplar exemplare)
+    {
+        boolean rentableFound = false;
+        if (_rental == null)
+        {
+            newRental();
+        }
+
+        // validate whether rentable or not
+        if (exemplare != null
+                && exemplare
+                        .getMediumExemplarStatusEntry(
+                                exemplare.getMediumExemplarStatusEntryCount() - 1)
+                        .getMediumExemplarStatus()
+                        .equals(MediumExemplarStatus.Rentable))
+        {
+            _rental.setMediumExemplar(exemplare);
+            // TODO Replace dummy endDate with value from config
+            rentableFound = true;
+        }
+
+        int days = getContext().getConfigurationController().getInt(
+                IMedium.class, "maxRentalDays", DEFAULT_MAX_RENTAL);
+
+        _rental.updateEndDate(days);
+
+        validate(ValidationMode.NotStrict);
+        if (!rentableFound)
+        {
+            _messages.add(new ValidationMessage("No rentable copy found.",
+                    ValidationMessageStatus.Error));
+        }
+        return _messages;
     }
 
     /**
@@ -138,19 +186,31 @@ public class RentalController extends ControllerBase
 
         _messages = new ArrayList<ValidationMessage>();
 
-        SystemUser renter = _rental.getCustomer();
-        SystemUserStatus renterStatus = renter.getSystemUserStatusEntry(
-                renter.getSystemUserStatusEntryCount() - 1)
-                .getSystemUserStatus();
-
-        if (!renterStatus.equals(SystemUserStatus.Active))
+        if (_rental.getCustomer() == null)
         {
-            String message = "Customer is inactive with state "
-                    + renterStatus.name();
+            String message = "No user choosen.";
             ValidationMessage vm = new ValidationMessage(message,
                     ValidationMessageStatus.Error);
             _messages.add(vm);
             hasNoError = false;
+        }
+        else
+        {
+            SystemUser renter = _rental.getCustomer();
+            SystemUserStatus renterStatus = renter.getSystemUserStatusEntry(
+                    renter.getSystemUserStatusEntryCount() - 1)
+                    .getSystemUserStatus();
+
+            if (!renterStatus.equals(SystemUserStatus.Active))
+            {
+                String message = "Customer is inactive with state "
+                        + renterStatus.name();
+                ValidationMessage vm = new ValidationMessage(message,
+                        ValidationMessageStatus.Error);
+                _messages.add(vm);
+                hasNoError = false;
+            }
+
         }
 
         if (_rental.getMediumExemplar() == null)

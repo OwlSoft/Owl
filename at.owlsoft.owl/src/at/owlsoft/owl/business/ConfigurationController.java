@@ -75,25 +75,41 @@ public class ConfigurationController extends ControllerBase
         }
     }
 
-    public void store() throws IOException
+    public void store() throws Exception
     {
-        File file = new File(PROPERTIES_FILE_NAME);
-        if (!file.exists())
+        if (getContext().getSystemUser().hasRole("admin"))
         {
-            file.createNewFile();
+
+            File file = new File(PROPERTIES_FILE_NAME);
+            if (!file.exists())
+            {
+                file.createNewFile();
+            }
+            FileOutputStream out = new FileOutputStream(file);
+            _configuration.storeToXML(out, null, "UTF-8");
         }
-        FileOutputStream out = new FileOutputStream(file);
-        _configuration.storeToXML(out, null, "UTF-8");
+        throw new Exception("No Permission.");
     }
 
-    public void removeProperty(List<String> properties)
+    public void removeProperty(List<String> properties) throws Exception
     {
-        _configuration.removeProperties(properties);
+        if (getContext().getSystemUser().hasRole("admin"))
+        {
+
+            _configuration.removeProperties(properties);
+        }
+        throw new Exception("No Permission.");
     }
 
-    public Map<String, String> getAllProperties()
+    public Map<String, String> getAllProperties() throws Exception
     {
-        return _configuration.getAllPropterties();
+        if (getContext().getSystemUser().hasRole("admin"))
+        {
+
+            return _configuration.getAllPropterties();
+        }
+        throw new Exception("No Permission.");
+
     }
 
     public void setAll(Map<String, String> properties)

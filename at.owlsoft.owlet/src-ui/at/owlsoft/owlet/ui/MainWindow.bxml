@@ -34,6 +34,11 @@
 										<content:MenuItemData text="Show a Rental" />
 									</buttonData>
 								</Menu.Item>
+								<Menu.Item action="adminConfig">
+									<buttonData>
+										<content:MenuItemData text="Admin configuration" />
+									</buttonData>
+								</Menu.Item>	
 								<Menu.Item action="quitApplication">
 									<buttonData>
 										<content:MenuItemData text="Beenden"

@@ -1,14 +1,18 @@
-package at.owlsoft.owl.business;
+package at.owlsoft.owl.business.test;
 
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
 
+import at.owlsoft.owl.business.ConfigurationController;
+import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.model.media.IMedium;
 
 public class ConfigurationControllerTest
@@ -34,20 +38,10 @@ public class ConfigurationControllerTest
                 specificDuration);
         assertEquals(specificDuration, result);
 
-        try
-        {
-            controller.store();
-        }
-        catch (IOException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
     }
 
     @Test
-    public void setAllTest()
+    public void setAllTest() throws IOException
     {
         Map<String, String> testMap = new HashMap<String, String>();
         testMap.put("hugo", "3");
@@ -55,7 +49,11 @@ public class ConfigurationControllerTest
                 new OwlApplicationContext());
         controller.setAll(testMap);
         int hugo = controller.getInt("hugo");
+        controller.store();
         Assert.assertTrue(hugo == 3);
+        List<String> temp = new ArrayList<String>();
+        temp.add("hugo");
+        controller.removeProperty(temp);
+        controller.store();
     }
-
 }

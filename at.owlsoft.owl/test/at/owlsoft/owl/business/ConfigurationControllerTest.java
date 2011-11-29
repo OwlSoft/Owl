@@ -3,7 +3,10 @@ package at.owlsoft.owl.business;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import at.owlsoft.owl.model.media.IMedium;
@@ -21,15 +24,15 @@ public class ConfigurationControllerTest
         ConfigurationController controller = new ConfigurationController(
                 new OwlApplicationContext());
         int result = controller.getInt(
-                IMedium.class.getName().concat("ExtensionDuration"),
+                IMedium.class.getName().concat("extensionDuration"),
                 defaultDuration);
         assertEquals(defaultDuration, result);
 
         controller.set(IMedium.class.getName(), specificDuration);
         result = controller.getInt(
-                IMedium.class.getName().concat("ExtensionDuration"),
+                IMedium.class.getName().concat("extensionDuration"),
                 specificDuration);
-        assertEquals(14, result);
+        assertEquals(specificDuration, result);
 
         try
         {
@@ -41,6 +44,18 @@ public class ConfigurationControllerTest
             e.printStackTrace();
         }
 
+    }
+
+    @Test
+    public void setAllTest()
+    {
+        Map<String, String> testMap = new HashMap<String, String>();
+        testMap.put("hugo", "3");
+        ConfigurationController controller = new ConfigurationController(
+                new OwlApplicationContext());
+        controller.setAll(testMap);
+        int hugo = controller.getInt("hugo");
+        Assert.assertTrue(hugo == 3);
     }
 
 }

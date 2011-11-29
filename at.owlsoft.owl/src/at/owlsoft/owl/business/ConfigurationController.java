@@ -4,14 +4,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
 import at.owlsoft.owl.model.Configuration;
-import at.owlsoft.owl.model.KeyValue;
 
 public class ConfigurationController extends ControllerBase
 {
@@ -91,9 +90,9 @@ public class ConfigurationController extends ControllerBase
         return _configuration.getAllPropterties();
     }
 
-    public void setAll(List<KeyValue<String, String>> properties)
+    public void setAll(Map<String, String> properties)
     {
-        for (KeyValue<String, String> entry : properties)
+        for (Entry<String, String> entry : properties.entrySet())
         {
             set(entry.getKey(), entry.getValue());
         }

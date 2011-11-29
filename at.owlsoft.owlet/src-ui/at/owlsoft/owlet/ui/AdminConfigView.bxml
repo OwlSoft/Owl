@@ -1,0 +1,34 @@
+<owlet:AdminConfigView xmlns:bxml="http://pivot.apache.org/bxml"
+	xmlns:owlet="at.owlsoft.owlet.ui" xmlns:content="org.apache.pivot.wtk.content"
+	xmlns:collections="org.apache.pivot.collections" xmlns="org.apache.pivot.wtk">
+	<TablePane styles="{horizontalSpacing:6,verticalSpacing:20}">
+		<columns>
+			<TablePane.Column width="3*" />
+			<TablePane.Column width="-1" />
+			<TablePane.Column width="1*" />
+		</columns>
+		<TablePane.Row>
+			<BoxPane orientation="horizontal" TablePane.columnSpan="3">
+				<Label text="Parameter search:" />
+				<TextInput bxml:id="configSearchField" textSize="59" />
+				<PushButton bxml:id="addNewParamButton" buttonData="Add param" />
+			</BoxPane>
+		</TablePane.Row>
+		<TablePane.Row>
+			<Border>
+				<ListView bxml:id="configParams" selectMode="single" />
+			</Border>
+			<TablePane.Filler />
+			<BoxPane orientation="vertical">
+				<TextInput bxml:id="configParamValue" />
+			</BoxPane>
+		</TablePane.Row>
+		<TablePane.Row height="30">
+			<TablePane.Filler />
+			<TablePane.Filler />
+			<BoxPane orientation="vertical">			
+				<PushButton bxml:id="saveButton" buttonData="Save changes" />			
+			</BoxPane>
+		</TablePane.Row>
+	</TablePane>
+</owlet:AdminConfigView>

@@ -20,6 +20,9 @@ import at.owlsoft.owl.validation.ValidationMessageStatus;
 public class ExtensionController extends ControllerBase
 {
 
+    private static final int DEFAULT_MAX_EXTENSIONS     = 3;
+    private static final int DEFAULT_EXTENSION_DURATION = 7;
+
     public ExtensionController(OwlApplicationContext context)
     {
         super(context);
@@ -38,7 +41,7 @@ public class ExtensionController extends ControllerBase
             fex.setCreationDate(new Date());
 
             Date endDate = new Date(rental.getEndDate().getTime()
-                    + getExtensionPeriode());
+                    + getExtensionPeriode(rental.getMediumExemplar()));
             fex.setNewEndDate(endDate);
             fex.setRental(rental);
 
@@ -51,10 +54,14 @@ public class ExtensionController extends ControllerBase
 
     }
 
-    private long getExtensionPeriode()
+    private long getExtensionPeriode(MediumExemplar copy)
     {
         // TODO Read extension periode from config.
-        return 7;
+        Class<?> c = copy.getClass();
+        String name = c.getName().concat("extensionDuration");
+        return getContext().getConfigurationController().getInt(name,
+                DEFAULT_EXTENSION_DURATION)
+                * 24 * 60 * 60 * 1000;
     }
 
     private boolean validate(Rental rental)
@@ -64,7 +71,10 @@ public class ExtensionController extends ControllerBase
 
         _messages = new ArrayList<ValidationMessage>();
         // TODO Read from config maximum FilingExtension number
-        int maxExtensions = 3;
+        Class<?> c = rental.getMediumExemplar().getClass();
+        String name = c.getName().concat("maxExtensions");
+        int maxExtensions = getContext().getConfigurationController().getInt(
+                name, DEFAULT_MAX_EXTENSIONS);
 
         if (rental.getFilingExtensionCount() >= maxExtensions)
         {

@@ -16,6 +16,11 @@
  */
 public package at.owlsoft.owl.model;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 public class Configuration
@@ -25,6 +30,22 @@ public class Configuration
     public Configuration()
     {
         _settings = new Properties();
+    }
+
+    public void storeToXML(OutputStream os, String comment, String encoding)
+            throws IOException
+    {
+        _settings.store(os, comment);
+    }
+
+    public Map<String, String> getAllPropterties()
+    {
+        Map<String, String> temp = new HashMap<String, String>();
+        for (Entry<Object, Object> entry : _settings.entrySet())
+        {
+            temp.put((String) entry.getKey(), (String) entry.getValue());
+        }
+        return temp;
     }
 
     public String getString(String name)
@@ -116,27 +137,27 @@ public class Configuration
 
     public void set(String name, String value)
     {
-        _settings.put(name, value);
+        _settings.setProperty(name, value);
     }
 
     public void set(String name, byte value)
     {
-        _settings.put(name, value);
+        _settings.setProperty(name, Byte.toString(value));
     }
 
     public void set(String name, short value)
     {
-        _settings.put(name, value);
+        _settings.setProperty(name, Short.toString(value));
     }
 
     public void set(String name, int value)
     {
-        _settings.put(name, value);
+        _settings.setProperty(name, Integer.toString(value));
     }
 
     public void set(String name, long value)
     {
-        _settings.put(name, value);
+        _settings.setProperty(name, Long.toString(value));
     }
 
     public void loadProperties(Properties properties)

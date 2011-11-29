@@ -38,6 +38,11 @@
 									<buttonData>
 										<content:MenuItemData text="Admin configuration" />
 									</buttonData>
+								</Menu.Item>
+								<Menu.Item action="LoginView">
+									<buttonData>
+										<content:MenuItemData text="Login" />
+									</buttonData>
 								</Menu.Item>	
 								<Menu.Item action="quitApplication">
 									<buttonData>

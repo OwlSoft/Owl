@@ -22,7 +22,7 @@ import at.owlsoft.owl.validation.ValidationMode;
 
 public class RentalController extends ControllerBase
 {
-    private static final int        DEFAULT_MAX_RENTAL = 10;
+    private static final int        DEFAULT_MAX_RENTAL = 30;
     private Rental                  _rental;
     private List<ValidationMessage> _messages;
 
@@ -47,7 +47,7 @@ public class RentalController extends ControllerBase
      * @param medium
      * @return If no warnings are found returns empty List.
      */
-    public List<ValidationMessage> setMediumExemplar(MediumExemplar exemplare)
+    public List<ValidationMessage> setMediumExemplar(MediumExemplar copy)
     {
         boolean rentableFound = false;
         if (_rental == null)
@@ -56,22 +56,19 @@ public class RentalController extends ControllerBase
         }
 
         // validate whether rentable or not
-        if (exemplare != null
-                && exemplare
-                        .getMediumExemplarStatusEntry(
-                                exemplare.getMediumExemplarStatusEntryCount() - 1)
+        if (copy != null
+                && copy.getMediumExemplarStatusEntry(
+                        copy.getMediumExemplarStatusEntryCount() - 1)
                         .getMediumExemplarStatus()
                         .equals(MediumExemplarStatus.Rentable))
         {
-            _rental.setMediumExemplar(exemplare);
-            // TODO Replace dummy endDate with value from config
+            _rental.setMediumExemplar(copy);
+            int days = getContext().getConfigurationController().getInt(
+                    copy.getClass(), "maxRentalDays", DEFAULT_MAX_RENTAL);
+
+            _rental.updateEndDate(days);
             rentableFound = true;
         }
-
-        int days = getContext().getConfigurationController().getInt(
-                exemplare.getClass(), "maxRentalDays", DEFAULT_MAX_RENTAL);
-
-        _rental.updateEndDate(days);
 
         validate(ValidationMode.NotStrict);
         if (!rentableFound)
@@ -107,8 +104,6 @@ public class RentalController extends ControllerBase
                     .equals(MediumExemplarStatus.Rentable))
             {
                 _rental.setMediumExemplar(exemplare);
-                // TODO Replace dummy endDate with value from config
-                _rental.setEndDate(new Date());
                 rentableFound = true;
                 break;
             }

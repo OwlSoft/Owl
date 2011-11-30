@@ -2,12 +2,12 @@ package at.owlsoft.owlet.ui;
 
 import java.net.URL;
 
+import org.apache.log4j.Logger;
 import org.apache.pivot.collections.ArrayList;
 import org.apache.pivot.collections.HashMap;
 import org.apache.pivot.collections.List;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.collections.Sequence;
-import org.apache.pivot.util.ListenerList;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
@@ -30,6 +30,7 @@ public class AdminConfigView extends OwletView
     private Map<String, String> _configParamsAll;
     private Map<String, String> _configParamsChangedNew;
     private List<String>        _configParamsToRemove;
+    private Logger              LOGGER = Logger.getLogger(AdminConfigView.class);
 
     @Override
     public void initialize(Map<String, Object> ns, URL arg1, Resources arg2)
@@ -94,15 +95,37 @@ public class AdminConfigView extends OwletView
                 });
 
         _configParamValue = (TextInput) ns.get("configParamValue");
-        _configParamValue.setEnabled(false);
+        _configParamValue.setEnabled(true);
         _configParamValue.getTextInputContentListeners().add(
                 new TextInputContentListener.Adapter()
                 {
+                    private boolean suspend = false;
 
                     @Override
                     public void textChanged(TextInput textInput)
                     {
-                        updateParamValue(textInput.getText());
+                        LOGGER.debug("textChanged");
+
+                        if (suspend)
+                        {
+                            LOGGER.debug("returning");
+                            return;
+                        }
+
+                        if (getSelectedParam() != null)
+                        {
+                            LOGGER.debug(textInput.getText());
+                            updateParamValue(textInput.getText());
+
+                        }
+                        else
+                        {
+                            // fixing stack overflow
+                            LOGGER.debug("setting text to empty string");
+                            suspend = true;
+                            textInput.setText("");
+                            suspend = false;
+                        }
                     }
                 });
 
@@ -155,8 +178,13 @@ public class AdminConfigView extends OwletView
         int itemSelected = _configParamsDisplayed.getSelectedIndex();
         List<String> displayedItems = (List<String>) _configParamsDisplayed
                 .getListData();
-        String param = displayedItems.get(itemSelected);
-        return param;
+
+        if (itemSelected >= 0)
+        {
+            String param = displayedItems.get(itemSelected);
+            return param;
+        }
+        return null;
     }
 
     private void updateSelectionInfo(ListView listView)
@@ -212,8 +240,14 @@ public class AdminConfigView extends OwletView
         _configParamValue.setEnabled(true);
 
         // Remove listeners so we don't go into an endless loop
-        ListenerList<TextInputContentListener> listeners = _configParamValue
-                .getTextInputContentListeners();
+        List<TextInputContentListener> listeners = new ArrayList<TextInputContentListener>();
+
+        for (TextInputContentListener textInputContentListener : _configParamValue
+                .getTextInputContentListeners())
+        {
+            listeners.add(textInputContentListener);
+        }
+
         for (TextInputContentListener listener : listeners)
         {
             _configParamValue.getTextInputContentListeners().remove(listener);
@@ -223,6 +257,7 @@ public class AdminConfigView extends OwletView
         _configParamValue.invalidate();
         _configParamValue.setText(newValue);
         _configParamValue.invalidate();
+        _configParamValue.repaint();
 
         // Add listeners back
         for (TextInputContentListener listener : listeners)

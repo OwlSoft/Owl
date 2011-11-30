@@ -13,42 +13,65 @@ import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.ListView;
 import org.apache.pivot.wtk.ListViewSelectionListener;
+import org.apache.pivot.wtk.Prompt;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.Span;
 import org.apache.pivot.wtk.TextInput;
 import org.apache.pivot.wtk.TextInputContentListener;
 
+import at.owlsoft.owlet.util.PivotUtils;
+import at.owlsoft.owlet.viewmodel.AdminConfigViewModel;
+
 public class AdminConfigView extends OwletView
 {
-    private TextInput           _configSearchField;
-    private PushButton          _addNewParamButton;
-    private ListView            _configParamsDisplayed;
-    private TextInput           _configParamValue;
-    private PushButton          _removeButton;
-    private PushButton          _saveButton;
+    private AdminConfigViewModel _viewModel;
 
-    private Map<String, String> _configParamsAll;
-    private Map<String, String> _configParamsChangedNew;
-    private List<String>        _configParamsToRemove;
-    private Logger              LOGGER = Logger.getLogger(AdminConfigView.class);
+    private TextInput            _configSearchField;
+    private PushButton           _addNewParamButton;
+    private ListView             _configParamsDisplayed;
+    private TextInput            _configParamValue;
+    private PushButton           _removeButton;
+    private PushButton           _saveButton;
+
+    private Map<String, String>  _configParamsAll;
+    private Map<String, String>  _configParamsChangedNew;
+    private List<String>         _configParamsToRemove;
+    private Logger               LOGGER = Logger.getLogger(AdminConfigView.class);
+
+    @Override
+    protected void onViewOpened()
+    {
+        setEnabled(true);
+        try
+        {
+            _viewModel.initialize();
+        }
+        catch (NullPointerException e)
+        {
+            Prompt.prompt(e.getMessage(), getWindow());
+        }
+        catch (Exception e)
+        {
+            Prompt.prompt(e.getMessage(), getWindow());
+            setEnabled(false);
+        }
+    }
 
     @Override
     public void initialize(Map<String, Object> ns, URL arg1, Resources arg2)
     {
         setEnabled(true);
 
-        // TODO Fetch from Controller
-        _configParamsAll = new HashMap<String, String>();
-        _configParamsAll.put("Nahrungsmittel.Obst.Banane", "12");
-        _configParamsAll.put("Nahrungsmittel.Obst.Apfel", "13");
-        _configParamsAll.put("Nahrungsmittel.Obst.Orange", "14");
-        _configParamsAll.put("Nahrungsmittel.Obst.Apfelsine", "15");
-        _configParamsAll.put("Nahrungsmittel.Gemüse.Selerie", "16");
-        _configParamsAll.put("Nahrungsmittel.Gemüse.Salat", "17");
-        _configParamsAll.put("Nahrungsmittel.Gemüse.Tomate", "18");
-        _configParamsAll.put("Nahrungsmittel.Süßes.Schoki", "19");
-        _configParamsAll.put("Nahrungsmittel.Süßes.Zimststerne", "20");
-        _configParamsAll.put("Nahrungsmittel.Süßes.Nutella", "21");
+        try
+        {
+            _configParamsAll = PivotUtils.toPivotMap(_viewModel
+                    .getAllProperties());
+        }
+        catch (NullPointerException e)
+        {
+            LOGGER.debug("No params from server");
+            _configParamsAll = new HashMap<String, String>();
+        }
 
         _configParamsChangedNew = new HashMap<String, String>();
         _configParamsToRemove = new ArrayList<String>();
@@ -166,7 +189,6 @@ public class AdminConfigView extends OwletView
             @Override
             public void buttonPressed(Button arg0)
             {
-                // TODO continue
                 saveChanges();
             }
         });
@@ -377,17 +399,31 @@ public class AdminConfigView extends OwletView
 
     private void saveChanges()
     {
-        // TODO Auto-generated method stub
-        if (validateParams())
+        boolean changesMade = false;
+
+        if (_configParamsChangedNew != null
+                && _configParamsChangedNew.getCount() > 0)
         {
-
+            _viewModel.setAll(PivotUtils.toJavaMap(_configParamsChangedNew));
+            changesMade = true;
         }
-    }
 
-    private boolean validateParams()
-    {
-        // TODO implement validation
-        return false;
+        if (_configParamsToRemove != null
+                && _configParamsToRemove.getLength() > 0)
+        {
+            _viewModel.removeProperties(PivotUtils
+                    .toJavaList(_configParamsToRemove));
+            changesMade = true;
+        }
+
+        if (changesMade)
+        {
+            Prompt.prompt("Booya, bitch", getWindow());
+        }
+        else
+        {
+            Prompt.prompt("No changes were made.", getWindow());
+        }
     }
 
 }

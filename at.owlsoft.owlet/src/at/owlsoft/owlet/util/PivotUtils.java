@@ -20,6 +20,46 @@ public class PivotUtils
         return lst;
     }
 
+    public static <T> java.util.List<T> toJavaList(
+            org.apache.pivot.collections.List<T> pivotList)
+    {
+        java.util.List<T> javaList = new java.util.ArrayList<T>();
+
+        for (T value : pivotList)
+        {
+            javaList.add(value);
+        }
+
+        return javaList;
+    }
+
+    public static <K, V> org.apache.pivot.collections.Map<K, V> toPivotMap(
+            java.util.Map<K, V> javaMap)
+    {
+        org.apache.pivot.collections.Map<K, V> pivotMap = new org.apache.pivot.collections.HashMap<K, V>();
+
+        for (java.util.Map.Entry<K, V> entry : javaMap.entrySet())
+        {
+            pivotMap.put(entry.getKey(), entry.getValue());
+        }
+
+        return pivotMap;
+    }
+
+    public static <K, V> java.util.Map<K, V> toJavaMap(
+            org.apache.pivot.collections.Map<K, V> pivotMap)
+    {
+
+        java.util.Map<K, V> javaMap = new java.util.HashMap<K, V>();
+
+        for (K key : pivotMap)
+        {
+            javaMap.put(key, pivotMap.get(key));
+        }
+
+        return javaMap;
+    }
+
     public static String convertIRentalToString(IRental item)
     {
         StringBuilder builder = new StringBuilder();

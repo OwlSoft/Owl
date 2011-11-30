@@ -31,15 +31,54 @@ public class RentalController extends ControllerBase
         super(context);
     }
 
+    public Rental getRental()
+    {
+        return _rental;
+    }
+
+    public List<ValidationMessage> getMessages()
+    {
+        return _messages;
+    }
+
     public void newRental()
     {
         _rental = new Rental();
         _rental.setStartDate(new Date());
-        _rental.updateEndDate(DEFAULT_MAX_RENTAL);
+        updateEndDate();
         _messages = null;
         // TODO: Set current user
         // _rental.setCreator(getContext().getLdap()
         // .getCurrentUser());
+    }
+
+    public void setStartDate(Date time)
+    {
+        _rental.setStartDate(time);
+        updateEndDate();
+    }
+
+    public void updateEndDate()
+    {
+        if (_rental == null)
+        {
+            return;
+        }
+
+        Class<?> clz = null;
+        if (_rental.getMedium() == null)
+        {
+            clz = Medium.class;
+        }
+        else
+        {
+            clz = _rental.getMedium().getClass();
+        }
+
+        int days = getContext().getConfigurationController().getInt(clz,
+                "maxRentalDays", DEFAULT_MAX_RENTAL);
+
+        _rental.updateEndDate(days);
     }
 
     /**
@@ -57,14 +96,11 @@ public class RentalController extends ControllerBase
 
         // validate whether rentable or not
         if (exemplare != null
-                && exemplare
-                        .getMediumExemplarStatusEntry(
-                                exemplare.getMediumExemplarStatusEntryCount() - 1)
-                        .getMediumExemplarStatus()
-                        .equals(MediumExemplarStatus.Rentable))
+                && exemplare.getCurrentState().equals(
+                        MediumExemplarStatus.Rentable))
         {
             _rental.setMediumExemplar(exemplare);
-            // TODO Replace dummy endDate with value from config
+            updateEndDate();
             rentableFound = true;
         }
 
@@ -107,8 +143,7 @@ public class RentalController extends ControllerBase
                     .equals(MediumExemplarStatus.Rentable))
             {
                 _rental.setMediumExemplar(exemplare);
-                // TODO Replace dummy endDate with value from config
-                _rental.setEndDate(new Date());
+                updateEndDate();
                 rentableFound = true;
                 break;
             }
@@ -149,7 +184,6 @@ public class RentalController extends ControllerBase
 
     private void saveRental()
     {
-
         ActivityStatusEntry ase = new ActivityStatusEntry();
         ase.setActivityStatus(ActivityStatus.Open);
         ase.setDate(new Date());
@@ -157,7 +191,6 @@ public class RentalController extends ControllerBase
         DaoManager.getInstance().getRentalDao().store(_rental);
         updateMediumExemplar();
         _rental = null;
-
     }
 
     private void updateMediumExemplar()
@@ -179,7 +212,7 @@ public class RentalController extends ControllerBase
      * @return true only if _messages has no ValidationMessage with
      *         ValidationMessageStatus.Error
      */
-    private boolean validate(ValidationMode mode)
+    public boolean validate(ValidationMode mode)
     {
         boolean hasNoError = true;
 

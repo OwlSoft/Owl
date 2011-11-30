@@ -1,7 +1,7 @@
 <owlet:CreateRentalView xmlns:bxml="http://pivot.apache.org/bxml"
 	xmlns:owlet="at.owlsoft.owlet.ui" xmlns:content="org.apache.pivot.wtk.content"
 	xmlns:collections="org.apache.pivot.collections" xmlns="org.apache.pivot.wtk">
-	<Form>
+	<Form styles="{fill: true}">
 		<Form.Section heading="Setup">
 
 			<TablePane styles="{horizontalSpacing:5}" bxml:id="infoPane">
@@ -12,22 +12,20 @@
 					<TablePane.Column width="30" />
 				</columns>
 				<TablePane.Row height="25">
-					<Label text="Kunde" />
+					<Label text="Kunde" styleName="fatLabel" />
 					<TablePane.Filler />
-					<Label text="Exemplar" />
+					<Label text="Exemplar" styleName="fatLabel" />
 					<TablePane.Filler />
 				</TablePane.Row>
 				<TablePane.Row height="25">
 					<TextInput bxml:id="cardID" />
-					<PushButton buttonData="v" bxml:id="loadCustomer" />
+					<PushButton bxml:id="loadCustomer">
+						<content:ButtonData icon="@arrow_refresh.png" />
+					</PushButton>
 					<TextInput bxml:id="exemplarID" />
-					<PushButton buttonData="v" bxml:id="loadExemplar" />
-				</TablePane.Row>
-				<TablePane.Row height="25">
-					<Label bxml:id="customerNameLabel" TablePane.columnSpan="2" />
-					<TablePane.Filler />
-					<Label bxml:id="exemplarTitleLabel" TablePane.columnSpan="2" />
-					<TablePane.Filler />
+					<PushButton bxml:id="loadExemplar">
+						<content:ButtonData icon="@arrow_refresh.png" />
+					</PushButton>
 				</TablePane.Row>
 				<TablePane.Row height="25">
 					<Label bxml:id="cardIDLabel" TablePane.columnSpan="2" />
@@ -36,9 +34,21 @@
 					<TablePane.Filler />
 				</TablePane.Row>
 				<TablePane.Row height="25">
-					<Label text="Start Date" TablePane.columnSpan="2" />
+					<Label bxml:id="customerNameLabel" TablePane.columnSpan="2" />
 					<TablePane.Filler />
-					<Label text="End Date" TablePane.columnSpan="2" />
+					<Label bxml:id="exemplarTitleLabel" TablePane.columnSpan="2" />
+					<TablePane.Filler />
+				</TablePane.Row>
+				<TablePane.Row height="25">
+					<Label bxml:id="customerStateLabel" TablePane.columnSpan="2" />
+					<TablePane.Filler />
+					<Label bxml:id="exemplarStateLabel" TablePane.columnSpan="2" />
+					<TablePane.Filler />
+				</TablePane.Row>
+				<TablePane.Row height="25">
+					<Label text="Start Date" TablePane.columnSpan="2" styleName="fatLabel"  />
+					<TablePane.Filler />
+					<Label text="End Date" TablePane.columnSpan="2" styleName="fatLabel"  />
 					<TablePane.Filler />
 				</TablePane.Row>
 				<TablePane.Row height="25">
@@ -65,7 +75,7 @@
 		</Form.Section>
 		<Form.Section heading="Warnings">
 			<Border>
-				<ScrollPane>
+				<ScrollPane horizontalScrollBarPolicy="fill">
 					<TableView bxml:id="warningView">
 						<columns>
 							<TableView.Column name="message" width="500" headerData="Message" />
@@ -75,7 +85,7 @@
 			</Border>
 		</Form.Section>
 		<Form.Section>
-			<PushButton buttonData="Rent Medium" />
+			<PushButton buttonData="Rent Medium" bxml:id="store" />
 		</Form.Section>
 	</Form>
 </owlet:CreateRentalView>

@@ -327,4 +327,20 @@ public class SystemUser implements ISystemUser
         return _systemUserStatusEntries
                 .get(_systemUserStatusEntries.size() - 1);
     }
+
+    @Override
+    public SystemUserStatus getCurrentStatus()
+    {
+        SystemUserStatus status = SystemUserStatus.Active;
+        Date smallest = new Date(0);
+        for (SystemUserStatusEntry entry : _systemUserStatusEntries)
+        {
+            if (smallest.before(entry.getDate()))
+            {
+                status = entry.getSystemUserStatus();
+                smallest = entry.getDate();
+            }
+        }
+        return status;
+    }
 }

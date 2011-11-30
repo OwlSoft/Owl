@@ -33,6 +33,10 @@
 		color: '#d26868',
 		backgroundColor: '#ffecec',
 		padding: 5
+	},
+	
+	fatLabel: {
+		font: 'Arial bold 12'
 	}
 
 }

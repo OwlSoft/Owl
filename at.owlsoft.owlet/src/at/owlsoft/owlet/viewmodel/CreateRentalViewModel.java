@@ -1,12 +1,14 @@
 package at.owlsoft.owlet.viewmodel;
 
 import java.rmi.RemoteException;
+import java.util.Date;
 
 import org.apache.pivot.collections.ArrayList;
 import org.apache.pivot.collections.List;
 
 import at.owlsoft.owl.communication.rmi.IRentalApi;
 import at.owlsoft.owl.model.InvalidOperationException;
+import at.owlsoft.owl.model.accounting.IRental;
 import at.owlsoft.owl.model.media.IMediumExemplar;
 import at.owlsoft.owl.model.user.ISystemUser;
 import at.owlsoft.owl.validation.ValidationMessage;
@@ -22,6 +24,7 @@ public class CreateRentalViewModel
 
     private List<ValidationMessage> _errorMessages;
     private List<ValidationMessage> _warningMessages;
+    private IRental                 _rental;
 
     public ISystemUser getCustomer()
     {
@@ -43,6 +46,11 @@ public class CreateRentalViewModel
         return _warningMessages;
     }
 
+    public IRental getRental()
+    {
+        return _rental;
+    }
+
     public CreateRentalViewModel()
     {
         _warningMessages = new ArrayList<ValidationMessage>();
@@ -56,6 +64,7 @@ public class CreateRentalViewModel
             _rentalApi = RmiContext.getInstance().getFactory()
                     .createRentalApi();
             _rentalApi.newRental();
+            _rental = _rentalApi.getRental();
         }
         catch (RemoteException e)
         {
@@ -114,4 +123,15 @@ public class CreateRentalViewModel
         }
     }
 
+    public void setStartDate(Date time) throws RemoteException
+    {
+        _rentalApi.setStartDate(time);
+        _rental = _rentalApi.getRental();
+        updateMessages();
+    }
+
+    public boolean store() throws RemoteException
+    {
+        return _rentalApi.store();
+    }
 }

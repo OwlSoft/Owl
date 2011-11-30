@@ -23,7 +23,7 @@
 						<columns>
 							<TableView.Column name="exemplarID" headerData="ID" width="-1" />
 							<TableView.Column name="medium.name" headerData="Title" width="1*" />
-							<!-- <TableView.Column name="currentState" headerData="State" width="200" /> -->
+							<TableView.Column name="currentState" headerData="State" width="200" />
 						</columns>
 					</TableView>
 					<columnHeader>

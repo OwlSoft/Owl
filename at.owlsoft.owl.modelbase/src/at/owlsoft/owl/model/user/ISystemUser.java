@@ -65,4 +65,6 @@ public interface ISystemUser extends Serializable
     ISystemUserStatusEntry getSystemUserStatusEntry(int index);
 
     List<? extends ISystemUserStatusEntry> getSystemUserStatusEntries();
+
+    SystemUserStatus getCurrentStatus();
 }

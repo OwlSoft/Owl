@@ -1,11 +1,17 @@
 package at.owlsoft.owl.model.media.test;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import junit.framework.Assert;
 
 import org.junit.Test;
 
 import at.owlsoft.owl.model.accounting.Activity;
+import at.owlsoft.owl.model.media.Book;
+import at.owlsoft.owl.model.media.Medium;
 import at.owlsoft.owl.model.media.MediumExemplar;
+import at.owlsoft.owl.model.media.MediumExemplarStatus;
 import at.owlsoft.owl.model.media.MediumExemplarStatusEntry;
 
 public class MediumExemplarTest
@@ -66,5 +72,41 @@ public class MediumExemplarTest
         mediumExemplar.addActivity(activity);
         mediumExemplar.clearActivities();
         Assert.assertEquals(0, mediumExemplar.getActivityCount());
+    }
+
+    @Test
+    public void testGetCurrentState()
+    {
+        // create another not rentable test medium
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(2006, 0, 1);
+        Date publishedDate = calendar.getTime();
+
+        calendar.set(2000, 0, 1);
+        Medium bookOne = new Book(1, "Reclam", "Poetik", new Date(),
+                publishedDate, "Aristoteles", "Poetik", "Karthasis", 182, null,
+                "978-3-15-007828-0");
+
+        // add medium exemplare
+        MediumExemplar bookOneCopy = new MediumExemplar(2, bookOne);
+
+        try
+        {
+
+            Thread.sleep(50);
+        }
+        catch (Exception e)
+        {
+            System.out.println("Warning");
+        }
+
+        bookOne.addMediumExemplar(bookOneCopy);
+        bookOneCopy.addMediumExemplarStatusEntry(new MediumExemplarStatusEntry(
+                new Date(), bookOneCopy, MediumExemplarStatus.StockItem));
+
+        Assert.assertEquals(MediumExemplarStatus.StockItem,
+                bookOneCopy.getCurrentState());
     }
 }

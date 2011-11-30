@@ -82,4 +82,10 @@ public class ApiFactory extends UnicastRemoteObject implements IApiFactory
     {
         return new SystemUserApi(this);
     }
+
+    @Override
+    public IConfigurationApi createConfigurationApi() throws RemoteException
+    {
+        return new ConfigurationApi(this);
+    }
 }

@@ -16,6 +16,12 @@
  */
 public package at.owlsoft.owl.model;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 public class Configuration
@@ -25,6 +31,30 @@ public class Configuration
     public Configuration()
     {
         _settings = new Properties();
+    }
+
+    public void storeToXML(OutputStream os, String comment, String encoding)
+            throws IOException
+    {
+        _settings.store(os, comment);
+    }
+
+    public void removeProperties(List<String> properties)
+    {
+        for (String key : properties)
+        {
+            _settings.remove(key);
+        }
+    }
+
+    public Map<String, String> getAllPropterties()
+    {
+        Map<String, String> temp = new HashMap<String, String>();
+        for (Entry<Object, Object> entry : _settings.entrySet())
+        {
+            temp.put((String) entry.getKey(), (String) entry.getValue());
+        }
+        return temp;
     }
 
     public String getString(String name)
@@ -47,7 +77,12 @@ public class Configuration
     {
         try
         {
-            Byte value = (Byte) _settings.get(name);
+            String property = _settings.getProperty(name);
+            Byte value = null;
+            if (property != null && !property.isEmpty())
+            {
+                value = Byte.parseByte(property);
+            }
             return value == null ? defaultValue : value;
         }
         catch (Exception e)
@@ -66,7 +101,12 @@ public class Configuration
     {
         try
         {
-            Short value = (Short) _settings.get(name);
+            String property = _settings.getProperty(name);
+            Short value = null;
+            if (property != null && !property.isEmpty())
+            {
+                value = Short.parseShort(property);
+            }
             return value == null ? defaultValue : value;
         }
         catch (Exception e)
@@ -85,13 +125,20 @@ public class Configuration
     {
         try
         {
-            Integer value = (Integer) _settings.get(name);
+            String property = _settings.getProperty(name);
+            Integer value = null;
+            if (property != null && !property.isEmpty())
+            {
+                value = Integer.parseInt(property);
+            }
             return value == null ? defaultValue : value;
         }
         catch (Exception e)
         {
+
             throw new InvalidOperationException(
                     "Could not parse property as integer");
+
         }
     }
 
@@ -104,7 +151,12 @@ public class Configuration
     {
         try
         {
-            Long value = (Long) _settings.get(name);
+            String property = _settings.getProperty(name);
+            Long value = null;
+            if (property != null && !property.isEmpty())
+            {
+                value = Long.parseLong(property);
+            }
             return value == null ? defaultValue : value;
         }
         catch (Exception e)
@@ -116,27 +168,27 @@ public class Configuration
 
     public void set(String name, String value)
     {
-        _settings.put(name, value);
+        _settings.setProperty(name, value);
     }
 
     public void set(String name, byte value)
     {
-        _settings.put(name, value);
+        _settings.setProperty(name, Byte.toString(value));
     }
 
     public void set(String name, short value)
     {
-        _settings.put(name, value);
+        _settings.setProperty(name, Short.toString(value));
     }
 
     public void set(String name, int value)
     {
-        _settings.put(name, value);
+        _settings.setProperty(name, Integer.toString(value));
     }
 
     public void set(String name, long value)
     {
-        _settings.put(name, value);
+        _settings.setProperty(name, Long.toString(value));
     }
 
     public void loadProperties(Properties properties)
@@ -168,7 +220,13 @@ public class Configuration
     {
         try
         {
-            Byte value = (Byte) _settings.get(getClassProperty(clz, name));
+            String property = _settings
+                    .getProperty(getClassProperty(clz, name));
+            Byte value = null;
+            if (property != null && !property.isEmpty())
+            {
+                value = Byte.parseByte(property);
+            }
             return value == null ? defaultValue : value;
         }
         catch (Exception e)
@@ -187,7 +245,13 @@ public class Configuration
     {
         try
         {
-            Short value = (Short) _settings.get(getClassProperty(clz, name));
+            String property = _settings
+                    .getProperty(getClassProperty(clz, name));
+            Short value = null;
+            if (property != null && !property.isEmpty())
+            {
+                value = Short.parseShort(property);
+            }
             return value == null ? defaultValue : value;
         }
         catch (Exception e)
@@ -206,8 +270,13 @@ public class Configuration
     {
         try
         {
-            Integer value = (Integer) _settings
-                    .get(getClassProperty(clz, name));
+            String property = _settings
+                    .getProperty(getClassProperty(clz, name));
+            Integer value = null;
+            if (property != null && !property.isEmpty())
+            {
+                value = Integer.parseInt(property);
+            }
             return value == null ? defaultValue : value;
         }
         catch (Exception e)
@@ -226,7 +295,13 @@ public class Configuration
     {
         try
         {
-            Long value = (Long) _settings.get(getClassProperty(clz, name));
+            String property = _settings
+                    .getProperty(getClassProperty(clz, name));
+            Long value = null;
+            if (property != null && !property.isEmpty())
+            {
+                value = Long.parseLong(property);
+            }
             return value == null ? defaultValue : value;
         }
         catch (Exception e)

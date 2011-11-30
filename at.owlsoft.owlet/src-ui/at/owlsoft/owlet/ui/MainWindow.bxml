@@ -34,9 +34,19 @@
 										<content:MenuItemData text="Show a Rental" />
 									</buttonData>
 								</Menu.Item>
+								<Menu.Item action="adminConfig">
+									<buttonData>
+										<content:MenuItemData text="Admin configuration" />
+									</buttonData>
+								</Menu.Item>
+								<Menu.Item action="loginView">
+									<buttonData>
+										<content:MenuItemData text="Login" />
+									</buttonData>
+								</Menu.Item>	
 								<Menu.Item action="quitApplication">
 									<buttonData>
-										<content:MenuItemData text="Beenden"
+										<content:MenuItemData text="Quit"
 											keyboardShortcut="CMD-Q" />
 									</buttonData>
 								</Menu.Item>

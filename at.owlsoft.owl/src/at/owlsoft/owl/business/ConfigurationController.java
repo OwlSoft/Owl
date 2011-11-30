@@ -2,61 +2,131 @@ package at.owlsoft.owl.business;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
 import at.owlsoft.owl.model.Configuration;
+import at.owlsoft.owl.model.NoPermissionException;
 
 public class ConfigurationController extends ControllerBase
 {
-    private static final Logger logger = Logger.getLogger(ConfigurationController.class);
-    private Configuration       _configuration;
+    private static final Logger  logger               = Logger.getLogger(ConfigurationController.class);
+    private static Configuration _configuration;
+    private static Object        configLock           = new Object();
+    private static final String  PROPERTIES_FILE_NAME = "settings.properties";
 
     public ConfigurationController(OwlApplicationContext context)
     {
         super(context);
-        _configuration = new Configuration();
-        reload();
+
+        load(false);
+
     }
 
-    public void reload()
+    public void load(boolean reload)
     {
-        File fi = new File("settings.properties");
-
-        if (fi.exists())
+        synchronized (configLock)
         {
-            FileInputStream in = null;
-            try
+            if (_configuration != null && !reload)
             {
-                in = new FileInputStream(fi);
-
-                Properties p = new Properties();
-                p.load(in);
-
-                _configuration.loadProperties(p);
+                return;
             }
-            catch (Exception e)
+
+            _configuration = new Configuration();
+            File fi = new File(PROPERTIES_FILE_NAME);
+
+            if (fi.exists())
             {
-                e.printStackTrace();
-                logger.warn("settings not loaded", e);
-            }
-            finally
-            {
-                if (in != null)
+                FileInputStream in = null;
+                try
                 {
-                    try
+                    in = new FileInputStream(fi);
+
+                    Properties p = new Properties();
+                    p.load(in);
+
+                    _configuration.loadProperties(p);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                    logger.warn("settings not loaded", e);
+                }
+                finally
+                {
+                    if (in != null)
                     {
-                        in.close();
-                    }
-                    catch (IOException e)
-                    {
-                        logger.warn("settingsfile not closed", e);
+                        try
+                        {
+                            in.close();
+                        }
+                        catch (IOException e)
+                        {
+                            logger.warn("settingsfile not closed", e);
+                        }
                     }
                 }
             }
+        }
+    }
 
+    public void store() throws NoPermissionException, IOException
+    {
+        if (getContext().getSystemUser().hasRole("admin"))
+        {
+
+            File file = new File(PROPERTIES_FILE_NAME);
+            if (!file.exists())
+            {
+                file.createNewFile();
+            }
+            FileOutputStream out = new FileOutputStream(file);
+            _configuration.storeToXML(out, null, "UTF-8");
+        }
+        throw new NoPermissionException("No Permission.");
+    }
+
+    public void removeProperty(List<String> properties)
+            throws NoPermissionException
+    {
+        if (getContext().getSystemUser().hasRole("admin"))
+        {
+
+            _configuration.removeProperties(properties);
+        }
+        throw new NoPermissionException("No Permission.");
+    }
+
+    public Map<String, String> getAllProperties() throws NoPermissionException
+    {
+        if (getContext().getSystemUser().hasRole("admin"))
+        {
+
+            return _configuration.getAllPropterties();
+        }
+        throw new NoPermissionException("No Permission.");
+
+    }
+
+    public void setAll(Map<String, String> properties)
+            throws NoPermissionException
+    {
+        if (getContext().getSystemUser().hasRole("admin"))
+        {
+            for (Entry<String, String> entry : properties.entrySet())
+            {
+                set(entry.getKey(), entry.getValue());
+            }
+        }
+        else
+        {
+            throw new NoPermissionException("No permission.");
         }
     }
 

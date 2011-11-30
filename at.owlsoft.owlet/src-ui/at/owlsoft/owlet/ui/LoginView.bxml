@@ -1,0 +1,21 @@
+<owlet:LoginView 
+	xmlns:bxml="http://pivot.apache.org/bxml"
+	xmlns:owlet="at.owlsoft.owlet.ui" xmlns:content="org.apache.pivot.wtk.content"
+	xmlns="org.apache.pivot.wtk">
+		 <BoxPane styles="{padding:4, verticalAlignment:'center'}">         
+		 <Label text="Username:"/>         
+		 <TextInput bxml:id="UsernameTextInput"/>     
+	 </BoxPane> 
+	 
+		 <BoxPane styles="{padding:4, verticalAlignment:'center'}">         
+		 <Label text="Userpassword:"/>         
+		 <TextInput bxml:id="UserpasswordTextInput"/>     
+		 </BoxPane>
+		 
+
+
+<PushButton bxml:id="loginButton" buttonData="Login" />
+
+
+ </owlet:LoginView>  
+		

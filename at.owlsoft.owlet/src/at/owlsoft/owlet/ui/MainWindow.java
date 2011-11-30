@@ -82,6 +82,26 @@ public class MainWindow extends Window implements Bindable
                         source.getWindow().getRootOwner());
             }
         });
+        Action.getNamedActions().put("adminConfig", new Action()
+        {
+            @Override
+            public void perform(Component source)
+            {
+                ViewController.getInstance().loadContent("AdminConfigView",
+                        source.getWindow().getRootOwner());
+            }
+        });
+        Action.getNamedActions().put("loginView", new Action()
+        {
+
+            @Override
+            public void perform(Component source)
+            {
+                ViewController.getInstance().loadContent("LoginView",
+                        source.getWindow().getRootOwner());
+
+            }
+        });
     }
 
     public BoxPane getViewBox()

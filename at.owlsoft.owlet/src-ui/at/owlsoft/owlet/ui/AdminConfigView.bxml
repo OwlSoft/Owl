@@ -21,6 +21,7 @@
 			<TablePane.Filler />
 			<BoxPane orientation="vertical">
 				<TextInput bxml:id="configParamValue" />
+				<PushButton bxml:id="removeButton" buttonData="Remove param" />
 			</BoxPane>
 		</TablePane.Row>
 		<TablePane.Row height="30">

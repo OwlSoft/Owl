@@ -12,6 +12,7 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 
 import at.owlsoft.owl.model.Configuration;
+import at.owlsoft.owl.model.NoPermissionException;
 
 public class ConfigurationController extends ControllerBase
 {
@@ -75,7 +76,7 @@ public class ConfigurationController extends ControllerBase
         }
     }
 
-    public void store() throws Exception
+    public void store() throws NoPermissionException, IOException
     {
         if (getContext().getSystemUser().hasRole("admin"))
         {
@@ -88,35 +89,44 @@ public class ConfigurationController extends ControllerBase
             FileOutputStream out = new FileOutputStream(file);
             _configuration.storeToXML(out, null, "UTF-8");
         }
-        throw new Exception("No Permission.");
+        throw new NoPermissionException("No Permission.");
     }
 
-    public void removeProperty(List<String> properties) throws Exception
+    public void removeProperty(List<String> properties)
+            throws NoPermissionException
     {
         if (getContext().getSystemUser().hasRole("admin"))
         {
 
             _configuration.removeProperties(properties);
         }
-        throw new Exception("No Permission.");
+        throw new NoPermissionException("No Permission.");
     }
 
-    public Map<String, String> getAllProperties() throws Exception
+    public Map<String, String> getAllProperties() throws NoPermissionException
     {
         if (getContext().getSystemUser().hasRole("admin"))
         {
 
             return _configuration.getAllPropterties();
         }
-        throw new Exception("No Permission.");
+        throw new NoPermissionException("No Permission.");
 
     }
 
     public void setAll(Map<String, String> properties)
+            throws NoPermissionException
     {
-        for (Entry<String, String> entry : properties.entrySet())
+        if (getContext().getSystemUser().hasRole("admin"))
         {
-            set(entry.getKey(), entry.getValue());
+            for (Entry<String, String> entry : properties.entrySet())
+            {
+                set(entry.getKey(), entry.getValue());
+            }
+        }
+        else
+        {
+            throw new NoPermissionException("No permission.");
         }
     }
 

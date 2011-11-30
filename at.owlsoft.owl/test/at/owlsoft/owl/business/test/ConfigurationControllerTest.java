@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import at.owlsoft.owl.business.ConfigurationController;
 import at.owlsoft.owl.business.OwlApplicationContext;
+import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.media.IMedium;
 
 public class ConfigurationControllerTest
@@ -41,7 +42,7 @@ public class ConfigurationControllerTest
     }
 
     @Test
-    public void setAllTest() throws IOException
+    public void setAllTest() throws IOException, NoPermissionException
     {
         Map<String, String> testMap = new HashMap<String, String>();
         testMap.put("hugo", "3");

@@ -9,7 +9,7 @@
 	 
 		 <BoxPane styles="{padding:4, verticalAlignment:'center'}">         
 		 <Label text="Userpassword:"/>         
-		 <TextInput bxml:id="UserpasswordTextInput"/>     
+		 <TextInput bxml:id="UserpasswordTextInput" password="true"/>     
 		 </BoxPane>
 		 
 

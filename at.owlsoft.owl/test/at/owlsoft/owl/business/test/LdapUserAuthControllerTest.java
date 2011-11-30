@@ -17,7 +17,7 @@ public class LdapUserAuthControllerTest
     public void setup()
     {
         _context = new OwlApplicationContext();
-        _authenticationController = _context.getLdapUserAuthController();
+        _authenticationController = _context.getAuthenticationController();
     }
 
     @Test
@@ -27,7 +27,7 @@ public class LdapUserAuthControllerTest
         String userName = "";
         String password = "";
 
-        boolean result = _authenticationController.CheckLdapAuth(userName,
+        boolean result = _authenticationController.checkAuthentication(userName,
                 password);
 
         Assert.assertTrue("User " + userName
@@ -40,7 +40,7 @@ public class LdapUserAuthControllerTest
         String userName = "nisi";
         String password = "wrongpasswort";
 
-        boolean result = _authenticationController.CheckLdapAuth(userName,
+        boolean result = _authenticationController.checkAuthentication(userName,
                 password);
 
         Assert.assertFalse("User/pw combination was invalid", result);

@@ -42,7 +42,7 @@ public class AuthenticationController extends ControllerBase
         super(context);
     }
 
-    public boolean CheckLdapAuth(String userName, String password)
+    public boolean checkAuthentication(String userName, String password)
     {
         String principal = getRdn(userName);
         try
@@ -77,6 +77,7 @@ public class AuthenticationController extends ControllerBase
                 users.add(user);
             }
             user = users.get(0);
+            getContext().setSystemUser(user);
             return true;
         }
         catch (NamingException e)

@@ -138,7 +138,7 @@ public class OwlApplicationContext
 
     private AuthenticationController _authenticationController;
 
-    public AuthenticationController getLdapUserAuthController()
+    public AuthenticationController getAuthenticationController()
     {
         if (_authenticationController == null)
         {

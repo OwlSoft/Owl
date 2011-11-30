@@ -5,15 +5,17 @@ import java.rmi.Remote;
 import java.util.List;
 import java.util.Map;
 
+import at.owlsoft.owl.model.NoPermissionException;
+
 public interface IConfigurationApi extends Remote
 {
 
-    Map<String, String> getAllProperties();
+    Map<String, String> getAllProperties() throws NoPermissionException;
 
-    void setAll(Map<String, String> propertiese);
+    void setAll(Map<String, String> propertiese) throws NoPermissionException;
 
-    void store() throws IOException;
+    void store() throws IOException, NoPermissionException;
 
-    void removeProperties(List<String> properties);
+    void removeProperties(List<String> properties) throws NoPermissionException;
 
 }

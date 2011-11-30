@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import at.owlsoft.owl.business.ConfigurationController;
+import at.owlsoft.owl.model.NoPermissionException;
 
 public class ConfigurationApi extends ApiBase implements IConfigurationApi
 {
@@ -25,25 +26,27 @@ public class ConfigurationApi extends ApiBase implements IConfigurationApi
     }
 
     @Override
-    public Map<String, String> getAllProperties()
+    public Map<String, String> getAllProperties() throws NoPermissionException
     {
         return _configurationController.getAllProperties();
     }
 
     @Override
     public void setAll(Map<String, String> properties)
+            throws NoPermissionException
     {
         _configurationController.setAll(properties);
     }
 
     @Override
-    public void store() throws IOException
+    public void store() throws NoPermissionException, IOException
     {
         _configurationController.store();
     }
 
     @Override
     public void removeProperties(List<String> properties)
+            throws NoPermissionException
     {
         _configurationController.removeProperty(properties);
     }

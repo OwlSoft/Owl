@@ -21,6 +21,7 @@ public class AuthenticationApi extends ApiBase implements IAuthenticationApi
 
     @Override
     public boolean checkAuthentication(String userName, String password)
+            throws RemoteException
     {
         return _controller.checkAuthentication(userName, password);
     }

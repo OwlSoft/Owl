@@ -13,5 +13,8 @@
 		<SearchFieldDefinition key="_isbn10" type="String" label="ISBN-10" />	
 		<SearchFieldDefinition key="_isbn13" type="String" label="ISBN-13" />				
 	</SearchFieldCategory>
+	<SerachFieldCategory key="SYSTEMUSER" label="systemuser">
+	<SearchFieldDefinition key="_username" type="String" label="Systemuser"/>
+	</SerachFieldCategory>
 	
 </SearchFieldCategories>

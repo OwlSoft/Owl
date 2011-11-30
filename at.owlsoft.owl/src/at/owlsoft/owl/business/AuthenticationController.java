@@ -28,6 +28,8 @@ import javax.naming.directory.InitialDirContext;
 import at.owlsoft.owl.model.SearchField;
 import at.owlsoft.owl.model.SearchFieldType;
 import at.owlsoft.owl.model.user.AccountMode;
+import at.owlsoft.owl.model.user.IRole;
+import at.owlsoft.owl.model.user.ISystemUser;
 import at.owlsoft.owl.model.user.Role;
 import at.owlsoft.owl.model.user.SystemUser;
 
@@ -85,6 +87,19 @@ public class AuthenticationController extends ControllerBase
             // Authentication failed
             return false;
         }
+    }
+
+    public List<? extends IRole> getRolesForCurrentUser()
+    {
+        ISystemUser user = getContext().getSystemUser();
+
+        if (user != null)
+        {
+            return user.getRoles();
+        }
+
+        return new ArrayList<IRole>();
+
     }
 
     private String getRdn(String userName)

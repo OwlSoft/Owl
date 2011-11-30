@@ -1,8 +1,11 @@
 package at.owlsoft.owl.communication.rmi;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 
 import at.owlsoft.owl.business.AuthenticationController;
+import at.owlsoft.owl.model.user.IRole;
 
 public class AuthenticationApi extends ApiBase implements IAuthenticationApi
 {
@@ -21,8 +24,16 @@ public class AuthenticationApi extends ApiBase implements IAuthenticationApi
 
     @Override
     public boolean checkAuthentication(String userName, String password)
+            throws RemoteException
     {
         return _controller.checkAuthentication(userName, password);
     }
 
+    @Override
+    public List<IRole> getRolesForCurrentUser() throws RemoteException
+    {
+
+        return new ArrayList<IRole>(_controller.getRolesForCurrentUser());
+
+    }
 }

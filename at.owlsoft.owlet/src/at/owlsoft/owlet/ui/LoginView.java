@@ -11,19 +11,19 @@ import org.apache.pivot.wtk.TextInput;
 
 public class LoginView extends OwletView
 {
-    private String     userName          = null;
-    private String     userPassword      = null;
-    private PushButton loginButton       = null;
+    private String     _userName          = null;
+    private String     _userPassword      = null;
+    private PushButton _loginButton       = null;
 
-    private TextInput  UsernameTextInput = null;
+    private TextInput  _userNameTextInput = null;
 
     @Override
     public void initialize(Map<String, Object> ns, URL arg1, Resources arg2)
     {
         setEnabled(true);
-        UsernameTextInput = (TextInput) ns.get("UsernameTextInput");
-        loginButton = (PushButton) ns.get("loginButton");
-        loginButton.getButtonPressListeners().add(new ButtonPressListener()
+        _userNameTextInput = (TextInput) ns.get("UsernameTextInput");
+        _loginButton = (PushButton) ns.get("loginButton");
+        _loginButton.getButtonPressListeners().add(new ButtonPressListener()
         {
 
             @Override

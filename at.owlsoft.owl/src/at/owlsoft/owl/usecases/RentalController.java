@@ -88,27 +88,20 @@ public class RentalController extends ControllerBase
      */
     public List<ValidationMessage> setMediumExemplar(MediumExemplar copy)
     {
-        boolean rentableFound = false;
         if (_rental == null)
         {
             newRental();
         }
 
         // validate whether rentable or not
+        _rental.setMediumExemplar(copy);
         if (copy != null
                 && copy.getCurrentState().equals(MediumExemplarStatus.Rentable))
         {
-            _rental.setMediumExemplar(copy);
             updateEndDate();
-            rentableFound = true;
         }
 
         validate(ValidationMode.NotStrict);
-        if (!rentableFound)
-        {
-            _messages.add(new ValidationMessage("No rentable copy found.",
-                    ValidationMessageStatus.Error));
-        }
         return _messages;
     }
 
@@ -130,11 +123,7 @@ public class RentalController extends ControllerBase
         {
 
             // validate whether rentable or not
-            if (copy
-                    .getMediumExemplarStatusEntry(
-                            copy.getMediumExemplarStatusEntryCount() - 1)
-                    .getMediumExemplarStatus()
-                    .equals(MediumExemplarStatus.Rentable))
+            if (copy.getCurrentState().equals(MediumExemplarStatus.Rentable))
             {
                 _rental.setMediumExemplar(copy);
                 updateEndDate();
@@ -195,6 +184,7 @@ public class RentalController extends ControllerBase
         _rental.getMediumExemplar().addMediumExemplarStatusEntry(mese);
         mese.setMediumExemplar(_rental.getMediumExemplar());
         _rental.getMediumExemplar().addActivity(_rental);
+        _rental.getCustomer().addActivity(_rental);
         DaoManager.getInstance().getMediumExemplarDao()
                 .store(_rental.getMediumExemplar());
 
@@ -246,6 +236,13 @@ public class RentalController extends ControllerBase
                     ValidationMessageStatus.Error);
             _messages.add(vm);
             hasNoError = false;
+        }
+        else if (!_rental.getMediumExemplar().getCurrentState()
+                .equals(MediumExemplarStatus.Rentable))
+        {
+            _messages.add(new ValidationMessage(
+                    "Selected copy is not rentable.",
+                    ValidationMessageStatus.Error));
         }
 
         return hasNoError;

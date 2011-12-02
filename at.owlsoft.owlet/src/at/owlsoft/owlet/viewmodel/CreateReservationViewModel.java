@@ -6,31 +6,31 @@ import java.util.Date;
 import org.apache.pivot.collections.ArrayList;
 import org.apache.pivot.collections.List;
 
-import at.owlsoft.owl.communication.rmi.IRentalApi;
+import at.owlsoft.owl.communication.rmi.IReservationApi;
 import at.owlsoft.owl.model.InvalidOperationException;
-import at.owlsoft.owl.model.accounting.IRental;
-import at.owlsoft.owl.model.media.IMediumExemplar;
+import at.owlsoft.owl.model.accounting.IReservation;
+import at.owlsoft.owl.model.media.IMedium;
 import at.owlsoft.owl.model.user.ISystemUser;
 import at.owlsoft.owl.validation.ValidationMessage;
 import at.owlsoft.owl.validation.ValidationMessageStatus;
 import at.owlsoft.owlet.context.RmiContext;
 
-public class CreateRentalViewModel
+public class CreateReservationViewModel
 {
-    private IRentalApi              _rentalApi;
+    private IReservationApi         _reservationApi;
 
     private List<ValidationMessage> _errorMessages;
     private List<ValidationMessage> _warningMessages;
-    private IRental                 _rental;
+    private IReservation            _reservation;
 
     public ISystemUser getCustomer()
     {
-        return _rental.getCustomer();
+        return _reservation.getCustomer();
     }
 
-    public IMediumExemplar getExemplar()
+    public IMedium getMedium()
     {
-        return _rental.getMediumExemplar();
+        return _reservation.getMedium();
     }
 
     public List<ValidationMessage> getErrorMessages()
@@ -43,12 +43,12 @@ public class CreateRentalViewModel
         return _warningMessages;
     }
 
-    public IRental getRental()
+    public IReservation getReservation()
     {
-        return _rental;
+        return _reservation;
     }
 
-    public CreateRentalViewModel()
+    public CreateReservationViewModel()
     {
         _warningMessages = new ArrayList<ValidationMessage>();
         _errorMessages = new ArrayList<ValidationMessage>();
@@ -58,10 +58,10 @@ public class CreateRentalViewModel
     {
         try
         {
-            _rentalApi = RmiContext.getInstance().getFactory()
-                    .createRentalApi();
-            _rentalApi.newRental();
-            _rental = _rentalApi.getRental();
+            _reservationApi = RmiContext.getInstance().getFactory()
+                    .createReservationApi();
+            _reservationApi.newReservation();
+            _reservation = _reservationApi.getReservation();
         }
         catch (RemoteException e)
         {
@@ -75,8 +75,8 @@ public class CreateRentalViewModel
     {
         try
         {
-            _rentalApi.setCustomer(cardId);
-            _rental = _rentalApi.getRental();
+            _reservationApi.setCustomer(cardId);
+            _reservation = _reservationApi.getReservation();
             updateMessages();
         }
         catch (RemoteException e)
@@ -88,7 +88,7 @@ public class CreateRentalViewModel
 
     private void updateMessages() throws RemoteException
     {
-        java.util.List<ValidationMessage> remoteList = _rentalApi
+        java.util.List<ValidationMessage> remoteList = _reservationApi
                 .getValidationMessages();
 
         _warningMessages = new ArrayList<ValidationMessage>();
@@ -107,30 +107,30 @@ public class CreateRentalViewModel
         }
     }
 
-    public void loadExemplar(int exemplarId)
+    public void loadMedium(int mediumId)
     {
         try
         {
-            _rentalApi.setMediumExemplar(exemplarId);
-            _rental = _rentalApi.getRental();
+            _reservationApi.setMedium(mediumId);
+            _reservation = _reservationApi.getReservation();
             updateMessages();
         }
         catch (RemoteException e)
         {
-            throw new InvalidOperationException("Could not set exemplar: "
+            throw new InvalidOperationException("Could not set medium: "
                     + e.getMessage(), e);
         }
     }
 
     public void setStartDate(Date time) throws RemoteException
     {
-        _rentalApi.setStartDate(time);
-        _rental = _rentalApi.getRental();
+        _reservationApi.setStartDate(time);
+        _reservation = _reservationApi.getReservation();
         updateMessages();
     }
 
     public boolean store() throws RemoteException
     {
-        return _rentalApi.store();
+        return _reservationApi.store();
     }
 }

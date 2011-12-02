@@ -13,7 +13,6 @@ import at.owlsoft.owl.model.media.MediumExemplar;
 import at.owlsoft.owl.model.media.MediumExemplarStatus;
 import at.owlsoft.owl.model.media.MediumExemplarStatusEntry;
 import at.owlsoft.owl.model.user.SystemUser;
-import at.owlsoft.owl.usecases.RequiredFieldsNotFilledException;
 import at.owlsoft.owl.usecases.ReservationController;
 
 public class ReservationControllerTest
@@ -39,10 +38,6 @@ public class ReservationControllerTest
         {
             _reservationController.save();
         }
-        catch (RequiredFieldsNotFilledException e)
-        {
-            Assert.assertTrue("RequiredFieldsNotFilledException thrown", true);
-        }
         catch (Exception e)
         {
             Assert.assertFalse("Expected exception not thrown, " + e.getClass()
@@ -57,12 +52,8 @@ public class ReservationControllerTest
         {
             Medium book = new Book();
             _reservationController.setMedium(book);
-            _reservationController.setReservationStartDate(new Date());
+            // _reservationController.setReservationStartDate(new Date());
             _reservationController.save();
-        }
-        catch (RequiredFieldsNotFilledException e)
-        {
-            Assert.assertTrue("RequiredFieldsNotFilledException thrown", true);
         }
         catch (Exception e)
         {
@@ -78,12 +69,8 @@ public class ReservationControllerTest
         {
             SystemUser customer = new SystemUser();
             _reservationController.setCustomer(customer);
-            _reservationController.setReservationStartDate(new Date());
+            // _reservationController.setReservationStartDate(new Date());
             _reservationController.save();
-        }
-        catch (RequiredFieldsNotFilledException e)
-        {
-            Assert.assertTrue("RequiredFieldsNotFilledException thrown", true);
         }
         catch (Exception e)
         {
@@ -127,7 +114,7 @@ public class ReservationControllerTest
                     new Date(), mex, MediumExemplarStatus.Rentable);
             mex.addMediumExemplarStatusEntry(mese);
 
-            _reservationController.setReservationStartDate(new Date());
+            // _reservationController.setReservationStartDate(new Date());
             _reservationController.save();
         }
         catch (Exception e)
@@ -157,7 +144,7 @@ public class ReservationControllerTest
                     new Date(), mex, MediumExemplarStatus.Rentable);
             mex.addMediumExemplarStatusEntry(mese);
 
-            _reservationController.setReservationStartDate(new Date());
+            // _reservationController.setReservationStartDate(new Date());
             _reservationController.save();
 
             Assert.assertEquals(reservationCount, book.getActivityCount());

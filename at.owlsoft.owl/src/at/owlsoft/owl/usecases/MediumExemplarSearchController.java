@@ -26,7 +26,7 @@ public class MediumExemplarSearchController extends
     {
 
         ISearchFieldValueConverter converter = getContext()
-                .getClientSearchFieldDefinitionController();
+                .getServerSearchFieldDefinitionController();
 
         IDaoFactory daoFactory = DaoManager.getInstance();
         IMediumExemplarDao dao = daoFactory.getMediumExemplarDao();
@@ -37,8 +37,8 @@ public class MediumExemplarSearchController extends
     public MediumExemplar search(int exemplarID)
     {
         List<SearchField> fields = new ArrayList<SearchField>();
-        fields.add(new SearchField("cardID",
-                new Integer(exemplarID).toString(), SearchFieldType.Equals));
+        fields.add(new SearchField("_exemplarID", new Integer(exemplarID)
+                .toString(), SearchFieldType.Equals));
 
         List<MediumExemplar> exemplar = search(fields);
 

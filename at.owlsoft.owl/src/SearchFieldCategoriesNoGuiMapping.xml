@@ -13,10 +13,16 @@
 		<SearchFieldDefinition key="_isbn10" type="String" label="ISBN-10" />	
 		<SearchFieldDefinition key="_isbn13" type="String" label="ISBN-13" />				
 	</SearchFieldCategory>
-		<SearchFieldCategory key="SYSTEMUSER" label="Systemuser">
+	<SearchFieldCategory key="SYSTEMUSER" label="Systemuser">
 		<SearchFieldDefinition key="_cardID" type="Integer" label="CardId" />				
 	</SearchFieldCategory>
-			<SearchFieldCategory key="ACTIVITY" label="Activity">
+	<SearchFieldCategory key="MEDIUM" label="Medium">
+		<SearchFieldDefinition key="_mediumID" type="Integer" label="MediumId" />				
+	</SearchFieldCategory>
+	<SearchFieldCategory key="MEDIUMEXEMPLAR" label="MediumExemplar">
+		<SearchFieldDefinition key="_exemplarID" type="Integer" label="ExemplarId" />				
+	</SearchFieldCategory>
+	<SearchFieldCategory key="ACTIVITY" label="Activity">
 		<SearchFieldDefinition key="_UUID" type="UUID" label="UUID" />				
 	</SearchFieldCategory>
 	

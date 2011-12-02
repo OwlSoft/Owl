@@ -21,4 +21,7 @@ public interface IApiFactory extends Remote
     public abstract IConfigurationApi createConfigurationApi()
             throws RemoteException;
 
+    public abstract IAuthenticationApi createAuthenticationApi()
+            throws RemoteException;
+
 }

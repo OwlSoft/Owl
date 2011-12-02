@@ -88,4 +88,10 @@ public class ApiFactory extends UnicastRemoteObject implements IApiFactory
     {
         return new ConfigurationApi(this);
     }
+
+    @Override
+    public IAuthenticationApi createAuthenticationApi() throws RemoteException
+    {
+        return new AuthenticationApi(this);
+    }
 }

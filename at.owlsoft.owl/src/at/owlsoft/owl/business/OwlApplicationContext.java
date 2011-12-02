@@ -136,15 +136,15 @@ public class OwlApplicationContext
         return _rentalSearchController;
     }
 
-    private LdapUserAuthController _ldapUserAuthController;
+    private AuthenticationController _authenticationController;
 
-    public LdapUserAuthController getLdapUserAuthController()
+    public AuthenticationController getAuthenticationController()
     {
-        if (_ldapUserAuthController == null)
+        if (_authenticationController == null)
         {
-            _ldapUserAuthController = new LdapUserAuthController(this);
+            _authenticationController = new AuthenticationController(this);
         }
-        return _ldapUserAuthController;
+        return _authenticationController;
     }
 
     private SystemUser _systemUser;
@@ -156,5 +156,10 @@ public class OwlApplicationContext
             _systemUser = new SystemUser();
         }
         return _systemUser;
+    }
+
+    public void setSystemUser(SystemUser systemUser)
+    {
+        _systemUser = systemUser;
     }
 }

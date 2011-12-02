@@ -4,20 +4,20 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import at.owlsoft.owl.business.LdapUserAuthController;
+import at.owlsoft.owl.business.AuthenticationController;
 import at.owlsoft.owl.business.OwlApplicationContext;
 
 public class LdapUserAuthControllerTest
 {
 
-    private static LdapUserAuthController _ldapUserAuthController;
+    private static AuthenticationController _authenticationController;
     private static OwlApplicationContext  _context;
 
     @Before
     public void setup()
     {
         _context = new OwlApplicationContext();
-        _ldapUserAuthController = _context.getLdapUserAuthController();
+        _authenticationController = _context.getAuthenticationController();
     }
 
     @Test
@@ -27,7 +27,7 @@ public class LdapUserAuthControllerTest
         String userName = "";
         String password = "";
 
-        boolean result = _ldapUserAuthController.CheckLdapAuth(userName,
+        boolean result = _authenticationController.checkAuthentication(userName,
                 password);
 
         Assert.assertTrue("User " + userName
@@ -40,7 +40,7 @@ public class LdapUserAuthControllerTest
         String userName = "nisi";
         String password = "wrongpasswort";
 
-        boolean result = _ldapUserAuthController.CheckLdapAuth(userName,
+        boolean result = _authenticationController.checkAuthentication(userName,
                 password);
 
         Assert.assertFalse("User/pw combination was invalid", result);

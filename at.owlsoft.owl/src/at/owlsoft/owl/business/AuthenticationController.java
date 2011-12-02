@@ -16,24 +16,35 @@
  */
 package at.owlsoft.owl.business;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 
 import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.naming.directory.InitialDirContext;
 
+import at.owlsoft.owl.model.SearchField;
+import at.owlsoft.owl.model.SearchFieldType;
+import at.owlsoft.owl.model.user.AccountMode;
+import at.owlsoft.owl.model.user.IRole;
+import at.owlsoft.owl.model.user.ISystemUser;
+import at.owlsoft.owl.model.user.Role;
+import at.owlsoft.owl.model.user.SystemUser;
+
 /**
  * 
  */
-public class LdapUserAuthController extends ControllerBase
+public class AuthenticationController extends ControllerBase
 {
 
-    public LdapUserAuthController(OwlApplicationContext context)
+    public AuthenticationController(OwlApplicationContext context)
     {
         super(context);
     }
 
-    public boolean CheckLdapAuth(String userName, String password)
+    public boolean checkAuthentication(String userName, String password)
     {
         String principal = getRdn(userName);
         try
@@ -51,6 +62,24 @@ public class LdapUserAuthController extends ControllerBase
 
             InitialDirContext ctx = new InitialDirContext(env);
             ctx.close();
+            // TODO dirty fix
+            List<SearchField> search = new ArrayList<SearchField>();
+            search.add(new SearchField("_username", userName,
+                    SearchFieldType.Equals));
+            List<SystemUser> users = getContext()
+                    .getSystemUserSearchController().search(search);
+            SystemUser user;
+            if (users.isEmpty())
+            {
+                Random random = new Random();
+                user = new SystemUser(99 + random.nextInt(),
+                        99 + random.nextInt(), userName, "pw", "", userName,
+                        userName, null, AccountMode.Ldap);
+                user.addRole(new Role("admin", "admin"));
+                users.add(user);
+            }
+            user = users.get(0);
+            getContext().setSystemUser(user);
             return true;
         }
         catch (NamingException e)
@@ -58,6 +87,19 @@ public class LdapUserAuthController extends ControllerBase
             // Authentication failed
             return false;
         }
+    }
+
+    public List<? extends IRole> getRolesForCurrentUser()
+    {
+        ISystemUser user = getContext().getSystemUser();
+
+        if (user != null)
+        {
+            return user.getRoles();
+        }
+
+        return new ArrayList<IRole>();
+
     }
 
     private String getRdn(String userName)

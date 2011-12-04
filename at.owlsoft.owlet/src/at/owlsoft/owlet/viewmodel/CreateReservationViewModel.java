@@ -133,4 +133,11 @@ public class CreateReservationViewModel
     {
         return _reservationApi.store();
     }
+
+    public void setDuration(int duration) throws RemoteException
+    {
+        _reservationApi.setDuration(duration);
+        _reservation = _reservationApi.getReservation();
+        updateMessages();
+    }
 }

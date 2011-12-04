@@ -24,7 +24,6 @@ public class MediumExemplarSearchController extends
     @Override
     public List<MediumExemplar> search(List<SearchField> searchFields)
     {
-
         ISearchFieldValueConverter converter = getContext()
                 .getServerSearchFieldDefinitionController();
 

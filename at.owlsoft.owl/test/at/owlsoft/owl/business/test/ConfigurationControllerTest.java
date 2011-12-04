@@ -11,12 +11,12 @@ import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
 
+import at.owlsoft.owl.OwlTestSuite;
 import at.owlsoft.owl.business.ConfigurationController;
-import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.media.IMedium;
 
-public class ConfigurationControllerTest
+public class ConfigurationControllerTest extends OwlTestSuite
 {
 
     @Test
@@ -26,8 +26,8 @@ public class ConfigurationControllerTest
         int defaultDuration = 30;
         int specificDuration = 14;
 
-        ConfigurationController controller = new ConfigurationController(
-                new OwlApplicationContext());
+        ConfigurationController controller = getContext()
+                .getConfigurationController();
         int result = controller.getInt(
                 IMedium.class.getName().concat("extensionDuration"),
                 defaultDuration);
@@ -46,8 +46,8 @@ public class ConfigurationControllerTest
     {
         Map<String, String> testMap = new HashMap<String, String>();
         testMap.put("hugo", "3");
-        ConfigurationController controller = new ConfigurationController(
-                new OwlApplicationContext());
+        ConfigurationController controller = getContext()
+                .getConfigurationController();
         controller.setAll(testMap);
         int hugo = controller.getInt("hugo");
         controller.store();

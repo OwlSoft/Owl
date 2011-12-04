@@ -4,20 +4,21 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import at.owlsoft.owl.OwlTestSuite;
 import at.owlsoft.owl.business.AuthenticationController;
-import at.owlsoft.owl.business.OwlApplicationContext;
+import at.owlsoft.owl.model.user.ISystemUser;
 
-public class LdapUserAuthControllerTest
+public class LdapUserAuthControllerTest extends OwlTestSuite
 {
 
     private static AuthenticationController _authenticationController;
-    private static OwlApplicationContext  _context;
 
+    @Override
     @Before
     public void setup()
     {
-        _context = new OwlApplicationContext();
-        _authenticationController = _context.getAuthenticationController();
+        super.setup();
+        _authenticationController = getContext().getAuthenticationController();
     }
 
     @Test
@@ -27,11 +28,11 @@ public class LdapUserAuthControllerTest
         String userName = "";
         String password = "";
 
-        boolean result = _authenticationController.checkAuthentication(userName,
-                password);
+        ISystemUser result = _authenticationController
+                .login(userName, password);
 
         Assert.assertTrue("User " + userName
-                + "was found, password is correct.", result);
+                + "was found, password is correct.", result != null);
     }
 
     @Test
@@ -40,9 +41,9 @@ public class LdapUserAuthControllerTest
         String userName = "nisi";
         String password = "wrongpasswort";
 
-        boolean result = _authenticationController.checkAuthentication(userName,
-                password);
+        ISystemUser result = _authenticationController
+                .login(userName, password);
 
-        Assert.assertFalse("User/pw combination was invalid", result);
+        Assert.assertFalse("User/pw combination was invalid", result == null);
     }
 }

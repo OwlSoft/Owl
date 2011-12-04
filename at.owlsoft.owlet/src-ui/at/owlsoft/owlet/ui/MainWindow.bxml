@@ -2,6 +2,7 @@
 	xmlns:bxml="http://pivot.apache.org/bxml"
 	xmlns:owlet="at.owlsoft.owlet.ui" maximized="true" xmlns:content="org.apache.pivot.wtk.content"
 	xmlns="org.apache.pivot.wtk">
+	
 	<TablePane>
 		<columns>
 			<TablePane.Column width="1*" />
@@ -13,7 +14,7 @@
 					styles="{backgroundColor: '0x00000000', color: '#FFFFFF', disabledColor:'#E0E0E0'}">
 					<MenuBar.Item buttonData="File">
 						<Menu>
-							<Menu.Section>
+							<Menu.Section bxml:id="actionContainer">
 								<Menu.Item action="searchMedium">
 									<buttonData>
 										<content:MenuItemData text="Search Medium" />
@@ -44,6 +45,8 @@
 										<content:MenuItemData text="Login" />
 									</buttonData>
 								</Menu.Item>	
+							</Menu.Section>
+							<Menu.Section>
 								<Menu.Item action="quitApplication">
 									<buttonData>
 										<content:MenuItemData text="Quit"
@@ -63,6 +66,11 @@
 					styles="{fill:true, padding: 5, spacing:10}" preferredWidth="900">
 				</BoxPane>
 			</ScrollPane>
+		</TablePane.Row>
+		<TablePane.Row height="-1">
+			<BoxPane orientation="horizontal">
+				<Label bxml:id="statusLabel" text="Logged Out" />
+			</BoxPane>
 		</TablePane.Row>
 	</TablePane>
 </owlet:MainWindow>

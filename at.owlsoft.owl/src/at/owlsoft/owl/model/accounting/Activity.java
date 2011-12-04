@@ -181,4 +181,20 @@ public abstract class Activity implements IActivity
         }
         _medium = medium;
     }
+
+    public ActivityStatus getCurrentStatus()
+    {
+        ActivityStatus status = ActivityStatus.Open;
+        Date d = new Date(0);
+
+        for (ActivityStatusEntry entry : _activityStatusEntries)
+        {
+            if (d.before(entry.getDate()))
+            {
+                status = entry.getActivityStatus();
+            }
+        }
+
+        return status;
+    }
 }

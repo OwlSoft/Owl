@@ -28,6 +28,7 @@ public class ReturnController extends ControllerBase
     public ReturnController(OwlApplicationContext context)
     {
         super(context);
+        _messages = new ArrayList<ValidationMessage>();
     }
 
     public List<ValidationMessage> returnMediumCopy(MediumExemplar copy)

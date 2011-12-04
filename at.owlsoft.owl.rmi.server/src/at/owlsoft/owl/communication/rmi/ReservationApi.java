@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.List;
 
+import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.accounting.IReservation;
 import at.owlsoft.owl.model.media.IMedium;
 import at.owlsoft.owl.model.media.Medium;
@@ -26,7 +27,14 @@ public class ReservationApi extends ApiBase implements IReservationApi
     @Override
     public void newReservation() throws RemoteException
     {
-        _controller.newReservation();
+        try
+        {
+            _controller.newReservation();
+        }
+        catch (NoPermissionException e)
+        {
+            throw new RemoteException(e.getMessage(), e);
+        }
     }
 
     @Override
@@ -40,7 +48,14 @@ public class ReservationApi extends ApiBase implements IReservationApi
     {
         SystemUser user = getFactory().getContext()
                 .getSystemUserSearchController().search(cardId);
-        _controller.setCustomer(user);
+        try
+        {
+            _controller.setCustomer(user);
+        }
+        catch (NoPermissionException e)
+        {
+            throw new RemoteException(e.getMessage(), e);
+        }
         return user;
     }
 
@@ -49,7 +64,14 @@ public class ReservationApi extends ApiBase implements IReservationApi
     {
         Medium medium = getFactory().getContext().getMediumSearchController()
                 .search(mediumId);
-        _controller.setMedium(medium);
+        try
+        {
+            _controller.setMedium(medium);
+        }
+        catch (NoPermissionException e)
+        {
+            throw new RemoteException(e.getMessage(), e);
+        }
         return medium;
     }
 
@@ -63,7 +85,14 @@ public class ReservationApi extends ApiBase implements IReservationApi
     @Override
     public void setStartDate(Date time) throws RemoteException
     {
-        _controller.setStartDate(time);
+        try
+        {
+            _controller.setStartDate(time);
+        }
+        catch (NoPermissionException e)
+        {
+            throw new RemoteException(e.getMessage(), e);
+        }
         _controller.validate(ValidationMode.Strict);
     }
 
@@ -77,7 +106,14 @@ public class ReservationApi extends ApiBase implements IReservationApi
     @Override
     public boolean store() throws RemoteException
     {
-        _controller.save();
+        try
+        {
+            _controller.save();
+        }
+        catch (NoPermissionException e)
+        {
+            throw new RemoteException(e.getMessage(), e);
+        }
         return _controller.getMessages().isEmpty();
     }
 

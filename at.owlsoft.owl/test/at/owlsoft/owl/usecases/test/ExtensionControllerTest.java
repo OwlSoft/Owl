@@ -10,8 +10,9 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import at.owlsoft.owl.business.OwlApplicationContext;
+import at.owlsoft.owl.OwlTestSuite;
 import at.owlsoft.owl.dao.DaoManager;
+import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.accounting.Rental;
 import at.owlsoft.owl.model.media.MediumExemplar;
 import at.owlsoft.owl.model.user.SystemUser;
@@ -20,20 +21,17 @@ import at.owlsoft.owl.model.user.SystemUserStatusEntry;
 import at.owlsoft.owl.usecases.ExtensionController;
 import at.owlsoft.owl.validation.ValidationMessage;
 
-public class ExtensionControllerTest
+public class ExtensionControllerTest extends OwlTestSuite
 {
 
-    private static final String          TEST_DB = "extensionTestDb";
-    private static Rental                _rental;
-    private static MediumExemplar        _copy;
-    private static SystemUser            _customer;
-
-    private static OwlApplicationContext _context;
+    private static final String   TEST_DB = "extensionTestDb";
+    private static Rental         _rental;
+    private static MediumExemplar _copy;
+    private static SystemUser     _customer;
 
     @BeforeClass
-    public static void setup()
+    public static void setupStatic()
     {
-        _context = new OwlApplicationContext();
         // this test must be executed as administrator otherwise the db file
         // will not be deleted
 
@@ -76,9 +74,9 @@ public class ExtensionControllerTest
     }
 
     @Test
-    public void test()
+    public void test() throws NoPermissionException
     {
-        ExtensionController controller = _context.getExtensionController();
+        ExtensionController controller = getContext().getExtensionController();
         controller.extend(_copy);
         assertEquals(1, _rental.getFilingExtensionCount());
         controller.extend(_copy);

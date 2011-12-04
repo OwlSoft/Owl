@@ -19,10 +19,11 @@ import org.apache.pivot.wtk.Span;
 import org.apache.pivot.wtk.TextInput;
 import org.apache.pivot.wtk.TextInputContentListener;
 
+import at.owlsoft.owl.model.IDefaultRoles;
 import at.owlsoft.owlet.util.PivotUtils;
 import at.owlsoft.owlet.viewmodel.AdminConfigViewModel;
 
-public class AdminConfigView extends OwletView
+public class AdminConfigView extends OwletRoleView
 {
     private AdminConfigViewModel _viewModel;
 
@@ -37,6 +38,11 @@ public class AdminConfigView extends OwletView
     private Map<String, String>  _configParamsChangedNew;
     private List<String>         _configParamsToRemove;
     private Logger               LOGGER = Logger.getLogger(AdminConfigView.class);
+
+    public AdminConfigView()
+    {
+        super(IDefaultRoles.ADMIN_CONFIG);
+    }
 
     @Override
     protected void onViewOpened()

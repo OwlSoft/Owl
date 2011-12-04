@@ -8,6 +8,8 @@ import java.util.UUID;
 import at.owlsoft.owl.business.ControllerBase;
 import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.dao.DaoManager;
+import at.owlsoft.owl.model.IDefaultRoles;
+import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.SearchField;
 import at.owlsoft.owl.model.SearchFieldType;
 import at.owlsoft.owl.model.accounting.FilingExtension;
@@ -31,7 +33,11 @@ public class ExtensionController extends ControllerBase
     private List<ValidationMessage> _messages;
 
     public List<ValidationMessage> extend(MediumExemplar copy)
+            throws NoPermissionException
     {
+        getContext().getAuthenticationController().checkAccess(
+                IDefaultRoles.RENTAL_EXTEND);
+
         Rental rental = copy.getLastRental();
 
         if (validate(rental))
@@ -95,7 +101,11 @@ public class ExtensionController extends ControllerBase
     }
 
     public List<ValidationMessage> extend(UUID uuid)
+            throws NoPermissionException
     {
+        getContext().getAuthenticationController().checkAccess(
+                IDefaultRoles.RENTAL_EXTEND);
+
         List<ValidationMessage> temp = new ArrayList<ValidationMessage>();
 
         List<SearchField> searchFields = new ArrayList<SearchField>();

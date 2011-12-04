@@ -7,6 +7,8 @@ import java.util.List;
 import at.owlsoft.owl.business.ControllerBase;
 import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.dao.DaoManager;
+import at.owlsoft.owl.model.IDefaultRoles;
+import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.accounting.ActivityStatus;
 import at.owlsoft.owl.model.accounting.ActivityStatusEntry;
 import at.owlsoft.owl.model.accounting.Reservation;
@@ -37,8 +39,11 @@ public class ReservationController extends ControllerBase
         return _messages;
     }
 
-    public void newReservation()
+    public void newReservation() throws NoPermissionException
     {
+        getContext().getAuthenticationController().checkAccess(
+                IDefaultRoles.RESERVATION_CREATE);
+
         _reservation = new Reservation();
         _reservation.setStartDate(new Date());
         _messages = null;
@@ -47,8 +52,11 @@ public class ReservationController extends ControllerBase
         // .getCurrentUser());
     }
 
-    public void setStartDate(Date time)
+    public void setStartDate(Date time) throws NoPermissionException
     {
+        getContext().getAuthenticationController().checkAccess(
+                IDefaultRoles.RESERVATION_CREATE);
+
         _reservation.setStartDate(time);
     }
 
@@ -61,8 +69,10 @@ public class ReservationController extends ControllerBase
      * 
      * @param medium
      * @return If no warnings are found returns empty List.
+     * @throws NoPermissionException
      */
     public List<ValidationMessage> setMedium(Medium medium)
+            throws NoPermissionException
     {
         if (_reservation == null)
         {
@@ -74,7 +84,11 @@ public class ReservationController extends ControllerBase
     }
 
     public List<ValidationMessage> setCustomer(SystemUser customer)
+            throws NoPermissionException
     {
+        getContext().getAuthenticationController().checkAccess(
+                IDefaultRoles.RESERVATION_CREATE);
+
         if (_reservation == null)
         {
             newReservation();
@@ -84,8 +98,11 @@ public class ReservationController extends ControllerBase
         return _messages;
     }
 
-    public List<ValidationMessage> save()
+    public List<ValidationMessage> save() throws NoPermissionException
     {
+        getContext().getAuthenticationController().checkAccess(
+                IDefaultRoles.RESERVATION_CREATE);
+
         if (_reservation == null)
         {
             newReservation();

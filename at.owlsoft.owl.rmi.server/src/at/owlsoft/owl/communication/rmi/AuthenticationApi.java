@@ -6,6 +6,7 @@ import java.util.List;
 
 import at.owlsoft.owl.business.AuthenticationController;
 import at.owlsoft.owl.model.user.IRole;
+import at.owlsoft.owl.model.user.ISystemUser;
 
 public class AuthenticationApi extends ApiBase implements IAuthenticationApi
 {
@@ -23,10 +24,10 @@ public class AuthenticationApi extends ApiBase implements IAuthenticationApi
     }
 
     @Override
-    public boolean checkAuthentication(String userName, String password)
+    public ISystemUser login(String userName, String password)
             throws RemoteException
     {
-        return _controller.checkAuthentication(userName, password);
+        return _controller.login(userName, password);
     }
 
     @Override

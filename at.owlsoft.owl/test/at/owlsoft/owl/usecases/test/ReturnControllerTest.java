@@ -9,30 +9,29 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import at.owlsoft.owl.business.OwlApplicationContext;
+import at.owlsoft.owl.OwlTestSuite;
 import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.model.accounting.ActivityStatus;
 import at.owlsoft.owl.model.accounting.Rental;
 import at.owlsoft.owl.model.media.Book;
 import at.owlsoft.owl.model.media.Medium;
 import at.owlsoft.owl.model.media.MediumExemplar;
+import at.owlsoft.owl.model.media.MediumExemplarStatus;
+import at.owlsoft.owl.model.media.MediumExemplarStatusEntry;
 import at.owlsoft.owl.model.user.AccountMode;
 import at.owlsoft.owl.model.user.SystemUser;
 import at.owlsoft.owl.model.user.SystemUserStatus;
 import at.owlsoft.owl.model.user.SystemUserStatusEntry;
 import at.owlsoft.owl.usecases.ReturnController;
 
-public class ReturnControllerTest
+public class ReturnControllerTest extends OwlTestSuite
 {
-    private static final String          TEST_DB = "returnTestDb";
-    private static MediumExemplar        _copy;
-
-    private static OwlApplicationContext _context;
+    private static final String   TEST_DB = "returnTestDb";
+    private static MediumExemplar _copy;
 
     @BeforeClass
-    public static void setup()
+    public static void setupClass()
     {
-        _context = new OwlApplicationContext();
         // this test must be executed as administrator otherwise the db file
         // will not be deleted
 
@@ -66,6 +65,9 @@ public class ReturnControllerTest
         toReturn.addActivity(rental);
         rental.setCustomer(returner);
 
+        toReturn.addMediumExemplarStatusEntry(new MediumExemplarStatusEntry(
+                new Date(), toReturn, MediumExemplarStatus.Rented));
+
         DaoManager.getInstance(TEST_DB).getMediumExemplarDao().store(toReturn);
         DaoManager.getInstance(TEST_DB).getActivityDao().store(rental);
         DaoManager.getInstance(TEST_DB).getSystemUserDao().store(returner);
@@ -85,10 +87,9 @@ public class ReturnControllerTest
     @Test
     public void testReturnMediumCopy()
     {
-        ReturnController controller = _context.getReturnController();
+        ReturnController controller = getContext().getReturnController();
         controller.returnMediumCopy(_copy);
         assertEquals(ActivityStatus.Returned, _copy.getActivity(0)
-                .getActivityStatusEntry(0).getActivityStatus());
+                .getCurrentStatus());
     }
-
 }

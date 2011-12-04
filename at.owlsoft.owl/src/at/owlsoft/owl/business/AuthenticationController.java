@@ -25,6 +25,8 @@ import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.naming.directory.InitialDirContext;
 
+import at.owlsoft.owl.model.IDefaultRoles;
+import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.SearchField;
 import at.owlsoft.owl.model.SearchFieldType;
 import at.owlsoft.owl.model.user.AccountMode;
@@ -38,13 +40,36 @@ import at.owlsoft.owl.model.user.SystemUser;
  */
 public class AuthenticationController extends ControllerBase
 {
+    private SystemUser          _currentUser;
+    private IOwlSecurityManager _securityManager;
+
+    public SystemUser getCurrentUser()
+    {
+        return _currentUser;
+    }
 
     public AuthenticationController(OwlApplicationContext context)
     {
         super(context);
+        _securityManager = new DefaultSecurityManager();
     }
 
-    public boolean checkAuthentication(String userName, String password)
+    public IOwlSecurityManager getSecurityManager()
+    {
+        return _securityManager;
+    }
+
+    public void setSecurityManager(IOwlSecurityManager securityManager)
+    {
+        _securityManager = securityManager;
+    }
+
+    public void checkAccess(String role) throws NoPermissionException
+    {
+        _securityManager.checkAccess(role, _currentUser);
+    }
+
+    public ISystemUser login(String userName, String password)
     {
         String principal = getRdn(userName);
         try
@@ -68,30 +93,43 @@ public class AuthenticationController extends ControllerBase
                     SearchFieldType.Equals));
             List<SystemUser> users = getContext()
                     .getSystemUserSearchController().search(search);
-            SystemUser user;
             if (users.isEmpty())
             {
                 Random random = new Random();
-                user = new SystemUser(99 + random.nextInt(),
+                _currentUser = new SystemUser(99 + random.nextInt(),
                         99 + random.nextInt(), userName, "pw", "", userName,
                         userName, null, AccountMode.Ldap);
-                user.addRole(new Role("admin", "admin"));
-                users.add(user);
+
+                _currentUser.addRole(new Role(IDefaultRoles.ADMIN_CONFIG,
+                        IDefaultRoles.ADMIN_CONFIG));
+
+                _currentUser.addRole(new Role(IDefaultRoles.RENTAL_CREATE,
+                        IDefaultRoles.RENTAL_CREATE));
+                _currentUser.addRole(new Role(IDefaultRoles.RENTAL_SHOW,
+                        IDefaultRoles.RENTAL_SHOW));
+                _currentUser.addRole(new Role(IDefaultRoles.RENTAL_EXTEND,
+                        IDefaultRoles.RENTAL_EXTEND));
+
+                _currentUser.addRole(new Role(IDefaultRoles.RESERVATION_CREATE,
+                        IDefaultRoles.RESERVATION_CREATE));
             }
-            user = users.get(0);
-            getContext().setSystemUser(user);
-            return true;
+            else
+            {
+                _currentUser = users.get(0);
+            }
+
+            return _currentUser;
         }
         catch (NamingException e)
         {
             // Authentication failed
-            return false;
+            return null;
         }
     }
 
     public List<? extends IRole> getRolesForCurrentUser()
     {
-        ISystemUser user = getContext().getSystemUser();
+        ISystemUser user = _currentUser;
 
         if (user != null)
         {

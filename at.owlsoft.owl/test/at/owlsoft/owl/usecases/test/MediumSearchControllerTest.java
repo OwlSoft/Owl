@@ -11,7 +11,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import at.owlsoft.owl.business.OwlApplicationContext;
+import at.owlsoft.owl.OwlTestSuite;
 import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.dao.IMediumDao;
 import at.owlsoft.owl.model.SearchField;
@@ -21,20 +21,16 @@ import at.owlsoft.owl.model.media.Medium;
 import at.owlsoft.owl.usecases.MediumSearchController;
 import db4oTestObjectGenerator.TestDataBaseConstructor;
 
-public class MediumSearchControllerTest
+public class MediumSearchControllerTest extends OwlTestSuite
 {
 
-    private static String                _publisher = "EA Sports";
-    private static String                _name      = "FM2012 Strategy Guide";
-    private static Medium                _mediumExpected;
-
-    private static OwlApplicationContext _context;
+    private static String _publisher = "EA Sports";
+    private static String _name      = "FM2012 Strategy Guide";
+    private static Medium _mediumExpected;
 
     @BeforeClass
-    public static void setup()
+    public static void setupClass()
     {
-        _context = new OwlApplicationContext();
-
         // // setUP
         Medium m1 = new Book();
         Medium m2 = new Book();
@@ -66,7 +62,7 @@ public class MediumSearchControllerTest
     public void testSearchListOfSearchField()
     {
 
-        MediumSearchController controller = _context
+        MediumSearchController controller = getContext()
                 .getMediumSearchController();
         List<SearchField> criteria = new ArrayList<SearchField>();
 
@@ -89,7 +85,7 @@ public class MediumSearchControllerTest
     public void dataBaseTest()
     {
         TestDataBaseConstructor.setUpDataBase();
-        MediumSearchController controller = _context
+        MediumSearchController controller = getContext()
                 .getMediumSearchController();
         List<SearchField> criteria = new ArrayList<SearchField>();
         criteria.add(new SearchField("_title", "Faust", SearchFieldType.Equals));

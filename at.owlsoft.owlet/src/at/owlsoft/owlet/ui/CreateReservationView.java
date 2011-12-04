@@ -16,10 +16,11 @@ import org.apache.pivot.wtk.TablePane;
 import org.apache.pivot.wtk.TableView;
 import org.apache.pivot.wtk.TextInput;
 
+import at.owlsoft.owl.model.IDefaultRoles;
 import at.owlsoft.owlet.util.PivotUtils;
 import at.owlsoft.owlet.viewmodel.CreateReservationViewModel;
 
-public class CreateReservationView extends OwletView
+public class CreateReservationView extends OwletRoleView
 {
     private CreateReservationViewModel _viewModel;
 
@@ -33,12 +34,14 @@ public class CreateReservationView extends OwletView
     private TableView                  _warningView;
 
     private CalendarButton             _startDate;
-    private Label                      _duration;
 
     private PushButton                 _store;
 
+    private TextInput                  _desiredDuration;
+
     public CreateReservationView()
     {
+        super(IDefaultRoles.RESERVATION_CREATE);
         _viewModel = new CreateReservationViewModel();
     }
 
@@ -71,6 +74,8 @@ public class CreateReservationView extends OwletView
         _warningView = (TableView) ns.get("warningView");
         _customerStateLabel = (Label) ns.get("customerStateLabel");
         _store = (PushButton) ns.get("store");
+        _desiredDuration = (TextInput) ns.get("desiredDuration");
+        _desiredDuration.setText("10");
 
         _store.getButtonPressListeners().add(new ButtonPressListener()
         {
@@ -80,6 +85,18 @@ public class CreateReservationView extends OwletView
             {
                 try
                 {
+                    int duration;
+                    try
+                    {
+                        duration = Integer.parseInt(_desiredDuration.getText());
+                    }
+                    catch (Exception e)
+                    {
+                        Prompt.prompt("Invalid duration!", getWindow());
+                        return;
+                    }
+
+                    _viewModel.setDuration(duration);
                     if (_viewModel.store())
                     {
                         Prompt.prompt(
@@ -127,7 +144,6 @@ public class CreateReservationView extends OwletView
                         updateUI(false);
                     }
                 });
-        _duration = (Label) ns.get("duration");
 
         final TextInput cardIDInput = (TextInput) ns.get("cardID");
         final TextInput mediumIDInput = (TextInput) ns.get("mediumID");
@@ -168,7 +184,7 @@ public class CreateReservationView extends OwletView
                 }
                 catch (Exception e)
                 {
-                    Prompt.prompt("Invalid exemplarID format", getWindow());
+                    Prompt.prompt("Invalid mediumID format", getWindow());
                     return;
                 }
 
@@ -224,16 +240,8 @@ public class CreateReservationView extends OwletView
                     .getReservation().getStartDate()));
         }
 
-        _duration.setText(durationString(_viewModel.getReservation()
-                .getDesiredDuration()));
-
         _errorView.setTableData(_viewModel.getErrorMessages());
         _warningView.setTableData(_viewModel.getWarningMessages());
 
-    }
-
-    private String durationString(long duration)
-    {
-        return String.format("Desired Duration: %d Days", duration);
     }
 }

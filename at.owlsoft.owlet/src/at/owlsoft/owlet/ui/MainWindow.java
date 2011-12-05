@@ -12,6 +12,7 @@ import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Action;
 import org.apache.pivot.wtk.BoxPane;
 import org.apache.pivot.wtk.Component;
+import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.Menu.Section;
 import org.apache.pivot.wtk.MenuBar;
 import org.apache.pivot.wtk.Prompt;
@@ -21,6 +22,7 @@ import at.owlsoft.owl.model.IDefaultRoles;
 import at.owlsoft.owl.model.user.IRole;
 import at.owlsoft.owlet.RoleAction;
 import at.owlsoft.owlet.context.RmiContext;
+import at.owlsoft.owlet.controller.AuthenticationController;
 
 public class MainWindow extends Window implements Bindable
 {
@@ -30,6 +32,7 @@ public class MainWindow extends Window implements Bindable
     private MenuBar _menu;
 
     private Section _actionContainer;
+    private Label   _statusLabel;
 
     private Logger  LOGGER = Logger.getLogger(MainWindow.class);
 
@@ -151,6 +154,7 @@ public class MainWindow extends Window implements Bindable
         _viewBox = (BoxPane) ns.get("content");
         _menu = (MenuBar) ns.get("menu");
         _actionContainer = (Section) ns.get("actionContainer");
+        _statusLabel = (Label) ns.get("statusLabel");
 
         updateViewRoles();
         ViewController.getInstance().loadContent("DashboardView", this);
@@ -187,6 +191,17 @@ public class MainWindow extends Window implements Bindable
                     RoleAction roleAction = (RoleAction) action;
                     item.setVisible(roleKeys.contains(roleAction.getRole()));
                 }
+            }
+
+            if (AuthenticationController.getInstance().getCurrentUser() != null)
+            {
+                _statusLabel.setText("Logged in as: "
+                        + AuthenticationController.getInstance()
+                                .getCurrentUser().getUsername());
+            }
+            else
+            {
+                _statusLabel.setText("Logged out");
             }
         }
         catch (RemoteException e)

@@ -23,4 +23,6 @@ public interface ISearchField extends Serializable
     String getKey();
 
     String getValue();
+
+    SearchFieldType getType();
 }

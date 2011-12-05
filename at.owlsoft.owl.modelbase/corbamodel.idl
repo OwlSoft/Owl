@@ -1,0 +1,184 @@
+module at {
+module owlsoft {
+module owl {
+module corbamodel {
+
+	module user {
+		enum CorbaSystemUserStatus {
+			Active, InactiveBecauseOverdue, InactiveBecauseMembershipFee
+		};
+
+		interface ICorbaRole {
+			string getKey();
+			string getValue();
+		};
+		
+		
+		interface ICorbaSystemUser {
+			int getUserID();
+			int getCardID();
+			string getUsername();
+			string getPassword();
+			string getEmail();
+			string getFirstName();
+			string getLastName();
+			long long getBirthday();
+			int getActivityCount();
+
+			sequence<ICorbaActivity> getActivities();
+			sequence<ICorbaRole> getRoles();
+			sequence<ICorbaSystemUserTransaction> getSystemUserTransactions();
+			sequence<ICorbaSystemUserStatusEntry> getSystemUserStatusEntries();
+			
+			CorbaSystemUserStatus getCurrentStatus();
+		};
+		
+		interface ICorbaSystemUserStatusEntry {
+			long long getDate();
+			string getComment();
+			CorbaSystemUserStatus getSystemUserStatus();
+			ICorbaSystemUser getSystemUser();
+		}
+		
+		interface ICorbaSystemUserTransaction {
+			long long getDate();
+			float getAmount();
+			string getComment();
+			CorbaTransactionType getTransactionType();
+			ICorbaSystemUser getSystemUser();
+		}
+		
+		enum CorbaSystemUserStatus {
+			Active, InactiveBecauseOverdue, InactiveBecauseMembershipFee
+		};
+		
+		enum TransactionType {
+			MemberFee, OverdueFee, Donation
+		};
+	};
+	
+	module validation {
+	
+		interface ICorbaValidationMessage {
+			CorbaValidationMessageStatus getStatus();
+			string getMessage();
+		};
+		
+		enum CorbaValidationMessageStatus {
+			Warning, Error
+		};
+
+		enum ValidationMode {
+			Strict, NotStrict
+		};
+	};
+	
+	module media {
+		interface ICorbaMedium {
+			int getMediumID();
+			string getPublisher();
+			string getName();
+			long long getEntryDate();
+			long long getPublishedDate();
+			sequence<ICorbaTag> getTags();
+			sequence<ICorbaMediumExemplar> getMediumExemplars();
+			sequence<ICorbaActivity> getActivities();
+		};
+		
+		interface ICorbaMediumExemplar {
+			int getExemplarID();
+			string getMetaData(string key);
+			sequence<string> getMetaDataKeys();
+			string getMetaData(string key, string defaultValue);
+
+			ICorbaMedium getMedium();			
+			sequence<ICorbaMediumExemplarStatusEntry> getMediumExemplarStatusEntries();
+			sequence<ICorbaActivity> getActivities();
+			ICorbaRental getLastRental();
+			CorbaMediumExemplarStatus getCurrentState();
+		};
+		
+		interface ICorbaMediumExemplarStatusEntry {
+			long long getDate();
+			ICorbaMediumExemplar getMediumExemplar();
+			CorbaMediumExemplarStatus getMediumExemplarStatus();
+		};
+		
+		interface ITag {
+			string getValue();
+			CorbaTagType getTagType();
+			ICorbaMedium getMedium();
+		};
+	
+		enum CorbaMediumExemplarStatus {
+			Rentable, Rented, Returned, StockItem
+		};
+
+		enum TagType {
+			Category, MediaMeta, AgeRestriction
+		};
+	};
+	
+	module accounting {
+		enum CorbaActivityStatus {
+			Open, Closed, Overdue, Returned, Extended
+		}
+
+		interface ICorbaActivity {
+			string getUUID();
+			long long getStartDate();
+			sequence<ICorbaActivityStatusEntry> getActivityStatusEntries();
+			ICorbaMediumExemplar getMediumExemplar();
+			ICorbaSystemUser getCustomer();
+			ICorbaSystemUser getCreator();
+			ICorbaMedium getMedium();
+		};
+		
+		interface ICorbaActivityStatusEntry {
+			long long getDate();
+			ICorbaActivity getActivity();
+			CorbaActivityStatus getActivityStatus();
+		};
+		
+		interface ICorbaFilingExtension {
+			long long getCreationDate();
+			long long getNewEndDate();
+			ICorbaRental getRental();
+		};
+
+		interface ICorbaRental : ICorbaActivity {
+			long long getEndDate();
+			int getFilingExtensionCount();
+			sequence<ICorbaFilingExtension> getFilingExtensions();
+		};
+		
+		interface ICorbaReservation : ICorbaActivity {
+			int getDesiredDuration();
+		};		
+	};
+	
+	exception InvalidOperationException {};
+	exception NoPermissionException {};
+	
+	interface ICorbaSearchField {
+		string getKey();
+		string getValue();
+	};
+	
+	interface ICorbaSearchFieldCategory {
+		string getLabel();
+		sequence<ICorbaSearchFieldDefinition> getSearchFieldDefinitions();
+	};
+	
+	interface ISearchFieldDefinition {
+		string getKey();
+		string getLabel();
+	};
+	
+	enum CorbaSearchFieldType {
+		Equals, Greater, Lesser
+	}
+};
+};
+};
+};

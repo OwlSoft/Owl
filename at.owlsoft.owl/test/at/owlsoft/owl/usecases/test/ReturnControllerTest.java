@@ -12,6 +12,7 @@ import org.junit.Test;
 import at.owlsoft.owl.OwlTestSuite;
 import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.model.accounting.ActivityStatus;
+import at.owlsoft.owl.model.accounting.ActivityStatusEntry;
 import at.owlsoft.owl.model.accounting.Rental;
 import at.owlsoft.owl.model.media.Book;
 import at.owlsoft.owl.model.media.Medium;
@@ -30,7 +31,7 @@ public class ReturnControllerTest extends OwlTestSuite
     private static MediumExemplar _copy;
 
     @BeforeClass
-    public static void setupClass()
+    public static void setupClass() throws InterruptedException
     {
         // this test must be executed as administrator otherwise the db file
         // will not be deleted
@@ -61,10 +62,15 @@ public class ReturnControllerTest extends OwlTestSuite
                 returner));
 
         Rental rental = new Rental();
+        Thread.sleep(100);
+        rental.addActivityStatusEntry(new ActivityStatusEntry(new Date(),
+                rental, ActivityStatus.Open));
+
         rental.setMediumExemplar(toReturn);
         toReturn.addActivity(rental);
         rental.setCustomer(returner);
 
+        Thread.sleep(100);
         toReturn.addMediumExemplarStatusEntry(new MediumExemplarStatusEntry(
                 new Date(), toReturn, MediumExemplarStatus.Rented));
 

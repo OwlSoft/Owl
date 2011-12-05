@@ -44,6 +44,6 @@ public class LdapUserAuthControllerTest extends OwlTestSuite
         ISystemUser result = _authenticationController
                 .login(userName, password);
 
-        Assert.assertFalse("User/pw combination was invalid", result == null);
+        Assert.assertTrue("User/pw combination was invalid", result == null);
     }
 }

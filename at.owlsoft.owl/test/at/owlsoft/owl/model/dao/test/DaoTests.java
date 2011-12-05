@@ -9,24 +9,21 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import at.owlsoft.owl.OwlTestSuite;
 import at.owlsoft.owl.business.ISearchFieldValueConverter;
-import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.dao.ISystemUserDao;
 import at.owlsoft.owl.model.SearchField;
 import at.owlsoft.owl.model.SearchFieldType;
 import at.owlsoft.owl.model.user.SystemUser;
 
-public class DaoTests
+public class DaoTests extends OwlTestSuite
 {
-    private static final String          TEST_DB = "testDb";
-
-    private static OwlApplicationContext _context;
+    private static final String TEST_DB = "testDb";
 
     @BeforeClass
-    public static void setup()
+    public static void setupClass()
     {
-        _context = new OwlApplicationContext();
         // this test must be executed as administrator otherwise the db file
         // will not be deleted
 
@@ -75,8 +72,8 @@ public class DaoTests
         criterias.add(new SearchField("_firstName", "Manuel",
                 SearchFieldType.Equals));
 
-        ISearchFieldValueConverter controller = _context
-                .getClientSearchFieldDefinitionController();
+        ISearchFieldValueConverter controller = getContext()
+                .getServerSearchFieldDefinitionController();
 
         List<SystemUser> users = DaoManager.getInstance(TEST_DB)
                 .getSystemUserDao().queryByPropertyList(criterias, controller);
@@ -103,7 +100,7 @@ public class DaoTests
                 .getInstance(TEST_DB)
                 .getSystemUserDao()
                 .queryByPropertyList(criterias,
-                        _context.getClientSearchFieldDefinitionController());
+                        getContext().getServerSearchFieldDefinitionController());
 
         for (SystemUser systemUser : users)
         {
@@ -126,7 +123,7 @@ public class DaoTests
                 .getInstance(TEST_DB)
                 .getSystemUserDao()
                 .queryByPropertyList(criterias,
-                        _context.getClientSearchFieldDefinitionController());
+                        getContext().getServerSearchFieldDefinitionController());
 
         int countUsers = 0;
         for (SystemUser systemUser : users)

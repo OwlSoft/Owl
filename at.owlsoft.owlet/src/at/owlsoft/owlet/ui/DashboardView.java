@@ -8,6 +8,11 @@ import org.apache.pivot.util.Resources;
 
 public class DashboardView extends OwletView implements Bindable
 {
+    @Override
+    public String getTitle()
+    {
+        return "Dashboard";
+    }
 
     @Override
     public void initialize(Map<String, Object> arg0, URL arg1, Resources arg2)

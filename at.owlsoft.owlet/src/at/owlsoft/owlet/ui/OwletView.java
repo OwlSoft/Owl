@@ -6,12 +6,15 @@ import org.apache.pivot.wtk.Orientation;
 
 public abstract class OwletView extends BoxPane implements Bindable
 {
+
     public OwletView()
     {
         setOrientation(Orientation.VERTICAL);
         getStyles().put("fill", true);
         getStyles().put("padding", 10);
     }
+
+    public abstract String getTitle();
 
     protected boolean onViewClosing()
     {

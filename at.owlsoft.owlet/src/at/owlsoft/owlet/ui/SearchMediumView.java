@@ -30,6 +30,12 @@ public class SearchMediumView extends OwletView
     }
 
     @Override
+    public String getTitle()
+    {
+        return "Search Medium";
+    }
+
+    @Override
     protected void onViewOpened()
     {
         setEnabled(true);

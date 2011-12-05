@@ -46,6 +46,12 @@ public class AdminConfigView extends OwletRoleView
     }
 
     @Override
+    public String getTitle()
+    {
+        return "Admin configuration";
+    }
+
+    @Override
     protected void onViewOpened()
     {
         setEnabled(true);
@@ -169,19 +175,7 @@ public class AdminConfigView extends OwletRoleView
             {
                 String param = getSelectedParam();
 
-                if (_configParamsChangedNew.containsKey(param))
-                {
-                    // If the param is in the changed-or-new list, remove it
-                    // from there
-                    _configParamsAll.remove(param);
-                }
-
-                if (_configParamsAll.containsKey(param))
-                {
-                    // If the param was in our param source list, set it to the
-                    // remove list
-                    _configParamsToRemove.add(param);
-                }
+                removeParam(param);
 
                 _configParamsDisplayed.clear();
                 _configParamsDisplayed.setListData(getVisibleParams());
@@ -202,9 +196,28 @@ public class AdminConfigView extends OwletRoleView
 
     }
 
+    protected void removeParam(String param)
+    {
+        if (_configParamsChangedNew.containsKey(param))
+        {
+            // If the param is in the changed-or-new list, remove it
+            // from there
+            _configParamsChangedNew.remove(param);
+        }
+
+        /*
+         * if (_configParamsAll.containsKey(param)) { // If the param was in our
+         * param source list, set it to the // remove list
+         * _configParamsAll.remove(param); }
+         */
+
+        _configParamsToRemove.add(param);
+    }
+
     private String getSelectedParam()
     {
         int itemSelected = _configParamsDisplayed.getSelectedIndex();
+        @SuppressWarnings("unchecked")
         List<String> displayedItems = (List<String>) _configParamsDisplayed
                 .getListData();
 
@@ -339,7 +352,7 @@ public class AdminConfigView extends OwletRoleView
 
     private List<String> getVisibleParams(String searchString)
     {
-        List<String> tempList = new ArrayList<String>();
+        ArrayList<String> tempList = new ArrayList<String>();
         for (String str : _configParamsAll)
         {
             // If the current item fits the search string
@@ -401,6 +414,8 @@ public class AdminConfigView extends OwletRoleView
             tempList.add(str);
         }
 
+        org.apache.pivot.collections.ArrayList.sort(tempList);
+
         return tempList;
     }
 
@@ -422,6 +437,8 @@ public class AdminConfigView extends OwletRoleView
                     .toJavaList(_configParamsToRemove));
             changesMade = true;
         }
+
+        _viewModel.store();
 
         if (changesMade)
         {

@@ -26,8 +26,6 @@ import at.owlsoft.owlet.controller.AuthenticationController;
 
 public class MainWindow extends Window implements Bindable
 {
-    // private static final String TITLE_TEMPLATE = "Owlsoft Owlet - %s";
-
     private BoxPane _viewBox;
     private MenuBar _menu;
 

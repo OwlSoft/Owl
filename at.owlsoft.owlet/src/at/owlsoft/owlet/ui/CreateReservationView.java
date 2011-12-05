@@ -46,6 +46,12 @@ public class CreateReservationView extends OwletRoleView
     }
 
     @Override
+    public String getTitle()
+    {
+        return "Reserve a Medium";
+    }
+
+    @Override
     protected void onViewOpened()
     {
         setEnabled(true);

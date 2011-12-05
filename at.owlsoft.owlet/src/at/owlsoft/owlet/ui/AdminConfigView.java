@@ -42,6 +42,7 @@ public class AdminConfigView extends OwletRoleView
     public AdminConfigView()
     {
         super(IDefaultRoles.ADMIN_CONFIG);
+        _viewModel = new AdminConfigViewModel();
     }
 
     @Override

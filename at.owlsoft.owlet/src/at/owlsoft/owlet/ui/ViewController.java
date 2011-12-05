@@ -11,6 +11,8 @@ import org.apache.pivot.wtk.Component;
  */
 public class ViewController
 {
+    private static final String   TITLE_TEMPLATE       = "Owlsoft Owlet - %s";
+
     /**
      * This is the file extension of pivot files
      */
@@ -100,6 +102,9 @@ public class ViewController
                         oldView.onViewClosed();
                     }
                     newView.onViewOpened();
+
+                    mainWindow.setTitle(String.format(TITLE_TEMPLATE,
+                            newView.getTitle()));
                 }
             }
             catch (IOException e)

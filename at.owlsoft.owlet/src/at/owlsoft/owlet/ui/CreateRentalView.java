@@ -47,6 +47,12 @@ public class CreateRentalView extends OwletRoleView
     }
 
     @Override
+    public String getTitle()
+    {
+        return "Rent a Medium";
+    }
+
+    @Override
     protected void onViewOpened()
     {
         setEnabled(true);

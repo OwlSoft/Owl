@@ -23,6 +23,12 @@ public class LoginView extends OwletView
     private LoginViewModel _viewModel;
 
     @Override
+    public String getTitle()
+    {
+        return "Login";
+    }
+
+    @Override
     public void initialize(Map<String, Object> ns, URL arg1, Resources arg2)
     {
         setEnabled(true);

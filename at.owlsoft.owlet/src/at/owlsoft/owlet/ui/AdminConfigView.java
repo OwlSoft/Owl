@@ -46,6 +46,12 @@ public class AdminConfigView extends OwletRoleView
     }
 
     @Override
+    public String getTitle()
+    {
+        return "Admin configuration";
+    }
+
+    @Override
     protected void onViewOpened()
     {
         setEnabled(true);

@@ -48,6 +48,12 @@ public class ShowRentalView extends OwletRoleView
     }
 
     @Override
+    public String getTitle()
+    {
+        return "Show a Rental";
+    }
+
+    @Override
     public void initialize(Map<String, Object> ns, URL arg1, Resources arg2)
     {
         setEnabled(true);

@@ -60,17 +60,17 @@
 				</MenuBar>
 			</StackPane>
 		</TablePane.Row>
+		<TablePane.Row height="-1">
+			<BoxPane orientation="horizontal" styles="{padding: 5, horizontalAlignment:'right', backgroundColor:'#F5F5F5'}">
+				<Label bxml:id="statusLabel" text="Logged Out" />
+			</BoxPane>
+		</TablePane.Row>
 		<TablePane.Row height="1*">
 			<ScrollPane>
 				<BoxPane bxml:id="content" orientation="vertical"
 					styles="{fill:true, padding: 5, spacing:10}" preferredWidth="900">
 				</BoxPane>
 			</ScrollPane>
-		</TablePane.Row>
-		<TablePane.Row height="-1">
-			<BoxPane orientation="horizontal">
-				<Label bxml:id="statusLabel" text="Logged Out" />
-			</BoxPane>
 		</TablePane.Row>
 	</TablePane>
 </owlet:MainWindow>

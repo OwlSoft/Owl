@@ -29,6 +29,7 @@ public abstract class OwletRoleView extends OwletView
                     mainWindow);
             return false;
         }
+        setEnabled(true);
         return super.onViewOpening(mainWindow);
     }
 }

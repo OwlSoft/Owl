@@ -1,0 +1,111 @@
+module at{
+	module owlsoft{
+		module owl{
+			module corbamodel {
+
+				module user {
+			
+					interface ICorbaRole;
+					typedef sequence<ICorbaRole> _RoleList;
+					interface ICorbaSystemUser;
+					typedef sequence<ICorbaSystemUser> _SystemUserList;
+					interface ICorbaSystemUserStatusEntry;
+					typedef sequence<ICorbaSystemUserStatusEntry> _SystemUserStatusEntryList;
+					interface ICorbaSystemUserTransaction;
+					typedef sequence<ICorbaSystemUserTransaction> _SystemUserTransactionList;
+					
+					enum CorbaSystemUserStatus {
+						Active, InactiveBecauseOverdue, InactiveBecauseMembershipFee
+					};
+					
+					enum TransactionType {
+						MemberFee, OverdueFee, Donation
+					};
+				};
+				
+				module validation {
+				
+					interface ICorbaValidationMessage;
+					typedef sequence<ICorbaValidationMessage> _ValidationMessageList;
+					
+					enum CorbaValidationMessageStatus {
+						Warning, Error
+					};
+			
+					enum ValidationMode {
+						Strict, NotStrict
+					};
+				};
+				
+				module media {
+					interface ICorbaMedium;
+					typedef sequence<ICorbaMedium> _MediumList;
+					
+					interface ICorbaMediumExemplar;
+					typedef sequence<ICorbaMediumExemplar> _MediumExemplarList;
+					interface ICorbaMediumExemplarStatusEntry;
+					typedef sequence<ICorbaMediumExemplarStatusEntry> _MediumExemplarStatusEntryList;
+					
+					interface ITag;
+				
+					enum CorbaMediumExemplarStatus {
+						Rentable, Rented, Returned, StockItem
+					};
+			
+					enum TagType {
+						Category, MediaMeta, AgeRestriction
+					};
+				};
+				
+				module accounting {
+					enum CorbaActivityStatus {
+						Open, Closed, Overdue, Returned, Extended
+					};
+			
+					interface ICorbaActivity;
+					typedef sequence<ICorbaActivity> _ActivityList;
+					interface ICorbaActivityStatusEntry;
+					typedef sequence<ICorbaActivityStatusEntry> _ActivityStatusEntryList;
+					interface ICorbaFilingExtension;
+					typedef sequence<ICorbaFilingExtension> _FilingExtensionList;
+					interface ICorbaRental;
+					typedef sequence<ICorbaRental> _RentalList;
+					interface ICorbaReservation;
+					typedef sequence<ICorbaReservation> _ReservationList;
+				};
+				
+				exception InvalidOperationException {};
+				exception NoPermissionException {};
+				
+				interface ICorbaSearchField;
+				typedef sequence<ICorbaSearchField> _SearchFieldList;
+				
+				interface ICorbaSearchFieldCategory;
+				typedef sequence<ICorbaSearchFieldCategory> _SearchFieldCategoryList;
+				
+				interface ISearchFieldDefinition;
+				
+				enum CorbaSearchFieldType {
+					Equals, Greater, Lesser
+				};
+			};
+			
+			module communication{
+				module corba {
+					interface ICorbaApiFactory;
+					typedef sequence<ICorbaApiFactory> _ApiFactoryList;
+					interface ICorbaApiService;
+					typedef sequence<ICorbaApiService> _ApiServiceList;
+					interface ICorbaRentalApi;
+					typedef sequence<ICorbaRentalApi> _RentalApiList;
+					interface ICorbaSearchApi;
+					typedef sequence<ICorbaSearchApi> _SearchApiList;
+					interface ICorbaSystemUser;
+					typedef sequence<ICorbaSystemUser> _SystemUserList;
+					interface ICorbaAuthenticationApi;
+					typedef sequence<ICorbaAuthenticationApi> _AuthenticationApiList;
+				};
+			};
+		};
+	};
+};

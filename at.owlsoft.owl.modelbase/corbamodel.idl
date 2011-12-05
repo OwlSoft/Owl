@@ -1,184 +1,305 @@
-module at {
-module owlsoft {
-module owl {
-module corbamodel {
 
-	module user {
-		enum CorbaSystemUserStatus {
-			Active, InactiveBecauseOverdue, InactiveBecauseMembershipFee
-		};
 
-		interface ICorbaRole {
-			string getKey();
-			string getValue();
-		};
-		
-		
-		interface ICorbaSystemUser {
-			int getUserID();
-			int getCardID();
-			string getUsername();
-			string getPassword();
-			string getEmail();
-			string getFirstName();
-			string getLastName();
-			long long getBirthday();
-			int getActivityCount();
+module at{
+	module owlsoft{
+		module owl{
+			module corbamodel {
 
-			sequence<ICorbaActivity> getActivities();
-			sequence<ICorbaRole> getRoles();
-			sequence<ICorbaSystemUserTransaction> getSystemUserTransactions();
-			sequence<ICorbaSystemUserStatusEntry> getSystemUserStatusEntries();
+				module user {
 			
-			CorbaSystemUserStatus getCurrentStatus();
-		};
-		
-		interface ICorbaSystemUserStatusEntry {
-			long long getDate();
-			string getComment();
-			CorbaSystemUserStatus getSystemUserStatus();
-			ICorbaSystemUser getSystemUser();
-		}
-		
-		interface ICorbaSystemUserTransaction {
-			long long getDate();
-			float getAmount();
-			string getComment();
-			CorbaTransactionType getTransactionType();
-			ICorbaSystemUser getSystemUser();
-		}
-		
-		enum CorbaSystemUserStatus {
-			Active, InactiveBecauseOverdue, InactiveBecauseMembershipFee
-		};
-		
-		enum TransactionType {
-			MemberFee, OverdueFee, Donation
+					interface ICorbaRole;
+					typedef sequence<ICorbaRole> _RoleList;
+					interface ICorbaSystemUser;
+					typedef sequence<ICorbaSystemUser> _SystemUserList;
+					interface ICorbaSystemUserStatusEntry;
+					typedef sequence<ICorbaSystemUserStatusEntry> _SystemUserStatusEntryList;
+					interface ICorbaSystemUserTransaction;
+					typedef sequence<ICorbaSystemUserTransaction> _SystemUserTransactionList;
+					
+					enum CorbaSystemUserStatus {
+						Active, InactiveBecauseOverdue, InactiveBecauseMembershipFee
+					};
+					
+					enum TransactionType {
+						MemberFee, OverdueFee, Donation
+					};
+				};
+				
+				module validation {
+				
+					interface ICorbaValidationMessage;
+					typedef sequence<ICorbaValidationMessage> _ValidationMessageList;
+					
+					enum CorbaValidationMessageStatus {
+						Warning, Error
+					};
+			
+					enum ValidationMode {
+						Strict, NotStrict
+					};
+				};
+				
+				module media {
+					interface ICorbaMedium;
+					typedef sequence<ICorbaMedium> _MediumList;
+					
+					interface ICorbaMediumExemplar;
+					typedef sequence<ICorbaMediumExemplar> _MediumExemplarList;
+					interface ICorbaMediumExemplarStatusEntry;
+					typedef sequence<ICorbaMediumExemplarStatusEntry> _MediumExemplarStatusEntryList;
+					
+					interface ITag;
+					typedef sequence<ITag> _TagList;
+				
+					enum CorbaMediumExemplarStatus {
+						Rentable, Rented, Returned, StockItem
+					};
+			
+					enum TagType {
+						Category, MediaMeta, AgeRestriction
+					};
+				};
+				
+				module accounting {
+					enum CorbaActivityStatus {
+						Open, Closed, Overdue, Returned, Extended
+					};
+			
+					interface ICorbaActivity;
+					typedef sequence<ICorbaActivity> _ActivityList;
+					interface ICorbaActivityStatusEntry;
+					typedef sequence<ICorbaActivityStatusEntry> _ActivityStatusEntryList;
+					interface ICorbaFilingExtension;
+					typedef sequence<ICorbaFilingExtension> _FilingExtensionList;
+					interface ICorbaRental;
+					typedef sequence<ICorbaRental> _RentalList;
+					interface ICorbaReservation;
+					typedef sequence<ICorbaReservation> _ReservationList;
+				};
+				
+				exception InvalidOperationException {};
+				exception NoPermissionException {};
+				
+				interface ICorbaSearchField;
+				typedef sequence<ICorbaSearchField> _SearchFieldList;
+				
+				interface ICorbaSearchFieldCategory;
+				typedef sequence<ICorbaSearchFieldCategory> _SearchFieldCategoryList;
+				
+				interface ISearchFieldDefinition;
+				
+				enum CorbaSearchFieldType {
+					Equals, Greater, Lesser
+				};
+			};
+			
+			module communication{
+				module corba {
+					interface ICorbaApiFactory;
+					typedef sequence<ICorbaApiFactory> _ApiFactoryList;
+					interface ICorbaApiService;
+					typedef sequence<ICorbaApiService> _ApiServiceList;
+					interface ICorbaRentalApi;
+					typedef sequence<ICorbaRentalApi> _RentalApiList;
+					interface ICorbaSearchApi;
+					typedef sequence<ICorbaSearchApi> _SearchApiList;
+					interface ICorbaSystemUser;
+					typedef sequence<ICorbaSystemUser> _SystemUserList;
+					interface ICorbaAuthenticationApi;
+					typedef sequence<ICorbaAuthenticationApi> _AuthenticationApiList;
+				};
+			};
 		};
 	};
-	
-	module validation {
-	
-		interface ICorbaValidationMessage {
-			CorbaValidationMessageStatus getStatus();
-			string getMessage();
-		};
-		
-		enum CorbaValidationMessageStatus {
-			Warning, Error
-		};
-
-		enum ValidationMode {
-			Strict, NotStrict
-		};
-	};
-	
-	module media {
-		interface ICorbaMedium {
-			int getMediumID();
-			string getPublisher();
-			string getName();
-			long long getEntryDate();
-			long long getPublishedDate();
-			sequence<ICorbaTag> getTags();
-			sequence<ICorbaMediumExemplar> getMediumExemplars();
-			sequence<ICorbaActivity> getActivities();
-		};
-		
-		interface ICorbaMediumExemplar {
-			int getExemplarID();
-			string getMetaData(string key);
-			sequence<string> getMetaDataKeys();
-			string getMetaData(string key, string defaultValue);
-
-			ICorbaMedium getMedium();			
-			sequence<ICorbaMediumExemplarStatusEntry> getMediumExemplarStatusEntries();
-			sequence<ICorbaActivity> getActivities();
-			ICorbaRental getLastRental();
-			CorbaMediumExemplarStatus getCurrentState();
-		};
-		
-		interface ICorbaMediumExemplarStatusEntry {
-			long long getDate();
-			ICorbaMediumExemplar getMediumExemplar();
-			CorbaMediumExemplarStatus getMediumExemplarStatus();
-		};
-		
-		interface ITag {
-			string getValue();
-			CorbaTagType getTagType();
-			ICorbaMedium getMedium();
-		};
-	
-		enum CorbaMediumExemplarStatus {
-			Rentable, Rented, Returned, StockItem
-		};
-
-		enum TagType {
-			Category, MediaMeta, AgeRestriction
-		};
-	};
-	
-	module accounting {
-		enum CorbaActivityStatus {
-			Open, Closed, Overdue, Returned, Extended
-		}
-
-		interface ICorbaActivity {
-			string getUUID();
-			long long getStartDate();
-			sequence<ICorbaActivityStatusEntry> getActivityStatusEntries();
-			ICorbaMediumExemplar getMediumExemplar();
-			ICorbaSystemUser getCustomer();
-			ICorbaSystemUser getCreator();
-			ICorbaMedium getMedium();
-		};
-		
-		interface ICorbaActivityStatusEntry {
-			long long getDate();
-			ICorbaActivity getActivity();
-			CorbaActivityStatus getActivityStatus();
-		};
-		
-		interface ICorbaFilingExtension {
-			long long getCreationDate();
-			long long getNewEndDate();
-			ICorbaRental getRental();
-		};
-
-		interface ICorbaRental : ICorbaActivity {
-			long long getEndDate();
-			int getFilingExtensionCount();
-			sequence<ICorbaFilingExtension> getFilingExtensions();
-		};
-		
-		interface ICorbaReservation : ICorbaActivity {
-			int getDesiredDuration();
-		};		
-	};
-	
-	exception InvalidOperationException {};
-	exception NoPermissionException {};
-	
-	interface ICorbaSearchField {
-		string getKey();
-		string getValue();
-	};
-	
-	interface ICorbaSearchFieldCategory {
-		string getLabel();
-		sequence<ICorbaSearchFieldDefinition> getSearchFieldDefinitions();
-	};
-	
-	interface ISearchFieldDefinition {
-		string getKey();
-		string getLabel();
-	};
-	
-	enum CorbaSearchFieldType {
-		Equals, Greater, Lesser
-	}
 };
-};
-};
+
+module at{
+	module owlsoft{
+		module owl{
+					
+			
+			
+			module corbamodel {
+
+				module user {
+					interface ICorbaRole {
+						string getKey();
+						string getValue();
+					};
+					
+					interface ICorbaSystemUser {
+						long getUserID();
+						long getCardID();
+						string getUsername();
+						string getPassword();
+						string getEmail();
+						string getFirstName();
+						string getLastName();
+						long long getBirthday();
+						long getActivityCount();
+			
+						at::owlsoft::owl::corbamodel::accounting::_ActivityList getActivities();
+						at::owlsoft::owl::corbamodel::user::_RoleList getRoles();
+						at::owlsoft::owl::corbamodel::user::_SystemUserTransactionList getSystemUserTransactions();
+						at::owlsoft::owl::corbamodel::user::_SystemUserStatusEntryList getSystemUserStatusEntries();
+						
+						CorbaSystemUserStatus getCurrentStatus();
+					};
+					
+					interface ICorbaSystemUserStatusEntry {
+						long long getDate();
+						string getComment();
+						CorbaSystemUserStatus getSystemUserStatus();
+						ICorbaSystemUser getSystemUser();
+					};
+					
+					interface ICorbaSystemUserTransaction {
+						long long getDate();
+						float getAmount();
+						string getComment();
+						at::owlsoft::owl::corbamodel::user::TransactionType getTransactionType();
+						at::owlsoft::owl::corbamodel::user::ICorbaSystemUser getSystemUser();
+					};
+				};
+				
+				module validation {
+				
+					interface ICorbaValidationMessage {
+						CorbaValidationMessageStatus getStatus();
+						string getMessage();
+					};
+				};
+				
+				module media {
+					interface ICorbaMedium {
+						long getMediumID();
+						string getPublisher();
+						string getName();
+						long long getEntryDate();
+						long long getPublishedDate();
+						at::owlsoft::owl::corbamodel::media::_TagList getTags();
+						at::owlsoft::owl::corbamodel::media::_MediumExemplarList getMediumExemplars();
+						at::owlsoft::owl::corbamodel::accounting::_ActivityList getActivities();
+					};
+					
+					interface ICorbaMediumExemplar {
+						long getExemplarID();
+						string getMetaData(in string key);
+						typedef sequence<string> _metaDataKeys;
+						_metaDataKeys getMetaDataKeys();
+			
+						ICorbaMedium getMedium();			
+						at::owlsoft::owl::corbamodel::media::_MediumExemplarStatusEntryList getMediumExemplarStatusEntries();
+						at::owlsoft::owl::corbamodel::accounting::_ActivityList getActivities();
+						at::owlsoft::owl::corbamodel::accounting::ICorbaRental getLastRental();
+						at::owlsoft::owl::corbamodel::media::CorbaMediumExemplarStatus getCurrentState();
+					};
+					
+					interface ICorbaMediumExemplarStatusEntry {
+						long long getDate();
+						at::owlsoft::owl::corbamodel::media::ICorbaMediumExemplar getMediumExemplar();
+						at::owlsoft::owl::corbamodel::media::CorbaMediumExemplarStatus getMediumExemplarStatus();
+					};
+					
+					interface ITag {
+						string getValue();
+						at::owlsoft::owl::corbamodel::media::TagType getTagType();
+						at::owlsoft::owl::corbamodel::media::ICorbaMedium getMedium();
+					};
+				};
+				
+				module accounting {
+			
+					interface ICorbaActivity {
+						string getUUID();
+						long long getStartDate();
+						at::owlsoft::owl::corbamodel::accounting::_ActivityStatusEntryList getActivityStatusEntries();
+						at::owlsoft::owl::corbamodel::media::ICorbaMediumExemplar getMediumExemplar();
+						at::owlsoft::owl::corbamodel::user::ICorbaSystemUser getCustomer();
+						at::owlsoft::owl::corbamodel::user::ICorbaSystemUser getCreator();
+						at::owlsoft::owl::corbamodel::media::ICorbaMedium getMedium();
+					};
+					
+					interface ICorbaActivityStatusEntry {
+						long long getDate();
+						at::owlsoft::owl::corbamodel::accounting::ICorbaActivity getActivity();
+						at::owlsoft::owl::corbamodel::accounting::CorbaActivityStatus getActivityStatus();
+					};
+					
+					interface ICorbaFilingExtension {
+						long long getCreationDate();
+						long long getNewEndDate();
+						ICorbaRental getRental();
+					};
+			
+					interface ICorbaRental : ICorbaActivity {
+						long long getEndDate();
+						long getFilingExtensionCount();
+						sequence<ICorbaFilingExtension> getFilingExtensions();
+					};
+					
+					interface ICorbaReservation : ICorbaActivity {
+						long getDesiredDuration();
+					};		
+				};
+				
+				
+				interface ICorbaSearchField {
+					string getKey();
+					string getValue();
+				};
+				
+				interface ICorbaSearchFieldCategory {
+					string getLabel();
+					sequence<ICorbaSearchFieldDefinition> getSearchFieldDefinitions();
+				};
+				
+				interface ISearchFieldDefinition {
+					string getKey();
+					string getLabel();
+				};
+			};
+			module communication{
+				module corba{
+					interface ICorbaApiFactory{
+						ICorbaExtendApi createExtendApi();
+						ICorbaRenatlApi createRentalApi();
+						ICorbaReservationApi createReservationApi();
+						ICorbaReturnApi createReturnApi();
+						ICorbaSystemUserApi createSystemUserApi();
+						ICorbaAuthenticationApi createAuthenticationApi();
+					};
+					interface ICorbaApiService{
+						ICorbaApiFactory createApiFactory();
+					};
+					interface ICorbaRentalApi{
+						ICorbaSystemUser getRentalsForSystemUserCardId(in long cardID);
+						newRental();
+						ICorbaSystemUser setCustomer(in long cardId);
+						ICorbaMediumExemplar setMediumExemplar(in long exemplarId);
+						sequence<ICorbaValidationMessage> getValidationMessages();
+						createNewExtension(in string uuid);
+						returnRental(in string uuid);
+						ICorbaRental getRental();
+						setStartDate(longlong time);
+						boolean store();
+					};
+					interface ICorbaSearchApi{
+						sequence<ICorbaSearchFieldCategory> getSearchFieldCategories();
+						ICorbaSearchField addNewSearchField(in string uniqueId);
+						removeSearchField(in string uniqueId);
+						setSearchFieldData(in string uniqueId, in string key, in string value);
+						sequence<ICorbaMedium> search();
+					};
+					interface ICorbaSystemUser{
+						ICorbaSystemUser getSystemUserByCardID(in long cardId);
+					};
+					interface ICorbaAuthenticationApi{
+						ICorbaSystemUser login(in string userName, in string password);
+						sequence<ICorbaRole> getRolesForCurrentUser();
+					};
+				};
+			};
+		};
+	};
 };

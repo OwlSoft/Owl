@@ -40,6 +40,11 @@ public class LoginView extends OwletView
                 {
                     _viewModel.login(_userNameTextInput.getText(),
                             _userPasswordTextInput.getText());
+                    MainWindow mainWindow = (MainWindow) getWindow();
+                    mainWindow.updateViewRoles();
+                    Prompt.prompt("Successfully logged in as "
+                            + _viewModel.getCurrentUser().getUsername() + "!",
+                            getWindow());
                 }
                 catch (Exception e)
                 {

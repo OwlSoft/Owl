@@ -15,4 +15,6 @@ public interface IAuthenticationApi extends Remote
 
     public List<IRole> getRolesForCurrentUser() throws RemoteException;
 
+    public ISystemUser getCurrentUser() throws RemoteException;
+
 }

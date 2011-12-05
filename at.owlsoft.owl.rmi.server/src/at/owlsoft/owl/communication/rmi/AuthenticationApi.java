@@ -37,4 +37,10 @@ public class AuthenticationApi extends ApiBase implements IAuthenticationApi
         return new ArrayList<IRole>(_controller.getRolesForCurrentUser());
 
     }
+
+    @Override
+    public ISystemUser getCurrentUser() throws RemoteException
+    {
+        return _controller.getCurrentUser();
+    }
 }

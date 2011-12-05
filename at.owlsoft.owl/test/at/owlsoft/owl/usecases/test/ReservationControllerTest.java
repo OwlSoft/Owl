@@ -3,10 +3,9 @@ package at.owlsoft.owl.usecases.test;
 import java.util.Date;
 
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import at.owlsoft.owl.business.OwlApplicationContext;
+import at.owlsoft.owl.OwlTestSuite;
 import at.owlsoft.owl.model.media.Book;
 import at.owlsoft.owl.model.media.Medium;
 import at.owlsoft.owl.model.media.MediumExemplar;
@@ -15,28 +14,18 @@ import at.owlsoft.owl.model.media.MediumExemplarStatusEntry;
 import at.owlsoft.owl.model.user.SystemUser;
 import at.owlsoft.owl.usecases.ReservationController;
 
-public class ReservationControllerTest
+public class ReservationControllerTest extends OwlTestSuite
 {
-
-    private static ReservationController _reservationController;
-
-    private static OwlApplicationContext _context;
-
-    @BeforeClass
-    public static void setup()
-    {
-        _context = new OwlApplicationContext();
-        _reservationController = _context.getReservationController();
-        _reservationController.newReservation();
-
-    }
 
     @Test
     public void testNoFieldsFilled()
     {
         try
         {
-            _reservationController.save();
+            ReservationController reservationController = getContext()
+                    .getReservationController();
+            reservationController.newReservation();
+            reservationController.save();
         }
         catch (Exception e)
         {
@@ -50,10 +39,15 @@ public class ReservationControllerTest
     {
         try
         {
+            ReservationController reservationController = getContext()
+                    .getReservationController();
+
+            reservationController.newReservation();
+
             Medium book = new Book();
-            _reservationController.setMedium(book);
+            reservationController.setMedium(book);
             // _reservationController.setReservationStartDate(new Date());
-            _reservationController.save();
+            reservationController.save();
         }
         catch (Exception e)
         {
@@ -67,10 +61,15 @@ public class ReservationControllerTest
     {
         try
         {
+            ReservationController reservationController = getContext()
+                    .getReservationController();
+
+            reservationController.newReservation();
+
             SystemUser customer = new SystemUser();
-            _reservationController.setCustomer(customer);
+            reservationController.setCustomer(customer);
             // _reservationController.setReservationStartDate(new Date());
-            _reservationController.save();
+            reservationController.save();
         }
         catch (Exception e)
         {
@@ -84,11 +83,16 @@ public class ReservationControllerTest
     {
         try
         {
+            ReservationController reservationController = getContext()
+                    .getReservationController();
+
+            reservationController.newReservation();
+
             SystemUser customer = new SystemUser();
-            _reservationController.setCustomer(customer);
+            reservationController.setCustomer(customer);
             Medium book = new Book();
-            _reservationController.setMedium(book);
-            _reservationController.save();
+            reservationController.setMedium(book);
+            reservationController.save();
         }
         catch (Exception e)
         {
@@ -102,11 +106,14 @@ public class ReservationControllerTest
     {
         try
         {
+            ReservationController reservationController = getContext()
+                    .getReservationController();
+
             SystemUser customer = new SystemUser();
-            _reservationController.setCustomer(customer);
+            reservationController.setCustomer(customer);
 
             Medium book = new Book();
-            _reservationController.setMedium(book);
+            reservationController.setMedium(book);
 
             MediumExemplar mex = new MediumExemplar(0, book);
             book.addMediumExemplar(mex);
@@ -115,7 +122,7 @@ public class ReservationControllerTest
             mex.addMediumExemplarStatusEntry(mese);
 
             // _reservationController.setReservationStartDate(new Date());
-            _reservationController.save();
+            reservationController.save();
         }
         catch (Exception e)
         {
@@ -130,13 +137,17 @@ public class ReservationControllerTest
     {
         try
         {
+            ReservationController reservationController = getContext()
+                    .getReservationController();
+            reservationController.newReservation();
+
             Medium book = new Book();
-            _reservationController.setMedium(book);
+            reservationController.setMedium(book);
 
             int reservationCount = book.getActivityCount();
 
             SystemUser customer = new SystemUser();
-            _reservationController.setCustomer(customer);
+            reservationController.setCustomer(customer);
 
             MediumExemplar mex = new MediumExemplar(0, book);
             book.addMediumExemplar(mex);
@@ -145,9 +156,9 @@ public class ReservationControllerTest
             mex.addMediumExemplarStatusEntry(mese);
 
             // _reservationController.setReservationStartDate(new Date());
-            _reservationController.save();
+            reservationController.save();
 
-            Assert.assertEquals(reservationCount, book.getActivityCount());
+            Assert.assertEquals(reservationCount + 1, book.getActivityCount());
         }
         catch (Exception e)
         {

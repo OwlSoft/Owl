@@ -16,10 +16,11 @@ import org.apache.pivot.wtk.TablePane;
 import org.apache.pivot.wtk.TableView;
 import org.apache.pivot.wtk.TextInput;
 
+import at.owlsoft.owl.model.IDefaultRoles;
 import at.owlsoft.owlet.util.PivotUtils;
 import at.owlsoft.owlet.viewmodel.CreateRentalViewModel;
 
-public class CreateRentalView extends OwletView
+public class CreateRentalView extends OwletRoleView
 {
     private CreateRentalViewModel _viewModel;
 
@@ -41,6 +42,7 @@ public class CreateRentalView extends OwletView
 
     public CreateRentalView()
     {
+        super(IDefaultRoles.RENTAL_CREATE);
         _viewModel = new CreateRentalViewModel();
     }
 

@@ -7,6 +7,8 @@ import java.util.List;
 import at.owlsoft.owl.business.ControllerBase;
 import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.dao.DaoManager;
+import at.owlsoft.owl.model.IDefaultRoles;
+import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.accounting.ActivityStatus;
 import at.owlsoft.owl.model.accounting.ActivityStatusEntry;
 import at.owlsoft.owl.model.accounting.Rental;
@@ -41,8 +43,11 @@ public class RentalController extends ControllerBase
         return _messages;
     }
 
-    public void newRental()
+    public void newRental() throws NoPermissionException
     {
+        getContext().getAuthenticationController().checkAccess(
+                IDefaultRoles.RENTAL_CREATE);
+
         _rental = new Rental();
         _rental.setStartDate(new Date());
         updateEndDate();
@@ -52,14 +57,20 @@ public class RentalController extends ControllerBase
         // .getCurrentUser());
     }
 
-    public void setStartDate(Date time)
+    public void setStartDate(Date time) throws NoPermissionException
     {
+        getContext().getAuthenticationController().checkAccess(
+                IDefaultRoles.RENTAL_CREATE);
+
         _rental.setStartDate(time);
         updateEndDate();
     }
 
-    public void updateEndDate()
+    public void updateEndDate() throws NoPermissionException
     {
+        getContext().getAuthenticationController().checkAccess(
+                IDefaultRoles.RENTAL_CREATE);
+
         if (_rental == null)
         {
             return;
@@ -85,9 +96,14 @@ public class RentalController extends ControllerBase
      * 
      * @param medium
      * @return If no warnings are found returns empty List.
+     * @throws NoPermissionException
      */
     public List<ValidationMessage> setMediumExemplar(MediumExemplar copy)
+            throws NoPermissionException
     {
+        getContext().getAuthenticationController().checkAccess(
+                IDefaultRoles.RENTAL_CREATE);
+
         if (_rental == null)
         {
             newRental();
@@ -109,9 +125,14 @@ public class RentalController extends ControllerBase
      * 
      * @param medium
      * @return If no warnings are found returns empty List.
+     * @throws NoPermissionException
      */
     public List<ValidationMessage> setMediumExemplar(Medium medium)
+            throws NoPermissionException
     {
+        getContext().getAuthenticationController().checkAccess(
+                IDefaultRoles.RENTAL_CREATE);
+
         boolean rentableFound = false;
 
         if (_rental == null)
@@ -142,7 +163,11 @@ public class RentalController extends ControllerBase
     }
 
     public List<ValidationMessage> setCustomer(SystemUser customer)
+            throws NoPermissionException
     {
+        getContext().getAuthenticationController().checkAccess(
+                IDefaultRoles.RENTAL_CREATE);
+
         if (_rental == null)
         {
             newRental();
@@ -152,8 +177,11 @@ public class RentalController extends ControllerBase
         return _messages;
     }
 
-    public List<ValidationMessage> save()
+    public List<ValidationMessage> save() throws NoPermissionException
     {
+        getContext().getAuthenticationController().checkAccess(
+                IDefaultRoles.RENTAL_CREATE);
+
         if (_rental == null)
         {
             newRental();

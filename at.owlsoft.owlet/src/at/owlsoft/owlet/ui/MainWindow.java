@@ -2,22 +2,24 @@ package at.owlsoft.owlet.ui;
 
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.apache.pivot.beans.Bindable;
+import org.apache.pivot.collections.HashSet;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Action;
 import org.apache.pivot.wtk.BoxPane;
 import org.apache.pivot.wtk.Component;
+import org.apache.pivot.wtk.Menu.Section;
 import org.apache.pivot.wtk.MenuBar;
-import org.apache.pivot.wtk.MenuBar.Item;
 import org.apache.pivot.wtk.Prompt;
 import org.apache.pivot.wtk.Window;
 
+import at.owlsoft.owl.model.IDefaultRoles;
 import at.owlsoft.owl.model.user.IRole;
+import at.owlsoft.owlet.RoleAction;
 import at.owlsoft.owlet.context.RmiContext;
 
 public class MainWindow extends Window implements Bindable
@@ -26,6 +28,8 @@ public class MainWindow extends Window implements Bindable
 
     private BoxPane _viewBox;
     private MenuBar _menu;
+
+    private Section _actionContainer;
 
     private Logger  LOGGER = Logger.getLogger(MainWindow.class);
 
@@ -47,6 +51,12 @@ public class MainWindow extends Window implements Bindable
         Action.getNamedActions().put("todo", new Action()
         {
             @Override
+            public void setEnabled(boolean enabled)
+            {
+                super.setEnabled(enabled);
+            }
+
+            @Override
             public void perform(Component source)
             {
                 Prompt.prompt("This feature is not implemented yet!", source
@@ -64,43 +74,50 @@ public class MainWindow extends Window implements Bindable
                         source.getWindow().getRootOwner());
             }
         });
-        Action.getNamedActions().put("createRental", new Action()
-        {
-            @Override
-            public void perform(Component source)
-            {
-                ViewController.getInstance().loadContent("CreateRentalView",
-                        source.getWindow().getRootOwner());
-            }
-        });
-        Action.getNamedActions().put("createReservation", new Action()
-        {
-            @Override
-            public void perform(Component source)
-            {
-                ViewController.getInstance().loadContent(
-                        "CreateReservationView",
-                        source.getWindow().getRootOwner());
-            }
-        });
-        Action.getNamedActions().put("showRental", new Action()
-        {
-            @Override
-            public void perform(Component source)
-            {
-                ViewController.getInstance().loadContent("ShowRentalView",
-                        source.getWindow().getRootOwner());
-            }
-        });
-        Action.getNamedActions().put("adminConfig", new Action()
-        {
-            @Override
-            public void perform(Component source)
-            {
-                ViewController.getInstance().loadContent("AdminConfigView",
-                        source.getWindow().getRootOwner());
-            }
-        });
+        Action.getNamedActions().put("createRental",
+                new RoleAction(IDefaultRoles.RENTAL_CREATE)
+                {
+                    @Override
+                    public void perform(Component source)
+                    {
+                        ViewController.getInstance().loadContent(
+                                "CreateRentalView",
+                                source.getWindow().getRootOwner());
+                    }
+                });
+        Action.getNamedActions().put("createReservation",
+                new RoleAction(IDefaultRoles.RESERVATION_CREATE)
+                {
+                    @Override
+                    public void perform(Component source)
+                    {
+                        ViewController.getInstance().loadContent(
+                                "CreateReservationView",
+                                source.getWindow().getRootOwner());
+                    }
+                });
+        Action.getNamedActions().put("showRental",
+                new RoleAction(IDefaultRoles.RENTAL_SHOW)
+                {
+                    @Override
+                    public void perform(Component source)
+                    {
+                        ViewController.getInstance().loadContent(
+                                "ShowRentalView",
+                                source.getWindow().getRootOwner());
+                    }
+                });
+        Action.getNamedActions().put("adminConfig",
+                new RoleAction(IDefaultRoles.ADMIN_CONFIG)
+                {
+                    @Override
+                    public void perform(Component source)
+                    {
+                        ViewController.getInstance().loadContent(
+                                "AdminConfigView",
+                                source.getWindow().getRootOwner());
+                    }
+                });
         Action.getNamedActions().put("loginView", new Action()
         {
 
@@ -124,11 +141,16 @@ public class MainWindow extends Window implements Bindable
         return _menu;
     }
 
+    public MainWindow()
+    {
+    }
+
     @Override
     public void initialize(Map<String, Object> ns, URL loc, Resources es)
     {
         _viewBox = (BoxPane) ns.get("content");
         _menu = (MenuBar) ns.get("menu");
+        _actionContainer = (Section) ns.get("actionContainer");
 
         updateViewRoles();
         ViewController.getInstance().loadContent("DashboardView", this);
@@ -138,33 +160,34 @@ public class MainWindow extends Window implements Bindable
     {
         try
         {
-            Item fileMenu = _menu.getItems().get(0);
-            List<org.apache.pivot.wtk.Menu.Item> items = new ArrayList<org.apache.pivot.wtk.Menu.Item>();
 
-            for (org.apache.pivot.wtk.Menu.Item item : fileMenu.getMenu()
-                    .getSections().get(0))
+            for (org.apache.pivot.wtk.Menu.Item item : _actionContainer)
             {
-                items.add(item);
-            }
-
-            for (org.apache.pivot.wtk.Menu.Item item : items)
-            {
-                fileMenu.getMenu().getSections().get(0).remove(item);
+                Action action = item.getAction();
+                if (action == null || action instanceof RoleAction)
+                {
+                    item.setVisible(false);
+                }
             }
 
             List<IRole> roles = RmiContext.getInstance().getFactory()
                     .createAuthenticationApi().getRolesForCurrentUser();
 
+            org.apache.pivot.collections.Set<String> roleKeys = new HashSet<String>();
             for (IRole iRole : roles)
             {
-
+                roleKeys.add(iRole.getKey());
             }
 
-            for (org.apache.pivot.wtk.Menu.Item item : items)
+            for (org.apache.pivot.wtk.Menu.Item item : _actionContainer)
             {
-                fileMenu.getMenu().getSections().get(0).add(item);
+                Action action = item.getAction();
+                if (action != null && action instanceof RoleAction)
+                {
+                    RoleAction roleAction = (RoleAction) action;
+                    item.setVisible(roleKeys.contains(roleAction.getRole()));
+                }
             }
-
         }
         catch (RemoteException e)
         {

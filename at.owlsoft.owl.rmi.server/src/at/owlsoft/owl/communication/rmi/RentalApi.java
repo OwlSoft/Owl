@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.accounting.IRental;
 import at.owlsoft.owl.model.media.IMediumExemplar;
 import at.owlsoft.owl.model.media.MediumExemplar;
@@ -47,7 +48,14 @@ public class RentalApi extends ApiBase implements IRentalApi
     @Override
     public void newRental() throws RemoteException
     {
-        _controller.newRental();
+        try
+        {
+            _controller.newRental();
+        }
+        catch (NoPermissionException e)
+        {
+            throw new RemoteException(e.getMessage(), e);
+        }
     }
 
     @Override
@@ -61,7 +69,14 @@ public class RentalApi extends ApiBase implements IRentalApi
     {
         SystemUser user = getFactory().getContext()
                 .getSystemUserSearchController().search(cardId);
-        _controller.setCustomer(user);
+        try
+        {
+            _controller.setCustomer(user);
+        }
+        catch (NoPermissionException e)
+        {
+            throw new RemoteException(e.getMessage(), e);
+        }
         return user;
     }
 
@@ -71,7 +86,14 @@ public class RentalApi extends ApiBase implements IRentalApi
     {
         MediumExemplar user = getFactory().getContext()
                 .getMediumExemplarSearchController().search(exemplarId);
-        _controller.setMediumExemplar(user);
+        try
+        {
+            _controller.setMediumExemplar(user);
+        }
+        catch (NoPermissionException e)
+        {
+            throw new RemoteException(e.getMessage(), e);
+        }
         return user;
     }
 
@@ -83,10 +105,16 @@ public class RentalApi extends ApiBase implements IRentalApi
     }
 
     @Override
-    public void createNewExtension(UUID uuid)
+    public void createNewExtension(UUID uuid) throws RemoteException
     {
-        _extensionController.extend(uuid);
-
+        try
+        {
+            _extensionController.extend(uuid);
+        }
+        catch (NoPermissionException e)
+        {
+            throw new RemoteException(e.getMessage(), e);
+        }
     }
 
     @Override
@@ -98,14 +126,28 @@ public class RentalApi extends ApiBase implements IRentalApi
     @Override
     public void setStartDate(Date time) throws RemoteException
     {
-        _controller.setStartDate(time);
+        try
+        {
+            _controller.setStartDate(time);
+        }
+        catch (NoPermissionException e)
+        {
+            throw new RemoteException(e.getMessage(), e);
+        }
         _controller.validate(ValidationMode.Strict);
     }
 
     @Override
     public boolean store() throws RemoteException
     {
-        _controller.save();
+        try
+        {
+            _controller.save();
+        }
+        catch (NoPermissionException e)
+        {
+            throw new RemoteException(e.getMessage(), e);
+        }
         return _controller.getMessages().isEmpty();
     }
 

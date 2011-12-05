@@ -1,6 +1,5 @@
 package at.owlsoft.owl.business;
 
-import at.owlsoft.owl.model.user.SystemUser;
 import at.owlsoft.owl.usecases.ExtensionController;
 import at.owlsoft.owl.usecases.MediumExemplarSearchController;
 import at.owlsoft.owl.usecases.MediumSearchController;
@@ -145,21 +144,5 @@ public class OwlApplicationContext
             _authenticationController = new AuthenticationController(this);
         }
         return _authenticationController;
-    }
-
-    private SystemUser _systemUser;
-
-    public SystemUser getSystemUser()
-    {
-        if (_systemUser == null)
-        {
-            _systemUser = new SystemUser();
-        }
-        return _systemUser;
-    }
-
-    public void setSystemUser(SystemUser systemUser)
-    {
-        _systemUser = systemUser;
     }
 }

@@ -90,16 +90,17 @@ public class ViewController
                                 + PIVOT_FILE_EXTENSION);
 
                 // do onLoad method
-                newView.onViewOpening();
-
-                mainWindow.getViewBox().removeAll();
-                mainWindow.getViewBox().add(newView);
-
-                if (oldView != null)
+                if (newView.onViewOpening(mainWindow))
                 {
-                    oldView.onViewClosed();
+                    mainWindow.getViewBox().removeAll();
+                    mainWindow.getViewBox().add(newView);
+
+                    if (oldView != null)
+                    {
+                        oldView.onViewClosed();
+                    }
+                    newView.onViewOpened();
                 }
-                newView.onViewOpened();
             }
             catch (IOException e)
             {

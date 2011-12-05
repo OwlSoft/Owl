@@ -12,6 +12,7 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 
 import at.owlsoft.owl.model.Configuration;
+import at.owlsoft.owl.model.IDefaultRoles;
 import at.owlsoft.owl.model.NoPermissionException;
 
 public class ConfigurationController extends ControllerBase
@@ -78,55 +79,38 @@ public class ConfigurationController extends ControllerBase
 
     public void store() throws NoPermissionException, IOException
     {
-        if (getContext().getSystemUser().hasRole("admin"))
-        {
+        getContext().getAuthenticationController().checkAccess(
+                IDefaultRoles.ADMIN_CONFIG);
 
-            File file = new File(PROPERTIES_FILE_NAME);
-            if (!file.exists())
-            {
-                file.createNewFile();
-            }
-            FileOutputStream out = new FileOutputStream(file);
-            _configuration.storeToXML(out, null, "UTF-8");
+        File file = new File(PROPERTIES_FILE_NAME);
+        if (!file.exists())
+        {
+            file.createNewFile();
         }
-        throw new NoPermissionException("No Permission.");
+        FileOutputStream out = new FileOutputStream(file);
+        _configuration.storeToXML(out, null, "UTF-8");
     }
 
     public void removeProperty(List<String> properties)
             throws NoPermissionException
     {
-        if (getContext().getSystemUser().hasRole("admin"))
-        {
+        getContext().getAuthenticationController().checkAccess(
+                IDefaultRoles.ADMIN_CONFIG);
 
-            _configuration.removeProperties(properties);
-        }
-        throw new NoPermissionException("No Permission.");
+        _configuration.removeProperties(properties);
     }
 
     public Map<String, String> getAllProperties() throws NoPermissionException
     {
-        if (getContext().getSystemUser().hasRole("admin"))
-        {
-
-            return _configuration.getAllPropterties();
-        }
-        throw new NoPermissionException("No Permission.");
-
+        return _configuration.getAllPropterties();
     }
 
     public void setAll(Map<String, String> properties)
             throws NoPermissionException
     {
-        if (getContext().getSystemUser().hasRole("admin"))
+        for (Entry<String, String> entry : properties.entrySet())
         {
-            for (Entry<String, String> entry : properties.entrySet())
-            {
-                set(entry.getKey(), entry.getValue());
-            }
-        }
-        else
-        {
-            throw new NoPermissionException("No permission.");
+            set(entry.getKey(), entry.getValue());
         }
     }
 

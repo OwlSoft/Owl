@@ -1,20 +1,34 @@
 <?xml version = "1.0"?>
 <SearchFieldCategories>
 	<SearchFieldCategory key="GENERAL" label="General">
-		<SearchFieldDefinition key="_name" type="String" label="Name" />	
+		<SearchFieldDefinition key="_name" type="String"
+			label="Name" />
 	</SearchFieldCategory>
 	<SearchFieldCategory key="BOOK" label="Books">
-		<SearchFieldDefinition key="_publisher" type="String" label="Publisher" />	
-		<SearchFieldDefinition key="_publishedDate" type="DateTime" label="Published Date" />
-		<SearchFieldDefinition key="_author" type="String" label="Author" />	
-		<SearchFieldDefinition key="_title" type="String" label="Title" />	
-		<SearchFieldDefinition key="_abstract" type="String" label="Abstract" />	
-		<SearchFieldDefinition key="_pages" type="Integer" label="Pages" />	
-		<SearchFieldDefinition key="_isbn10" type="String" label="ISBN-10" />	
-		<SearchFieldDefinition key="_isbn13" type="String" label="ISBN-13" />				
+		<SearchFieldDefinition key="_publisher" type="String"
+			label="Publisher" />
+		<SearchFieldDefinition key="_publishedDate"
+			type="DateTime" label="Published Date" />
+		<SearchFieldDefinition key="_author" type="String"
+			label="Author" />
+		<SearchFieldDefinition key="_title" type="String"
+			label="Title" />
+		<SearchFieldDefinition key="_abstract" type="String"
+			label="Abstract" />
+		<SearchFieldDefinition key="_pages" type="Integer"
+			label="Pages" />
+		<SearchFieldDefinition key="_isbn10" type="String"
+			label="ISBN-10" />
+		<SearchFieldDefinition key="_isbn13" type="String"
+			label="ISBN-13" />
 	</SearchFieldCategory>
 	<SerachFieldCategory key="SYSTEMUSER" label="systemuser">
-	<SearchFieldDefinition key="_username" type="String" label="Systemuser"/>
+		<SearchFieldDefinition key="_username" type="String"
+			label="Systemuser" />
 	</SerachFieldCategory>
-	
+	<SearchFieldCategory key="MEDIUM" label="Medium">
+		<SearchFieldDefinition key="_mediumID" type="Integer"
+			label="MediumId" />
+	</SearchFieldCategory>
+
 </SearchFieldCategories>

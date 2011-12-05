@@ -46,19 +46,15 @@
 					<TablePane.Filler />
 				</TablePane.Row>
 				<TablePane.Row height="25">
-					<Label text="Start Date" TablePane.columnSpan="2" styleName="fatLabel"  />
-					<TablePane.Filler />
-					<Label text="End Date" TablePane.columnSpan="2" styleName="fatLabel"  />
-					<TablePane.Filler />
+					<Label text="Start Date" TablePane.columnSpan="4" styleName="fatLabel"  />
 				</TablePane.Row>
 				<TablePane.Row height="25">
-					<CalendarButton TablePane.columnSpan="2" bxml:id="startDate" />
-					<TablePane.Filler />
-					<Label TablePane.columnSpan="2" text="End Date" bxml:id="endDate" />
-					<TablePane.Filler />
+					<CalendarButton TablePane.columnSpan="4" bxml:id="startDate" />
 				</TablePane.Row>
 				<TablePane.Row height="25">
 					<Label TablePane.columnSpan="2" text="Duration" bxml:id="duration" />
+					<TablePane.Filler />
+					<TextInput bxml:id="desiredDuration" />
 				</TablePane.Row>
 			</TablePane>
 		</Form.Section>

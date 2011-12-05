@@ -6,6 +6,7 @@ import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
+import org.apache.pivot.wtk.Prompt;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.TextInput;
 
@@ -35,8 +36,15 @@ public class LoginView extends OwletView
             @Override
             public void buttonPressed(Button source)
             {
-                _viewModel.login(_userNameTextInput.getText(),
-                        _userPasswordTextInput.getText());
+                try
+                {
+                    _viewModel.login(_userNameTextInput.getText(),
+                            _userPasswordTextInput.getText());
+                }
+                catch (Exception e)
+                {
+                    Prompt.prompt("Invalid credentials!", getWindow());
+                }
             }
         });
     }

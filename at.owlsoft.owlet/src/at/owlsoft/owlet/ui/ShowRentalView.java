@@ -17,12 +17,13 @@ import org.apache.pivot.wtk.TableView;
 import org.apache.pivot.wtk.TextInput;
 import org.apache.pivot.wtk.TextInputContentListener;
 
+import at.owlsoft.owl.model.IDefaultRoles;
 import at.owlsoft.owl.model.accounting.IFilingExtension;
 import at.owlsoft.owl.model.accounting.IRental;
 import at.owlsoft.owlet.util.PivotUtils;
 import at.owlsoft.owlet.viewmodel.ShowRentalViewModel;
 
-public class ShowRentalView extends OwletView
+public class ShowRentalView extends OwletRoleView
 {
     private ShowRentalViewModel _viewModel;
     private BoxPane             _userPane;
@@ -42,6 +43,7 @@ public class ShowRentalView extends OwletView
 
     public ShowRentalView()
     {
+        super(IDefaultRoles.RENTAL_SHOW);
         _viewModel = new ShowRentalViewModel();
     }
 

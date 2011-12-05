@@ -23,13 +23,14 @@ public abstract class OwletView extends BoxPane implements Bindable
 
     }
 
-    protected void onViewOpening()
-    {
-    }
-
     protected void onViewOpened()
     {
 
+    }
+
+    protected boolean onViewOpening(MainWindow mainWindow)
+    {
+        return true;
     }
 
 }

@@ -1,0 +1,47 @@
+module at{
+	module owlsoft{
+		module owl{
+			module communication{
+				module corba{
+					interface ICorbaApiFactory{
+						ICorbaExtendApi createExtendApi();
+						ICorbaRenatlApi createRentalApi();
+						ICorbaReservationApi createReservationApi();
+						ICorbaReturnApi createReturnApi();
+						ICorbaSystemUserApi createSystemUserApi();
+						ICorbaAuthenticationApi createAuthenticationApi();
+					};
+					interface ICorbaApiService{
+						ICorbaApiFactory createApiFactory();
+					};
+					interface ICorbaRentalApi(){
+						ICorbaSystemUser getRentalsForSystemUserCardId(in long cardID);
+						newRental();
+						ICorbaSystemUser setCustomer(in long cardId);
+						ICorbaMediumExemplar setMediumExemplar(in long exemplarId);
+						typedef sequence<ICorbaValidationMessage> getValidationMessages();
+						createNewExtension(in string uuid);
+						returnRental(in string uuid);
+						ICorbaRental getRental();
+						setStartDate(longlong time);
+						boolean store();
+					};
+					interface ICorbaSearchApi{
+						typedef sequence<ICorbaSearchFieldCategory> getSearchFieldCategories();
+						ICorbaSearchField addNewSearchField(in string uniqueId);
+						removeSearchField(in string uniqueId);
+						setSearchFieldData(in string uniqueId, in string key, in string value);
+						typedef sequence<ICorbaMedium> search();
+					};
+					interface ICorbaSystemUser{
+						ICorbaSystemUser getSystemUserByCardID(in long cardId);
+					};
+					interface ICorbaAuthenticationApi{
+						ICorbaSystemUser login(in string userName, in string password);
+						typedef sequence<ICorbaRole> getRolesForCurrentUser();
+					};
+				}
+			}
+		}
+	}
+}

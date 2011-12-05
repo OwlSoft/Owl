@@ -1,0 +1,13 @@
+module at{
+	module owlsoft{
+		module owl{
+			module communication{
+				module corba{
+					interface ICorbaApiService{
+						ICorbaApiFactory createApiFactory();
+					}
+				}
+			}
+		}
+	}
+}

@@ -103,10 +103,12 @@ module at{
 					typedef sequence<ICorbaRentalApi> _RentalApiList;
 					interface ICorbaSearchApi;
 					typedef sequence<ICorbaSearchApi> _SearchApiList;
-					interface ICorbaSystemUser;
-					typedef sequence<ICorbaSystemUser> _SystemUserList;
 					interface ICorbaAuthenticationApi;
 					typedef sequence<ICorbaAuthenticationApi> _AuthenticationApiList;
+					interface ICorbaExtendApi{};
+					interface ICorbaReservationApi{};
+					interface ICorbaReturnApi{};
+					interface ICorbaSystemUserApi;
 				};
 			};
 		};
@@ -229,13 +231,13 @@ module at{
 					interface ICorbaFilingExtension {
 						long long getCreationDate();
 						long long getNewEndDate();
-						ICorbaRental getRental();
+						at::owlsoft::owl::corbamodel::accounting::ICorbaRental getRental();
 					};
 			
 					interface ICorbaRental : ICorbaActivity {
 						long long getEndDate();
 						long getFilingExtensionCount();
-						sequence<ICorbaFilingExtension> getFilingExtensions();
+						at::owlsoft::owl::corbamodel::accounting::_FilingExtensionList getFilingExtensions();
 					};
 					
 					interface ICorbaReservation : ICorbaActivity {
@@ -249,54 +251,57 @@ module at{
 					string getValue();
 				};
 				
-				interface ICorbaSearchFieldCategory {
-					string getLabel();
-					sequence<ICorbaSearchFieldDefinition> getSearchFieldDefinitions();
-				};
-				
 				interface ISearchFieldDefinition {
 					string getKey();
 					string getLabel();
 				};
+				
+				interface ICorbaSearchFieldCategory {
+					string getLabel();
+					typedef sequence<at::owlsoft::owl::corbamodel::ISearchFieldDefinition> _SearchFieldDefinitionList;
+					_SearchFieldDefinitionList getSearchFieldDefinitions();
+				};
+				
+				
 			};
 			module communication{
 				module corba{
 					interface ICorbaApiFactory{
-						ICorbaExtendApi createExtendApi();
-						ICorbaRenatlApi createRentalApi();
-						ICorbaReservationApi createReservationApi();
-						ICorbaReturnApi createReturnApi();
-						ICorbaSystemUserApi createSystemUserApi();
-						ICorbaAuthenticationApi createAuthenticationApi();
+						at::owlsoft::owl::communication::corba::ICorbaExtendApi createExtendApi();
+						at::owlsoft::owl::communication::corba::ICorbaRentalApi createRentalApi();
+						at::owlsoft::owl::communication::corba::ICorbaReservationApi createReservationApi();
+						at::owlsoft::owl::communication::corba::ICorbaReturnApi createReturnApi();
+						at::owlsoft::owl::communication::corba::ICorbaSystemUserApi createSystemUserApi();
+						at::owlsoft::owl::communication::corba::ICorbaAuthenticationApi createAuthenticationApi();
 					};
 					interface ICorbaApiService{
-						ICorbaApiFactory createApiFactory();
+						at::owlsoft::owl::communication::corba::ICorbaApiFactory createApiFactory();
 					};
 					interface ICorbaRentalApi{
-						ICorbaSystemUser getRentalsForSystemUserCardId(in long cardID);
-						newRental();
-						ICorbaSystemUser setCustomer(in long cardId);
-						ICorbaMediumExemplar setMediumExemplar(in long exemplarId);
-						sequence<ICorbaValidationMessage> getValidationMessages();
-						createNewExtension(in string uuid);
-						returnRental(in string uuid);
-						ICorbaRental getRental();
-						setStartDate(longlong time);
+						at::owlsoft::owl::corbamodel::user::ICorbaSystemUser getRentalsForSystemUserCardId(in long cardID);
+						void newRental();
+						at::owlsoft::owl::corbamodel::user::ICorbaSystemUser setCustomer(in long cardId);
+						at::owlsoft::owl::corbamodel::media::ICorbaMediumExemplar setMediumExemplar(in long exemplarId);
+						at::owlsoft::owl::corbamodel::validation::_ValidationMessageList getValidationMessages();
+						void createNewExtension(in string uuid);
+						void returnRental(in string uuid);
+						at::owlsoft::owl::corbamodel::accounting::ICorbaRental getRental();
+						void setStartDate(in long long time);
 						boolean store();
 					};
 					interface ICorbaSearchApi{
-						sequence<ICorbaSearchFieldCategory> getSearchFieldCategories();
-						ICorbaSearchField addNewSearchField(in string uniqueId);
-						removeSearchField(in string uniqueId);
-						setSearchFieldData(in string uniqueId, in string key, in string value);
-						sequence<ICorbaMedium> search();
+						at::owlsoft::owl::corbamodel::_SearchFieldCategoryList getSearchFieldCategories();
+						at::owlsoft::owl::corbamodel::ICorbaSearchField addNewSearchField(in string uniqueId);
+						void removeSearchField(in string uniqueId);
+						void setSearchFieldData(in string uniqueId, in string key, in string value);
+						at::owlsoft::owl::corbamodel::media::_MediumList search();
 					};
-					interface ICorbaSystemUser{
-						ICorbaSystemUser getSystemUserByCardID(in long cardId);
+					interface ICorbaSystemUserApi{
+						at::owlsoft::owl::corbamodel::user::ICorbaSystemUser getSystemUserByCardID(in long cardId);
 					};
 					interface ICorbaAuthenticationApi{
-						ICorbaSystemUser login(in string userName, in string password);
-						sequence<ICorbaRole> getRolesForCurrentUser();
+						at::owlsoft::owl::corbamodel::user::ICorbaSystemUser login(in string userName, in string password);
+						at::owlsoft::owl::corbamodel::user::_RoleList getRolesForCurrentUser();
 					};
 				};
 			};

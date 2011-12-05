@@ -84,6 +84,7 @@ module at{
 				typedef sequence<ICorbaSearchFieldCategory> _SearchFieldCategoryList;
 				
 				interface ISearchFieldDefinition;
+				typedef sequence<ISearchFieldDefinition> _SearchFieldCategoryList;
 				
 				enum CorbaSearchFieldType {
 					Equals, Greater, Lesser

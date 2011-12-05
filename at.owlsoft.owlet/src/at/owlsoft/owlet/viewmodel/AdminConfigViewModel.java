@@ -35,6 +35,13 @@ public class AdminConfigViewModel
     {
         try
         {
+            // initialize() not yet called?
+            if (_configApi == null)
+            {
+                _configApi = RmiContext.getInstance().getFactory()
+                        .createConfigurationApi();
+            }
+
             return _configApi.getAllProperties();
         }
         catch (NullPointerException e)
@@ -46,6 +53,11 @@ public class AdminConfigViewModel
         {
             e.printStackTrace();
             throw new InvalidOperationException("Could not fetch data.", e);
+        }
+        catch (RemoteException e)
+        {
+            e.printStackTrace();
+            throw new InvalidOperationException("Server error", e);
         }
     }
 
@@ -60,6 +72,11 @@ public class AdminConfigViewModel
         {
             e.printStackTrace();
             throw new InvalidOperationException("Could not fetch data.", e);
+        }
+        catch (RemoteException e)
+        {
+            e.printStackTrace();
+            throw new InvalidOperationException("Server error", e);
         }
     }
 
@@ -93,6 +110,12 @@ public class AdminConfigViewModel
             e.printStackTrace();
             throw new InvalidOperationException("Could not save data.", e);
         }
+        catch (RemoteException e)
+        {
+            e.printStackTrace();
+            throw new InvalidOperationException("Server error", e);
+        }
+
     }
 
 }

@@ -26,27 +26,29 @@ public class ConfigurationApi extends ApiBase implements IConfigurationApi
     }
 
     @Override
-    public Map<String, String> getAllProperties() throws NoPermissionException
+    public Map<String, String> getAllProperties() throws RemoteException,
+            NoPermissionException
     {
         return _configurationController.getAllProperties();
     }
 
     @Override
     public void setAll(Map<String, String> properties)
-            throws NoPermissionException
+            throws NoPermissionException, RemoteException
     {
         _configurationController.setAll(properties);
     }
 
     @Override
-    public void store() throws NoPermissionException, IOException
+    public void store() throws NoPermissionException, IOException,
+            RemoteException
     {
         _configurationController.store();
     }
 
     @Override
     public void removeProperties(List<String> properties)
-            throws NoPermissionException
+            throws NoPermissionException, RemoteException
     {
         _configurationController.removeProperty(properties);
     }

@@ -38,6 +38,11 @@ public class AdminConfigView extends OwletView
     private List<String>         _configParamsToRemove;
     private Logger               LOGGER = Logger.getLogger(AdminConfigView.class);
 
+    public AdminConfigView()
+    {
+        _viewModel = new AdminConfigViewModel();
+    }
+
     @Override
     protected void onViewOpened()
     {

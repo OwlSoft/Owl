@@ -1,24 +1,27 @@
 package at.owlsoft.owl.communication.corba;
 
 import org.omg.PortableServer.POA;
+import org.omg.PortableServer.POAPackage.ServantNotActive;
+import org.omg.PortableServer.POAPackage.WrongPolicy;
 
 import at.owlsoft.owl.corbamodel.accounting.CorbaActivityStatus;
 import at.owlsoft.owl.corbamodel.accounting.ICorbaActivity;
+import at.owlsoft.owl.corbamodel.accounting.ICorbaActivityHelper;
 import at.owlsoft.owl.corbamodel.accounting.ICorbaActivityStatusEntryPOA;
 import at.owlsoft.owl.model.accounting.IActivityStatusEntry;
 
 public class CorbaActivityStatusEntry extends ICorbaActivityStatusEntryPOA
 {
 
-    private POA                  _rootPoa;
+    private POA                  _rootPOA;
     private IActivityStatusEntry _statusEntry;
 
-    private void setRootPOA(POA rootPOA)
+    public void setRootPOA(POA rootPOA)
     {
-        _rootPoa = rootPOA;
+        _rootPOA = rootPOA;
     }
 
-    private void setActivityStatusEntry(IActivityStatusEntry statusEntry)
+    public void setActivityStatusEntry(IActivityStatusEntry statusEntry)
     {
         _statusEntry = statusEntry;
     }
@@ -33,8 +36,24 @@ public class CorbaActivityStatusEntry extends ICorbaActivityStatusEntryPOA
     @Override
     public ICorbaActivity getActivity()
     {
-        _activity.getCreator();
-        return null;
+        try
+        {
+            CorbaActivity activity = new CorbaActivity();
+            activity.setActivity(_statusEntry.getActivity());
+            activity.setRootPOA(_rootPOA);
+            org.omg.CORBA.Object ref = _rootPOA.servant_to_reference(activity);
+            return ICorbaActivityHelper.narrow(ref);
+        }
+        catch (ServantNotActive e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        catch (WrongPolicy e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

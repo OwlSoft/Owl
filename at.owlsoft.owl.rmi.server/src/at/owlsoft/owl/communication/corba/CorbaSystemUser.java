@@ -19,7 +19,6 @@ import at.owlsoft.owl.model.user.IRole;
 import at.owlsoft.owl.model.user.ISystemUser;
 import at.owlsoft.owl.model.user.ISystemUserStatusEntry;
 import at.owlsoft.owl.model.user.ISystemUserTransaction;
-import at.owlsoft.owl.model.user.SystemUserStatus;
 
 public class CorbaSystemUser extends ICorbaSystemUserPOA
 {
@@ -40,63 +39,54 @@ public class CorbaSystemUser extends ICorbaSystemUserPOA
     @Override
     public int getUserID()
     {
-        // TODO Auto-generated method stub
         return _user.getUserID();
     }
 
     @Override
     public int getCardID()
     {
-        // TODO Auto-generated method stub
         return _user.getCardID();
     }
 
     @Override
     public String getUsername()
     {
-        // TODO Auto-generated method stub
         return _user.getUsername();
     }
 
     @Override
     public String getPassword()
     {
-        // TODO Auto-generated method stub
         return _user.getPassword();
     }
 
     @Override
     public String getEmail()
     {
-        // TODO Auto-generated method stub
         return _user.getEmail();
     }
 
     @Override
     public String getFirstName()
     {
-        // TODO Auto-generated method stub
         return _user.getFirstName();
     }
 
     @Override
     public String getLastName()
     {
-        // TODO Auto-generated method stub
         return _user.getLastName();
     }
 
     @Override
     public long getBirthday()
     {
-        // TODO Auto-generated method stub
         return _user.getBirthday().getTime();
     }
 
     @Override
     public int getActivityCount()
     {
-        // TODO Auto-generated method stub
         return _user.getActivityCount();
     }
 
@@ -116,19 +106,17 @@ public class CorbaSystemUser extends ICorbaSystemUserPOA
                 org.omg.CORBA.Object ref = _rootPOA
                         .servant_to_reference(cactivity);
                 temp[index] = ICorbaActivityHelper.narrow(ref);
+                index++;
             }
-            index++;
             return temp;
         }
         catch (ServantNotActive e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             throw new RuntimeException(e);
         }
         catch (WrongPolicy e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             throw new RuntimeException(e);
         }
@@ -147,19 +135,17 @@ public class CorbaSystemUser extends ICorbaSystemUserPOA
                 crole.setRole(role);
                 org.omg.CORBA.Object ref = _rootPOA.servant_to_reference(crole);
                 temp[index] = ICorbaRoleHelper.narrow(ref);
+                index++;
             }
-            index++;
             return temp;
         }
         catch (ServantNotActive e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             throw new RuntimeException(e);
         }
         catch (WrongPolicy e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             throw new RuntimeException(e);
         }
@@ -181,19 +167,17 @@ public class CorbaSystemUser extends ICorbaSystemUserPOA
                 org.omg.CORBA.Object ref = _rootPOA
                         .servant_to_reference(ctransaction);
                 temp[index] = ICorbaSystemUserTransactionHelper.narrow(ref);
+                index++;
             }
-            index++;
             return temp;
         }
         catch (ServantNotActive e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             throw new RuntimeException(e);
         }
         catch (WrongPolicy e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             throw new RuntimeException(e);
         }
@@ -215,19 +199,17 @@ public class CorbaSystemUser extends ICorbaSystemUserPOA
                 org.omg.CORBA.Object ref = _rootPOA
                         .servant_to_reference(cstatusEntry);
                 temp[index] = ICorbaSystemUserStatusEntryHelper.narrow(ref);
+                index++;
             }
-            index++;
             return temp;
         }
         catch (ServantNotActive e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             throw new RuntimeException(e);
         }
         catch (WrongPolicy e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             throw new RuntimeException(e);
         }
@@ -236,10 +218,6 @@ public class CorbaSystemUser extends ICorbaSystemUserPOA
     @Override
     public CorbaSystemUserStatus getCurrentStatus()
     {
-        if (_user.getCurrentStatus().equals(SystemUserStatus.Active))
-        {
-            return CorbaSystemUserStatus.Active;
-        }
 
         switch (_user.getCurrentStatus())
         {

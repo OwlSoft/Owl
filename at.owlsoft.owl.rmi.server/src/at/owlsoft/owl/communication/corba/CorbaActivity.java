@@ -8,6 +8,7 @@ import at.owlsoft.owl.corbamodel.accounting.ICorbaActivityPOA;
 import at.owlsoft.owl.corbamodel.accounting.ICorbaActivityStatusEntry;
 import at.owlsoft.owl.corbamodel.media.ICorbaMedium;
 import at.owlsoft.owl.corbamodel.media.ICorbaMediumExemplar;
+import at.owlsoft.owl.corbamodel.media.ICorbaMediumHelper;
 import at.owlsoft.owl.corbamodel.user.ICorbaSystemUser;
 import at.owlsoft.owl.corbamodel.user.ICorbaSystemUserHelper;
 import at.owlsoft.owl.model.accounting.IActivity;
@@ -65,13 +66,11 @@ public class CorbaActivity extends ICorbaActivityPOA
         }
         catch (ServantNotActive e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             throw new RuntimeException(e);
         }
         catch (WrongPolicy e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             throw new RuntimeException(e);
         }
@@ -81,20 +80,53 @@ public class CorbaActivity extends ICorbaActivityPOA
     @Override
     public ICorbaSystemUser getCreator()
     {
-        //
-        return null;
+
+        try
+        {
+            CorbaSystemUser cuser = new CorbaSystemUser();
+            cuser.setUser(_activity.getCreator());
+            cuser.setRootPOA(_rootPOA);
+            org.omg.CORBA.Object ref = _rootPOA.servant_to_reference(cuser);
+            return ICorbaSystemUserHelper.narrow(ref);
+        }
+        catch (ServantNotActive e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        catch (WrongPolicy e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override
     public ICorbaMedium getMedium()
     {
-        // TODO Auto-generated method stub
-        return null;
+        try
+        {
+            CorbaMedium medium = new CorbaMedium();
+            medium.setMedium(_activity.getMedium());
+            medium.setRootPOA(_rootPOA);
+            org.omg.CORBA.Object ref = _rootPOA.servant_to_reference(medium);
+            return ICorbaMediumHelper.narrow(ref);
+        }
+        catch (ServantNotActive e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        catch (WrongPolicy e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     public void setActivity(IActivity activity)
     {
-        // TODO Auto-generated method stub
         _activity = activity;
     }
 

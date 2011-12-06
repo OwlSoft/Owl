@@ -27,7 +27,7 @@ public class corbaClientTest
             corbaArgs[2] = "-ORBInitialPort";
             corbaArgs[3] = "1049";
 
-            ORB orb = ORB.init(corbaArgs, null);
+            ORB orb = ORB.init(new String[0], null);
 
             System.out.println("Client: ORB connected");
 
@@ -42,13 +42,14 @@ public class corbaClientTest
 
             System.out.println("Client: narrowed");
 
+            System.out.println(_role.getKey() + "," + _role.getValue());
+
             assertTrue(true);
 
             Assert.assertNotNull(_role.getKey());
             Assert.assertNotNull(_role.getValue());
-            Assert.assertFalse("Key is emptry", !(_role.getKey().equals("")));
-            Assert.assertFalse("Value is emptry",
-                    !(_role.getValue().equals("")));
+            Assert.assertEquals("Bob", _role.getKey());
+            Assert.assertEquals("Dole", _role.getValue());
 
         }
         catch (Exception e)

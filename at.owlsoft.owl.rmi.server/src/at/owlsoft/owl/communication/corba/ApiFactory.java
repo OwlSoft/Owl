@@ -44,13 +44,10 @@ public class ApiFactory extends ICorbaApiFactoryPOA
         }
         catch (ServantNotActive e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
             throw new RuntimeException(e);
         }
         catch (WrongPolicy e)
         {
-            // TODO Auto-generated catch block
             throw new RuntimeException(e);
         }
     }
@@ -67,14 +64,10 @@ public class ApiFactory extends ICorbaApiFactoryPOA
         }
         catch (ServantNotActive e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
             throw new RuntimeException(e);
         }
         catch (WrongPolicy e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
@@ -90,13 +83,10 @@ public class ApiFactory extends ICorbaApiFactoryPOA
         }
         catch (ServantNotActive e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
             throw new RuntimeException(e);
         }
         catch (WrongPolicy e)
         {
-            // TODO Auto-generated catch block
             throw new RuntimeException(e);
         }
     }
@@ -112,13 +102,10 @@ public class ApiFactory extends ICorbaApiFactoryPOA
         }
         catch (ServantNotActive e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
             throw new RuntimeException(e);
         }
         catch (WrongPolicy e)
         {
-            // TODO Auto-generated catch block
             throw new RuntimeException(e);
         }
     }
@@ -134,13 +121,10 @@ public class ApiFactory extends ICorbaApiFactoryPOA
         }
         catch (ServantNotActive e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
             throw new RuntimeException(e);
         }
         catch (WrongPolicy e)
         {
-            // TODO Auto-generated catch block
             throw new RuntimeException(e);
         }
     }
@@ -156,13 +140,10 @@ public class ApiFactory extends ICorbaApiFactoryPOA
         }
         catch (ServantNotActive e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
             throw new RuntimeException(e);
         }
         catch (WrongPolicy e)
         {
-            // TODO Auto-generated catch block
             throw new RuntimeException(e);
         }
     }

@@ -29,11 +29,13 @@ public class corbaTestServer
         corbaArgs[2] = "-ORBInitialPort";
         corbaArgs[3] = "900";
 
-        ORB orb = ORB.init(corbaArgs, null);
+        ORB orb = ORB.init(new String[0], null);
         try
         {
             POA rootPoa = POAHelper.narrow(orb
                     .resolve_initial_references("RootPOA"));
+
+            rootPoa.the_POAManager().activate();
 
             System.out.println("Root POA fetched");
 
@@ -52,6 +54,7 @@ public class corbaTestServer
             ICorbaRole href = ICorbaRoleHelper.narrow(reference);
 
             System.out.println("Role object for naming service created");
+            System.out.println(href.getKey() + "," + href.getValue());
 
             String name = "Role";
             NameComponent path[] = ncRef.to_name(name);

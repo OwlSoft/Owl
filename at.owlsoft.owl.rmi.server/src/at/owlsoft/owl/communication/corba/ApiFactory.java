@@ -5,10 +5,6 @@ import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
 
 import at.owlsoft.owl.business.OwlApplicationContext;
-import at.owlsoft.owl.communication.rmi.AuthenticationApi;
-import at.owlsoft.owl.communication.rmi.ReservationApi;
-import at.owlsoft.owl.communication.rmi.ReturnApi;
-import at.owlsoft.owl.communication.rmi.SystemUserApi;
 
 public class ApiFactory extends ICorbaApiFactoryPOA
 {

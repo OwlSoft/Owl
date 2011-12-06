@@ -120,6 +120,7 @@ public class RentalApi extends ICorbaRentalApiPOA
     public ICorbaMediumExemplar setMediumExemplar(int exemplarId)
     {
         // TODO Auto-generated method stub
+
         return null;
     }
 
@@ -127,6 +128,7 @@ public class RentalApi extends ICorbaRentalApiPOA
     public ICorbaValidationMessage[] getValidationMessages()
     {
         // TODO Auto-generated method stub
+        CorbaValidationMessage copy = new CorbaValidationMessage();
         return null;
     }
 

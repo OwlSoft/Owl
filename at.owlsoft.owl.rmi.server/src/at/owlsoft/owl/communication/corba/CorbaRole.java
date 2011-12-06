@@ -17,14 +17,14 @@ public class CorbaRole extends ICorbaRolePOA
     public String getKey()
     {
         // TODO Auto-generated method stub
-        return null;
+        return "blub";
     }
 
     @Override
     public String getValue()
     {
         // TODO Auto-generated method stub
-        return null;
+        return "gurgel";
     }
 
 }

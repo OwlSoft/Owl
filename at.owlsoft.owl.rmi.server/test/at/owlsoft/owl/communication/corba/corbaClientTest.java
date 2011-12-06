@@ -1,8 +1,8 @@
 package at.owlsoft.owl.communication.corba;
 
+import static org.junit.Assert.assertTrue;
 import junit.framework.Assert;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
@@ -15,12 +15,6 @@ public class corbaClientTest
 {
 
     private ICorbaRole _role;
-
-    @Before
-    public void setup()
-    {
-        corbaTestServer.main(new String[0]);
-    }
 
     @Test
     public void test()
@@ -47,6 +41,8 @@ public class corbaClientTest
             _role = ICorbaRoleHelper.narrow(ncRef.resolve_str(name));
 
             System.out.println("Client: narrowed");
+
+            assertTrue(true);
 
             Assert.assertNotNull(_role.getKey());
             Assert.assertNotNull(_role.getValue());

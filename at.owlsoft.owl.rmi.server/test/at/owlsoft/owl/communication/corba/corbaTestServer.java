@@ -27,7 +27,7 @@ public class corbaTestServer
         corbaArgs[0] = "-ORBInitialHost";
         corbaArgs[1] = "localhost";
         corbaArgs[2] = "-ORBInitialPort";
-        corbaArgs[3] = "1050";
+        corbaArgs[3] = "900";
 
         ORB orb = ORB.init(corbaArgs, null);
         try
@@ -61,6 +61,8 @@ public class corbaTestServer
             ncRef.rebind(path, href);
 
             System.out.println("Role in naming service");
+
+            orb.run();
 
         }
         catch (Exception e)

@@ -9,14 +9,14 @@ public class CorbaSearchField extends ICorbaSearchFieldPOA
     public String getKey()
     {
         // TODO Auto-generated method stub
-        return null;
+        return "key";
     }
 
     @Override
     public String getValue()
     {
         // TODO Auto-generated method stub
-        return null;
+        return "value";
     }
 
 }

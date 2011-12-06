@@ -26,8 +26,11 @@ public class ApiFactory extends ICorbaApiFactoryPOA
     {
         _rootPOA = rootPOA;
     }
-    
-    public POA
+
+    public POA getRootPOA()
+    {
+        return _rootPOA;
+    }
 
     public OwlApplicationContext getContext()
     {
@@ -63,7 +66,7 @@ public class ApiFactory extends ICorbaApiFactoryPOA
         try
         {
             org.omg.CORBA.Object ref = _rootPOA
-                    .servant_to_reference(new RentalApi());
+                    .servant_to_reference(new RentalApi(this));
             return ICorbaRentalApiHelper.narrow(ref);
         }
         catch (ServantNotActive e)

@@ -1,9 +1,15 @@
 package at.owlsoft.owl.communication.corba;
 
+import org.omg.PortableServer.POAPackage.ServantNotActive;
+import org.omg.PortableServer.POAPackage.WrongPolicy;
+
 import at.owlsoft.owl.corbamodel.accounting.ICorbaRental;
 import at.owlsoft.owl.corbamodel.media.ICorbaMediumExemplar;
 import at.owlsoft.owl.corbamodel.user.ICorbaSystemUser;
+import at.owlsoft.owl.corbamodel.user.ICorbaSystemUserHelper;
 import at.owlsoft.owl.corbamodel.validation.ICorbaValidationMessage;
+import at.owlsoft.owl.model.NoPermissionException;
+import at.owlsoft.owl.model.user.SystemUser;
 import at.owlsoft.owl.usecases.ExtensionController;
 import at.owlsoft.owl.usecases.RentalController;
 import at.owlsoft.owl.usecases.ReturnController;
@@ -28,22 +34,86 @@ public class RentalApi extends ICorbaRentalApiPOA
     @Override
     public ICorbaSystemUser getRentalsForSystemUserCardId(int cardID)
     {
-        // TODO Auto-generated method stub
-        return null;
+        SystemUser user = _factory.getContext().getSystemUserSearchController()
+                .search(cardID);
+
+        CorbaSystemUser cuser = new CorbaSystemUser();
+        cuser.setRootPOA(_factory.getRootPOA());
+        cuser.setUser(user);
+        org.omg.CORBA.Object ref;
+        try
+        {
+            ref = _factory.getRootPOA().servant_to_reference(
+                    new CorbaSystemUser());
+            return ICorbaSystemUserHelper.narrow(ref);
+        }
+        catch (ServantNotActive e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        catch (WrongPolicy e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override
     public void newRental()
     {
-        // TODO Auto-generated method stub
-
+        try
+        {
+            _controller.newRental();
+        }
+        catch (NoPermissionException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public ICorbaSystemUser setCustomer(int cardId)
     {
-        // TODO Auto-generated method stub
-        return null;
+        SystemUser user = _factory.getContext().getSystemUserSearchController()
+                .search(cardId);
+        try
+        {
+            _controller.setCustomer(user);
+        }
+        catch (NoPermissionException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        CorbaSystemUser cuser = new CorbaSystemUser();
+        cuser.setRootPOA(_factory.getRootPOA());
+        cuser.setUser(user);
+        org.omg.CORBA.Object ref;
+        try
+        {
+            ref = _factory.getRootPOA().servant_to_reference(
+                    new CorbaSystemUser());
+            return ICorbaSystemUserHelper.narrow(ref);
+        }
+        catch (ServantNotActive e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        catch (WrongPolicy e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

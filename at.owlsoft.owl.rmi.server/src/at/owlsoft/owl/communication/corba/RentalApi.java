@@ -4,9 +4,26 @@ import at.owlsoft.owl.corbamodel.accounting.ICorbaRental;
 import at.owlsoft.owl.corbamodel.media.ICorbaMediumExemplar;
 import at.owlsoft.owl.corbamodel.user.ICorbaSystemUser;
 import at.owlsoft.owl.corbamodel.validation.ICorbaValidationMessage;
+import at.owlsoft.owl.usecases.ExtensionController;
+import at.owlsoft.owl.usecases.RentalController;
+import at.owlsoft.owl.usecases.ReturnController;
 
 public class RentalApi extends ICorbaRentalApiPOA
 {
+
+    private RentalController    _controller;
+
+    private ExtensionController _extensionController;
+    private ReturnController    _returnController;
+
+    private ApiFactory          _factory;
+
+    public RentalApi(ApiFactory factory)
+    {
+        _controller = factory.getContext().getRentalController();
+        _extensionController = factory.getContext().getExtensionController();
+        _returnController = factory.getContext().getReturnController();
+    }
 
     @Override
     public ICorbaSystemUser getRentalsForSystemUserCardId(int cardID)

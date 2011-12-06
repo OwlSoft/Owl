@@ -16,8 +16,6 @@
  */
 package at.owlsoft.owl.communication.corba;
 
-import java.rmi.registry.Registry;
-
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 import org.omg.CORBA.ORB;
@@ -34,9 +32,6 @@ import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
 
 import at.owlsoft.owl.Owl;
-import at.owlsoft.owl.communication.rmi.AllPermissionSecurityManager;
-import at.owlsoft.owl.communication.rmi.ApiService;
-import at.owlsoft.owl.communication.rmi.IApiService;
 
 public class CorbaServer
 {
@@ -46,41 +41,32 @@ public class CorbaServer
 
     public static void main(String[] args)
     {
-        System.setSecurityManager(new AllPermissionSecurityManager());
+        DOMConfigurator.configure(Owl.class.getResource(LOG4J_CONFIGURATION));
 
-        try
-        {
-            DOMConfigurator.configure(Owl.class
-                    .getResource(LOG4J_CONFIGURATION));
-
-            logger.info("Starting service");
-            ApiService.startRmiService("localhost", Registry.REGISTRY_PORT,
-                    IApiService.DEFAULT_RMI_NAME);
-
-            logger.info("Service registered");
-        }
-        catch (Exception e)
-        {
-            logger.error("Could not start service", e);
-        }
-
+        logger.info("Starting service");
         String[] corbaArgs = new String[4];
         corbaArgs[0] = "-ORBInitialHost";
         corbaArgs[1] = "localhost";
         corbaArgs[2] = "-ORBInitialPort";
         corbaArgs[3] = "1050";
-
-        ORB orb = ORB.init(corbaArgs, null);
         try
         {
+            // First start ordb deamon with "start ordb" in command shell
+
+            ORB orb = ORB.init(new String[0], null);
+
             POA rootPoa = POAHelper.narrow(orb
                     .resolve_initial_references("RootPOA"));
             rootPoa.the_POAManager().activate();
+
+            logger.info("POAManager activated");
 
             // get the root naming context
             org.omg.CORBA.Object objRef = orb
                     .resolve_initial_references("NameService");
             NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+
+            logger.info("Name Service located");
 
             CorbaApiService apiService = new CorbaApiService(rootPoa);
             apiService.setOrb(orb);
@@ -92,6 +78,10 @@ public class CorbaServer
             String name = "ApiService";
             NameComponent path[] = ncRef.to_name(name);
             ncRef.rebind(path, href);
+
+            logger.info(name + " bound in orbd");
+
+            orb.run();
         }
         catch (InvalidName e)
         {

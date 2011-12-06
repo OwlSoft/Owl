@@ -29,6 +29,7 @@ import org.omg.CosNaming.NamingContextPackage.CannotProceed;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
+import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
 import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
 
@@ -74,6 +75,7 @@ public class CorbaServer
         {
             POA rootPoa = POAHelper.narrow(orb
                     .resolve_initial_references("RootPOA"));
+            rootPoa.the_POAManager().activate();
 
             // get the root naming context
             org.omg.CORBA.Object objRef = orb
@@ -119,6 +121,11 @@ public class CorbaServer
         catch (CannotProceed e)
         {
             logger.fatal("Cannot proceed; rebind in Name Service failed");
+            e.printStackTrace();
+        }
+        catch (AdapterInactive e)
+        {
+            logger.fatal("RootPOA inactive.");
             e.printStackTrace();
         }
     }

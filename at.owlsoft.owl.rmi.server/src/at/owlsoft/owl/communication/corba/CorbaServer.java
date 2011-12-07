@@ -16,10 +16,7 @@
  */
 package at.owlsoft.owl.communication.corba;
 
-import java.rmi.registry.Registry;
-
 import org.apache.log4j.Logger;
-import org.apache.log4j.xml.DOMConfigurator;
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.ORBPackage.InvalidName;
 import org.omg.CosNaming.NameComponent;
@@ -33,10 +30,7 @@ import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
 import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
 
-import at.owlsoft.owl.Owl;
 import at.owlsoft.owl.communication.rmi.AllPermissionSecurityManager;
-import at.owlsoft.owl.communication.rmi.ApiService;
-import at.owlsoft.owl.communication.rmi.IApiService;
 
 public class CorbaServer
 {
@@ -48,29 +42,29 @@ public class CorbaServer
     {
         System.setSecurityManager(new AllPermissionSecurityManager());
 
-        try
-        {
-            DOMConfigurator.configure(Owl.class
-                    .getResource(LOG4J_CONFIGURATION));
+        // try
+        // {
+        // DOMConfigurator.configure(Owl.class
+        // .getResource(LOG4J_CONFIGURATION));
+        //
+        // logger.info("Starting service");
+        // ApiService.startRmiService("localhost", Registry.REGISTRY_PORT,
+        // IApiService.DEFAULT_RMI_NAME);
+        //
+        // logger.info("Service registered");
+        // }
+        // catch (Exception e)
+        // {
+        // logger.error("Could not start service", e);
+        // }
 
-            logger.info("Starting service");
-            ApiService.startRmiService("localhost", Registry.REGISTRY_PORT,
-                    IApiService.DEFAULT_RMI_NAME);
+        // String[] corbaArgs = new String[4];
+        // corbaArgs[0] = "-ORBInitialHost";
+        // corbaArgs[1] = "localhost";
+        // corbaArgs[2] = "-ORBInitialPort";
+        // corbaArgs[3] = "1050";
 
-            logger.info("Service registered");
-        }
-        catch (Exception e)
-        {
-            logger.error("Could not start service", e);
-        }
-
-        String[] corbaArgs = new String[4];
-        corbaArgs[0] = "-ORBInitialHost";
-        corbaArgs[1] = "localhost";
-        corbaArgs[2] = "-ORBInitialPort";
-        corbaArgs[3] = "1050";
-
-        ORB orb = ORB.init(corbaArgs, null);
+        ORB orb = ORB.init(new String[0], null);
         try
         {
             POA rootPoa = POAHelper.narrow(orb
@@ -92,6 +86,7 @@ public class CorbaServer
             String name = "ApiService";
             NameComponent path[] = ncRef.to_name(name);
             ncRef.rebind(path, href);
+            orb.run();
         }
         catch (InvalidName e)
         {

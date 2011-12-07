@@ -116,6 +116,20 @@ public class AuthenticationController extends ControllerBase
             else
             {
                 _currentUser = users.get(0);
+
+                // FIXME only for testing !
+                _currentUser.addRole(new Role(IDefaultRoles.ADMIN_CONFIG,
+                        IDefaultRoles.ADMIN_CONFIG));
+
+                _currentUser.addRole(new Role(IDefaultRoles.RENTAL_CREATE,
+                        IDefaultRoles.RENTAL_CREATE));
+                _currentUser.addRole(new Role(IDefaultRoles.RENTAL_SHOW,
+                        IDefaultRoles.RENTAL_SHOW));
+                _currentUser.addRole(new Role(IDefaultRoles.RENTAL_EXTEND,
+                        IDefaultRoles.RENTAL_EXTEND));
+
+                _currentUser.addRole(new Role(IDefaultRoles.RESERVATION_CREATE,
+                        IDefaultRoles.RESERVATION_CREATE));
             }
 
             return _currentUser;

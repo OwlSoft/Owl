@@ -4,6 +4,7 @@
 	<classpathentry kind="src" path="test.rmi"/>
 	<classpathentry kind="src" path="src-ui"/>
 	<classpathentry kind="src" path="resources"/>
+	<classpathentry kind="src" path="test.corba"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="lib/pivot-wtk-2.0.jar" sourcepath="lib/pivot-wtk-2.0.jar"/>
 	<classpathentry kind="lib" path="lib/pivot-wtk-terra-2.0.jar" sourcepath="lib/apache-pivot-2.0-src.zip"/>
@@ -11,5 +12,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/at.owlsoft.owl.rmi.share"/>
 	<classpathentry kind="lib" path="lib/pivot-core-2.0.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.10.jar"/>
+	<classpathentry kind="lib" path="lib/junit-dep-4.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

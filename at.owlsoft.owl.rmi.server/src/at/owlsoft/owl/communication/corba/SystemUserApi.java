@@ -32,7 +32,7 @@ public class SystemUserApi extends ICorbaSystemUserApiPOA
             cuser.setRootPOA(_factory.getRootPOA());
             cuser.setUser(user);
             org.omg.CORBA.Object ref = _factory.getRootPOA()
-                    .servant_to_reference(new CorbaSystemUser());
+                    .servant_to_reference(cuser);
             return ICorbaSystemUserHelper.narrow(ref);
         }
         catch (ServantNotActive e)

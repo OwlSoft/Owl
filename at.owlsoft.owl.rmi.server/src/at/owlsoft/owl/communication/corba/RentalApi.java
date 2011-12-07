@@ -32,6 +32,7 @@ public class RentalApi extends ICorbaRentalApiPOA
 
     public RentalApi(ApiFactory factory)
     {
+        _factory = factory;
         _controller = factory.getContext().getRentalController();
         _extensionController = factory.getContext().getExtensionController();
         _returnController = factory.getContext().getReturnController();

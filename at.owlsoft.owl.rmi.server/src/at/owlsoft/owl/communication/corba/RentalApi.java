@@ -9,11 +9,13 @@ import org.omg.PortableServer.POAPackage.WrongPolicy;
 import at.owlsoft.owl.corbamodel.accounting.ICorbaRental;
 import at.owlsoft.owl.corbamodel.accounting.ICorbaRentalHelper;
 import at.owlsoft.owl.corbamodel.media.ICorbaMediumExemplar;
+import at.owlsoft.owl.corbamodel.media.ICorbaMediumExemplarHelper;
 import at.owlsoft.owl.corbamodel.user.ICorbaSystemUser;
 import at.owlsoft.owl.corbamodel.user.ICorbaSystemUserHelper;
 import at.owlsoft.owl.corbamodel.validation.ICorbaValidationMessage;
 import at.owlsoft.owl.corbamodel.validation.ICorbaValidationMessageHelper;
 import at.owlsoft.owl.model.NoPermissionException;
+import at.owlsoft.owl.model.media.MediumExemplar;
 import at.owlsoft.owl.model.user.SystemUser;
 import at.owlsoft.owl.usecases.ExtensionController;
 import at.owlsoft.owl.usecases.RentalController;
@@ -55,13 +57,11 @@ public class RentalApi extends ICorbaRentalApiPOA
         }
         catch (ServantNotActive e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             throw new RuntimeException(e);
         }
         catch (WrongPolicy e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             throw new RuntimeException(e);
         }
@@ -110,13 +110,11 @@ public class RentalApi extends ICorbaRentalApiPOA
         }
         catch (ServantNotActive e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             throw new RuntimeException(e);
         }
         catch (WrongPolicy e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             throw new RuntimeException(e);
         }
@@ -125,9 +123,34 @@ public class RentalApi extends ICorbaRentalApiPOA
     @Override
     public ICorbaMediumExemplar setMediumExemplar(int exemplarId)
     {
-        // TODO Auto-generated method stub
+        MediumExemplar copy = _factory.getContext()
+                .getMediumExemplarSearchController().search(exemplarId);
+        try
+        {
+            _controller.setMediumExemplar(copy);
 
-        return null;
+            CorbaMediumExemplare cCopy = new CorbaMediumExemplare();
+            cCopy.setMediumExemplare(copy);
+            cCopy.setRootPOA(_factory.getRootPOA());
+            org.omg.CORBA.Object ref;
+            ref = _factory.getRootPOA().servant_to_reference(cCopy);
+            return ICorbaMediumExemplarHelper.narrow(ref);
+        }
+        catch (ServantNotActive e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        catch (WrongPolicy e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        catch (NoPermissionException e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

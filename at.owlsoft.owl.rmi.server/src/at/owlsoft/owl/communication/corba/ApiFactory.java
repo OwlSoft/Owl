@@ -148,4 +148,23 @@ public class ApiFactory extends ICorbaApiFactoryPOA
         }
     }
 
+    @Override
+    public ICorbaSearchApi createSearchApi()
+    {
+        try
+        {
+            org.omg.CORBA.Object ref = _rootPOA
+                    .servant_to_reference(new SearchApi(this));
+            return ICorbaSearchApiHelper.narrow(ref);
+        }
+        catch (ServantNotActive e)
+        {
+            throw new RuntimeException(e);
+        }
+        catch (WrongPolicy e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

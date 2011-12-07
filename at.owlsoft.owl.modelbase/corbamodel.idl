@@ -273,6 +273,7 @@ module at{
 						at::owlsoft::owl::communication::corba::ICorbaReturnApi createReturnApi();
 						at::owlsoft::owl::communication::corba::ICorbaSystemUserApi createSystemUserApi();
 						at::owlsoft::owl::communication::corba::ICorbaAuthenticationApi createAuthenticationApi();
+						at::owlsoft::owl::communication::corba::ICorbaSearchApi createSearchApi();
 					};
 					interface ICorbaApiService{
 						at::owlsoft::owl::communication::corba::ICorbaApiFactory createApiFactory();

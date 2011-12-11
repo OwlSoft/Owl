@@ -15,8 +15,8 @@
 	<classpathentry kind="lib" path="lib/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="lib/junit-4.10.jar"/>
 	<classpathentry kind="lib" path="lib/junit-dep-4.10.jar"/>
-	<classpathentry kind="lib" path="C:/glassfish3/glassfish/modules/javax.jms.jar"/>
-	<classpathentry kind="lib" path="C:/glassfish3/glassfish/lib/appserv-rt.jar"/>
-	<classpathentry kind="lib" path="C:/glassfish3/glassfish/lib/javaee.jar"/>
+	<classpathentry kind="var" path="GLASSFISH/lib/appserv-rt.jar"/>
+	<classpathentry kind="var" path="GLASSFISH/lib/javaee.jar"/>
+	<classpathentry kind="var" path="GLASSFISH/modules/javax.jms.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

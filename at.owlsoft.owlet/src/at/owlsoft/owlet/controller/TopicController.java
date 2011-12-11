@@ -1,12 +1,12 @@
 package at.owlsoft.owlet.controller;
 
+import java.util.ArrayList;
+
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TopicSubscriber;
 import javax.naming.NamingException;
-
-import org.apache.pivot.collections.ArrayList;
 
 import at.owlsoft.owlet.jsm.JmsUtils;
 import at.owlsoft.owlet.jsm.JmsUtils.JmsInfo;

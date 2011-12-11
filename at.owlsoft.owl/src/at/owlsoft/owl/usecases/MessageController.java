@@ -1,13 +1,16 @@
 package at.owlsoft.owl.usecases;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import at.owlsoft.owl.business.ControllerBase;
 import at.owlsoft.owl.business.OwlApplicationContext;
+import at.owlsoft.owl.dao.DaoManager;
+import at.owlsoft.owl.dao.IMessageDao;
 import at.owlsoft.owl.model.IDefaultRoles;
 import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.messaging.Message;
+import at.owlsoft.owl.model.messaging.MessageState;
 
 public class MessageController extends ControllerBase
 {
@@ -21,8 +24,34 @@ public class MessageController extends ControllerBase
         getContext().getAuthenticationController().checkAccess(
                 IDefaultRoles.OPERATOR);
 
-        List<Message> messages = new ArrayList<Message>();
-        // TODO Load open messages from database
+        List<Message> messages = DaoManager.getInstance().getMessageDao()
+                .getOpenMessages();
+
         return messages;
+    }
+
+    public void addMessage(Message message)
+    {
+        IMessageDao dao = DaoManager.getInstance().getMessageDao();
+        dao.store(message);
+
+        sendJmsMessage(message.getEventType());
+    }
+
+    private void sendJmsMessage(String eventType)
+    {
+        // TODO Sent message key via JMS
+    }
+
+    public void markMessage(UUID uuid, MessageState state)
+            throws NoPermissionException
+    {
+        getContext().getAuthenticationController().checkAccess(
+                IDefaultRoles.OPERATOR);
+
+        IMessageDao dao = DaoManager.getInstance().getMessageDao();
+        Message message = dao.getByUUID(uuid);
+        message.setState(state);
+        dao.store(message);
     }
 }

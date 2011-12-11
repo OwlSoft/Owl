@@ -10,12 +10,16 @@ import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.model.SearchField;
 import at.owlsoft.owl.model.SearchFieldType;
+import at.owlsoft.owl.model.accounting.Activity;
 import at.owlsoft.owl.model.accounting.ActivityStatus;
 import at.owlsoft.owl.model.accounting.ActivityStatusEntry;
 import at.owlsoft.owl.model.accounting.Rental;
+import at.owlsoft.owl.model.accounting.Reservation;
+import at.owlsoft.owl.model.media.Medium;
 import at.owlsoft.owl.model.media.MediumExemplar;
 import at.owlsoft.owl.model.media.MediumExemplarStatus;
 import at.owlsoft.owl.model.media.MediumExemplarStatusEntry;
+import at.owlsoft.owl.model.messaging.ReservedMediumReturnedMessage;
 import at.owlsoft.owl.validation.ValidationMessage;
 import at.owlsoft.owl.validation.ValidationMessageStatus;
 
@@ -52,6 +56,13 @@ public class ReturnController extends ControllerBase
             copy.addMediumExemplarStatusEntry(mese);
 
             DaoManager.getInstance().getMediumExemplarDao().store(copy);
+
+            Reservation openReservation = getOpenReservation(rental
+                    .getMediumExemplar().getMedium());
+            if (openReservation != null)
+            {
+                sendOpenReservationMessage(rental, openReservation);
+            }
         }
         else
         {
@@ -60,6 +71,32 @@ public class ReturnController extends ControllerBase
         }
 
         return _messages;
+    }
+
+    private void sendOpenReservationMessage(Rental rental,
+            Reservation openReservation)
+    {
+        ReservedMediumReturnedMessage message = new ReservedMediumReturnedMessage(
+                rental, openReservation);
+        getContext().getMessageController().addMessage(message);
+    }
+
+    private Reservation getOpenReservation(Medium medium)
+    {
+        List<Activity> activities = medium.getActivities();
+        for (Activity activity : activities)
+        {
+            if (activity instanceof Reservation)
+            {
+                Reservation reservation = (Reservation) activity;
+                if (reservation.getLastActivityStatusEntry()
+                        .getActivityStatus().equals(ActivityStatus.Open))
+                {
+                    return reservation;
+                }
+            }
+        }
+        return null;
     }
 
     /**

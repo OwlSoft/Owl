@@ -18,11 +18,24 @@ public abstract class Db4oDaoBase<T> implements IDao<T>
 
     private Db4ODaoFactory _factory;
 
+    protected Db4ODaoFactory getFactory()
+    {
+        return _factory;
+    }
+
     protected Db4oDaoBase(Db4ODaoFactory factory, Class<T> clazz)
     {
         super();
         _clazz = clazz;
         _factory = factory;
+    }
+
+    @Override
+    public List<T> getAll()
+    {
+        Query query = _factory.getDb().query();
+        query.constrain(_clazz);
+        return query.execute();
     }
 
     /**

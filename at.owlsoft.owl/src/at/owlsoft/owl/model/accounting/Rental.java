@@ -27,6 +27,7 @@ public class Rental extends Activity implements IRental
     private static final long     serialVersionUID = 7711071715379325765L;
     private Date                  _endDate;
     private List<FilingExtension> _filingExtensions;
+    private int                   _reminderCount;
 
     public Rental()
     {
@@ -92,4 +93,15 @@ public class Rental extends Activity implements IRental
         c.add(Calendar.DATE, days);
         setEndDate(c.getTime());
     }
+
+    public int getReminderCount()
+    {
+        return _reminderCount;
+    }
+
+    public void setReminderCount(int reminderCount)
+    {
+        _reminderCount = reminderCount;
+    }
+
 }

@@ -157,4 +157,15 @@ public class OwlApplicationContext
         }
         return _messageController;
     }
+
+    private OverdueCheckController _overdueCheckController;
+
+    public OverdueCheckController getOverdueCheckController()
+    {
+        if (_overdueCheckController == null)
+        {
+            _overdueCheckController = new OverdueCheckController(this);
+        }
+        return _overdueCheckController;
+    }
 }

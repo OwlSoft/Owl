@@ -29,4 +29,6 @@ public interface IRental extends IActivity, Serializable
     IFilingExtension getFilingExtension(int index);
 
     List<? extends IFilingExtension> getFilingExtensions();
+
+    int getReminderCount();
 }

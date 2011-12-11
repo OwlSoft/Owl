@@ -27,4 +27,16 @@ public class ReservedMediumReturnedMessage extends Message
         return IMessageEventStrings.RESERVED_MEDIUM_RETURNED;
     }
 
+    public ReservedMediumReturnedMessage()
+    {
+    }
+
+    public ReservedMediumReturnedMessage(Rental returnedRental,
+            Reservation reservation)
+    {
+        super();
+        _returnedRental = returnedRental;
+        _reservation = reservation;
+    }
+
 }

@@ -5,6 +5,7 @@
 	<classpathentry kind="src" path="src-ui"/>
 	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="src" path="test.corba"/>
+	<classpathentry kind="src" path="test.jms"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="lib/pivot-wtk-2.0.jar" sourcepath="lib/pivot-wtk-2.0.jar"/>
 	<classpathentry kind="lib" path="lib/pivot-wtk-terra-2.0.jar" sourcepath="lib/apache-pivot-2.0-src.zip"/>

@@ -113,6 +113,7 @@ public class JmsUtils
             try
             {
                 _connection.close();
+                _session.close();
                 return true;
             }
             catch (Exception e)

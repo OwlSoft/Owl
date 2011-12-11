@@ -4,7 +4,6 @@ import at.owlsoft.owl.dao.IRentalDao;
 import at.owlsoft.owl.model.accounting.Rental;
 
 public class RentalDao extends Db4oDaoBase<Rental> implements IRentalDao
-
 {
     RentalDao(Db4ODaoFactory factory)
     {

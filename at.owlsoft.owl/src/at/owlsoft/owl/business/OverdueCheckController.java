@@ -5,6 +5,8 @@ import java.util.List;
 
 import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.dao.IRentalDao;
+import at.owlsoft.owl.model.accounting.ActivityStatus;
+import at.owlsoft.owl.model.accounting.ActivityStatusEntry;
 import at.owlsoft.owl.model.accounting.Rental;
 import at.owlsoft.owl.model.messaging.NewOverdueMessage;
 
@@ -59,7 +61,12 @@ public class OverdueCheckController extends ControllerBase implements Runnable
         Date now = new Date();
         for (Rental rental : rentals)
         {
-            if (rental.getEndDate().before(now))
+
+            if (!rental.getLastActivityStatusEntry().getActivityStatus()
+                    .equals(ActivityStatus.Closed)
+                    && !rental.getLastActivityStatusEntry().getActivityStatus()
+                            .equals(ActivityStatus.Returned)
+                    && rental.getEndDate().before(now))
             {
                 notifyOverdue(dao, rental);
             }
@@ -68,7 +75,9 @@ public class OverdueCheckController extends ControllerBase implements Runnable
 
     private void notifyOverdue(IRentalDao dao, Rental rental)
     {
-        rental.setReminderCount(rental.getReminderCount() + 1);
+        ActivityStatusEntry entry = new ActivityStatusEntry(new Date(), rental,
+                ActivityStatus.Overdue);
+        rental.addActivityStatusEntry(entry);
         dao.store(rental);
 
         NewOverdueMessage overdue = new NewOverdueMessage(rental);

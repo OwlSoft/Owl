@@ -36,6 +36,8 @@ public abstract class Message implements IMessage
 
     public Message()
     {
+        _state = MessageState.Open;
+        _insertDate = new Date();
     }
 
     public Message(MessageState state, Date insertDate)

@@ -7,6 +7,7 @@ import at.owlsoft.owl.dao.IConfigurationDao;
 import at.owlsoft.owl.dao.IDaoFactory;
 import at.owlsoft.owl.dao.IMediumDao;
 import at.owlsoft.owl.dao.IMediumExemplarDao;
+import at.owlsoft.owl.dao.IMessageDao;
 import at.owlsoft.owl.dao.IRentalDao;
 import at.owlsoft.owl.dao.IReservationDao;
 import at.owlsoft.owl.dao.ISystemUserDao;
@@ -177,6 +178,18 @@ public class Db4ODaoFactory implements IDaoFactory
             _reservationDao = new ReservationDao(this);
         }
         return _reservationDao;
+    }
+
+    private IMessageDao _messageDao;
+
+    @Override
+    public IMessageDao getMessageDao()
+    {
+        if (_messageDao == null)
+        {
+            _messageDao = new MessageDao(this);
+        }
+        return _messageDao;
     }
 
     @Override

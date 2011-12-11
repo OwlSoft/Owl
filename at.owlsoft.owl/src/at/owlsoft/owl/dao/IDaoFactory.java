@@ -23,5 +23,7 @@ public interface IDaoFactory
 
     public ITagDao getTagDao();
 
+    public IMessageDao getMessageDao();
+
     public boolean closeDbConnection();
 }

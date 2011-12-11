@@ -25,4 +25,10 @@ public class MessageController extends ControllerBase
         // TODO Load open messages from database
         return messages;
     }
+
+    public void addMessage(Message message)
+    {
+        // TODO Add message to database
+        // TODO Sent message key via JMS
+    }
 }

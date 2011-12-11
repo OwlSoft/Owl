@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
 import at.owlsoft.owl.Owl;
+import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.model.ISearchFieldCategory;
 import at.owlsoft.owl.model.SearchFieldCategory;
 
@@ -46,6 +47,10 @@ public class ApiService extends UnicastRemoteObject implements IApiService
 
         java.rmi.registry.LocateRegistry.getRegistry(host, port).rebind(
                 serviceName, service);
+
+        // Server context
+        OwlApplicationContext serverContext = new OwlApplicationContext();
+        serverContext.getOverdueCheckController().startChecker();
     }
 
     private static Object getCodeBaseUrl(Class<?> clz)

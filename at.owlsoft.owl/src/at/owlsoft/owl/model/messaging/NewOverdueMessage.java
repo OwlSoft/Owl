@@ -23,7 +23,9 @@ public class NewOverdueMessage extends Message
     public String getDisplayString()
     {
         return "The activity '" + _rental.getUUID() + "' of '"
-                + _rental.getCustomer().getUsername() + "' is overdued!";
+                + _rental.getCustomer().getUsername()
+                + "' is overdued (This is number '"
+                + _rental.getReminderCount() + "').!";
     }
 
     @Override

@@ -1,6 +1,7 @@
 package at.owlsoft.owl.model.messaging;
 
 import java.util.Date;
+import java.util.UUID;
 
 public abstract class Message implements IMessage
 {
@@ -11,6 +12,13 @@ public abstract class Message implements IMessage
 
     private MessageState      _state;
     private Date              _insertDate;
+    private UUID              _messageId;
+
+    @Override
+    public UUID getMessageId()
+    {
+        return _messageId;
+    }
 
     @Override
     public MessageState getState()
@@ -36,13 +44,14 @@ public abstract class Message implements IMessage
 
     public Message()
     {
+        _messageId = UUID.randomUUID();
         _state = MessageState.Open;
         _insertDate = new Date();
     }
 
     public Message(MessageState state, Date insertDate)
     {
-        super();
+        _messageId = UUID.randomUUID();
         _state = state;
         _insertDate = insertDate;
     }

@@ -9,4 +9,5 @@ public interface IDefaultRoles
     public static final String RENTAL_EXTEND      = "RENTAL_EXTEND";
 
     public static final String RESERVATION_CREATE = "RESERVATION_CREATE";
+    public static final String OPERATOR           = "OPERATOR";
 }

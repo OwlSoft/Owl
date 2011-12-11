@@ -3,10 +3,12 @@ package at.owlsoft.owl.communication.rmi;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.messaging.IMessage;
 import at.owlsoft.owl.model.messaging.Message;
+import at.owlsoft.owl.model.messaging.MessageState;
 
 /**
  * This api allows access to messages which should be processed
@@ -35,4 +37,18 @@ public class MessagingApi extends ApiBase implements IMessagingApi
         }
     }
 
+    @Override
+    public void markMessage(UUID uid, MessageState state)
+            throws RemoteException
+    {
+        try
+        {
+            getFactory().getContext().getMessageController()
+                    .markMessage(uid, state);
+        }
+        catch (NoPermissionException e)
+        {
+            throw new RemoteException(e.getMessage(), e);
+        }
+    }
 }

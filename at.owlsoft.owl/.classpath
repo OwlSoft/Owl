@@ -13,8 +13,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry combineaccessrules="false" kind="src" path="/at.owlsoft.owl.modelbase"/>
-	<classpathentry kind="lib" path="C:/glassfish3/glassfish/lib/appserv-rt.jar"/>
-	<classpathentry kind="lib" path="C:/glassfish3/glassfish/modules/javax.jms.jar"/>
-	<classpathentry kind="lib" path="C:/glassfish3/glassfish/lib/javaee.jar"/>
+	<classpathentry kind="var" path="GLASSFISH/lib/appserv-rt.jar"/>
+	<classpathentry kind="var" path="GLASSFISH/lib/javaee.jar"/>
+	<classpathentry kind="var" path="GLASSFISH/modules/javax.jms.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

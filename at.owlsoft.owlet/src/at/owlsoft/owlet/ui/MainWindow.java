@@ -4,6 +4,10 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import javax.jms.Message;
+import javax.jms.MessageListener;
+import javax.jms.TextMessage;
+
 import org.apache.log4j.Logger;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.HashSet;
@@ -16,23 +20,29 @@ import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.Menu.Section;
 import org.apache.pivot.wtk.MenuBar;
 import org.apache.pivot.wtk.Prompt;
+import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.Window;
+import org.apache.pivot.wtk.content.ButtonData;
 
 import at.owlsoft.owl.model.IDefaultRoles;
 import at.owlsoft.owl.model.user.IRole;
 import at.owlsoft.owlet.RoleAction;
 import at.owlsoft.owlet.context.RmiContext;
 import at.owlsoft.owlet.controller.AuthenticationController;
+import at.owlsoft.owlet.controller.TopicController;
 
-public class MainWindow extends Window implements Bindable
+public class MainWindow extends Window implements Bindable, MessageListener
 {
-    private BoxPane _viewBox;
-    private MenuBar _menu;
+    private BoxPane         _viewBox;
+    private MenuBar         _menu;
 
-    private Section _actionContainer;
-    private Label   _statusLabel;
+    private Section         _actionContainer;
+    private Label           _statusLabel;
+    private PushButton      _notificationButton;
 
-    private Logger  LOGGER = Logger.getLogger(MainWindow.class);
+    private TopicController _topic;
+
+    private Logger          LOGGER = Logger.getLogger(MainWindow.class);
 
     /**
      * Actions
@@ -153,6 +163,8 @@ public class MainWindow extends Window implements Bindable
         _menu = (MenuBar) ns.get("menu");
         _actionContainer = (Section) ns.get("actionContainer");
         _statusLabel = (Label) ns.get("statusLabel");
+        _notificationButton = (PushButton) ns.get("notificationButton");
+        _notificationButton.setVisible(false);
 
         updateViewRoles();
         ViewController.getInstance().loadContent("DashboardView", this);
@@ -196,10 +208,20 @@ public class MainWindow extends Window implements Bindable
                 _statusLabel.setText("Logged in as: "
                         + AuthenticationController.getInstance()
                                 .getCurrentUser().getUsername());
+
+                if (AuthenticationController.getInstance().getCurrentUser()
+                        .hasRole(IDefaultRoles.OPERATOR))
+                {
+                    _notificationButton.setVisible(true);
+                    rebindTopic();
+                }
+                updateMessageCount(0);
+
             }
             else
             {
                 _statusLabel.setText("Logged out");
+                _notificationButton.setVisible(false);
             }
         }
         catch (RemoteException e)
@@ -207,6 +229,52 @@ public class MainWindow extends Window implements Bindable
             LOGGER.debug("failed roles loading");
             e.printStackTrace();
         }
+
+    }
+
+    private void rebindTopic()
+    {
+        if (_topic != null)
+        {
+            _topic.close();
+        }
+        _topic = new TopicController(AuthenticationController.getInstance()
+                .getCurrentUser().getUsername());
+        _topic.addMessageListener(this);
+    }
+
+    private void updateMessageCount(int i)
+    {
+        ((ButtonData) _notificationButton.getButtonData()).setText(i
+                + " Messages");
+    }
+
+    @Override
+    public void onMessage(Message message)
+    {
+        TextMessage msg = null;
+
+        try
+        {
+            if (message instanceof TextMessage)
+            {
+                handleMessage(((TextMessage) message).getText());
+            }
+            else
+            {
+                System.out.println("Message of wrong type: "
+                        + message.getClass().getName());
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error reading message");
+            e.printStackTrace();
+        }
+    }
+
+    private void handleMessage(String text)
+    {
 
     }
 }

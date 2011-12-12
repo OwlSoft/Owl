@@ -55,9 +55,11 @@ public class OverdueCheckController extends ControllerBase implements Runnable
 
     private void checkForOverdue()
     {
+        System.out.println("Checking overdues");
         IRentalDao dao = DaoManager.getInstance().getRentalDao();
         List<Rental> rentals = dao.getAll();
 
+        int overdues = 0;
         Date now = new Date();
         for (Rental rental : rentals)
         {
@@ -69,8 +71,10 @@ public class OverdueCheckController extends ControllerBase implements Runnable
                     && rental.getEndDate().before(now))
             {
                 notifyOverdue(dao, rental);
+                overdues++;
             }
         }
+        System.out.println("Found and notified " + overdues + " overdues!");
     }
 
     private void notifyOverdue(IRentalDao dao, Rental rental)

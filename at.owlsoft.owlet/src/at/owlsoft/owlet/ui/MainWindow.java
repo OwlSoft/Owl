@@ -209,13 +209,13 @@ public class MainWindow extends Window implements Bindable, MessageListener
                         + AuthenticationController.getInstance()
                                 .getCurrentUser().getUsername());
 
+                updateMessageCount(0);
                 if (AuthenticationController.getInstance().getCurrentUser()
                         .hasRole(IDefaultRoles.OPERATOR))
                 {
                     _notificationButton.setVisible(true);
                     rebindTopic();
                 }
-                updateMessageCount(0);
 
             }
             else
@@ -241,6 +241,7 @@ public class MainWindow extends Window implements Bindable, MessageListener
         _topic = new TopicController(AuthenticationController.getInstance()
                 .getCurrentUser().getUsername());
         _topic.addMessageListener(this);
+        _topic.start();
     }
 
     private void updateMessageCount(int i)

@@ -9,6 +9,7 @@ import at.owlsoft.owl.corbamodel.user.ICorbaRole;
 import at.owlsoft.owl.corbamodel.user.ICorbaRoleHelper;
 import at.owlsoft.owl.corbamodel.user.ICorbaSystemUser;
 import at.owlsoft.owl.corbamodel.user.ICorbaSystemUserHelper;
+import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.user.IRole;
 import at.owlsoft.owl.model.user.ISystemUser;
 
@@ -29,7 +30,15 @@ public class AuthenticationApi extends ICorbaAuthenticationApiPOA
     @Override
     public ICorbaSystemUser login(String userName, String password)
     {
-        ISystemUser user = _controller.login(userName, password);
+        ISystemUser user;
+        try
+        {
+            user = _controller.login(userName, password);
+        }
+        catch (NoPermissionException e1)
+        {
+            user = null;
+        }
         org.omg.CORBA.Object ref;
         try
         {

@@ -53,6 +53,8 @@ public abstract class Activity implements IActivity
     {
         _activityStatusEntries = new ArrayList<ActivityStatusEntry>();
         _UUID = UUID.randomUUID();
+        addActivityStatusEntry(new ActivityStatusEntry(new Date(), this,
+                ActivityStatus.Open));
     }
 
     protected Activity(Date startDate, MediumExemplar mediumExemplar,
@@ -64,6 +66,8 @@ public abstract class Activity implements IActivity
         _customer = customer;
         _creator = creator;
         _UUID = UUID.randomUUID();
+        addActivityStatusEntry(new ActivityStatusEntry(new Date(), this,
+                ActivityStatus.Open));
     }
 
     protected Activity(Date startDate, Medium medium, SystemUser customer,
@@ -75,6 +79,8 @@ public abstract class Activity implements IActivity
         _customer = customer;
         _creator = creator;
         _UUID = UUID.randomUUID();
+        addActivityStatusEntry(new ActivityStatusEntry(new Date(), this,
+                ActivityStatus.Open));
     }
 
     @Override
@@ -125,7 +131,17 @@ public abstract class Activity implements IActivity
 
     public ActivityStatusEntry getLastActivityStatusEntry()
     {
-        return _activityStatusEntries.get(_activityStatusEntries.size() - 1);
+        ActivityStatusEntry status = null;
+        Date smallest = new Date(0);
+        for (ActivityStatusEntry entry : _activityStatusEntries)
+        {
+            if (smallest.before(entry.getDate()))
+            {
+                status = entry;
+                smallest = entry.getDate();
+            }
+        }
+        return status;
     }
 
     @Override

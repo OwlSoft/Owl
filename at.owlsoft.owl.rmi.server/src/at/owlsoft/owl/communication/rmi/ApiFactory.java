@@ -94,4 +94,11 @@ public class ApiFactory extends UnicastRemoteObject implements IApiFactory
     {
         return new AuthenticationApi(this);
     }
+
+    @Override
+    public IMessagingApi createMessagingApi() throws RemoteException
+    {
+        return new MessagingApi(this);
+    }
+
 }

@@ -104,8 +104,7 @@ public class RentalApi extends ICorbaRentalApiPOA
         org.omg.CORBA.Object ref;
         try
         {
-            ref = _factory.getRootPOA().servant_to_reference(
-                    new CorbaSystemUser());
+            ref = _factory.getRootPOA().servant_to_reference(cuser);
             return ICorbaSystemUserHelper.narrow(ref);
         }
         catch (ServantNotActive e)

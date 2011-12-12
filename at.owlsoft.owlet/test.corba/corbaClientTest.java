@@ -1,4 +1,3 @@
-
 import java.util.Date;
 import java.util.UUID;
 
@@ -70,7 +69,7 @@ public class corbaClientTest
         ICorbaAuthenticationApi authenticationApi = _apiFactory
                 .createAuthenticationApi();
 
-        authenticationApi.login("username", "passwort");
+        authenticationApi.login("user", "pass");
 
         Assert.assertEquals(
                 authenticationApi.getRolesForCurrentUser().length > 0, true);
@@ -93,11 +92,11 @@ public class corbaClientTest
         ICorbaMedium[] searchResult = _searchApi.search();
 
         Assert.assertNotNull(searchResult);
-        Assert.assertEquals(searchResult.length >= 1, true);
+        Assert.assertEquals(searchResult.length == 1, true);
 
         _exemplarId = searchResult[0].getMediumExemplars()[0].getExemplarID();
 
-        log4j.debug("Exemplar Id found:" + _exemplarId);
+        log4j.debug("Exemplar Id found: " + _exemplarId);
 
     }
 
@@ -156,7 +155,6 @@ public class corbaClientTest
         rentalApi.setCustomer(0);
 
         ICorbaSystemUser user = systemUserApi.getSystemUserByCardID(0);
-
         for (ICorbaActivity activity : user.getActivities())
         {
             if (activity.getMediumExemplar() != null)

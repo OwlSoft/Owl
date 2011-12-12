@@ -6,12 +6,15 @@ import org.omg.PortableServer.POAPackage.WrongPolicy;
 
 import at.owlsoft.owl.corbamodel.accounting.ICorbaActivityPOA;
 import at.owlsoft.owl.corbamodel.accounting.ICorbaActivityStatusEntry;
+import at.owlsoft.owl.corbamodel.accounting.ICorbaActivityStatusEntryHelper;
 import at.owlsoft.owl.corbamodel.media.ICorbaMedium;
 import at.owlsoft.owl.corbamodel.media.ICorbaMediumExemplar;
+import at.owlsoft.owl.corbamodel.media.ICorbaMediumExemplarHelper;
 import at.owlsoft.owl.corbamodel.media.ICorbaMediumHelper;
 import at.owlsoft.owl.corbamodel.user.ICorbaSystemUser;
 import at.owlsoft.owl.corbamodel.user.ICorbaSystemUserHelper;
 import at.owlsoft.owl.model.accounting.IActivity;
+import at.owlsoft.owl.model.accounting.IActivityStatusEntry;
 
 public class CorbaActivity extends ICorbaActivityPOA
 {
@@ -27,29 +30,69 @@ public class CorbaActivity extends ICorbaActivityPOA
     @Override
     public String getUUID()
     {
-        // TODO Auto-generated method stub
         return _activity.getUUID().toString();
     }
 
     @Override
     public long getStartDate()
     {
-        // TODO Auto-generated method stub
         return _activity.getStartDate().getTime();
     }
 
     @Override
     public ICorbaActivityStatusEntry[] getActivityStatusEntries()
     {
-        // TODO Auto-generated method stub
-        return null;
+        try
+        {
+            ICorbaActivityStatusEntry[] temp = new ICorbaActivityStatusEntry[_activity
+                    .getActivityStatusEntries().size()];
+            int index = 0;
+            for (IActivityStatusEntry ase : _activity
+                    .getActivityStatusEntries())
+            {
+                CorbaActivityStatusEntry cAse = new CorbaActivityStatusEntry();
+                cAse.setActivityStatusEntry(ase);
+                cAse.setRootPOA(_rootPOA);
+                org.omg.CORBA.Object ref = _rootPOA.servant_to_reference(cAse);
+                temp[index] = ICorbaActivityStatusEntryHelper.narrow(ref);
+                index++;
+            }
+            return temp;
+        }
+        catch (ServantNotActive e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        catch (WrongPolicy e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public ICorbaMediumExemplar getMediumExemplar()
     {
-        // TODO Auto-generated method stub
-        return null;
+        try
+        {
+            CorbaMediumExemplare cMediumExemplar = new CorbaMediumExemplare();
+            cMediumExemplar.setMediumExemplare(_activity.getMediumExemplar());
+            cMediumExemplar.setRootPOA(_rootPOA);
+            org.omg.CORBA.Object ref = _rootPOA
+                    .servant_to_reference(cMediumExemplar);
+            return ICorbaMediumExemplarHelper.narrow(ref);
+        }
+        catch (ServantNotActive e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        catch (WrongPolicy e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

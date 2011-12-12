@@ -69,7 +69,7 @@ public class corbaClientTest
         ICorbaAuthenticationApi authenticationApi = _apiFactory
                 .createAuthenticationApi();
 
-        authenticationApi.login("user", "pass");
+        authenticationApi.login("dni7431", "******");
 
         Assert.assertEquals(
                 authenticationApi.getRolesForCurrentUser().length > 0, true);
@@ -110,9 +110,9 @@ public class corbaClientTest
         int cardId = 0;
         ICorbaSystemUserApi systemUserApi = _apiFactory.createSystemUserApi();
 
-        rentalApi.setCustomer(0);
+        rentalApi.setCustomer(cardId);
 
-        ICorbaSystemUser user = systemUserApi.getSystemUserByCardID(0);
+        ICorbaSystemUser user = systemUserApi.getSystemUserByCardID(cardId);
 
         for (ICorbaActivity activity : user.getActivities())
         {
@@ -120,7 +120,14 @@ public class corbaClientTest
             {
                 if (activity.getMediumExemplar().getExemplarID() == _exemplarId)
                 {
-                    rentalApi.returnRental(activity.getUUID());
+                    try
+                    {
+                        rentalApi.returnRental(activity.getUUID());
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -152,9 +159,10 @@ public class corbaClientTest
         int cardId = 0;
         ICorbaSystemUserApi systemUserApi = _apiFactory.createSystemUserApi();
 
-        rentalApi.setCustomer(0);
+        rentalApi.setCustomer(cardId);
 
-        ICorbaSystemUser user = systemUserApi.getSystemUserByCardID(0);
+        ICorbaSystemUser user = systemUserApi.getSystemUserByCardID(cardId);
+
         for (ICorbaActivity activity : user.getActivities())
         {
             if (activity.getMediumExemplar() != null)

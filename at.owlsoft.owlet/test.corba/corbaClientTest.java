@@ -106,7 +106,7 @@ public class corbaClientTest
 
         ICorbaRentalApi rentalApi = _apiFactory.createRentalApi();
         log4j.debug("rental api loaded");
-
+// 
         int cardId = 0;
         ICorbaSystemUserApi systemUserApi = _apiFactory.createSystemUserApi();
 

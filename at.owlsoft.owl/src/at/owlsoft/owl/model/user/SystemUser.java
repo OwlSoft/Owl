@@ -324,23 +324,27 @@ public class SystemUser implements ISystemUser
 
     public SystemUserStatusEntry getLastSystemUserStatusEntry()
     {
-        return _systemUserStatusEntries
-                .get(_systemUserStatusEntries.size() - 1);
-    }
-
-    @Override
-    public SystemUserStatus getCurrentStatus()
-    {
-        SystemUserStatus status = SystemUserStatus.Active;
+        SystemUserStatusEntry status = null;
         Date smallest = new Date(0);
         for (SystemUserStatusEntry entry : _systemUserStatusEntries)
         {
             if (smallest.before(entry.getDate()))
             {
-                status = entry.getSystemUserStatus();
+                status = entry;
                 smallest = entry.getDate();
             }
         }
         return status;
+    }
+
+    @Override
+    public SystemUserStatus getCurrentStatus()
+    {
+        SystemUserStatusEntry latest = getLastSystemUserStatusEntry();
+        if (latest == null)
+        {
+            return SystemUserStatus.Active;
+        }
+        return latest.getSystemUserStatus();
     }
 }

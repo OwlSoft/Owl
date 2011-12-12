@@ -37,8 +37,6 @@ public class Reservation extends Activity implements IReservation
     {
         super(startDate, medium, customer, creator);
         _desiredDuration = desiredDuration;
-        this.addActivityStatusEntry(new ActivityStatusEntry(new Date(), this,
-                ActivityStatus.Open));
     }
 
     @Override

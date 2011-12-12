@@ -63,6 +63,7 @@
 		<TablePane.Row height="-1">
 			<BoxPane orientation="horizontal" styles="{padding: 5, horizontalAlignment:'right', backgroundColor:'#F5F5F5'}">
 				<Label bxml:id="statusLabel" text="Logged Out" />
+				<PushButton bxml:id="notificationButton" buttonData="0 Messages" />
 			</BoxPane>
 		</TablePane.Row>
 		<TablePane.Row height="1*">

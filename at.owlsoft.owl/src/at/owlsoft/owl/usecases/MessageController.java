@@ -19,7 +19,7 @@ import at.owlsoft.owl.model.messaging.MessageState;
 public class MessageController extends ControllerBase
 {
     private TopicProduceController _topicProduceController;
-    private static final String    TOPICNAME = "Topic";
+    private static final String    TOPICNAME = "InfoTopic";
 
     public MessageController(OwlApplicationContext context)
     {

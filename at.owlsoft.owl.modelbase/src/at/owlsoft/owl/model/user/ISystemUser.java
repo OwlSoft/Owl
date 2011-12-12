@@ -54,6 +54,8 @@ public interface ISystemUser extends Serializable
 
     List<? extends IRole> getRoles();
 
+    boolean hasRole(String key);
+
     int getSystemUserTransactionCount();
 
     ISystemUserTransaction getSystemUserTransaction(int index);

@@ -175,7 +175,7 @@ public class corbaClientTest
 
         }
         log4j.debug("extension created");
-
+//
         rentalApi.store();
 
     }

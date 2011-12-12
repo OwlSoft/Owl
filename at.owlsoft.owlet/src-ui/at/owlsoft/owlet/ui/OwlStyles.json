@@ -40,7 +40,7 @@
 	},
 	
 	notificationButtonActive: {
-		color: '#990000'
+		color: '#990000',
 		font: 'Arial bold 12'
 	},
 	

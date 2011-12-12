@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import at.owlsoft.owl.business.AuthenticationController;
+import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.user.IRole;
 import at.owlsoft.owl.model.user.ISystemUser;
 
@@ -27,7 +28,14 @@ public class AuthenticationApi extends ApiBase implements IAuthenticationApi
     public ISystemUser login(String userName, String password)
             throws RemoteException
     {
-        return _controller.login(userName, password);
+        try
+        {
+            return _controller.login(userName, password);
+        }
+        catch (NoPermissionException e)
+        {
+            throw new RemoteException(e.getMessage(), e);
+        }
     }
 
     @Override

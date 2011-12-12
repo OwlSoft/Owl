@@ -1,5 +1,7 @@
 package at.owlsoft.owl.jms;
 
+import java.util.UUID;
+
 import javax.jms.JMSException;
 import javax.jms.TextMessage;
 import javax.jms.TopicPublisher;
@@ -15,7 +17,7 @@ public class TopicProduceController
     public TopicProduceController(String topicName) throws JMSException,
             NamingException
     {
-        _jmsInfo = JmsUtils.GetTopic(topicName, "Producer");
+        _jmsInfo = JmsUtils.GetTopic(topicName, UUID.randomUUID().toString());
         _publisher = _jmsInfo.createPublisher();
     }
 

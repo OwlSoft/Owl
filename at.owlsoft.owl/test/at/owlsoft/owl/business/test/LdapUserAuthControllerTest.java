@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import at.owlsoft.owl.OwlTestSuite;
 import at.owlsoft.owl.business.AuthenticationController;
+import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.user.ISystemUser;
 
 public class LdapUserAuthControllerTest extends OwlTestSuite
@@ -28,11 +29,17 @@ public class LdapUserAuthControllerTest extends OwlTestSuite
         String userName = "";
         String password = "";
 
-        ISystemUser result = _authenticationController
-                .login(userName, password);
+        ISystemUser result;
+        try
+        {
+            result = _authenticationController.login(userName, password);
+            Assert.assertTrue(result != null);
+        }
+        catch (NoPermissionException e)
+        {
+            Assert.assertTrue(e.getMessage(), false);
+        }
 
-        Assert.assertTrue("User " + userName
-                + "was found, password is correct.", result != null);
     }
 
     @Test
@@ -41,9 +48,15 @@ public class LdapUserAuthControllerTest extends OwlTestSuite
         String userName = "nisi";
         String password = "wrongpasswort";
 
-        ISystemUser result = _authenticationController
-                .login(userName, password);
-
-        Assert.assertTrue("User/pw combination was invalid", result == null);
+        ISystemUser result;
+        try
+        {
+            result = _authenticationController.login(userName, password);
+            Assert.assertTrue(result != null);
+        }
+        catch (NoPermissionException e)
+        {
+            Assert.assertTrue(e.getMessage(), false);
+        }
     }
 }

@@ -22,7 +22,6 @@ import org.apache.pivot.wtk.MenuBar;
 import org.apache.pivot.wtk.Prompt;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.Window;
-import org.apache.pivot.wtk.content.ButtonData;
 
 import at.owlsoft.owl.model.IDefaultRoles;
 import at.owlsoft.owl.model.user.IRole;
@@ -246,8 +245,7 @@ public class MainWindow extends Window implements Bindable, MessageListener
 
     private void updateMessageCount(int i)
     {
-        ((ButtonData) _notificationButton.getButtonData()).setText(i
-                + " Messages");
+        _notificationButton.setButtonData(i + " Messages");
         if (i > 0)
         {
             _notificationButton.setStyleName("notificationButtonActive");

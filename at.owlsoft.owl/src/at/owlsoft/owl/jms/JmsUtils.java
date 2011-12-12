@@ -1,5 +1,7 @@
 package at.owlsoft.owl.jms;
 
+import java.util.UUID;
+
 import javax.jms.JMSException;
 import javax.jms.Session;
 import javax.jms.Topic;
@@ -40,14 +42,14 @@ public class JmsUtils
 
         // get topic connection and session
         connection = connectionFactory.createTopicConnection();
-        connection.setClientID(clientId);
+        connection.setClientID(UUID.randomUUID().toString());
         session = connection
                 .createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
 
         // lookup topic and return info
         topic = (Topic) context.lookup(topicName);
 
-        return new JmsInfo(connection, topic, session);
+        return new JmsInfo(connection, topic, session, clientId);
     }
 
     public static class JmsInfo
@@ -55,6 +57,7 @@ public class JmsUtils
         private TopicConnection _connection;
         private Topic           _topic;
         private TopicSession    _session;
+        private String          _clientId;
 
         public TopicConnection getConnection()
         {
@@ -77,12 +80,13 @@ public class JmsUtils
         }
 
         public JmsInfo(TopicConnection connection, Topic topic,
-                TopicSession session)
+                TopicSession session, String clientId)
         {
             super();
             _connection = connection;
             _topic = topic;
             _session = session;
+            _clientId = clientId;
         }
 
         /**
@@ -104,8 +108,7 @@ public class JmsUtils
          */
         public TopicSubscriber createDurableSubscriber() throws JMSException
         {
-            return _session.createDurableSubscriber(_topic, getConnection()
-                    .getClientID());
+            return _session.createDurableSubscriber(_topic, _clientId);
         }
 
         public boolean close()

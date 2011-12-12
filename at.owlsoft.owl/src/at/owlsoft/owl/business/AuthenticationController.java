@@ -70,6 +70,7 @@ public class AuthenticationController extends ControllerBase
     }
 
     public ISystemUser login(String userName, String password)
+            throws NoPermissionException
     {
         String principal = getRdn(userName);
         try
@@ -100,36 +101,29 @@ public class AuthenticationController extends ControllerBase
                         99 + random.nextInt(), userName, "pw", "", userName,
                         userName, null, AccountMode.Ldap);
 
-                _currentUser.addRole(new Role(IDefaultRoles.ADMIN_CONFIG,
-                        IDefaultRoles.ADMIN_CONFIG));
-
-                _currentUser.addRole(new Role(IDefaultRoles.RENTAL_CREATE,
-                        IDefaultRoles.RENTAL_CREATE));
-                _currentUser.addRole(new Role(IDefaultRoles.RENTAL_SHOW,
-                        IDefaultRoles.RENTAL_SHOW));
-                _currentUser.addRole(new Role(IDefaultRoles.RENTAL_EXTEND,
-                        IDefaultRoles.RENTAL_EXTEND));
-
-                _currentUser.addRole(new Role(IDefaultRoles.RESERVATION_CREATE,
-                        IDefaultRoles.RESERVATION_CREATE));
             }
             else
             {
                 _currentUser = users.get(0);
+            }
 
-                // FIXME only for testing !
-                _currentUser.addRole(new Role(IDefaultRoles.ADMIN_CONFIG,
-                        IDefaultRoles.ADMIN_CONFIG));
+            _currentUser.addRole(new Role(IDefaultRoles.ADMIN_CONFIG,
+                    IDefaultRoles.ADMIN_CONFIG));
 
-                _currentUser.addRole(new Role(IDefaultRoles.RENTAL_CREATE,
-                        IDefaultRoles.RENTAL_CREATE));
-                _currentUser.addRole(new Role(IDefaultRoles.RENTAL_SHOW,
-                        IDefaultRoles.RENTAL_SHOW));
-                _currentUser.addRole(new Role(IDefaultRoles.RENTAL_EXTEND,
-                        IDefaultRoles.RENTAL_EXTEND));
+            _currentUser.addRole(new Role(IDefaultRoles.RENTAL_CREATE,
+                    IDefaultRoles.RENTAL_CREATE));
+            _currentUser.addRole(new Role(IDefaultRoles.RENTAL_SHOW,
+                    IDefaultRoles.RENTAL_SHOW));
+            _currentUser.addRole(new Role(IDefaultRoles.RENTAL_EXTEND,
+                    IDefaultRoles.RENTAL_EXTEND));
 
-                _currentUser.addRole(new Role(IDefaultRoles.RESERVATION_CREATE,
-                        IDefaultRoles.RESERVATION_CREATE));
+            _currentUser.addRole(new Role(IDefaultRoles.RESERVATION_CREATE,
+                    IDefaultRoles.RESERVATION_CREATE));
+
+            if (_currentUser.getUsername().contains("d"))
+            {
+                _currentUser.addRole(new Role(IDefaultRoles.OPERATOR,
+                        IDefaultRoles.OPERATOR));
             }
 
             return _currentUser;
@@ -137,7 +131,7 @@ public class AuthenticationController extends ControllerBase
         catch (NamingException e)
         {
             // Authentication failed
-            return null;
+            throw new NoPermissionException("Username or password wrong");
         }
     }
 

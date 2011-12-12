@@ -37,6 +37,13 @@
 	
 	fatLabel: {
 		font: 'Arial bold 12'
+	},
+	
+	notificationButtonActive: {
+		color: '#990000'
+		font: 'Arial bold 12'
+	},
+	
+	notificationButtonInactive: {
 	}
-
 }

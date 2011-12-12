@@ -30,6 +30,7 @@ import at.owlsoft.owlet.RoleAction;
 import at.owlsoft.owlet.context.RmiContext;
 import at.owlsoft.owlet.controller.AuthenticationController;
 import at.owlsoft.owlet.controller.TopicController;
+import at.owlsoft.owlet.viewmodel.MessagingViewModel;
 
 public class MainWindow extends Window implements Bindable, MessageListener
 {
@@ -247,13 +248,19 @@ public class MainWindow extends Window implements Bindable, MessageListener
     {
         ((ButtonData) _notificationButton.getButtonData()).setText(i
                 + " Messages");
+        if (i > 0)
+        {
+            _notificationButton.setStyleName("notificationButtonActive");
+        }
+        else
+        {
+            _notificationButton.setStyleName("notificationButtonInactive");
+        }
     }
 
     @Override
     public void onMessage(Message message)
     {
-        TextMessage msg = null;
-
         try
         {
             if (message instanceof TextMessage)
@@ -275,6 +282,7 @@ public class MainWindow extends Window implements Bindable, MessageListener
 
     private void handleMessage(String text)
     {
-
+        MessagingViewModel.getInstance().refresh();
+        updateMessageCount(MessagingViewModel.getInstance().countMessages());
     }
 }

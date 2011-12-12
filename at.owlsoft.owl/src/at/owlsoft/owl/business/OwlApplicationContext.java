@@ -3,6 +3,7 @@ package at.owlsoft.owl.business;
 import at.owlsoft.owl.usecases.ExtensionController;
 import at.owlsoft.owl.usecases.MediumExemplarSearchController;
 import at.owlsoft.owl.usecases.MediumSearchController;
+import at.owlsoft.owl.usecases.MessageController;
 import at.owlsoft.owl.usecases.RentalController;
 import at.owlsoft.owl.usecases.ReservationController;
 import at.owlsoft.owl.usecases.ReturnController;
@@ -144,5 +145,27 @@ public class OwlApplicationContext
             _authenticationController = new AuthenticationController(this);
         }
         return _authenticationController;
+    }
+
+    private MessageController _messageController;
+
+    public MessageController getMessageController()
+    {
+        if (_messageController == null)
+        {
+            _messageController = new MessageController(this);
+        }
+        return _messageController;
+    }
+
+    private OverdueCheckController _overdueCheckController;
+
+    public OverdueCheckController getOverdueCheckController()
+    {
+        if (_overdueCheckController == null)
+        {
+            _overdueCheckController = new OverdueCheckController(this);
+        }
+        return _overdueCheckController;
     }
 }

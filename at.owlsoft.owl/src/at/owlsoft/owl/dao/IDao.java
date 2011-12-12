@@ -7,6 +7,7 @@ import at.owlsoft.owl.model.SearchField;
 
 public interface IDao<T>
 {
+    List<T> getAll();
 
     public abstract void delete(T object);
 

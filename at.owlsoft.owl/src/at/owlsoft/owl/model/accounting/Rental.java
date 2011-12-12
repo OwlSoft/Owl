@@ -92,4 +92,5 @@ public class Rental extends Activity implements IRental
         c.add(Calendar.DATE, days);
         setEndDate(c.getTime());
     }
+
 }

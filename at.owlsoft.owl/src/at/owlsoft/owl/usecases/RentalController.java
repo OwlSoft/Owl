@@ -16,6 +16,7 @@ import at.owlsoft.owl.model.media.Medium;
 import at.owlsoft.owl.model.media.MediumExemplar;
 import at.owlsoft.owl.model.media.MediumExemplarStatus;
 import at.owlsoft.owl.model.media.MediumExemplarStatusEntry;
+import at.owlsoft.owl.model.messaging.NewExternalRentalMessage;
 import at.owlsoft.owl.model.user.SystemUser;
 import at.owlsoft.owl.model.user.SystemUserStatus;
 import at.owlsoft.owl.validation.ValidationMessage;
@@ -190,7 +191,19 @@ public class RentalController extends ControllerBase
         {
             saveRental();
         }
+        if (_rental.getCustomer().hasRole(IDefaultRoles.EXTERNAL_USER))
+        {
+            notifyExternalRental(_rental);
+        }
+
         return _messages;
+    }
+
+    private void notifyExternalRental(Rental rental)
+    {
+        NewExternalRentalMessage rentalMessage = new NewExternalRentalMessage(
+                rental);
+        getContext().getMessageController().addMessage(rentalMessage);
     }
 
     private void saveRental()

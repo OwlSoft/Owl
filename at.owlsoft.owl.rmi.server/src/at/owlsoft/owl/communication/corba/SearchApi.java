@@ -127,12 +127,18 @@ public class SearchApi extends ICorbaSearchApiPOA
     @Override
     public void setSearchFieldData(String uniqueId, String key, String value)
     {
-        SearchField field = _searchFields.get(UUID.fromString(uniqueId));
+        UUID uuid = UUID.fromString(uniqueId);
+        SearchField field = _searchFields.get(uuid);
 
         if (field != null)
         {
             field.setKey(key);
             field.setValue(value);
+        }
+        else
+        {
+            field = new SearchField(key, value, SearchFieldType.Equals);
+            _searchFields.put(uuid, field);
         }
         dump();
 

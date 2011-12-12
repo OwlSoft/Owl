@@ -1,4 +1,3 @@
-
 import java.util.Date;
 import java.util.UUID;
 
@@ -55,15 +54,7 @@ public class corbaClientTest
 
             Assert.assertNotNull(_apiFactory);
 
-            ICorbaAuthenticationApi authenticationApi = _apiFactory
-                    .createAuthenticationApi();
-
-            authenticationApi.login("dni7431", "landeclc");
-
-            Assert.assertEquals(
-                    authenticationApi.getRolesForCurrentUser().length > 0, true);
-
-            log4j.debug("user authenticated");
+            authenticate();
 
         }
         catch (Exception e)
@@ -71,6 +62,19 @@ public class corbaClientTest
             e.printStackTrace();
             Assert.assertFalse("Exception " + e.getClass() + " thrown", true);
         }
+    }
+
+    public void authenticate()
+    {
+        ICorbaAuthenticationApi authenticationApi = _apiFactory
+                .createAuthenticationApi();
+
+        authenticationApi.login("user", "pass");
+
+        Assert.assertEquals(
+                authenticationApi.getRolesForCurrentUser().length > 0, true);
+
+        log4j.debug("user authenticated");
     }
 
     private int _exemplarId;
@@ -88,11 +92,11 @@ public class corbaClientTest
         ICorbaMedium[] searchResult = _searchApi.search();
 
         Assert.assertNotNull(searchResult);
-        Assert.assertEquals(searchResult.length >= 1, true);
+        Assert.assertEquals(searchResult.length == 1, true);
 
         _exemplarId = searchResult[0].getMediumExemplars()[0].getExemplarID();
 
-        log4j.debug("Exemplar Id found:" + _exemplarId);
+        log4j.debug("Exemplar Id found: " + _exemplarId);
 
     }
 

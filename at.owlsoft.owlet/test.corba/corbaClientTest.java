@@ -69,7 +69,11 @@ public class corbaClientTest
         ICorbaAuthenticationApi authenticationApi = _apiFactory
                 .createAuthenticationApi();
 
+<<<<<<< HEAD
         authenticationApi.login("user", "password");
+=======
+        authenticationApi.login("dni7431", "landeclc");
+>>>>>>> branch 'master' of git@github.com:OwlSoft/Owl.git
 
         Assert.assertEquals(
                 authenticationApi.getRolesForCurrentUser().length > 0, true);
@@ -110,9 +114,9 @@ public class corbaClientTest
         int cardId = 0;
         ICorbaSystemUserApi systemUserApi = _apiFactory.createSystemUserApi();
 
-        rentalApi.setCustomer(0);
+        rentalApi.setCustomer(cardId);
 
-        ICorbaSystemUser user = systemUserApi.getSystemUserByCardID(0);
+        ICorbaSystemUser user = systemUserApi.getSystemUserByCardID(cardId);
 
         for (ICorbaActivity activity : user.getActivities())
         {
@@ -120,7 +124,14 @@ public class corbaClientTest
             {
                 if (activity.getMediumExemplar().getExemplarID() == _exemplarId)
                 {
-                    rentalApi.returnRental(activity.getUUID());
+                    try
+                    {
+                        rentalApi.returnRental(activity.getUUID());
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -153,9 +164,9 @@ public class corbaClientTest
         int cardId = 0;
         ICorbaSystemUserApi systemUserApi = _apiFactory.createSystemUserApi();
 
-        rentalApi.setCustomer(0);
+        rentalApi.setCustomer(cardId);
 
-        ICorbaSystemUser user = systemUserApi.getSystemUserByCardID(0);
+        ICorbaSystemUser user = systemUserApi.getSystemUserByCardID(cardId);
 
         for (ICorbaActivity activity : user.getActivities())
         {

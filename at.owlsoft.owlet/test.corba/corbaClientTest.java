@@ -69,7 +69,7 @@ public class corbaClientTest
         ICorbaAuthenticationApi authenticationApi = _apiFactory
                 .createAuthenticationApi();
 
-        authenticationApi.login("user", "pass");
+        authenticationApi.login("user", "password");
 
         Assert.assertEquals(
                 authenticationApi.getRolesForCurrentUser().length > 0, true);
@@ -140,6 +140,7 @@ public class corbaClientTest
         log4j.debug("rent book for user:" + rental.getCustomer().getFirstName()
                 + " " + rental.getCustomer().getLastName() + "End Date: "
                 + rental.getEndDate());
+        Assert.assertEquals(false, false);
 
     }
 

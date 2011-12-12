@@ -1,15 +1,23 @@
 package at.owlsoft.owlet.viewmodel;
 
+import java.util.UUID;
+
 import org.apache.pivot.collections.ArrayList;
 
 import at.owlsoft.owl.model.messaging.IMessage;
+import at.owlsoft.owl.model.messaging.MessageState;
 
 public class MessagingViewModel
 {
 
     private static MessagingViewModel _instance;
 
-    public MessagingViewModel getInstance()
+    public MessagingViewModel()
+    {
+
+    }
+
+    public static MessagingViewModel getInstance()
     {
         if (_instance == null)
         {
@@ -30,7 +38,18 @@ public class MessagingViewModel
         return null;
     }
 
-    public void markMessage()
+    public void markMessage(MessageState state, IMessage message)
+    {
+        markMessage(state, message.getMessageId());
+
+    }
+
+    public void markMessage(MessageState state, UUID message)
+    {
+
+    }
+
+    public void refresh()
     {
 
     }

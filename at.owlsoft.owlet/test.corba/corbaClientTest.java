@@ -17,6 +17,7 @@ import at.owlsoft.owl.communication.corba.ICorbaAuthenticationApi;
 import at.owlsoft.owl.communication.corba.ICorbaRentalApi;
 import at.owlsoft.owl.communication.corba.ICorbaSearchApi;
 import at.owlsoft.owl.communication.corba.ICorbaSystemUserApi;
+import at.owlsoft.owl.corbamodel.accounting.CorbaActivityStatus;
 import at.owlsoft.owl.corbamodel.accounting.ICorbaActivity;
 import at.owlsoft.owl.corbamodel.accounting.ICorbaRental;
 import at.owlsoft.owl.corbamodel.media.ICorbaMedium;
@@ -180,8 +181,14 @@ public class corbaClientTest
 
         }
         log4j.debug("extension created");
-        //
+
         rentalApi.store();
+
+        ICorbaRental rental = rentalApi.getRental();
+
+        Assert.assertEquals(
+                rental.getActivityStatusEntries()[0].getActivityStatus(),
+                CorbaActivityStatus.Open);
 
     }
 }

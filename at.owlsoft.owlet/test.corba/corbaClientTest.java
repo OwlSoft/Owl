@@ -69,7 +69,7 @@ public class corbaClientTest
         ICorbaAuthenticationApi authenticationApi = _apiFactory
                 .createAuthenticationApi();
 
-        authenticationApi.login("dni7431", "landeclc");
+        authenticationApi.login("dni7431", "******");
 
         Assert.assertEquals(
                 authenticationApi.getRolesForCurrentUser().length > 0, true);
@@ -106,7 +106,7 @@ public class corbaClientTest
 
         ICorbaRentalApi rentalApi = _apiFactory.createRentalApi();
         log4j.debug("rental api loaded");
-
+        //
         int cardId = 0;
         ICorbaSystemUserApi systemUserApi = _apiFactory.createSystemUserApi();
 
@@ -175,7 +175,7 @@ public class corbaClientTest
 
         }
         log4j.debug("extension created");
-
+        //
         rentalApi.store();
 
     }

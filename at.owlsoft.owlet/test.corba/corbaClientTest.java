@@ -20,6 +20,7 @@ import at.owlsoft.owl.communication.corba.ICorbaSystemUserApi;
 import at.owlsoft.owl.corbamodel.accounting.ICorbaActivity;
 import at.owlsoft.owl.corbamodel.accounting.ICorbaRental;
 import at.owlsoft.owl.corbamodel.media.ICorbaMedium;
+import at.owlsoft.owl.corbamodel.media.ICorbaMediumExemplar;
 import at.owlsoft.owl.corbamodel.user.ICorbaSystemUser;
 
 public class corbaClientTest
@@ -69,7 +70,8 @@ public class corbaClientTest
         ICorbaAuthenticationApi authenticationApi = _apiFactory
                 .createAuthenticationApi();
 
-        authenticationApi.login("dni7431", "******");
+        authenticationApi.login(AuthenticationModule.getUserName(),
+                AuthenticationModule.getPassword());
 
         Assert.assertEquals(
                 authenticationApi.getRolesForCurrentUser().length > 0, true);
@@ -116,7 +118,8 @@ public class corbaClientTest
 
         for (ICorbaActivity activity : user.getActivities())
         {
-            if (activity.getMediumExemplar() != null)
+            ICorbaMediumExemplar copy = activity.getMediumExemplar();
+            if (copy != null)
             {
                 if (activity.getMediumExemplar().getExemplarID() == _exemplarId)
                 {
@@ -133,8 +136,8 @@ public class corbaClientTest
         }
 
         rentalApi.newRental();
-        rentalApi.setCustomer(0);
-        rentalApi.setMediumExemplar(0);
+        rentalApi.setCustomer(cardId);
+        rentalApi.setMediumExemplar(_exemplarId);
         rentalApi.setStartDate(new Date().getTime());
         rentalApi.getRental();
 

@@ -76,6 +76,10 @@ public class CorbaActivity extends ICorbaActivityPOA
     {
         try
         {
+            if (_activity.getMediumExemplar() == null)
+            {
+                return null;
+            }
             CorbaMediumExemplare cMediumExemplar = new CorbaMediumExemplare();
             cMediumExemplar.setMediumExemplare(_activity.getMediumExemplar());
             cMediumExemplar.setRootPOA(_rootPOA);

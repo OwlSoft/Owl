@@ -189,11 +189,13 @@ public class RentalController extends ControllerBase
         }
         if (validate(ValidationMode.Strict))
         {
+
             saveRental();
-        }
-        if (_rental.getCustomer().hasRole(IDefaultRoles.EXTERNAL_USER))
-        {
-            notifyExternalRental(_rental);
+            if (_rental.getCustomer().hasRole(IDefaultRoles.EXTERNAL_USER))
+            {
+                notifyExternalRental(_rental);
+            }
+            // _rental = null;
         }
 
         return _messages;
@@ -214,7 +216,6 @@ public class RentalController extends ControllerBase
         _rental.addActivityStatusEntry(ase);
         DaoManager.getInstance().getRentalDao().store(_rental);
         updateMediumExemplar();
-        _rental = null;
     }
 
     private void updateMediumExemplar()

@@ -4,7 +4,7 @@ import java.util.UUID;
 import junit.framework.Assert;
 
 import org.apache.log4j.Logger;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
@@ -26,12 +26,12 @@ import at.owlsoft.owl.corbamodel.user.ICorbaSystemUser;
 public class corbaClientTest
 {
 
-    Logger           log4j = Logger.getLogger(corbaClientTest.class);
+    static Logger           log4j = Logger.getLogger(corbaClientTest.class);
 
-    ICorbaApiFactory _apiFactory;
+    static ICorbaApiFactory _apiFactory;
 
-    @Before
-    public void preTest()
+    @BeforeClass
+    public static void preTest()
     {
         try
         {
@@ -65,7 +65,7 @@ public class corbaClientTest
         }
     }
 
-    public void authenticate()
+    public static void authenticate()
     {
         ICorbaAuthenticationApi authenticationApi = _apiFactory
                 .createAuthenticationApi();
@@ -151,6 +151,8 @@ public class corbaClientTest
                 + " " + rental.getCustomer().getLastName() + "End Date: "
                 + rental.getEndDate());
 
+        Assert.assertNotNull(rental.getCustomer());
+        Assert.assertNotNull(rental.getEndDate());
     }
 
     @Test

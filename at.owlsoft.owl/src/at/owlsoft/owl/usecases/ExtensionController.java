@@ -12,9 +12,13 @@ import at.owlsoft.owl.model.IDefaultRoles;
 import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.SearchField;
 import at.owlsoft.owl.model.SearchFieldType;
+import at.owlsoft.owl.model.accounting.Activity;
+import at.owlsoft.owl.model.accounting.ActivityStatus;
 import at.owlsoft.owl.model.accounting.FilingExtension;
 import at.owlsoft.owl.model.accounting.Rental;
+import at.owlsoft.owl.model.accounting.Reservation;
 import at.owlsoft.owl.model.media.MediumExemplar;
+import at.owlsoft.owl.model.media.MediumExemplarStatus;
 import at.owlsoft.owl.model.user.SystemUserStatus;
 import at.owlsoft.owl.validation.ValidationMessage;
 import at.owlsoft.owl.validation.ValidationMessageStatus;
@@ -96,6 +100,37 @@ public class ExtensionController extends ControllerBase
                     ValidationMessageStatus.Warning));
         }
 
+        // check for open reservations
+        List<Activity> activities = rental.getMedium().getActivities();
+        int reservationCount = 0;
+        int rentableCopies = 0;
+        for (Activity activity : activities)
+        {
+            if (activity instanceof Reservation)
+            {
+                Reservation reservation = (Reservation) activity;
+                if (reservation.getCurrentStatus().equals(ActivityStatus.Open))
+                {
+                    reservationCount++;
+                }
+
+            }
+        }
+        // count rentable copies
+        List<MediumExemplar> copies = rental.getMedium().getMediumExemplars();
+        for (MediumExemplar copy : copies)
+        {
+            if (copy.getCurrentState().equals(MediumExemplarStatus.Rentable))
+            {
+                rentableCopies++;
+            }
+        }
+        if (reservationCount > rentableCopies)
+        {
+            _messages.add(new ValidationMessage(
+                    "Not enough rentable copies for reservations.",
+                    ValidationMessageStatus.Warning));
+        }
         return hasNoError;
 
     }

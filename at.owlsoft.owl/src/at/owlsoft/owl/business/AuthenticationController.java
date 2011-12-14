@@ -18,12 +18,7 @@ package at.owlsoft.owl.business;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import java.util.Random;
-
-import javax.naming.Context;
-import javax.naming.NamingException;
-import javax.naming.directory.InitialDirContext;
 
 import at.owlsoft.owl.model.IDefaultRoles;
 import at.owlsoft.owl.model.NoPermissionException;
@@ -78,16 +73,16 @@ public class AuthenticationController extends ControllerBase
 
             // TODO Put properties into jndi.properties file - didn't work at
             // first
-            Properties env = new Properties();
-            env.put(Context.INITIAL_CONTEXT_FACTORY,
-                    "com.sun.jndi.ldap.LdapCtxFactory");
-            env.put(Context.PROVIDER_URL, "ldaps://ldap.fhv.at:636");
-            env.put(Context.SECURITY_AUTHENTICATION, "simple");
-            env.put(Context.SECURITY_PRINCIPAL, principal);
-            env.put(Context.SECURITY_CREDENTIALS, password);
-
-            InitialDirContext ctx = new InitialDirContext(env);
-            ctx.close();
+            // Properties env = new Properties();
+            // env.put(Context.INITIAL_CONTEXT_FACTORY,
+            // "com.sun.jndi.ldap.LdapCtxFactory");
+            // env.put(Context.PROVIDER_URL, "ldaps://ldap.fhv.at:636");
+            // env.put(Context.SECURITY_AUTHENTICATION, "simple");
+            // env.put(Context.SECURITY_PRINCIPAL, principal);
+            // env.put(Context.SECURITY_CREDENTIALS, password);
+            //
+            // InitialDirContext ctx = new InitialDirContext(env);
+            // ctx.close();
             // TODO dirty fix
             List<SearchField> search = new ArrayList<SearchField>();
             search.add(new SearchField("_username", userName,
@@ -128,7 +123,7 @@ public class AuthenticationController extends ControllerBase
 
             return _currentUser;
         }
-        catch (NamingException e)
+        catch (Exception e)
         {
             // Authentication failed
             throw new NoPermissionException("Username or password wrong");

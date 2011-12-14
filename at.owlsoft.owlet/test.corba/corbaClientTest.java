@@ -4,7 +4,7 @@ import java.util.UUID;
 import junit.framework.Assert;
 
 import org.apache.log4j.Logger;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
@@ -17,20 +17,22 @@ import at.owlsoft.owl.communication.corba.ICorbaAuthenticationApi;
 import at.owlsoft.owl.communication.corba.ICorbaRentalApi;
 import at.owlsoft.owl.communication.corba.ICorbaSearchApi;
 import at.owlsoft.owl.communication.corba.ICorbaSystemUserApi;
+import at.owlsoft.owl.corbamodel.accounting.CorbaActivityStatus;
 import at.owlsoft.owl.corbamodel.accounting.ICorbaActivity;
 import at.owlsoft.owl.corbamodel.accounting.ICorbaRental;
 import at.owlsoft.owl.corbamodel.media.ICorbaMedium;
+import at.owlsoft.owl.corbamodel.media.ICorbaMediumExemplar;
 import at.owlsoft.owl.corbamodel.user.ICorbaSystemUser;
 
 public class corbaClientTest
 {
 
-    Logger           log4j = Logger.getLogger(corbaClientTest.class);
+    static Logger           log4j = Logger.getLogger(corbaClientTest.class);
 
-    ICorbaApiFactory _apiFactory;
+    static ICorbaApiFactory _apiFactory;
 
-    @Before
-    public void preTest()
+    @BeforeClass
+    public static void preTest()
     {
         try
         {
@@ -64,16 +66,13 @@ public class corbaClientTest
         }
     }
 
-    public void authenticate()
+    public static void authenticate()
     {
         ICorbaAuthenticationApi authenticationApi = _apiFactory
                 .createAuthenticationApi();
 
-<<<<<<< HEAD
-        authenticationApi.login("user", "password");
-=======
-        authenticationApi.login("dni7431", "landeclc");
->>>>>>> branch 'master' of git@github.com:OwlSoft/Owl.git
+        authenticationApi.login(AuthenticationModule.getUserName(),
+                AuthenticationModule.getPassword());
 
         Assert.assertEquals(
                 authenticationApi.getRolesForCurrentUser().length > 0, true);
@@ -110,7 +109,7 @@ public class corbaClientTest
 
         ICorbaRentalApi rentalApi = _apiFactory.createRentalApi();
         log4j.debug("rental api loaded");
-
+        //
         int cardId = 0;
         ICorbaSystemUserApi systemUserApi = _apiFactory.createSystemUserApi();
 
@@ -120,7 +119,8 @@ public class corbaClientTest
 
         for (ICorbaActivity activity : user.getActivities())
         {
-            if (activity.getMediumExemplar() != null)
+            ICorbaMediumExemplar copy = activity.getMediumExemplar();
+            if (copy != null)
             {
                 if (activity.getMediumExemplar().getExemplarID() == _exemplarId)
                 {
@@ -137,8 +137,8 @@ public class corbaClientTest
         }
 
         rentalApi.newRental();
-        rentalApi.setCustomer(0);
-        rentalApi.setMediumExemplar(0);
+        rentalApi.setCustomer(cardId);
+        rentalApi.setMediumExemplar(_exemplarId);
         rentalApi.setStartDate(new Date().getTime());
         rentalApi.getRental();
 
@@ -151,8 +151,9 @@ public class corbaClientTest
         log4j.debug("rent book for user:" + rental.getCustomer().getFirstName()
                 + " " + rental.getCustomer().getLastName() + "End Date: "
                 + rental.getEndDate());
-        Assert.assertEquals(false, false);
 
+        Assert.assertNotNull(rental.getCustomer());
+        Assert.assertNotNull(rental.getEndDate());
     }
 
     @Test
@@ -182,6 +183,12 @@ public class corbaClientTest
         log4j.debug("extension created");
 
         rentalApi.store();
+
+        ICorbaRental rental = rentalApi.getRental();
+
+        Assert.assertEquals(
+                rental.getActivityStatusEntries()[0].getActivityStatus(),
+                CorbaActivityStatus.Open);
 
     }
 }

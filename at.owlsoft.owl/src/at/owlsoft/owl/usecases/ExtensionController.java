@@ -125,7 +125,8 @@ public class ExtensionController extends ControllerBase
                 rentableCopies++;
             }
         }
-        if (reservationCount > rentableCopies)
+        // check wether there are more reservations than rentable copies
+        if (reservationCount >= rentableCopies)
         {
             _messages.add(new ValidationMessage(
                     "Not enough rentable copies for reservations.",

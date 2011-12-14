@@ -1,0 +1,39 @@
+<owlet:ShowMessagesView xmlns:bxml="http://pivot.apache.org/bxml"
+	xmlns:owlet="at.owlsoft.owlet.ui" xmlns:content="org.apache.pivot.wtk.content"
+	xmlns:collections="org.apache.pivot.collections" xmlns="org.apache.pivot.wtk"
+	styles="{fill:true}">
+	<TablePane>
+		<columns>
+			<TablePane.Column width="1*" />
+		</columns>
+		<TablePane.Row height="1*">
+			<Border>
+				<ScrollPane horizontalScrollBarPolicy="fill">
+					<TableView bxml:id="messageView">
+						<columns>
+							<TableView.Column name="insertDate" width="100"
+								headerData="Date" />
+							<TableView.Column name="state" width="150"
+								headerData="State" />
+							<TableView.Column name="displayString" width="150"
+								headerData="Message" />
+							<TableView.Column name="eventType" width="150"
+								headerData="Type" />
+						</columns>
+					</TableView>
+					<columnHeader>
+						<TableViewHeader tableView="$messageView" />
+					</columnHeader>
+				</ScrollPane>
+			</Border>
+		</TablePane.Row>
+		<TablePane.Row height="1*">
+			<PushButton buttonData="Mark selected Message as 'processing'"
+				bxml:id="updateStateButton" />
+		</TablePane.Row>
+		<TablePane.Row height="1*">
+			<PushButton buttonData="Refresh"
+				bxml:id="refreshButton" />
+		</TablePane.Row>
+	</TablePane>
+</owlet:ShowMessagesView>

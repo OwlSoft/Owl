@@ -47,16 +47,16 @@ public class TestDataBaseConstructor
         // create active test customer
         calendar.set(1990, 0, 1);
         Date birthday = calendar.getTime();
-        SystemUser userZero = new SystemUser(0, 0, "user", "password",
-                "max@mustermann.at", "Max", "Mustermann", birthday,
+        SystemUser userZero = new SystemUser(0, 0, "max.mustermann",
+                "password", "max@mustermann.at", "Max", "Mustermann", birthday,
                 AccountMode.Ldap);
 
         // create inactive test customer
         calendar.set(1990, 0, 1);
         birthday = calendar.getTime();
-        SystemUser userOne = new SystemUser(1, 1, "user", "password",
-                "maria@musterfrau.at", "Maria", "Musterfrau", birthday,
-                AccountMode.Ldap);
+        SystemUser userOne = new SystemUser(1, 1, "maria.musterfrau",
+                "password", "maria@musterfrau.at", "Maria", "Musterfrau",
+                birthday, AccountMode.Ldap);
         userOne.addSystemUserStatusEntry(new SystemUserStatusEntry(new Date(),
                 "INACTIVE", SystemUserStatus.InactiveBecauseMembershipFee, null));
 

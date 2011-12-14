@@ -1,5 +1,6 @@
 package at.owlsoft.owl.communication.rmi;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.UUID;
@@ -10,7 +11,7 @@ import at.owlsoft.owl.model.messaging.MessageState;
 /**
  * This api allows access to messages which should be processed
  */
-public interface IMessagingApi
+public interface IMessagingApi extends Remote
 {
     public List<IMessage> getOpenMessages() throws RemoteException;
 

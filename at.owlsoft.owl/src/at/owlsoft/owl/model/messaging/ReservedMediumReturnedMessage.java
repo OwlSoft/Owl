@@ -17,7 +17,7 @@ public class ReservedMediumReturnedMessage extends Message
                 + _returnedRental.getMediumExemplar().getMedium().getName()
                 + "' was returned by '"
                 + _returnedRental.getCustomer().getUsername() + "'"
-                + ", the user '" + _reservation.getCustomer()
+                + ", the user '" + _reservation.getCustomer().getUsername()
                 + "' has reserved it, notify him!";
     }
 

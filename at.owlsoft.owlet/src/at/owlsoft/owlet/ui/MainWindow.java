@@ -15,6 +15,8 @@ import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Action;
 import org.apache.pivot.wtk.BoxPane;
+import org.apache.pivot.wtk.Button;
+import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.Menu.Section;
@@ -165,6 +167,16 @@ public class MainWindow extends Window implements Bindable, MessageListener
         _statusLabel = (Label) ns.get("statusLabel");
         _notificationButton = (PushButton) ns.get("notificationButton");
         _notificationButton.setVisible(false);
+        _notificationButton.getButtonPressListeners().add(
+                new ButtonPressListener()
+                {
+                    @Override
+                    public void buttonPressed(Button b)
+                    {
+                        ViewController.getInstance().loadContent(
+                                "ShowMessagesView", getWindow());
+                    }
+                });
 
         updateViewRoles();
         ViewController.getInstance().loadContent("DashboardView", this);
@@ -242,6 +254,7 @@ public class MainWindow extends Window implements Bindable, MessageListener
                 .getCurrentUser().getUsername());
         _topic.addMessageListener(this);
         _topic.start();
+        handleMessage("TEST");
     }
 
     private void updateMessageCount(int i)

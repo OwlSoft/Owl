@@ -1,7 +1,9 @@
 <owlet:MainWindow 
 	xmlns:bxml="http://pivot.apache.org/bxml"
 	xmlns:owlet="at.owlsoft.owlet.ui" maximized="true" xmlns:content="org.apache.pivot.wtk.content"
-	xmlns="org.apache.pivot.wtk">
+	xmlns="org.apache.pivot.wtk"
+	xmlns:wtk="org.apache.pivot.wtk"
+	>
 	
 	<TablePane>
 		<columns>

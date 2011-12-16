@@ -1,6 +1,8 @@
 <owlet:CreateRentalView xmlns:bxml="http://pivot.apache.org/bxml"
 	xmlns:owlet="at.owlsoft.owlet.ui" xmlns:content="org.apache.pivot.wtk.content"
-	xmlns:collections="org.apache.pivot.collections" xmlns="org.apache.pivot.wtk">
+	xmlns:collections="org.apache.pivot.collections" xmlns="org.apache.pivot.wtk"
+	xmlns:wtk="org.apache.pivot.wtk"
+	>
 	<Form styles="{fill: true}">
 		<Form.Section heading="Setup">
 
@@ -28,37 +30,37 @@
 					</PushButton>
 				</TablePane.Row>
 				<TablePane.Row height="25">
-					<Label bxml:id="cardIDLabel" TablePane.columnSpan="2" />
+					<Label bxml:id="cardIDLabel" wtk:TablePane.columnSpan="2" />
 					<TablePane.Filler />
-					<Label bxml:id="exemplarIDLabel" TablePane.columnSpan="2" />
-					<TablePane.Filler />
-				</TablePane.Row>
-				<TablePane.Row height="25">
-					<Label bxml:id="customerNameLabel" TablePane.columnSpan="2" />
-					<TablePane.Filler />
-					<Label bxml:id="exemplarTitleLabel" TablePane.columnSpan="2" />
+					<Label bxml:id="exemplarIDLabel" wtk:TablePane.columnSpan="2" />
 					<TablePane.Filler />
 				</TablePane.Row>
 				<TablePane.Row height="25">
-					<Label bxml:id="customerStateLabel" TablePane.columnSpan="2" />
+					<Label bxml:id="customerNameLabel" wtk:TablePane.columnSpan="2" />
 					<TablePane.Filler />
-					<Label bxml:id="exemplarStateLabel" TablePane.columnSpan="2" />
-					<TablePane.Filler />
-				</TablePane.Row>
-				<TablePane.Row height="25">
-					<Label text="Start Date" TablePane.columnSpan="2" styleName="fatLabel"  />
-					<TablePane.Filler />
-					<Label text="End Date" TablePane.columnSpan="2" styleName="fatLabel"  />
+					<Label bxml:id="exemplarTitleLabel" wtk:TablePane.columnSpan="2" />
 					<TablePane.Filler />
 				</TablePane.Row>
 				<TablePane.Row height="25">
-					<CalendarButton TablePane.columnSpan="2" bxml:id="startDate" />
+					<Label bxml:id="customerStateLabel" wtk:TablePane.columnSpan="2" />
 					<TablePane.Filler />
-					<Label TablePane.columnSpan="2" text="End Date" bxml:id="endDate" />
+					<Label bxml:id="exemplarStateLabel" wtk:TablePane.columnSpan="2" />
 					<TablePane.Filler />
 				</TablePane.Row>
 				<TablePane.Row height="25">
-					<Label TablePane.columnSpan="2" text="Duration" bxml:id="duration" />
+					<Label text="Start Date" wtk:TablePane.columnSpan="2" styleName="fatLabel"  />
+					<TablePane.Filler />
+					<Label text="End Date" wtk:TablePane.columnSpan="2" styleName="fatLabel"  />
+					<TablePane.Filler />
+				</TablePane.Row>
+				<TablePane.Row height="25">
+					<CalendarButton wtk:TablePane.columnSpan="2" bxml:id="startDate" />
+					<TablePane.Filler />
+					<Label wtk:TablePane.columnSpan="2" text="End Date" bxml:id="endDate" />
+					<TablePane.Filler />
+				</TablePane.Row>
+				<TablePane.Row height="25">
+					<Label wtk:TablePane.columnSpan="2" text="Duration" bxml:id="duration" />
 				</TablePane.Row>
 			</TablePane>
 		</Form.Section>

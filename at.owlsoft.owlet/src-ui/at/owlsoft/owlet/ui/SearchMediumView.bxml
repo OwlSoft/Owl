@@ -1,6 +1,7 @@
 <owlet:SearchMediumView xmlns:bxml="http://pivot.apache.org/bxml"
 	xmlns:owlet="at.owlsoft.owlet.ui" xmlns:content="org.apache.pivot.wtk.content"
-	xmlns:collections="org.apache.pivot.collections" xmlns="org.apache.pivot.wtk">
+	xmlns:collections="org.apache.pivot.collections" xmlns="org.apache.pivot.wtk"
+	xmlns:wtk="org.apache.pivot.wtk">
 	<TablePane>
 		<columns>
 			<TablePane.Column width="1*" />

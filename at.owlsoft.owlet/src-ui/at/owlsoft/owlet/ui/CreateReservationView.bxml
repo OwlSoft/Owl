@@ -1,6 +1,8 @@
 <owlet:CreateReservationView xmlns:bxml="http://pivot.apache.org/bxml"
 	xmlns:owlet="at.owlsoft.owlet.ui" xmlns:content="org.apache.pivot.wtk.content"
-	xmlns:collections="org.apache.pivot.collections" xmlns="org.apache.pivot.wtk">
+	xmlns:collections="org.apache.pivot.collections" xmlns="org.apache.pivot.wtk"
+	xmlns:wtk="org.apache.pivot.wtk"
+	>
 	<Form styles="{fill: true}">
 		<Form.Section heading="Setup">
 
@@ -28,31 +30,31 @@
 					</PushButton>
 				</TablePane.Row>
 				<TablePane.Row height="25">
-					<Label bxml:id="cardIDLabel" TablePane.columnSpan="2" />
+					<Label bxml:id="cardIDLabel" wtk:TablePane.columnSpan="2" />
 					<TablePane.Filler />
-					<Label bxml:id="mediumIDLabel" TablePane.columnSpan="2" />
-					<TablePane.Filler />
-				</TablePane.Row>
-				<TablePane.Row height="25">
-					<Label bxml:id="customerNameLabel" TablePane.columnSpan="2" />
-					<TablePane.Filler />
-					<Label bxml:id="mediumTitleLabel" TablePane.columnSpan="2" />
+					<Label bxml:id="mediumIDLabel" wtk:TablePane.columnSpan="2" />
 					<TablePane.Filler />
 				</TablePane.Row>
 				<TablePane.Row height="25">
-					<Label bxml:id="customerStateLabel" TablePane.columnSpan="2" />
+					<Label bxml:id="customerNameLabel" wtk:TablePane.columnSpan="2" />
 					<TablePane.Filler />
-					<Label bxml:id="mediumStateLabel" TablePane.columnSpan="2" />
+					<Label bxml:id="mediumTitleLabel" wtk:TablePane.columnSpan="2" />
 					<TablePane.Filler />
 				</TablePane.Row>
 				<TablePane.Row height="25">
-					<Label text="Start Date" TablePane.columnSpan="4" styleName="fatLabel"  />
+					<Label bxml:id="customerStateLabel" wtk:TablePane.columnSpan="2" />
+					<TablePane.Filler />
+					<Label bxml:id="mediumStateLabel" wtk:TablePane.columnSpan="2" />
+					<TablePane.Filler />
 				</TablePane.Row>
 				<TablePane.Row height="25">
-					<CalendarButton TablePane.columnSpan="4" bxml:id="startDate" />
+					<Label text="Start Date" wtk:TablePane.columnSpan="4" styleName="fatLabel"  />
 				</TablePane.Row>
 				<TablePane.Row height="25">
-					<Label TablePane.columnSpan="2" text="Duration" bxml:id="duration" />
+					<CalendarButton wtk:TablePane.columnSpan="4" bxml:id="startDate" />
+				</TablePane.Row>
+				<TablePane.Row height="25">
+					<Label wtk:TablePane.columnSpan="2" text="Duration" bxml:id="duration" />
 					<TablePane.Filler />
 					<TextInput bxml:id="desiredDuration" />
 				</TablePane.Row>

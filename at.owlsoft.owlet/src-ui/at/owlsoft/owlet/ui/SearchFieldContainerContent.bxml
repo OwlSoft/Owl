@@ -6,6 +6,7 @@
 	xmlns:effects="org.apache.pivot.wtk.effects"
 	xmlns:collections="org.apache.pivot.collections"
 	xmlns="org.apache.pivot.wtk"
+	xmlns:wtk="org.apache.pivot.wtk"
 >
 	<TablePane styles="{horizontalSpacing:5}">
 		<columns>

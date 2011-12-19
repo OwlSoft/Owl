@@ -115,7 +115,8 @@ public class AuthenticationController extends ControllerBase
             _currentUser.addRole(new Role(IDefaultRoles.RESERVATION_CREATE,
                     IDefaultRoles.RESERVATION_CREATE));
 
-            if (_currentUser.getUsername().contains("d"))
+            if (_currentUser.getUsername().contains("d")
+                    || _currentUser.getUsername().contains("t"))
             {
                 _currentUser.addRole(new Role(IDefaultRoles.OPERATOR,
                         IDefaultRoles.OPERATOR));

@@ -82,5 +82,6 @@ public class MessageController extends ControllerBase
         Message message = dao.getByUUID(uuid);
         message.setState(state);
         dao.store(message);
+        sendJmsMessage("REFRESH");
     }
 }

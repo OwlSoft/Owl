@@ -35,6 +35,7 @@ public class JmsUtils
         Topic topic;
 
         // Initialize Connection
+        // TODO: Anderer Server
         context = new InitialContext();
         // get factory from application server
         connectionFactory = (TopicConnectionFactory) context

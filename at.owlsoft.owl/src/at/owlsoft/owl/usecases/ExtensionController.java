@@ -26,6 +26,10 @@ import at.owlsoft.owl.validation.ValidationMessageStatus;
 public class ExtensionController extends ControllerBase
 {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 6821147487498874983L;
     private static final int DEFAULT_MAX_EXTENSIONS     = 3;
     private static final int DEFAULT_EXTENSION_DURATION = 7;
 

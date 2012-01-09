@@ -7,5 +7,5 @@ import javax.ejb.LocalBean;
 @LocalBean
 public interface OwlContextBeanLocal
 {
-
+    Object getContext();
 }

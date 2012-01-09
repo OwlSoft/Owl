@@ -3,6 +3,11 @@ package at.owlsoft.owl.dao.db4o;
 public class NoDatabaseConfiguredException extends RuntimeException
 {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -5293993330002773500L;
+
     public NoDatabaseConfiguredException(String string)
     {
         super(string);

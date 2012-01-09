@@ -9,6 +9,11 @@ import at.owlsoft.owl.model.SearchField;
 public abstract class SearchController<T> extends ControllerBase
 {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -8597658137403424822L;
+
     public SearchController(OwlApplicationContext context)
     {
         super(context);

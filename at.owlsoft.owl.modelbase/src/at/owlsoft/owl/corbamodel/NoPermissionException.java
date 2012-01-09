@@ -11,7 +11,13 @@ package at.owlsoft.owl.corbamodel;
 public final class NoPermissionException extends org.omg.CORBA.UserException
 {
 
-  public NoPermissionException ()
+  /**
+     * 
+     */
+    private static final long serialVersionUID = -4661389100652009940L;
+
+
+public NoPermissionException ()
   {
     super(NoPermissionExceptionHelper.id());
   } // ctor

@@ -15,6 +15,11 @@ import at.owlsoft.owl.model.media.Medium;
 public class MediumSearchController extends SearchController<Medium>
 {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 9131618597524127130L;
+
     public MediumSearchController(OwlApplicationContext context)
     {
         super(context);

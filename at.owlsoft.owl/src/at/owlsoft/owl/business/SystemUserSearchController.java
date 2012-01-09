@@ -14,6 +14,11 @@ import at.owlsoft.owl.usecases.SearchController;
 public class SystemUserSearchController extends SearchController<SystemUser>
 {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 9103564714867737576L;
+
     public SystemUserSearchController(OwlApplicationContext context)
     {
         super(context);

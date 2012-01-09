@@ -9,7 +9,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import at.owlsoft.owl.business.OwlApplicationContext;
-import at.owlsoft.owl.communication.OwlContextBean;
 import at.owlsoft.owl.communication.OwlContextBeanLocal;
 import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.accounting.IReservation;
@@ -17,7 +16,6 @@ import at.owlsoft.owl.model.media.IMedium;
 import at.owlsoft.owl.model.media.Medium;
 import at.owlsoft.owl.model.user.ISystemUser;
 import at.owlsoft.owl.model.user.SystemUser;
-import at.owlsoft.owl.usecases.ReservationController;
 import at.owlsoft.owl.validation.ValidationMessage;
 import at.owlsoft.owl.validation.ValidationMode;
 
@@ -33,10 +31,8 @@ public class ReservationApi implements ReservationApiRemote
 
     public OwlApplicationContext getContext()
     {
-        return ((OwlContextBean) _context).getContext();
+        return (OwlApplicationContext) _context.getContext();
     }
-
-    private ReservationController _controller;
 
     public ReservationApi() throws RemoteException
     {
@@ -46,13 +42,12 @@ public class ReservationApi implements ReservationApiRemote
     @Override
     public void newReservation() throws NoPermissionException
     {
-        _controller.newReservation();
+        getContext().getReservationController().newReservation();
     }
 
     @PostConstruct
     public void init()
     {
-        _controller = getContext().getReservationController();
     }
 
     @Override
@@ -64,7 +59,7 @@ public class ReservationApi implements ReservationApiRemote
     @Override
     public IReservation getReservation()
     {
-        return _controller.getReservation();
+        return getContext().getReservationController().getReservation();
     }
 
     @Override
@@ -72,7 +67,7 @@ public class ReservationApi implements ReservationApiRemote
     {
         SystemUser user = getContext().getSystemUserSearchController().search(
                 cardId);
-        _controller.setCustomer(user);
+        getContext().getReservationController().setCustomer(user);
         return user;
     }
 
@@ -81,35 +76,35 @@ public class ReservationApi implements ReservationApiRemote
     {
         Medium medium = getContext().getMediumSearchController().search(
                 mediumId);
-        _controller.setMedium(medium);
+        getContext().getReservationController().setMedium(medium);
         return medium;
     }
 
     @Override
     public List<ValidationMessage> getValidationMessages()
     {
-        return _controller.getMessages();
+        return getContext().getReservationController().getMessages();
     }
 
     @Override
     public void setStartDate(Date time) throws NoPermissionException
     {
-        _controller.setStartDate(time);
-        _controller.validate(ValidationMode.Strict);
+        getContext().getReservationController().setStartDate(time);
+        getContext().getReservationController().validate(ValidationMode.Strict);
     }
 
     @Override
     public void setDuration(int duration)
     {
-        _controller.setDesiredDuration(duration);
-        _controller.validate(ValidationMode.Strict);
+        getContext().getReservationController().setDesiredDuration(duration);
+        getContext().getReservationController().validate(ValidationMode.Strict);
     }
 
     @Override
     public boolean store() throws NoPermissionException
     {
-        _controller.save();
-        return _controller.getMessages().isEmpty();
+        getContext().getReservationController().save();
+        return getContext().getReservationController().getMessages().isEmpty();
     }
 
 }

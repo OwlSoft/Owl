@@ -7,15 +7,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
 import org.apache.log4j.Logger;
 
 import at.owlsoft.owl.business.OwlApplicationContext;
-import at.owlsoft.owl.business.SearchFieldDefinitionController;
-import at.owlsoft.owl.communication.OwlContextBean;
 import at.owlsoft.owl.communication.OwlContextBeanLocal;
 import at.owlsoft.owl.model.ISearchField;
 import at.owlsoft.owl.model.ISearchFieldCategory;
@@ -23,7 +20,6 @@ import at.owlsoft.owl.model.SearchField;
 import at.owlsoft.owl.model.SearchFieldType;
 import at.owlsoft.owl.model.media.IMedium;
 import at.owlsoft.owl.model.media.Medium;
-import at.owlsoft.owl.usecases.MediumSearchController;
 
 /**
  * Session Bean implementation class SearchApi
@@ -36,28 +32,16 @@ public class SearchApi implements SearchApiRemote
 
     public OwlApplicationContext getContext()
     {
-        return ((OwlContextBean) _context).getContext();
+        return (OwlApplicationContext) _context.getContext();
     }
 
-    private static final Logger             logger = Logger.getLogger(SearchApi.class);
+    private static final Logger    logger = Logger.getLogger(SearchApi.class);
 
-    private SearchFieldDefinitionController _fieldcontroller;
-    private MediumSearchController          _searchController;
-
-    private Map<UUID, SearchField>          _searchFields;
+    private Map<UUID, SearchField> _searchFields;
 
     public SearchApi()
     {
-
-    }
-
-    @PostConstruct
-    public void init()
-    {
-        _fieldcontroller = getContext()
-                .getClientSearchFieldDefinitionController();
         _searchFields = new HashMap<UUID, SearchField>();
-        _searchController = getContext().getMediumSearchController();
     }
 
     @Override
@@ -69,8 +53,8 @@ public class SearchApi implements SearchApiRemote
     @Override
     public List<ISearchFieldCategory> getSearchFieldCategories()
     {
-        return new ArrayList<ISearchFieldCategory>(
-                _fieldcontroller.getAllCategories());
+        return new ArrayList<ISearchFieldCategory>(getContext()
+                .getClientSearchFieldDefinitionController().getAllCategories());
     }
 
     @Override
@@ -138,7 +122,8 @@ public class SearchApi implements SearchApiRemote
 
         logger.trace("Searching with " + fields.size() + " criterias");
 
-        List<Medium> result = _searchController.search(fields);
+        List<Medium> result = getContext().getMediumSearchController().search(
+                fields);
 
         logger.trace("found: " + result.size());
 

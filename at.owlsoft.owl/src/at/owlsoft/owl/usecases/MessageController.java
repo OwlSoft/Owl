@@ -18,12 +18,20 @@ import at.owlsoft.owl.model.messaging.MessageState;
 
 public class MessageController extends ControllerBase
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -6115677024069425357L;
     private TopicProduceController _topicProduceController;
     private static final String    TOPICNAME = "InfoTopic";
 
     public MessageController(OwlApplicationContext context)
     {
         super(context);
+    }
+
+    public void startListening()
+    {
         try
         {
             _topicProduceController = new TopicProduceController(TOPICNAME);

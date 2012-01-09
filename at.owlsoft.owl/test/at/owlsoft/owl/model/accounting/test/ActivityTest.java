@@ -14,6 +14,11 @@ public class ActivityTest
     {
         Activity activity = new Activity()
         {
+
+            /**
+             * 
+             */
+            private static final long serialVersionUID = -3914442260582078608L;
             // anonymous test
         };
 

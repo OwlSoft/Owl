@@ -17,6 +17,10 @@ import at.owlsoft.owl.model.NoPermissionException;
 
 public class ConfigurationController extends ControllerBase
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -8164032688659737769L;
     private static final Logger  logger               = Logger.getLogger(ConfigurationController.class);
     private static Configuration _configuration;
     private static Object        configLock           = new Object();

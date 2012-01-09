@@ -12,6 +12,11 @@ import at.owlsoft.owl.usecases.SearchController;
 public class RentalSearchController extends SearchController<Rental>
 {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 6050343751779007398L;
+
     public RentalSearchController(OwlApplicationContext context)
     {
         super(context);

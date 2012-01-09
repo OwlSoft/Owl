@@ -10,7 +10,11 @@ package at.owlsoft.owl.corbamodel.user;
 
 public class CorbaSystemUserStatus implements org.omg.CORBA.portable.IDLEntity
 {
-  private        int __value;
+  /**
+     * 
+     */
+    private static final long serialVersionUID = 2822804836392739890L;
+private        int __value;
   private static int __size = 3;
   private static at.owlsoft.owl.corbamodel.user.CorbaSystemUserStatus[] __array = new at.owlsoft.owl.corbamodel.user.CorbaSystemUserStatus [__size];
 

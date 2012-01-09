@@ -10,7 +10,11 @@ package at.owlsoft.owl.corbamodel.validation;
 
 public class ValidationMode implements org.omg.CORBA.portable.IDLEntity
 {
-  private        int __value;
+  /**
+     * 
+     */
+    private static final long serialVersionUID = -3208407465663364042L;
+private        int __value;
   private static int __size = 2;
   private static at.owlsoft.owl.corbamodel.validation.ValidationMode[] __array = new at.owlsoft.owl.corbamodel.validation.ValidationMode [__size];
 

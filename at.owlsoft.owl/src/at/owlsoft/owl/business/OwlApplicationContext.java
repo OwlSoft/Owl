@@ -1,5 +1,7 @@
 package at.owlsoft.owl.business;
 
+import java.io.Serializable;
+
 import at.owlsoft.owl.usecases.ExtensionController;
 import at.owlsoft.owl.usecases.MediumExemplarSearchController;
 import at.owlsoft.owl.usecases.MediumSearchController;
@@ -8,8 +10,13 @@ import at.owlsoft.owl.usecases.RentalController;
 import at.owlsoft.owl.usecases.ReservationController;
 import at.owlsoft.owl.usecases.ReturnController;
 
-public class OwlApplicationContext
+public class OwlApplicationContext implements Serializable
 {
+
+    /**
+     * 
+     */
+    private static final long       serialVersionUID = -1280816363740213008L;
     private ConfigurationController _configurationController;
 
     public ConfigurationController getConfigurationController()

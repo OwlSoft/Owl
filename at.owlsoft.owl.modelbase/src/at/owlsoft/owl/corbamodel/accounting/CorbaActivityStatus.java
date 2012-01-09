@@ -10,7 +10,11 @@ package at.owlsoft.owl.corbamodel.accounting;
 
 public class CorbaActivityStatus implements org.omg.CORBA.portable.IDLEntity
 {
-  private        int __value;
+  /**
+     * 
+     */
+    private static final long serialVersionUID = -6358568742953889628L;
+private        int __value;
   private static int __size = 5;
   private static at.owlsoft.owl.corbamodel.accounting.CorbaActivityStatus[] __array = new at.owlsoft.owl.corbamodel.accounting.CorbaActivityStatus [__size];
 

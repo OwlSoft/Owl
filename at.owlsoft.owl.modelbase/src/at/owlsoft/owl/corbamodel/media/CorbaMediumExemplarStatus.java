@@ -10,7 +10,11 @@ package at.owlsoft.owl.corbamodel.media;
 
 public class CorbaMediumExemplarStatus implements org.omg.CORBA.portable.IDLEntity
 {
-  private        int __value;
+  /**
+     * 
+     */
+    private static final long serialVersionUID = 5788676382043039249L;
+private        int __value;
   private static int __size = 4;
   private static at.owlsoft.owl.corbamodel.media.CorbaMediumExemplarStatus[] __array = new at.owlsoft.owl.corbamodel.media.CorbaMediumExemplarStatus [__size];
 

@@ -7,8 +7,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import at.owlsoft.owl.business.OwlApplicationContext;
-import at.owlsoft.owl.business.SystemUserSearchController;
-import at.owlsoft.owl.communication.OwlContextBean;
 import at.owlsoft.owl.communication.OwlContextBeanLocal;
 import at.owlsoft.owl.model.user.ISystemUser;
 
@@ -23,10 +21,8 @@ public class SystemUserApi implements SystemUserApiRemote
 
     public OwlApplicationContext getContext()
     {
-        return ((OwlContextBean) _context).getContext();
+        return (OwlApplicationContext) _context.getContext();
     }
-
-    private SystemUserSearchController _userSearch;
 
     public SystemUserApi() throws RemoteException
     {
@@ -42,13 +38,13 @@ public class SystemUserApi implements SystemUserApiRemote
     @PostConstruct
     public void init()
     {
-        _userSearch = getContext().getSystemUserSearchController();
     }
 
     @Override
     public ISystemUser getSystemUserByCardID(int cardId)
     {
-        ISystemUser user = _userSearch.search(cardId);
+        ISystemUser user = getContext().getSystemUserSearchController().search(
+                cardId);
         return user;
     }
 

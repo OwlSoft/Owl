@@ -18,4 +18,6 @@ public interface MessagingApiRemote
 
     public void markMessage(UUID uid, MessageState state)
             throws NoPermissionException;
+
+    public void startListening();
 }

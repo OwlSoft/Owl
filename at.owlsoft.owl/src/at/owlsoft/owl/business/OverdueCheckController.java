@@ -12,6 +12,11 @@ import at.owlsoft.owl.model.messaging.NewOverdueMessage;
 
 public class OverdueCheckController extends ControllerBase implements Runnable
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 5501397618257210230L;
+
     private Thread  _checkerThread;
 
     private int     _interval;

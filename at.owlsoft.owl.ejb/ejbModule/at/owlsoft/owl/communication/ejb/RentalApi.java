@@ -10,7 +10,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
 import at.owlsoft.owl.business.OwlApplicationContext;
-import at.owlsoft.owl.communication.OwlContextBean;
 import at.owlsoft.owl.communication.OwlContextBeanLocal;
 import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.accounting.IRental;
@@ -18,9 +17,6 @@ import at.owlsoft.owl.model.media.IMediumExemplar;
 import at.owlsoft.owl.model.media.MediumExemplar;
 import at.owlsoft.owl.model.user.ISystemUser;
 import at.owlsoft.owl.model.user.SystemUser;
-import at.owlsoft.owl.usecases.ExtensionController;
-import at.owlsoft.owl.usecases.RentalController;
-import at.owlsoft.owl.usecases.ReturnController;
 import at.owlsoft.owl.validation.ValidationMessage;
 import at.owlsoft.owl.validation.ValidationMode;
 
@@ -35,13 +31,8 @@ public class RentalApi implements RentalApiRemote
 
     public OwlApplicationContext getContext()
     {
-        return ((OwlContextBean) _context).getContext();
+        return (OwlApplicationContext) _context.getContext();
     }
-
-    private RentalController    _controller;
-
-    private ExtensionController _extensionController;
-    private ReturnController    _returnController;
 
     public RentalApi() throws RemoteException
     {
@@ -51,10 +42,6 @@ public class RentalApi implements RentalApiRemote
     @PostConstruct
     public void init()
     {
-        _controller = getContext().getRentalController();
-
-        _extensionController = getContext().getExtensionController();
-        _returnController = getContext().getReturnController();
     }
 
     @Override
@@ -72,13 +59,13 @@ public class RentalApi implements RentalApiRemote
     @Override
     public void newRental() throws NoPermissionException
     {
-        _controller.newRental();
+        getContext().getRentalController().newRental();
     }
 
     @Override
     public IRental getRental()
     {
-        return _controller.getRental();
+        return getContext().getRentalController().getRental();
     }
 
     @Override
@@ -86,7 +73,7 @@ public class RentalApi implements RentalApiRemote
     {
         SystemUser user = getContext().getSystemUserSearchController().search(
                 cardId);
-        _controller.setCustomer(user);
+        getContext().getRentalController().setCustomer(user);
         return user;
     }
 
@@ -96,39 +83,39 @@ public class RentalApi implements RentalApiRemote
     {
         MediumExemplar user = getContext().getMediumExemplarSearchController()
                 .search(exemplarId);
-        _controller.setMediumExemplar(user);
+        getContext().getRentalController().setMediumExemplar(user);
         return user;
     }
 
     @Override
     public List<ValidationMessage> getValidationMessages()
     {
-        return _controller.getMessages();
+        return getContext().getRentalController().getMessages();
     }
 
     @Override
     public void createNewExtension(UUID uuid) throws NoPermissionException
     {
-        _extensionController.extend(uuid);
+        getContext().getExtensionController().extend(uuid);
     }
 
     @Override
     public void returnRental(UUID uuid)
     {
-        _returnController.returnMediumCopy(uuid);
+        getContext().getReturnController().returnMediumCopy(uuid);
     }
 
     @Override
     public void setStartDate(Date time) throws NoPermissionException
     {
-        _controller.setStartDate(time);
-        _controller.validate(ValidationMode.Strict);
+        getContext().getRentalController().setStartDate(time);
+        getContext().getRentalController().validate(ValidationMode.Strict);
     }
 
     @Override
     public boolean store() throws NoPermissionException
     {
-        _controller.save();
-        return _controller.getMessages().isEmpty();
+        getContext().getRentalController().save();
+        return getContext().getRentalController().getMessages().isEmpty();
     }
 }

@@ -15,6 +15,11 @@ public class MediumTest
     {
         Medium medium = new Medium()
         {
+
+            /**
+             * 
+             */
+            private static final long serialVersionUID = 5201463063967679268L;
         };
 
         Tag tag = new Tag();
@@ -41,6 +46,11 @@ public class MediumTest
     {
         Medium medium = new Medium()
         {
+
+            /**
+             * 
+             */
+            private static final long serialVersionUID = -7373224358701058403L;
         };
 
         MediumExemplar exemplar = new MediumExemplar();

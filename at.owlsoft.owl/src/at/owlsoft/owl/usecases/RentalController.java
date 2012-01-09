@@ -25,6 +25,10 @@ import at.owlsoft.owl.validation.ValidationMode;
 
 public class RentalController extends ControllerBase
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 7454148934479784690L;
     private static final int        DEFAULT_MAX_RENTAL = 30;
     private Rental                  _rental;
     private List<ValidationMessage> _messages;

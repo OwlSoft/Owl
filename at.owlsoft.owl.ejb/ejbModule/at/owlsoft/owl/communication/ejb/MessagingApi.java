@@ -9,7 +9,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
 import at.owlsoft.owl.business.OwlApplicationContext;
-import at.owlsoft.owl.communication.OwlContextBean;
 import at.owlsoft.owl.communication.OwlContextBeanLocal;
 import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.messaging.IMessage;
@@ -27,7 +26,7 @@ public class MessagingApi implements MessagingApiRemote
 
     public OwlApplicationContext getContext()
     {
-        return ((OwlContextBean) _context).getContext();
+        return (OwlApplicationContext) _context.getContext();
     }
 
     public MessagingApi()
@@ -53,5 +52,11 @@ public class MessagingApi implements MessagingApiRemote
             throws NoPermissionException
     {
         getContext().getMessageController().markMessage(uid, state);
+    }
+
+    @Override
+    public void startListening()
+    {
+        getContext().getMessageController().startListening();
     }
 }

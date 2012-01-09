@@ -10,7 +10,11 @@ package at.owlsoft.owl.corbamodel.validation;
 
 public class CorbaValidationMessageStatus implements org.omg.CORBA.portable.IDLEntity
 {
-  private        int __value;
+  /**
+     * 
+     */
+    private static final long serialVersionUID = -5874365005576865299L;
+private        int __value;
   private static int __size = 2;
   private static at.owlsoft.owl.corbamodel.validation.CorbaValidationMessageStatus[] __array = new at.owlsoft.owl.corbamodel.validation.CorbaValidationMessageStatus [__size];
 

@@ -16,6 +16,11 @@ public class MediumExemplarSearchController extends
         SearchController<MediumExemplar>
 {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -6694623090502930362L;
+
     public MediumExemplarSearchController(OwlApplicationContext context)
     {
         super(context);

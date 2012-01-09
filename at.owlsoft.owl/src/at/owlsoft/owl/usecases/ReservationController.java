@@ -21,6 +21,10 @@ import at.owlsoft.owl.validation.ValidationMode;
 
 public class ReservationController extends ControllerBase
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 2299438480633459950L;
     private Reservation             _reservation;
     private List<ValidationMessage> _messages;
 

@@ -27,6 +27,10 @@ import at.owlsoft.owl.validation.ValidationMessageStatus;
 public class ReturnController extends ControllerBase
 {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -1021637759632437930L;
     private List<ValidationMessage> _messages;
 
     public ReturnController(OwlApplicationContext context)

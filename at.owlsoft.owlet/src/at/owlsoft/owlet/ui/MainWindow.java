@@ -225,6 +225,8 @@ public class MainWindow extends Window implements Bindable, MessageListener
                 if (AuthenticationController.getInstance().getCurrentUser()
                         .hasRole(IDefaultRoles.OPERATOR))
                 {
+                    EjbContext.getInstance().getFactory().createMessagingApi()
+                            .startListening();
                     _notificationButton.setVisible(true);
                     rebindTopic();
                 }

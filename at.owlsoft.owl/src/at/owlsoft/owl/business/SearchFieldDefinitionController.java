@@ -29,6 +29,10 @@ import at.owlsoft.owl.model.SearchFieldDefinition;
 public class SearchFieldDefinitionController extends ControllerBase implements
         ISearchFieldValueConverter
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1026244312594452680L;
     private Map<String, SearchFieldDefinition> _mapping;
     private List<SearchFieldCategory>          _allCategories;
     private Logger                             _logger = Logger.getLogger(SearchFieldDefinitionController.class);

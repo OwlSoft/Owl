@@ -35,6 +35,11 @@ import at.owlsoft.owl.model.user.SystemUser;
  */
 public class AuthenticationController extends ControllerBase
 {
+
+    /**
+     * 
+     */
+    private static final long   serialVersionUID = 9198645613894687625L;
     private SystemUser          _currentUser;
     private IOwlSecurityManager _securityManager;
 

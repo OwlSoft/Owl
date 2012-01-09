@@ -54,6 +54,11 @@ public class MediumExemplarTest
 
         Activity activity = new Activity()
         {
+
+            /**
+             * 
+             */
+            private static final long serialVersionUID = 6191042107243561121L;
         };
 
         // Adding / Count

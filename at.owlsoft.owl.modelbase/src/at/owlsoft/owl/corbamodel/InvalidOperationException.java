@@ -11,7 +11,13 @@ package at.owlsoft.owl.corbamodel;
 public final class InvalidOperationException extends org.omg.CORBA.UserException
 {
 
-  public InvalidOperationException ()
+  /**
+     * 
+     */
+    private static final long serialVersionUID = 2252294211357887714L;
+
+
+public InvalidOperationException ()
   {
     super(InvalidOperationExceptionHelper.id());
   } // ctor

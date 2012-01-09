@@ -8,9 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
-import at.owlsoft.owl.business.ConfigurationController;
 import at.owlsoft.owl.business.OwlApplicationContext;
-import at.owlsoft.owl.communication.OwlContextBean;
 import at.owlsoft.owl.communication.OwlContextBeanLocal;
 import at.owlsoft.owl.model.NoPermissionException;
 
@@ -25,10 +23,8 @@ public class ConfigurationApi implements ConfigurationApiRemote
 
     public OwlApplicationContext getContext()
     {
-        return ((OwlContextBean) _context).getContext();
+        return (OwlApplicationContext) _context.getContext();
     }
-
-    private ConfigurationController _configurationController;
 
     public ConfigurationApi()
     {
@@ -38,7 +34,6 @@ public class ConfigurationApi implements ConfigurationApiRemote
     @PostConstruct
     public void init()
     {
-        _configurationController = getContext().getConfigurationController();
     }
 
     @Override
@@ -50,26 +45,26 @@ public class ConfigurationApi implements ConfigurationApiRemote
     @Override
     public Map<String, String> getAllProperties() throws NoPermissionException
     {
-        return _configurationController.getAllProperties();
+        return getContext().getConfigurationController().getAllProperties();
     }
 
     @Override
     public void setAll(Map<String, String> properties)
             throws NoPermissionException
     {
-        _configurationController.setAll(properties);
+        getContext().getConfigurationController().setAll(properties);
     }
 
     @Override
     public void store() throws NoPermissionException, IOException
     {
-        _configurationController.store();
+        getContext().getConfigurationController().store();
     }
 
     @Override
     public void removeProperties(List<String> properties)
             throws NoPermissionException
     {
-        _configurationController.removeProperty(properties);
+        getContext().getConfigurationController().removeProperty(properties);
     }
 }

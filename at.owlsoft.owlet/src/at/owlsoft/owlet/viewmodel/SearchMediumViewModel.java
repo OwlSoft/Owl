@@ -2,8 +2,6 @@ package at.owlsoft.owlet.viewmodel;
 
 import java.util.UUID;
 
-import javax.naming.NamingException;
-
 import org.apache.pivot.collections.ArrayList;
 import org.apache.pivot.collections.List;
 
@@ -60,7 +58,7 @@ public class SearchMediumViewModel
                     .createSearchApi();
             updateDefinitions();
         }
-        catch (NamingException e)
+        catch (Exception e)
         {
             e.printStackTrace();
             throw new InvalidOperationException(

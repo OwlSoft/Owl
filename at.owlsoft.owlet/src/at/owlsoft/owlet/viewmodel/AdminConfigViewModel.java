@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.naming.NamingException;
-
 import at.owlsoft.owl.communication.ejb.ConfigurationApiRemote;
 import at.owlsoft.owl.model.InvalidOperationException;
 import at.owlsoft.owl.model.NoPermissionException;
@@ -23,7 +21,7 @@ public class AdminConfigViewModel
             _configApi = EjbContext.getInstance().getFactory()
                     .createConfigurationApi();
         }
-        catch (NamingException e)
+        catch (Exception e)
         {
             e.printStackTrace();
             throw new InvalidOperationException(
@@ -55,7 +53,7 @@ public class AdminConfigViewModel
             e.printStackTrace();
             throw new InvalidOperationException("Could not fetch data.", e);
         }
-        catch (NamingException e)
+        catch (Exception e)
         {
             e.printStackTrace();
             throw new InvalidOperationException("Server error", e);

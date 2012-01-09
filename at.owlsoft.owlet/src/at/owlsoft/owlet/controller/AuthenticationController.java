@@ -2,8 +2,6 @@ package at.owlsoft.owlet.controller;
 
 import java.util.HashSet;
 
-import javax.naming.NamingException;
-
 import at.owlsoft.owl.communication.ejb.AuthenticationApiRemote;
 import at.owlsoft.owl.model.InvalidOperationException;
 import at.owlsoft.owl.model.NoPermissionException;
@@ -36,7 +34,7 @@ public class AuthenticationController
             _authenticationApi = EjbContext.getInstance().getFactory()
                     .createAuthenticationApi();
         }
-        catch (NamingException e)
+        catch (Exception e)
         {
             e.printStackTrace();
             throw new InvalidOperationException(

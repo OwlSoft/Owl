@@ -2,8 +2,6 @@ package at.owlsoft.owlet.viewmodel;
 
 import java.util.Date;
 
-import javax.naming.NamingException;
-
 import org.apache.pivot.collections.ArrayList;
 import org.apache.pivot.collections.List;
 
@@ -65,16 +63,15 @@ public class CreateRentalViewModel
             _rentalApi.newRental();
             _rental = _rentalApi.getRental();
         }
-        catch (NamingException e)
+        catch (NoPermissionException e)
+        {
+            e.printStackTrace();
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
             throw new InvalidOperationException(
                     "Could not establish connection to server:", e);
-        }
-        catch (NoPermissionException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
     }
 

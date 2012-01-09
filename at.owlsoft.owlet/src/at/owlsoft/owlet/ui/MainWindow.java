@@ -6,7 +6,6 @@ import java.util.List;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
-import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 import org.apache.pivot.beans.Bindable;
@@ -238,7 +237,7 @@ public class MainWindow extends Window implements Bindable, MessageListener
                 _notificationButton.setVisible(false);
             }
         }
-        catch (NamingException e)
+        catch (Exception e)
         {
             // TODO Auto-generated catch block
             e.printStackTrace();

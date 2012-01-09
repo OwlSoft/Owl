@@ -2,8 +2,6 @@ package at.owlsoft.owlet.viewmodel;
 
 import java.util.UUID;
 
-import javax.naming.NamingException;
-
 import org.apache.pivot.collections.List;
 
 import at.owlsoft.owl.communication.ejb.MessagingApiRemote;
@@ -28,9 +26,8 @@ public class MessagingViewModel
             _messagingApi = EjbContext.getInstance().getFactory()
                     .createMessagingApi();
         }
-        catch (NamingException e)
+        catch (Exception e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

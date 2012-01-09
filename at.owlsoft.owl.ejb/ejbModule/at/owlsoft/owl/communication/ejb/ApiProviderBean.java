@@ -9,7 +9,7 @@ import at.owlsoft.owl.business.OwlApplicationContext;
 /**
  * Session Bean implementation class ApiProviderBean
  */
-@Stateful
+@Stateful(mappedName = ApiProviderBeanRemote.JNDI_NAME)
 public class ApiProviderBean implements ApiProviderBeanRemote
 {
     @EJB(mappedName = RentalApiRemote.JNDI_NAME)

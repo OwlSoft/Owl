@@ -1,11 +1,13 @@
 package at.owlsoft.owlet.context;
 
+import javax.naming.InitialContext;
 import javax.naming.NamingException;
+
+import at.owlsoft.owl.communication.ejb.ApiProviderBeanRemote;
 
 public class EjbContext
 {
     private static EjbContext _instance;
-    private EjbApiFactory     _factory;
 
     public static EjbContext getInstance()
     {
@@ -17,11 +19,17 @@ public class EjbContext
         return _instance;
     }
 
+    private ApiProviderBeanRemote _factory;
+    private InitialContext        _context;
+
     private EjbContext()
     {
         try
         {
-            _factory = new EjbApiFactory();
+            _context = new InitialContext();
+
+            _factory = (ApiProviderBeanRemote) _context
+                    .lookup(ApiProviderBeanRemote.JNDI_NAME);
         }
         catch (NamingException e)
         {
@@ -30,7 +38,7 @@ public class EjbContext
         }
     }
 
-    public EjbApiFactory getFactory()
+    public ApiProviderBeanRemote getFactory()
     {
         return _factory;
     }

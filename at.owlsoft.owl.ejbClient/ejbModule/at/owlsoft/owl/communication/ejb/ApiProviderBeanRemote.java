@@ -5,6 +5,8 @@ import javax.ejb.Remote;
 @Remote
 public interface ApiProviderBeanRemote
 {
+    public static final String JNDI_NAME = "owl/ApiProviderBeanRemote";
+
     RentalApiRemote createRentalApi();
 
     ReservationApiRemote createReservationApi();

@@ -2,8 +2,6 @@ package at.owlsoft.owlet.viewmodel;
 
 import java.rmi.RemoteException;
 
-import javax.naming.NamingException;
-
 import org.apache.pivot.collections.ArrayList;
 import org.apache.pivot.collections.List;
 
@@ -115,9 +113,8 @@ public class ShowRentalViewModel
             _currentRentalApi = EjbContext.getInstance().getFactory()
                     .createRentalApi();
         }
-        catch (NamingException e)
+        catch (Exception e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

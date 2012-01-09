@@ -13,8 +13,10 @@ import javax.ejb.Stateful;
 
 import org.apache.log4j.Logger;
 
+import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.business.SearchFieldDefinitionController;
 import at.owlsoft.owl.communication.OwlContextBean;
+import at.owlsoft.owl.communication.OwlContextBeanLocal;
 import at.owlsoft.owl.model.ISearchField;
 import at.owlsoft.owl.model.ISearchFieldCategory;
 import at.owlsoft.owl.model.SearchField;
@@ -30,7 +32,12 @@ import at.owlsoft.owl.usecases.MediumSearchController;
 public class SearchApi implements SearchApiRemote
 {
     @EJB
-    private OwlContextBean                  _context;
+    private OwlContextBeanLocal _context;
+
+    public OwlApplicationContext getContext()
+    {
+        return ((OwlContextBean) _context).getContext();
+    }
 
     private static final Logger             logger = Logger.getLogger(SearchApi.class);
 
@@ -47,10 +54,10 @@ public class SearchApi implements SearchApiRemote
     @PostConstruct
     public void init()
     {
-        _fieldcontroller = _context.getContext()
+        _fieldcontroller = getContext()
                 .getClientSearchFieldDefinitionController();
         _searchFields = new HashMap<UUID, SearchField>();
-        _searchController = _context.getContext().getMediumSearchController();
+        _searchController = getContext().getMediumSearchController();
     }
 
     @Override

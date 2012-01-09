@@ -66,8 +66,7 @@ public class RentalApi implements RentalApiRemote
     @Override
     public ISystemUser getRentalsForSystemUserCardId(int cardId)
     {
-        return _context.getContext().getSystemUserSearchController()
-                .search(cardId);
+        return getContext().getSystemUserSearchController().search(cardId);
     }
 
     @Override
@@ -85,8 +84,8 @@ public class RentalApi implements RentalApiRemote
     @Override
     public ISystemUser setCustomer(int cardId) throws NoPermissionException
     {
-        SystemUser user = _context.getContext().getSystemUserSearchController()
-                .search(cardId);
+        SystemUser user = getContext().getSystemUserSearchController().search(
+                cardId);
         _controller.setCustomer(user);
         return user;
     }
@@ -95,8 +94,8 @@ public class RentalApi implements RentalApiRemote
     public IMediumExemplar setMediumExemplar(int exemplarId)
             throws NoPermissionException
     {
-        MediumExemplar user = _context.getContext()
-                .getMediumExemplarSearchController().search(exemplarId);
+        MediumExemplar user = getContext().getMediumExemplarSearchController()
+                .search(exemplarId);
         _controller.setMediumExemplar(user);
         return user;
     }

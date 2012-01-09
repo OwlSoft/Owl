@@ -6,8 +6,10 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.business.SystemUserSearchController;
 import at.owlsoft.owl.communication.OwlContextBean;
+import at.owlsoft.owl.communication.OwlContextBeanLocal;
 import at.owlsoft.owl.model.user.ISystemUser;
 
 /**
@@ -17,7 +19,12 @@ import at.owlsoft.owl.model.user.ISystemUser;
 public class SystemUserApi implements SystemUserApiRemote
 {
     @EJB
-    private OwlContextBean             _context;
+    private OwlContextBeanLocal _context;
+
+    public OwlApplicationContext getContext()
+    {
+        return ((OwlContextBean) _context).getContext();
+    }
 
     private SystemUserSearchController _userSearch;
 
@@ -35,7 +42,7 @@ public class SystemUserApi implements SystemUserApiRemote
     @PostConstruct
     public void init()
     {
-        _userSearch = _context.getContext().getSystemUserSearchController();
+        _userSearch = getContext().getSystemUserSearchController();
     }
 
     @Override

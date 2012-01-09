@@ -70,8 +70,8 @@ public class ReservationApi implements ReservationApiRemote
     @Override
     public ISystemUser setCustomer(int cardId) throws NoPermissionException
     {
-        SystemUser user = _context.getContext().getSystemUserSearchController()
-                .search(cardId);
+        SystemUser user = getContext().getSystemUserSearchController().search(
+                cardId);
         _controller.setCustomer(user);
         return user;
     }

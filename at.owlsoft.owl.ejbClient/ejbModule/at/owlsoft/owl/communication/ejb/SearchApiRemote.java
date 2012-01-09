@@ -12,6 +12,8 @@ import at.owlsoft.owl.model.media.IMedium;
 @Remote
 public interface SearchApiRemote extends IApiBase
 {
+    public static final String JNDI_NAME = "owl/SearchApiRemote";
+
     List<ISearchFieldCategory> getSearchFieldCategories();
 
     ISearchField addNewSearchField(UUID uniqueId);

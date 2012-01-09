@@ -1,12 +1,12 @@
 package at.owlsoft.owlet.ui;
 
 import java.net.URL;
-import java.rmi.RemoteException;
 import java.util.List;
 
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
+import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 import org.apache.pivot.beans.Bindable;
@@ -28,7 +28,7 @@ import org.apache.pivot.wtk.Window;
 import at.owlsoft.owl.model.IDefaultRoles;
 import at.owlsoft.owl.model.user.IRole;
 import at.owlsoft.owlet.RoleAction;
-import at.owlsoft.owlet.context.RmiContext;
+import at.owlsoft.owlet.context.EjbContext;
 import at.owlsoft.owlet.controller.AuthenticationController;
 import at.owlsoft.owlet.controller.TopicController;
 import at.owlsoft.owlet.viewmodel.MessagingViewModel;
@@ -196,7 +196,7 @@ public class MainWindow extends Window implements Bindable, MessageListener
                 }
             }
 
-            List<IRole> roles = RmiContext.getInstance().getFactory()
+            List<IRole> roles = EjbContext.getInstance().getFactory()
                     .createAuthenticationApi().getRolesForCurrentUser();
 
             org.apache.pivot.collections.Set<String> roleKeys = new HashSet<String>();
@@ -236,9 +236,9 @@ public class MainWindow extends Window implements Bindable, MessageListener
                 _notificationButton.setVisible(false);
             }
         }
-        catch (RemoteException e)
+        catch (NamingException e)
         {
-            LOGGER.debug("failed roles loading");
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

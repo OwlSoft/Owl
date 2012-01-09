@@ -1,13 +1,15 @@
 package at.owlsoft.owlet.controller;
 
-import java.rmi.RemoteException;
 import java.util.HashSet;
 
-import at.owlsoft.owl.communication.rmi.IAuthenticationApi;
+import javax.naming.NamingException;
+
+import at.owlsoft.owl.communication.ejb.AuthenticationApiRemote;
 import at.owlsoft.owl.model.InvalidOperationException;
+import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.user.IRole;
 import at.owlsoft.owl.model.user.ISystemUser;
-import at.owlsoft.owlet.context.RmiContext;
+import at.owlsoft.owlet.context.EjbContext;
 
 public class AuthenticationController
 {
@@ -22,19 +24,19 @@ public class AuthenticationController
         return _instance;
     }
 
-    private ISystemUser        _currentUser;
-    private HashSet<String>    _roleKeys;
+    private ISystemUser             _currentUser;
+    private HashSet<String>         _roleKeys;
 
-    private IAuthenticationApi _authenticationApi;
+    private AuthenticationApiRemote _authenticationApi;
 
     private AuthenticationController()
     {
         try
         {
-            _authenticationApi = RmiContext.getInstance().getFactory()
+            _authenticationApi = EjbContext.getInstance().getFactory()
                     .createAuthenticationApi();
         }
-        catch (RemoteException e)
+        catch (NamingException e)
         {
             e.printStackTrace();
             throw new InvalidOperationException(
@@ -56,7 +58,7 @@ public class AuthenticationController
         return _roleKeys.contains(key);
     }
 
-    public void updateRoles() throws RemoteException
+    public void updateRoles()
     {
         _currentUser = _authenticationApi.getCurrentUser();
         updateRolesWithUser();
@@ -71,8 +73,16 @@ public class AuthenticationController
         }
     }
 
-    public void login(String username, String password) throws RemoteException
+    public void login(String username, String password)
     {
-        _currentUser = _authenticationApi.login(username, password);
+        try
+        {
+            _currentUser = _authenticationApi.login(username, password);
+        }
+        catch (NoPermissionException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }

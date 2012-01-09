@@ -1,21 +1,23 @@
 package at.owlsoft.owlet.viewmodel;
 
-import java.rmi.RemoteException;
 import java.util.UUID;
+
+import javax.naming.NamingException;
 
 import org.apache.pivot.collections.List;
 
-import at.owlsoft.owl.communication.rmi.IMessagingApi;
+import at.owlsoft.owl.communication.ejb.MessagingApiRemote;
+import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.messaging.IMessage;
 import at.owlsoft.owl.model.messaging.MessageState;
-import at.owlsoft.owlet.context.RmiContext;
+import at.owlsoft.owlet.context.EjbContext;
 import at.owlsoft.owlet.util.PivotUtils;
 
 public class MessagingViewModel
 {
 
     private static MessagingViewModel _instance;
-    private IMessagingApi             _messagingApi;
+    private MessagingApiRemote        _messagingApi;
     private int                       _countedMessages;
     private List<IMessage>            _openMessages;
 
@@ -23,10 +25,10 @@ public class MessagingViewModel
     {
         try
         {
-            _messagingApi = RmiContext.getInstance().getFactory()
+            _messagingApi = EjbContext.getInstance().getFactory()
                     .createMessagingApi();
         }
-        catch (RemoteException e)
+        catch (NamingException e)
         {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -69,12 +71,12 @@ public class MessagingViewModel
             _messagingApi.markMessage(message, state);
             return true;
         }
-        catch (RemoteException e)
+        catch (NoPermissionException e)
         {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
     public boolean refresh()
@@ -84,15 +86,14 @@ public class MessagingViewModel
             _openMessages = PivotUtils.toPivotList(_messagingApi
                     .getOpenMessages());
             _countedMessages = _openMessages.getLength();
-
             return true;
-
         }
-        catch (RemoteException e)
+        catch (NoPermissionException e)
         {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            return false;
         }
+
+        return false;
     }
 }

@@ -4,10 +4,13 @@ import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.communication.OwlContextBean;
+import at.owlsoft.owl.communication.OwlContextBeanLocal;
 import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.accounting.IReservation;
 import at.owlsoft.owl.model.media.IMedium;
@@ -21,23 +24,35 @@ import at.owlsoft.owl.validation.ValidationMode;
 /**
  * Session Bean implementation class ReservationApi
  */
-@Stateless
+@Stateless(mappedName = ReservationApi.JNDI_NAME)
 public class ReservationApi implements ReservationApiRemote
 {
 
     @EJB
-    private OwlContextBean        _context;
+    private OwlContextBeanLocal _context;
+
+    public OwlApplicationContext getContext()
+    {
+        return ((OwlContextBean) _context).getContext();
+    }
+
     private ReservationController _controller;
 
     public ReservationApi() throws RemoteException
     {
-        _controller = _context.getContext().getReservationController();
+
     }
 
     @Override
     public void newReservation() throws NoPermissionException
     {
         _controller.newReservation();
+    }
+
+    @PostConstruct
+    public void init()
+    {
+        _controller = getContext().getReservationController();
     }
 
     @Override
@@ -64,8 +79,8 @@ public class ReservationApi implements ReservationApiRemote
     @Override
     public IMedium setMedium(int mediumId) throws NoPermissionException
     {
-        Medium medium = _context.getContext().getMediumSearchController()
-                .search(mediumId);
+        Medium medium = getContext().getMediumSearchController().search(
+                mediumId);
         _controller.setMedium(medium);
         return medium;
     }

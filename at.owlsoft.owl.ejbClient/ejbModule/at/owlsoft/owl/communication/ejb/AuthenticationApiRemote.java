@@ -11,6 +11,8 @@ import at.owlsoft.owl.model.user.ISystemUser;
 @Remote
 public interface AuthenticationApiRemote extends IApiBase
 {
+    public static final String JNDI_NAME = "owl/AuthenticationApiRemote";
+
     public ISystemUser login(String userName, String password)
             throws NoPermissionException;
 

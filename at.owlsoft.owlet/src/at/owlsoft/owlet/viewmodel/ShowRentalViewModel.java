@@ -2,24 +2,27 @@ package at.owlsoft.owlet.viewmodel;
 
 import java.rmi.RemoteException;
 
+import javax.naming.NamingException;
+
 import org.apache.pivot.collections.ArrayList;
 import org.apache.pivot.collections.List;
 
-import at.owlsoft.owl.communication.rmi.IRentalApi;
+import at.owlsoft.owl.communication.ejb.RentalApiRemote;
 import at.owlsoft.owl.model.InvalidOperationException;
+import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.accounting.IActivity;
 import at.owlsoft.owl.model.accounting.IRental;
 import at.owlsoft.owl.model.user.ISystemUser;
-import at.owlsoft.owlet.context.RmiContext;
+import at.owlsoft.owlet.context.EjbContext;
 
 public class ShowRentalViewModel
 {
-    private IRentalApi    _currentRentalApi;
+    private RentalApiRemote _currentRentalApi;
 
-    private ISystemUser   _systemUser;
-    private List<IRental> _rentals;
-    private IRental       _activeRental;
-    private Integer       _userCardId;
+    private ISystemUser     _systemUser;
+    private List<IRental>   _rentals;
+    private IRental         _activeRental;
+    private Integer         _userCardId;
 
     /**
      * @return the activeRental
@@ -88,7 +91,7 @@ public class ShowRentalViewModel
     /**
      * @return the currentRental
      */
-    public IRentalApi getCurrentRental()
+    public RentalApiRemote getCurrentRental()
     {
         return _currentRentalApi;
     }
@@ -96,7 +99,7 @@ public class ShowRentalViewModel
     /**
      * @param currentRental the currentRental to set
      */
-    public void setCurrentRental(IRentalApi currentRental)
+    public void setCurrentRental(RentalApiRemote currentRental)
     {
         _currentRentalApi = currentRental;
     }
@@ -109,10 +112,10 @@ public class ShowRentalViewModel
     {
         try
         {
-            _currentRentalApi = RmiContext.getInstance().getFactory()
+            _currentRentalApi = EjbContext.getInstance().getFactory()
                     .createRentalApi();
         }
-        catch (RemoteException e)
+        catch (NamingException e)
         {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -173,7 +176,7 @@ public class ShowRentalViewModel
             _currentRentalApi.createNewExtension(activeRental.getUUID());
             reloadSystemUser();
         }
-        catch (RemoteException e)
+        catch (NoPermissionException e)
         {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -183,16 +186,8 @@ public class ShowRentalViewModel
 
     public void returnRental(IRental activeRental)
     {
-        try
-        {
-            _currentRentalApi.returnRental(activeRental.getUUID());
-            reloadSystemUser();
-        }
-        catch (RemoteException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        _currentRentalApi.returnRental(activeRental.getUUID());
+        reloadSystemUser();
 
     }
 }

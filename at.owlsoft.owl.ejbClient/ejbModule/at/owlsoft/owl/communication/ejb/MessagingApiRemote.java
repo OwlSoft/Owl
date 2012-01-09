@@ -12,6 +12,8 @@ import at.owlsoft.owl.model.messaging.MessageState;
 @Remote
 public interface MessagingApiRemote
 {
+    public static final String JNDI_NAME = "owl/MessagingApiRemote";
+
     public List<IMessage> getOpenMessages() throws NoPermissionException;
 
     public void markMessage(UUID uid, MessageState state)

@@ -18,5 +18,6 @@
 	<classpathentry kind="var" path="GLASSFISH/lib/appserv-rt.jar"/>
 	<classpathentry kind="var" path="GLASSFISH/lib/javaee.jar"/>
 	<classpathentry kind="var" path="GLASSFISH/modules/javax.jms.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/at.owlsoft.owl.ejbClient"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

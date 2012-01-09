@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
@@ -25,7 +26,7 @@ import at.owlsoft.owl.usecases.MediumSearchController;
 /**
  * Session Bean implementation class SearchApi
  */
-@Stateful
+@Stateful(mappedName = SearchApiRemote.JNDI_NAME)
 public class SearchApi implements SearchApiRemote
 {
     @EJB
@@ -39,6 +40,12 @@ public class SearchApi implements SearchApiRemote
     private Map<UUID, SearchField>          _searchFields;
 
     public SearchApi()
+    {
+
+    }
+
+    @PostConstruct
+    public void init()
     {
         _fieldcontroller = _context.getContext()
                 .getClientSearchFieldDefinitionController();

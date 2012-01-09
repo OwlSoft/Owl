@@ -11,6 +11,8 @@ import at.owlsoft.owl.model.NoPermissionException;
 @Remote
 public interface ConfigurationApiRemote extends IApiBase
 {
+    public static final String JNDI_NAME = "owl/ConfigurationApiRemote";
+
     Map<String, String> getAllProperties() throws NoPermissionException;
 
     void setAll(Map<String, String> propertiese) throws NoPermissionException;

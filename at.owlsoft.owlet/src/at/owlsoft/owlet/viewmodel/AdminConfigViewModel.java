@@ -1,28 +1,29 @@
 package at.owlsoft.owlet.viewmodel;
 
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
 
-import at.owlsoft.owl.communication.rmi.IConfigurationApi;
+import javax.naming.NamingException;
+
+import at.owlsoft.owl.communication.ejb.ConfigurationApiRemote;
 import at.owlsoft.owl.model.InvalidOperationException;
 import at.owlsoft.owl.model.NoPermissionException;
-import at.owlsoft.owlet.context.RmiContext;
+import at.owlsoft.owlet.context.EjbContext;
 
 public class AdminConfigViewModel
 {
 
-    private IConfigurationApi _configApi;
+    private ConfigurationApiRemote _configApi;
 
     public void initialize() throws InvalidOperationException
     {
         try
         {
-            _configApi = RmiContext.getInstance().getFactory()
+            _configApi = EjbContext.getInstance().getFactory()
                     .createConfigurationApi();
         }
-        catch (RemoteException e)
+        catch (NamingException e)
         {
             e.printStackTrace();
             throw new InvalidOperationException(
@@ -38,7 +39,7 @@ public class AdminConfigViewModel
             // initialize() not yet called?
             if (_configApi == null)
             {
-                _configApi = RmiContext.getInstance().getFactory()
+                _configApi = EjbContext.getInstance().getFactory()
                         .createConfigurationApi();
             }
 
@@ -54,7 +55,7 @@ public class AdminConfigViewModel
             e.printStackTrace();
             throw new InvalidOperationException("Could not fetch data.", e);
         }
-        catch (RemoteException e)
+        catch (NamingException e)
         {
             e.printStackTrace();
             throw new InvalidOperationException("Server error", e);
@@ -72,11 +73,6 @@ public class AdminConfigViewModel
         {
             e.printStackTrace();
             throw new InvalidOperationException("Could not fetch data.", e);
-        }
-        catch (RemoteException e)
-        {
-            e.printStackTrace();
-            throw new InvalidOperationException("Server error", e);
         }
     }
 
@@ -109,11 +105,6 @@ public class AdminConfigViewModel
         {
             e.printStackTrace();
             throw new InvalidOperationException("Could not save data.", e);
-        }
-        catch (RemoteException e)
-        {
-            e.printStackTrace();
-            throw new InvalidOperationException("Server error", e);
         }
 
     }

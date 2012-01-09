@@ -2,6 +2,7 @@ package at.owlsoft.owl.communication.ejb;
 
 import java.rmi.RemoteException;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -12,7 +13,7 @@ import at.owlsoft.owl.model.user.ISystemUser;
 /**
  * Session Bean implementation class SystemUserApi
  */
-@Stateless
+@Stateless(mappedName = SystemUserApi.JNDI_NAME)
 public class SystemUserApi implements SystemUserApiRemote
 {
     @EJB
@@ -22,13 +23,19 @@ public class SystemUserApi implements SystemUserApiRemote
 
     public SystemUserApi() throws RemoteException
     {
-        _userSearch = _context.getContext().getSystemUserSearchController();
+
     }
 
     @Override
     public void reset()
     {
 
+    }
+
+    @PostConstruct
+    public void init()
+    {
+        _userSearch = _context.getContext().getSystemUserSearchController();
     }
 
     @Override

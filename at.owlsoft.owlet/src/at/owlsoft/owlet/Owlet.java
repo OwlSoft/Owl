@@ -34,7 +34,6 @@ import org.apache.pivot.wtk.Window;
 
 import at.owlsoft.owl.communication.rmi.AllPermissionSecurityManager;
 import at.owlsoft.owl.communication.rmi.IApiService;
-import at.owlsoft.owlet.context.RmiContext;
 import at.owlsoft.owlet.ui.MainWindow;
 import at.owlsoft.owlet.ui.ViewController;
 
@@ -85,7 +84,8 @@ public class Owlet implements Application
                 : Registry.REGISTRY_PORT;
         String serviceName = args.containsKey("service") ? args.get("service")
                 : IApiService.DEFAULT_RMI_NAME;
-        RmiContext.initialize(host, port, serviceName);
+        // EjbContext.initialize(host, port, serviceName);
+        System.setProperty("java.naming.provider.url", host + ":" + port);
 
         // Load custom styles
         logger.trace("Setup GUI Styles");

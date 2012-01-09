@@ -14,6 +14,8 @@ import at.owlsoft.owl.validation.ValidationMessage;
 @Remote
 public interface ReservationApiRemote extends IApiBase
 {
+    public static final String JNDI_NAME = "owl/ReservationApiRemote";
+
     void newReservation() throws NoPermissionException;
 
     ISystemUser setCustomer(int cardId) throws NoPermissionException;

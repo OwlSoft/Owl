@@ -5,6 +5,10 @@
 	<projects>
 		<project>at.owlsoft.owl.ejb</project>
 		<project>at.owlsoft.owl.ejbClient</project>
+		<project>at.owlsoft.owl.rmi.server</project>
+		<project>at.owlsoft.owl.rmi.share</project>
+		<project>at.owlsoft.owl</project>
+		<project>at.owlsoft.owl.modelbase</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

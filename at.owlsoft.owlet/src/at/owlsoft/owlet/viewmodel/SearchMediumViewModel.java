@@ -1,18 +1,19 @@
 package at.owlsoft.owlet.viewmodel;
 
-import java.rmi.RemoteException;
 import java.util.UUID;
+
+import javax.naming.NamingException;
 
 import org.apache.pivot.collections.ArrayList;
 import org.apache.pivot.collections.List;
 
-import at.owlsoft.owl.communication.rmi.ISearchApi;
+import at.owlsoft.owl.communication.ejb.SearchApiRemote;
 import at.owlsoft.owl.model.ISearchFieldCategory;
 import at.owlsoft.owl.model.ISearchFieldDefinition;
 import at.owlsoft.owl.model.InvalidOperationException;
 import at.owlsoft.owl.model.SearchFieldType;
 import at.owlsoft.owl.model.media.IMedium;
-import at.owlsoft.owlet.context.RmiContext;
+import at.owlsoft.owlet.context.EjbContext;
 import at.owlsoft.owlet.util.PivotUtils;
 
 public class SearchMediumViewModel
@@ -22,7 +23,7 @@ public class SearchMediumViewModel
 
     private List<SearchFieldType>        _searchTypes;
 
-    private ISearchApi                   _searchApi;
+    private SearchApiRemote              _searchApi;
 
     private List<IMedium>                _searchResults;
 
@@ -55,11 +56,11 @@ public class SearchMediumViewModel
     {
         try
         {
-            _searchApi = RmiContext.getInstance().getFactory()
+            _searchApi = EjbContext.getInstance().getFactory()
                     .createSearchApi();
             updateDefinitions();
         }
-        catch (RemoteException e)
+        catch (NamingException e)
         {
             e.printStackTrace();
             throw new InvalidOperationException(
@@ -67,7 +68,7 @@ public class SearchMediumViewModel
         }
     }
 
-    private void updateDefinitions() throws RemoteException
+    private void updateDefinitions()
     {
         java.util.List<ISearchFieldCategory> categories = _searchApi
                 .getSearchFieldCategories();
@@ -86,66 +87,29 @@ public class SearchMediumViewModel
 
     public UUID addNewSearchField()
     {
-        try
-        {
-            UUID newUid = UUID.randomUUID();
-            _searchApi.addNewSearchField(newUid);
-            return newUid;
-        }
-        catch (RemoteException e)
-        {
-            e.printStackTrace();
-            throw new InvalidOperationException("Remote server error:"
-                    + e.getMessage(), e);
-        }
+        UUID newUid = UUID.randomUUID();
+        _searchApi.addNewSearchField(newUid);
+        return newUid;
     }
 
     public void setSearchFieldData(UUID uniqueId,
             ISearchFieldDefinition definition, String value)
     {
-        try
+        if (definition != null)
         {
-            if (definition != null)
-            {
-                _searchApi.setSearchFieldData(uniqueId, definition.getKey(),
-                        value);
-            }
-        }
-        catch (RemoteException e)
-        {
-            e.printStackTrace();
-            throw new InvalidOperationException("Remote server error:"
-                    + e.getMessage(), e);
+            _searchApi.setSearchFieldData(uniqueId, definition.getKey(), value);
         }
 
     }
 
     public void removeSearchField(UUID uniqueId)
     {
-        try
-        {
-            _searchApi.removeSearchField(uniqueId);
-        }
-        catch (RemoteException e)
-        {
-            e.printStackTrace();
-            throw new InvalidOperationException("Remote server error:"
-                    + e.getMessage(), e);
-        }
+        _searchApi.removeSearchField(uniqueId);
     }
 
     public void doSearch()
     {
-        try
-        {
-            _searchResults = PivotUtils.toPivotList(_searchApi.search());
-        }
-        catch (RemoteException e)
-        {
-            e.printStackTrace();
-            throw new InvalidOperationException("Remote server error:"
-                    + e.getMessage(), e);
-        }
+        _searchResults = PivotUtils.toPivotList(_searchApi.search());
     }
 
 }

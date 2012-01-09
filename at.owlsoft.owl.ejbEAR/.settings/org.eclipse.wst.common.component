@@ -9,5 +9,29 @@
         <dependent-module archiveName="at.owlsoft.owl.ejbClient.jar" deploy-path="/" handle="module:/resource/at.owlsoft.owl.ejbClient/at.owlsoft.owl.ejbClient">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="at.owlsoft.owl.rmi.server.jar" deploy-path="/lib" handle="module:/resource/at.owlsoft.owl.rmi.server/at.owlsoft.owl.rmi.server">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="at.owlsoft.owl.rmi.share.jar" deploy-path="/lib" handle="module:/resource/at.owlsoft.owl.rmi.share/at.owlsoft.owl.rmi.share">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="at.owlsoft.owl.jar" deploy-path="/lib" handle="module:/resource/at.owlsoft.owl/at.owlsoft.owl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="at.owlsoft.owl.modelbase.jar" deploy-path="/lib" handle="module:/resource/at.owlsoft.owl.modelbase/at.owlsoft.owl.modelbase">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="junit-dep-4.10.jar" deploy-path="/lib" handle="module:/classpath/lib/at.owlsoft.owl/lib/junit-dep-4.10.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="db4o-8.0.184.15484-all-java5.jar" deploy-path="/lib" handle="module:/classpath/lib/at.owlsoft.owl/lib/db4o-8.0.184.15484-all-java5.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="junit-4.10.jar" deploy-path="/lib" handle="module:/classpath/lib/at.owlsoft.owl/lib/junit-4.10.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="log4j-1.2.16.jar" deploy-path="/lib" handle="module:/classpath/lib/at.owlsoft.owl/lib/log4j-1.2.16.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>

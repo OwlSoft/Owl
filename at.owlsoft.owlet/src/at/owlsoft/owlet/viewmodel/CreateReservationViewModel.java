@@ -1,23 +1,25 @@
 package at.owlsoft.owlet.viewmodel;
 
-import java.rmi.RemoteException;
 import java.util.Date;
+
+import javax.naming.NamingException;
 
 import org.apache.pivot.collections.ArrayList;
 import org.apache.pivot.collections.List;
 
-import at.owlsoft.owl.communication.rmi.IReservationApi;
+import at.owlsoft.owl.communication.ejb.ReservationApiRemote;
 import at.owlsoft.owl.model.InvalidOperationException;
+import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.accounting.IReservation;
 import at.owlsoft.owl.model.media.IMedium;
 import at.owlsoft.owl.model.user.ISystemUser;
 import at.owlsoft.owl.validation.ValidationMessage;
 import at.owlsoft.owl.validation.ValidationMessageStatus;
-import at.owlsoft.owlet.context.RmiContext;
+import at.owlsoft.owlet.context.EjbContext;
 
 public class CreateReservationViewModel
 {
-    private IReservationApi         _reservationApi;
+    private ReservationApiRemote    _reservationApi;
 
     private List<ValidationMessage> _errorMessages;
     private List<ValidationMessage> _warningMessages;
@@ -58,16 +60,21 @@ public class CreateReservationViewModel
     {
         try
         {
-            _reservationApi = RmiContext.getInstance().getFactory()
+            _reservationApi = EjbContext.getInstance().getFactory()
                     .createReservationApi();
             _reservationApi.newReservation();
             _reservation = _reservationApi.getReservation();
         }
-        catch (RemoteException e)
+        catch (NamingException e)
         {
             e.printStackTrace();
             throw new InvalidOperationException(
                     "Could not establish connection to server:", e);
+        }
+        catch (NoPermissionException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 
@@ -79,14 +86,14 @@ public class CreateReservationViewModel
             _reservation = _reservationApi.getReservation();
             updateMessages();
         }
-        catch (RemoteException e)
+        catch (NoPermissionException e)
         {
-            throw new InvalidOperationException("Could not set customer: "
-                    + e.getMessage(), e);
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 
-    private void updateMessages() throws RemoteException
+    private void updateMessages()
     {
         java.util.List<ValidationMessage> remoteList = _reservationApi
                 .getValidationMessages();
@@ -115,26 +122,44 @@ public class CreateReservationViewModel
             _reservation = _reservationApi.getReservation();
             updateMessages();
         }
-        catch (RemoteException e)
+        catch (NoPermissionException e)
         {
-            throw new InvalidOperationException("Could not set medium: "
-                    + e.getMessage(), e);
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 
-    public void setStartDate(Date time) throws RemoteException
+    public void setStartDate(Date time)
     {
-        _reservationApi.setStartDate(time);
+        try
+        {
+            _reservationApi.setStartDate(time);
+        }
+        catch (NoPermissionException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         _reservation = _reservationApi.getReservation();
         updateMessages();
     }
 
-    public boolean store() throws RemoteException
+    public boolean store()
     {
-        return _reservationApi.store();
+        try
+        {
+            return _reservationApi.store();
+        }
+        catch (NoPermissionException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
-    public void setDuration(int duration) throws RemoteException
+    public void setDuration(int duration)
     {
         _reservationApi.setDuration(duration);
         _reservation = _reservationApi.getReservation();

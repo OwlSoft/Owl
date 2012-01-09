@@ -15,6 +15,8 @@ import at.owlsoft.owl.validation.ValidationMessage;
 @Remote
 public interface RentalApiRemote extends IApiBase
 {
+    public static final String JNDI_NAME = "owl/RentalApiRemote";
+
     ISystemUser getRentalsForSystemUserCardId(int cardId);
 
     void newRental() throws NoPermissionException;

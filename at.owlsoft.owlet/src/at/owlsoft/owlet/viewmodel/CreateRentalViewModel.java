@@ -1,23 +1,25 @@
 package at.owlsoft.owlet.viewmodel;
 
-import java.rmi.RemoteException;
 import java.util.Date;
+
+import javax.naming.NamingException;
 
 import org.apache.pivot.collections.ArrayList;
 import org.apache.pivot.collections.List;
 
-import at.owlsoft.owl.communication.rmi.IRentalApi;
+import at.owlsoft.owl.communication.ejb.RentalApiRemote;
 import at.owlsoft.owl.model.InvalidOperationException;
+import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.accounting.IRental;
 import at.owlsoft.owl.model.media.IMediumExemplar;
 import at.owlsoft.owl.model.user.ISystemUser;
 import at.owlsoft.owl.validation.ValidationMessage;
 import at.owlsoft.owl.validation.ValidationMessageStatus;
-import at.owlsoft.owlet.context.RmiContext;
+import at.owlsoft.owlet.context.EjbContext;
 
 public class CreateRentalViewModel
 {
-    private IRentalApi              _rentalApi;
+    private RentalApiRemote         _rentalApi;
 
     private List<ValidationMessage> _errorMessages;
     private List<ValidationMessage> _warningMessages;
@@ -58,16 +60,21 @@ public class CreateRentalViewModel
     {
         try
         {
-            _rentalApi = RmiContext.getInstance().getFactory()
+            _rentalApi = EjbContext.getInstance().getFactory()
                     .createRentalApi();
             _rentalApi.newRental();
             _rental = _rentalApi.getRental();
         }
-        catch (RemoteException e)
+        catch (NamingException e)
         {
             e.printStackTrace();
             throw new InvalidOperationException(
                     "Could not establish connection to server:", e);
+        }
+        catch (NoPermissionException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 
@@ -79,14 +86,14 @@ public class CreateRentalViewModel
             _rental = _rentalApi.getRental();
             updateMessages();
         }
-        catch (RemoteException e)
+        catch (NoPermissionException e)
         {
-            throw new InvalidOperationException("Could not set customer: "
-                    + e.getMessage(), e);
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 
-    private void updateMessages() throws RemoteException
+    private void updateMessages()
     {
         java.util.List<ValidationMessage> remoteList = _rentalApi
                 .getValidationMessages();
@@ -115,22 +122,40 @@ public class CreateRentalViewModel
             _rental = _rentalApi.getRental();
             updateMessages();
         }
-        catch (RemoteException e)
+        catch (NoPermissionException e)
         {
-            throw new InvalidOperationException("Could not set exemplar: "
-                    + e.getMessage(), e);
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 
-    public void setStartDate(Date time) throws RemoteException
+    public void setStartDate(Date time)
     {
-        _rentalApi.setStartDate(time);
+        try
+        {
+            _rentalApi.setStartDate(time);
+        }
+        catch (NoPermissionException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         _rental = _rentalApi.getRental();
         updateMessages();
     }
 
-    public boolean store() throws RemoteException
+    public boolean store()
     {
-        return _rentalApi.store();
+        try
+        {
+            return _rentalApi.store();
+        }
+        catch (NoPermissionException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }

@@ -21,7 +21,7 @@ public class ApiProviderBean implements ApiProviderBeanRemote
     @EJB(mappedName = SearchApiRemote.JNDI_NAME)
     private SearchApiRemote         _searchApi;
 
-    @EJB(mappedName = SearchApiRemote.JNDI_NAME)
+    @EJB(mappedName = SystemUserApi.JNDI_NAME)
     private SystemUserApi           _systemUserApi;
 
     @EJB(mappedName = ConfigurationApiRemote.JNDI_NAME)

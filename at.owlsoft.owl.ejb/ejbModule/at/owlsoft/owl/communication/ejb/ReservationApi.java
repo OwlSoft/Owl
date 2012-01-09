@@ -5,11 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import at.owlsoft.owl.business.OwlApplicationContext;
-import at.owlsoft.owl.communication.OwlContextBeanLocal;
 import at.owlsoft.owl.model.NoPermissionException;
 import at.owlsoft.owl.model.accounting.IReservation;
 import at.owlsoft.owl.model.media.IMedium;
@@ -23,17 +20,8 @@ import at.owlsoft.owl.validation.ValidationMode;
  * Session Bean implementation class ReservationApi
  */
 @Stateless(mappedName = ReservationApi.JNDI_NAME)
-public class ReservationApi implements ReservationApiRemote
+public class ReservationApi extends ApiBase implements ReservationApiRemote
 {
-
-    @EJB
-    private OwlContextBeanLocal _context;
-
-    public OwlApplicationContext getContext()
-    {
-        return (OwlApplicationContext) _context.getContext();
-    }
-
     public ReservationApi() throws RemoteException
     {
 

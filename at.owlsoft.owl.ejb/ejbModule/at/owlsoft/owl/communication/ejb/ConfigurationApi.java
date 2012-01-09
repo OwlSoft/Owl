@@ -5,27 +5,16 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
-import at.owlsoft.owl.business.OwlApplicationContext;
-import at.owlsoft.owl.communication.OwlContextBeanLocal;
 import at.owlsoft.owl.model.NoPermissionException;
 
 /**
  * Session Bean implementation class ConfigurationApi
  */
 @Stateful(mappedName = ConfigurationApi.JNDI_NAME)
-public class ConfigurationApi implements ConfigurationApiRemote
+public class ConfigurationApi extends ApiBase implements ConfigurationApiRemote
 {
-    @EJB
-    private OwlContextBeanLocal _context;
-
-    public OwlApplicationContext getContext()
-    {
-        return (OwlApplicationContext) _context.getContext();
-    }
-
     public ConfigurationApi()
     {
 

@@ -10,7 +10,7 @@ import at.owlsoft.owl.model.messaging.IMessage;
 import at.owlsoft.owl.model.messaging.MessageState;
 
 @Remote
-public interface MessagingApiRemote
+public interface MessagingApiRemote extends IApiBase
 {
     public static final String JNDI_NAME = "owl/MessagingApiRemote";
 

@@ -7,13 +7,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
 import org.apache.log4j.Logger;
 
-import at.owlsoft.owl.business.OwlApplicationContext;
-import at.owlsoft.owl.communication.OwlContextBeanLocal;
 import at.owlsoft.owl.model.ISearchField;
 import at.owlsoft.owl.model.ISearchFieldCategory;
 import at.owlsoft.owl.model.SearchField;
@@ -25,15 +22,8 @@ import at.owlsoft.owl.model.media.Medium;
  * Session Bean implementation class SearchApi
  */
 @Stateful(mappedName = SearchApiRemote.JNDI_NAME)
-public class SearchApi implements SearchApiRemote
+public class SearchApi extends ApiBase implements SearchApiRemote
 {
-    @EJB
-    private OwlContextBeanLocal _context;
-
-    public OwlApplicationContext getContext()
-    {
-        return (OwlApplicationContext) _context.getContext();
-    }
 
     private static final Logger    logger = Logger.getLogger(SearchApi.class);
 

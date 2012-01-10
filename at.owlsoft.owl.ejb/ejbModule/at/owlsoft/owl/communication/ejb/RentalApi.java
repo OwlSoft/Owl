@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 
 import at.owlsoft.owl.model.NoPermissionException;
@@ -21,7 +23,8 @@ import at.owlsoft.owl.validation.ValidationMode;
  * Session Bean implementation class RentalApi
  */
 @Stateful(mappedName = RentalApiRemote.JNDI_NAME)
-public class RentalApi extends ApiBase implements RentalApiRemote
+public class RentalApi extends ApiBase implements RentalApiRemote,
+        RentalApiLocal
 {
 
     public RentalApi() throws RemoteException
@@ -107,5 +110,15 @@ public class RentalApi extends ApiBase implements RentalApiRemote
     {
         getContext().getRentalController().save();
         return getContext().getRentalController().getMessages().isEmpty();
+    }
+
+    @Resource
+    private SessionContext _session;
+
+    @Override
+    public RentalApiRemote getRemoteObject()
+    {
+        return _session.getBusinessObject(RentalApiRemote.class);
+
     }
 }

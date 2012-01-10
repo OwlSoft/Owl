@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 
 import at.owlsoft.owl.model.NoPermissionException;
@@ -13,7 +15,8 @@ import at.owlsoft.owl.model.NoPermissionException;
  * Session Bean implementation class ConfigurationApi
  */
 @Stateful(mappedName = ConfigurationApi.JNDI_NAME)
-public class ConfigurationApi extends ApiBase implements ConfigurationApiRemote
+public class ConfigurationApi extends ApiBase implements
+        ConfigurationApiRemote, ConfigurationApiLocal
 {
     public ConfigurationApi()
     {
@@ -55,5 +58,15 @@ public class ConfigurationApi extends ApiBase implements ConfigurationApiRemote
             throws NoPermissionException
     {
         getContext().getConfigurationController().removeProperty(properties);
+    }
+
+    @Resource
+    private SessionContext _session;
+
+    @Override
+    public ConfigurationApiRemote getRemoteObject()
+    {
+        return _session.getBusinessObject(ConfigurationApiRemote.class);
+
     }
 }

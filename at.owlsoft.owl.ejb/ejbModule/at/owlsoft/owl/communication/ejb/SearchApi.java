@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
+import javax.annotation.Resource;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 
 import org.apache.log4j.Logger;
@@ -22,7 +24,8 @@ import at.owlsoft.owl.model.media.Medium;
  * Session Bean implementation class SearchApi
  */
 @Stateful(mappedName = SearchApiRemote.JNDI_NAME)
-public class SearchApi extends ApiBase implements SearchApiRemote
+public class SearchApi extends ApiBase implements SearchApiRemote,
+        SearchApiLocal
 {
 
     private static final Logger    logger = Logger.getLogger(SearchApi.class);
@@ -118,5 +121,14 @@ public class SearchApi extends ApiBase implements SearchApiRemote
         logger.trace("found: " + result.size());
 
         return new ArrayList<IMedium>(result);
+    }
+
+    @Resource
+    private SessionContext _session;
+
+    @Override
+    public SearchApiRemote getRemoteObject()
+    {
+        return _session.getBusinessObject(SearchApiRemote.class);
     }
 }

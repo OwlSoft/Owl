@@ -30,6 +30,10 @@ public class EjbContext
 
             _factory = (ApiProviderBeanRemote) _context
                     .lookup(ApiProviderBeanRemote.JNDI_NAME);
+
+            _factory = (ApiProviderBeanRemote) _context
+                    .lookup(ApiProviderBeanRemote.JNDI_NAME);
+
         }
         catch (NamingException e)
         {

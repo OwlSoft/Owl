@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 
 import at.owlsoft.owl.model.NoPermissionException;
@@ -16,7 +18,8 @@ import at.owlsoft.owl.model.messaging.MessageState;
  * Session Bean implementation class MessagingApi
  */
 @Stateful(mappedName = MessagingApiRemote.JNDI_NAME)
-public class MessagingApi extends ApiBase implements MessagingApiRemote
+public class MessagingApi extends ApiBase implements MessagingApiRemote,
+        MessagingApiLocal
 {
 
     public MessagingApi()
@@ -48,5 +51,15 @@ public class MessagingApi extends ApiBase implements MessagingApiRemote
     public void startListening()
     {
         getContext().getMessageController().startListening();
+    }
+
+    @Resource
+    private SessionContext _session;
+
+    @Override
+    public MessagingApiRemote getRemoteObject()
+    {
+        return _session.getBusinessObject(MessagingApiRemote.class);
+
     }
 }

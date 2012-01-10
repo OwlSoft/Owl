@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 
 import at.owlsoft.owl.model.NoPermissionException;
@@ -15,7 +17,7 @@ import at.owlsoft.owl.model.user.ISystemUser;
  */
 @Stateful(mappedName = AuthenticationApi.JNDI_NAME)
 public class AuthenticationApi extends ApiBase implements
-        AuthenticationApiRemote
+        AuthenticationApiRemote, AuthenticationApiLocal
 {
     @PostConstruct
     public void init()
@@ -48,5 +50,15 @@ public class AuthenticationApi extends ApiBase implements
     public ISystemUser getCurrentUser()
     {
         return getContext().getAuthenticationController().getCurrentUser();
+    }
+
+    @Resource
+    private SessionContext _session;
+
+    @Override
+    public AuthenticationApiRemote getRemoteObject()
+    {
+        return _session.getBusinessObject(AuthenticationApiRemote.class);
+
     }
 }

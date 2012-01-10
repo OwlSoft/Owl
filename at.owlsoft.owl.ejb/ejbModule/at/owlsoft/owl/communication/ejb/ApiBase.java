@@ -2,7 +2,7 @@ package at.owlsoft.owl.communication.ejb;
 
 import at.owlsoft.owl.business.OwlApplicationContext;
 
-public abstract class ApiBase implements IApiBase
+public abstract class ApiBase implements IApiBase, ILocalApiBase
 {
     private OwlApplicationContext _context;
 

@@ -1,8 +1,6 @@
 package at.owlsoft.owl.communication.ejb;
 
-import javax.annotation.Resource;
 import javax.ejb.EJB;
-import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 
 import at.owlsoft.owl.business.OwlApplicationContext;
@@ -14,95 +12,106 @@ import at.owlsoft.owl.business.OwlApplicationContext;
 public class ApiProviderBean implements ApiProviderBeanRemote,
         ApiProviderBeanLocal
 {
-    private static final String     CONTEXT_KEY = "CurrentOwlApplicationContext";
-    @EJB(mappedName = RentalApiRemote.JNDI_NAME)
-    private RentalApiRemote         _rentalApi;
+    private static final String    CONTEXT_KEY = "CurrentOwlApplicationContext";
+    @EJB
+    private RentalApiLocal         _rentalApi;
 
-    @EJB(mappedName = ReservationApiRemote.JNDI_NAME)
-    private ReservationApiRemote    _reservationApi;
+    @EJB
+    private ReservationApiLocal    _reservationApi;
 
-    @EJB(mappedName = SearchApiRemote.JNDI_NAME)
-    private SearchApiRemote         _searchApi;
+    @EJB
+    private SearchApiLocal         _searchApi;
 
-    @EJB(mappedName = SystemUserApiRemote.JNDI_NAME)
-    private SystemUserApiRemote     _systemUserApi;
+    @EJB
+    private SystemUserApiLocal     _systemUserApi;
 
-    @EJB(mappedName = ConfigurationApiRemote.JNDI_NAME)
-    private ConfigurationApiRemote  _configurationApi;
+    @EJB
+    private ConfigurationApiLocal  _configurationApi;
 
-    @EJB(mappedName = AuthenticationApiRemote.JNDI_NAME)
-    private AuthenticationApiRemote _authenticationApi;
+    @EJB
+    private AuthenticationApiLocal _authenticationApi;
 
-    @EJB(mappedName = MessagingApiRemote.JNDI_NAME)
-    private MessagingApiRemote      _messagingApi;
+    @EJB
+    private MessagingApiLocal      _messagingApi;
 
-    @Resource
-    private SessionContext          _session;
+    // @Resource
+    // private SessionContext _session;
+
+    private OwlApplicationContext  _context;
 
     private OwlApplicationContext getContext()
     {
-        OwlApplicationContext context = null;
-        if (!_session.getContextData().containsKey(CONTEXT_KEY))
+
+        if (_context == null)
         {
-            System.out.println("Create new applicationcontext");
-            context = new OwlApplicationContext();
-            _session.getContextData().put(CONTEXT_KEY, context);
+            _context = new OwlApplicationContext();
         }
-        else
-        {
-            context = (OwlApplicationContext) _session.getContextData().get(
-                    CONTEXT_KEY);
-        }
-        return context;
+
+        return _context;
+
+        // OwlApplicationContext context = null;
+        // if (!_session.getContextData().containsKey(CONTEXT_KEY))
+        // {
+        // System.out.println("Create new applicationcontext");
+        // context = new OwlApplicationContext();
+        // _session.getContextData().put(CONTEXT_KEY, context);
+        // }
+        // else
+        // {
+        // context = (OwlApplicationContext) _session.getContextData().get(
+        // CONTEXT_KEY);
+        // }
+        // return context;
+
     }
 
     @Override
     public RentalApiRemote createRentalApi()
     {
         _rentalApi.setContext(getContext());
-        return _rentalApi;
+        return _rentalApi.getRemoteObject();
     }
 
     @Override
     public ReservationApiRemote createReservationApi()
     {
         _reservationApi.setContext(getContext());
-        return _reservationApi;
+        return _reservationApi.getRemoteObject();
     }
 
     @Override
     public SearchApiRemote createSearchApi()
     {
         _searchApi.setContext(getContext());
-        return _searchApi;
+        return _searchApi.getRemoteObject();
     }
 
     @Override
     public SystemUserApiRemote createSystemUserApi()
     {
         _systemUserApi.setContext(getContext());
-        return _systemUserApi;
+        return _systemUserApi.getRemoteObject();
     }
 
     @Override
     public ConfigurationApiRemote createConfigurationApi()
     {
         _configurationApi.setContext(getContext());
-        return _configurationApi;
+        return _configurationApi.getRemoteObject();
     }
 
     @Override
     public AuthenticationApiRemote createAuthenticationApi()
     {
         _authenticationApi.setContext(getContext());
-        return _authenticationApi;
+        return _authenticationApi.getRemoteObject();
     }
 
     @Override
     public MessagingApiRemote createMessagingApi()
     {
         _messagingApi.setContext(getContext());
-        return _messagingApi;
+        return _messagingApi.getRemoteObject();
     }
 
 }

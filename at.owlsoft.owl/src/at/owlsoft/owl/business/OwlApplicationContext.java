@@ -13,6 +13,18 @@ import at.owlsoft.owl.usecases.ReturnController;
 public class OwlApplicationContext implements Serializable
 {
 
+    private int _counter;
+
+    public int getCounter()
+    {
+        return _counter;
+    }
+
+    public void increment()
+    {
+        _counter++;
+    }
+
     /**
      * 
      */

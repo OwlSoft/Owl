@@ -21,8 +21,11 @@ public class ApiProviderBean implements ApiProviderBeanRemote
     @EJB(mappedName = SearchApiRemote.JNDI_NAME)
     private SearchApiRemote         _searchApi;
 
-    @EJB(mappedName = SystemUserApi.JNDI_NAME)
-    private SystemUserApi           _systemUserApi;
+    // @EJB(mappedName = SystemUserApi.JNDI_NAME)
+    // private SystemUserApi _systemUserApi;
+
+    @EJB(mappedName = SystemUserApiRemote.JNDI_NAME)
+    private SystemUserApiRemote     _systemUserApi;
 
     @EJB(mappedName = ConfigurationApiRemote.JNDI_NAME)
     private ConfigurationApiRemote  _configurationApi;
@@ -79,7 +82,7 @@ public class ApiProviderBean implements ApiProviderBeanRemote
     @Override
     public AuthenticationApiRemote createAuthenticationApi()
     {
-        _configurationApi.setContext(_context);
+        _authenticationApi.setContext(_context);
         return _authenticationApi;
     }
 

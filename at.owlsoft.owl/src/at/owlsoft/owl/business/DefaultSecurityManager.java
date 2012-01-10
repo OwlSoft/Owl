@@ -25,6 +25,11 @@ public class DefaultSecurityManager implements IOwlSecurityManager
                 System.out.println("User doesn't have role");
             }
         }
+        else
+        {
+            System.out
+                    .println("DefaultSecurityManager.checkAccess(): User to check is null!");
+        }
 
         if (!hasAccess)
         {

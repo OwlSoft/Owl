@@ -39,7 +39,6 @@ public class AuthenticationApi extends ApiBase implements
     @Override
     public List<IRole> getRolesForCurrentUser()
     {
-
         return new ArrayList<IRole>(getContext().getAuthenticationController()
                 .getRolesForCurrentUser());
 

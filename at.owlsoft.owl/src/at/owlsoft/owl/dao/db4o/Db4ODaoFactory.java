@@ -32,6 +32,7 @@ public class Db4ODaoFactory implements IDaoFactory
         EmbeddedConfiguration configuration = Db4oEmbedded.newConfiguration();
         configuration.file().lockDatabaseFile(false);
         _db = Db4oEmbedded.openFile(configuration, connectionString);
+        _logger.debug("Connectionstring to database:" + connectionString);
     }
 
     public static Db4ODaoFactory getInstance()

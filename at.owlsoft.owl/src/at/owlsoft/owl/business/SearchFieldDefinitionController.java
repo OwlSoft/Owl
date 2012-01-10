@@ -32,10 +32,10 @@ public class SearchFieldDefinitionController extends ControllerBase implements
     /**
      * 
      */
-    private static final long serialVersionUID = 1026244312594452680L;
+    private static final long                  serialVersionUID = 1026244312594452680L;
     private Map<String, SearchFieldDefinition> _mapping;
     private List<SearchFieldCategory>          _allCategories;
-    private Logger                             _logger = Logger.getLogger(SearchFieldDefinitionController.class);
+    private Logger                             _logger          = Logger.getLogger(SearchFieldDefinitionController.class);
 
     public List<SearchFieldCategory> getAllCategories()
     {

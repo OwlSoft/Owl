@@ -66,6 +66,11 @@ public class AuthenticationController extends ControllerBase
 
     public void checkAccess(String role) throws NoPermissionException
     {
+        if (_currentUser == null)
+        {
+            System.out
+                    .println("AuthenticationController.ceckAccess() current user is null");
+        }
         _securityManager.checkAccess(role, _currentUser);
     }
 
@@ -126,6 +131,9 @@ public class AuthenticationController extends ControllerBase
                 _currentUser.addRole(new Role(IDefaultRoles.OPERATOR,
                         IDefaultRoles.OPERATOR));
             }
+
+            System.out.println("AuthenticationController.login():"
+                    + _currentUser.getUsername());
 
             return _currentUser;
         }

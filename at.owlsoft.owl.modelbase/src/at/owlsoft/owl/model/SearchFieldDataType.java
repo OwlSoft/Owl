@@ -2,6 +2,7 @@ package at.owlsoft.owl.model;
 
 public enum SearchFieldDataType
 {
+
     DateTime, String, Integer, UUID, Undefinied;
 
     public static SearchFieldDataType Convert(String toConvert)

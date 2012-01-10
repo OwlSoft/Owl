@@ -7,4 +7,6 @@ public interface ISearchFieldDefinition extends Serializable
     String getKey();
 
     String getLabel();
+
+    SearchFieldDataType getKeyType();
 }

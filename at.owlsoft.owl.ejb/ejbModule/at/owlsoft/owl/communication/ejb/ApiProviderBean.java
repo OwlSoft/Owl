@@ -10,7 +10,8 @@ import at.owlsoft.owl.business.OwlApplicationContext;
  * Session Bean implementation class ApiProviderBean
  */
 @Stateful(mappedName = ApiProviderBeanRemote.JNDI_NAME)
-public class ApiProviderBean implements ApiProviderBeanRemote
+public class ApiProviderBean implements ApiProviderBeanRemote,
+        ApiProviderBeanLocal
 {
     @EJB(mappedName = RentalApiRemote.JNDI_NAME)
     private RentalApiRemote         _rentalApi;
@@ -21,8 +22,8 @@ public class ApiProviderBean implements ApiProviderBeanRemote
     @EJB(mappedName = SearchApiRemote.JNDI_NAME)
     private SearchApiRemote         _searchApi;
 
-    @EJB(mappedName = SystemUserApi.JNDI_NAME)
-    private SystemUserApi           _systemUserApi;
+    @EJB(mappedName = SystemUserApiRemote.JNDI_NAME)
+    private SystemUserApiRemote     _systemUserApi;
 
     @EJB(mappedName = ConfigurationApiRemote.JNDI_NAME)
     private ConfigurationApiRemote  _configurationApi;
@@ -65,7 +66,7 @@ public class ApiProviderBean implements ApiProviderBeanRemote
     @Override
     public SystemUserApiRemote createSystemUserApi()
     {
-        _searchApi.setContext(_context);
+        _systemUserApi.setContext(_context);
         return _systemUserApi;
     }
 
@@ -79,7 +80,7 @@ public class ApiProviderBean implements ApiProviderBeanRemote
     @Override
     public AuthenticationApiRemote createAuthenticationApi()
     {
-        _configurationApi.setContext(_context);
+        _authenticationApi.setContext(_context);
         return _authenticationApi;
     }
 

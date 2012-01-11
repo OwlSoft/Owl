@@ -76,6 +76,7 @@ public class TestDataBaseConstructor
 
         // create another not rentable test medium
         calendar.set(2000, 0, 1);
+        publishedDate = calendar.getTime();
         Medium bookOne = new Book(1, "Reclam", "Poetik", new Date(),
                 publishedDate, "Aristoteles", "Poetik", "Karthasis", 182, null,
                 "978-3-15-007828-0");
@@ -117,8 +118,40 @@ public class TestDataBaseConstructor
         rental.addFilingExtension(new FilingExtension(new Date(), calendar
                 .getTime(), rental));
 
+        // add third user
+
+        // create active test customer
+        calendar.set(1980, 0, 1);
+        birthday = calendar.getTime();
+        SystemUser userTwo = new SystemUser(0, 0, "mika.mustermensch",
+                "password", "mika@mustermensch.at", "Mika", "Mustermensch",
+                birthday, AccountMode.Ldap);
+
+        // create third medium
+        calendar.set(2000, 0, 1);
+        publishedDate = calendar.getTime();
+        Medium bookTwo = new Book(2, "Reclam", "Il Principe / Der Fürst",
+                new Date(), publishedDate, "Niccolo", "Machiavelli",
+                "Philosophie", 255, null, "978-3-15-001219-2");
+
+        // create rentable copy for third medium
+        MediumExemplar bookTwoCopy = new MediumExemplar(3, bookTwo);
+
+        // create rental for third user
+        calendar.setTime(new Date());
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DATE) + 7, 0, 0, 0);
+        rental = new Rental(calendar.getTime());
+        rental.setStartDate(new Date());
+        rental.setCustomer(userTwo);
+        userZero.addActivity(rental);
+        rental.setMediumExemplar(bookTwoCopy);
+        bookTwoCopy.addActivity(rental);
+        bookTwoCopy.addMediumExemplarStatusEntry(new MediumExemplarStatusEntry(
+                new Date(), bookTwoCopy, MediumExemplarStatus.Rented));
+
         // add reservation
-        Reservation reservation = new Reservation(calendar.getTime(), bookZero,
+        Reservation reservation = new Reservation(calendar.getTime(), bookTwo,
                 userZero, null, 7);
         bookZero.addActivtiy(reservation);
         userZero.addActivity(reservation);

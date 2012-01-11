@@ -144,7 +144,7 @@ public class TestDataBaseConstructor
         rental = new Rental(calendar.getTime());
         rental.setStartDate(new Date());
         rental.setCustomer(userTwo);
-        userZero.addActivity(rental);
+        userTwo.addActivity(rental);
         rental.setMediumExemplar(bookTwoCopy);
         bookTwoCopy.addActivity(rental);
         bookTwoCopy.addMediumExemplarStatusEntry(new MediumExemplarStatusEntry(

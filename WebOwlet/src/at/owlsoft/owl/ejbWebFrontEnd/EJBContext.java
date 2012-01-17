@@ -7,16 +7,10 @@ import at.owlsoft.owl.communication.ejb.ApiProviderBeanRemote;
 
 public class EJBContext
 {
-    private static EJBContext _instance;
 
     public static EJBContext getInstance()
     {
-        if (_instance == null)
-        {
-            _instance = new EJBContext();
-        }
-
-        return _instance;
+        return new EJBContext();
     }
 
     private ApiProviderBeanRemote _factory;
@@ -27,9 +21,6 @@ public class EJBContext
         try
         {
             _context = new InitialContext();
-
-            _factory = (ApiProviderBeanRemote) _context
-                    .lookup(ApiProviderBeanRemote.JNDI_NAME);
 
             _factory = (ApiProviderBeanRemote) _context
                     .lookup(ApiProviderBeanRemote.JNDI_NAME);

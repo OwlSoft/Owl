@@ -29,6 +29,7 @@ public class SearchBean
     private List<IMedium>                       _searchResults;
 
     private ISearchFieldCategory                _searchCategory;
+    private String                              _searchFieldDefinition;
 
     private String                              _searchValue;
 
@@ -110,7 +111,13 @@ public class SearchBean
 
     public void doSearch()
     {
+        UUID searchFieldId = addNewSearchField();
+        setSearchFieldData(searchFieldId,
+                _searchFieldDefinitions.get(getSearchFieldDefinition()),
+                getSearchValue());
+
         _searchResults = _searchApi.search();
+        _searchApi.removeSearchField(searchFieldId);
     }
 
     public ISearchFieldCategory getSearchCategory()
@@ -131,6 +138,16 @@ public class SearchBean
     public void setSearchValue(String searchValue)
     {
         _searchValue = searchValue;
+    }
+
+    public String getSearchFieldDefinition()
+    {
+        return _searchFieldDefinition;
+    }
+
+    public void setSearchFieldDefinition(String searchFieldDefinition)
+    {
+        _searchFieldDefinition = searchFieldDefinition;
     }
 
 }

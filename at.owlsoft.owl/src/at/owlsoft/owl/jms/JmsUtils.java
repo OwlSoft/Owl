@@ -43,7 +43,15 @@ public class JmsUtils
 
         // get topic connection and session
         connection = connectionFactory.createTopicConnection();
-        connection.setClientID(UUID.randomUUID().toString());
+        if (clientId != null)
+        {
+            connection.setClientID(clientId);
+        }
+        else
+        {
+            connection.setClientID(UUID.randomUUID().toString()
+                    .substring(0, 10));
+        }
         session = connection
                 .createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
 

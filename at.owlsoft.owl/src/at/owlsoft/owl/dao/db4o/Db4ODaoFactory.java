@@ -1,5 +1,7 @@
 package at.owlsoft.owl.dao.db4o;
 
+import java.io.File;
+
 import org.apache.log4j.Logger;
 
 import at.owlsoft.owl.dao.IActivityDao;
@@ -31,8 +33,10 @@ public class Db4ODaoFactory implements IDaoFactory
     {
         EmbeddedConfiguration configuration = Db4oEmbedded.newConfiguration();
         configuration.file().lockDatabaseFile(false);
-        _db = Db4oEmbedded.openFile(configuration, connectionString);
-        _logger.debug("Connectionstring to database:" + connectionString);
+
+        File file = new File(connectionString);
+        _db = Db4oEmbedded.openFile(configuration, file.getAbsolutePath());
+        _logger.debug("Connectionstring to database:" + file.getAbsolutePath());
     }
 
     public static Db4ODaoFactory getInstance()

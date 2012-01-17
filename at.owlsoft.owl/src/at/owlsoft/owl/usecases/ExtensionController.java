@@ -29,9 +29,9 @@ public class ExtensionController extends ControllerBase
     /**
      * 
      */
-    private static final long serialVersionUID = 6821147487498874983L;
-    private static final int DEFAULT_MAX_EXTENSIONS     = 3;
-    private static final int DEFAULT_EXTENSION_DURATION = 7;
+    private static final long serialVersionUID           = 6821147487498874983L;
+    private static final int  DEFAULT_MAX_EXTENSIONS     = 3;
+    private static final int  DEFAULT_EXTENSION_DURATION = 7;
 
     public ExtensionController(OwlApplicationContext context)
     {
@@ -105,7 +105,8 @@ public class ExtensionController extends ControllerBase
         }
 
         // check for open reservations
-        List<Activity> activities = rental.getMedium().getActivities();
+        List<Activity> activities = rental.getMediumExemplar().getMedium()
+                .getActivities();
         int reservationCount = 0;
         int rentableCopies = 0;
         for (Activity activity : activities)
@@ -121,7 +122,8 @@ public class ExtensionController extends ControllerBase
             }
         }
         // count rentable copies
-        List<MediumExemplar> copies = rental.getMedium().getMediumExemplars();
+        List<MediumExemplar> copies = rental.getMediumExemplar().getMedium()
+                .getMediumExemplars();
         for (MediumExemplar copy : copies)
         {
             if (copy.getCurrentState().equals(MediumExemplarStatus.Rentable))

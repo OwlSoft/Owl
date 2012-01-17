@@ -16,6 +16,16 @@ public abstract class ApiBase implements IApiBase, ILocalApiBase
         _context = context;
     }
 
+    static
+    {
+        EjbSetup.setup();
+    }
+
+    public ApiBase()
+    {
+        EjbSetup.setup();
+    }
+
     @Override
     public void setContext(Object context)
     {

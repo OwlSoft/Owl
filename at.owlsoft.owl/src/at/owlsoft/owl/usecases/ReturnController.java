@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.log4j.Logger;
+
 import at.owlsoft.owl.business.ControllerBase;
 import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.dao.DaoManager;
@@ -26,11 +28,13 @@ import at.owlsoft.owl.validation.ValidationMessageStatus;
 // FIXME: A exemplar return should get handled in the rental controller
 public class ReturnController extends ControllerBase
 {
+    private Logger                  LOGGER           = org.apache.log4j.Logger
+                                                             .getLogger(ReturnController.class);
 
     /**
      * 
      */
-    private static final long serialVersionUID = -1021637759632437930L;
+    private static final long       serialVersionUID = -1021637759632437930L;
     private List<ValidationMessage> _messages;
 
     public ReturnController(OwlApplicationContext context)
@@ -49,14 +53,14 @@ public class ReturnController extends ControllerBase
             ase.setDate(new Date());
             ase.setActivityStatus(ActivityStatus.Returned);
             rental.addActivityStatusEntry(ase);
-
+            LOGGER.debug("medum returned");
             DaoManager.getInstance().getActivityDao().store(rental);
-
+            LOGGER.debug("saved to database");
             MediumExemplarStatusEntry mese = new MediumExemplarStatusEntry();
             mese.setDate(new Date());
             mese.setMediumExemplarStatus(MediumExemplarStatus.Returned);
             mese.setMediumExemplar(copy);
-
+            LOGGER.debug("status entry set to returned");
             copy.addMediumExemplarStatusEntry(mese);
 
             DaoManager.getInstance().getMediumExemplarDao().store(copy);
@@ -132,6 +136,8 @@ public class ReturnController extends ControllerBase
         else
         {
             temp = returnMediumCopy(rentals.get(0).getMediumExemplar());
+            LOGGER.debug("returnes successfully"
+                    + rentals.get(0).getMediumExemplar().getMedium().getName());
         }
 
         return temp;

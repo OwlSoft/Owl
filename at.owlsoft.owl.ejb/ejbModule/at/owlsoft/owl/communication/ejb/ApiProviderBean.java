@@ -37,11 +37,16 @@ public class ApiProviderBean implements ApiProviderBeanRemote,
     // @Resource
     // private SessionContext _session;
 
+    static
+    {
+        EjbSetup.setup();
+    }
+
     private OwlApplicationContext  _context;
 
     private OwlApplicationContext getContext()
     {
-
+        EjbSetup.setup();
         if (_context == null)
         {
             _context = new OwlApplicationContext();

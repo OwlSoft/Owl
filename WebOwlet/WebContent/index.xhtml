@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Web Owlet</title>
+</head>
+<body>
+<h:form>
+
+Field: 
+<h:selectOneMenu value="#{searchBean.searchFieldDefinition}">
+<f:selectItems value="#{searchBean.searchFieldDefinitions}" required="true"/>
+</h:selectOneMenu>
+<h:inputText value="#{searchBean.searchValue}"></h:inputText>
+<h:commandButton action="#{searchBean.doSearch}" value="Suchen"/>
+</h:form>
+<h:dataTable value="#{searchBean.searchResults}" var="medium">
+<h:column><f:facet name="header">ID</f:facet>${medium.mediumID}</h:column>
+<h:column><f:facet name="header">Name</f:facet>${medium.name}</h:column>
+<h:column><f:facet name="header">Publisher</f:facet>${medium.publisher}</h:column>
+<h:column><f:facet name="header">Anzahl</f:facet>${medium.mediumExemplarCount}</h:column>
+</h:dataTable>
+</body>
+</html>

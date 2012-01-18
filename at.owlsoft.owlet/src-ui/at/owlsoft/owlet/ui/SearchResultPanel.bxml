@@ -18,7 +18,7 @@
 			<Label bxml:id="publisher" />
 		</TablePane.Row>
 		<TablePane.Row>
-			<Expander TablePane.columnSpan="3" title="Copies">
+			<Expander wtk:TablePane.columnSpan="3" title="Copies">
 				<ScrollPane horizontalScrollBarPolicy="fill">
 					<TableView bxml:id="copiesView">
 						<columns>

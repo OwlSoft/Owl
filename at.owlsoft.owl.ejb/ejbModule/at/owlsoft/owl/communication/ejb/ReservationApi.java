@@ -95,6 +95,11 @@ public class ReservationApi extends ApiBase implements ReservationApiRemote,
     public boolean store() throws NoPermissionException
     {
         getContext().getReservationController().save();
+        for (ValidationMessage message : getContext()
+                .getReservationController().getMessages())
+        {
+            System.out.println("Message: " + message.getMessage());
+        }
         return getContext().getReservationController().getMessages().isEmpty();
     }
 

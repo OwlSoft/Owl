@@ -442,7 +442,7 @@ public class AdminConfigView extends OwletRoleView
 
         if (changesMade)
         {
-            Prompt.prompt("Booya, bitch", getWindow());
+            Prompt.prompt("Saved", getWindow());
         }
         else
         {

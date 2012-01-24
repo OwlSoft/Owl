@@ -21,9 +21,9 @@ public class MessageController extends ControllerBase
     /**
      * 
      */
-    private static final long serialVersionUID = -6115677024069425357L;
+    private static final long      serialVersionUID = -6115677024069425357L;
     private TopicProduceController _topicProduceController;
-    private static final String    TOPICNAME = "InfoTopic";
+    private static final String    TOPICNAME        = "InfoTopic";
 
     public MessageController(OwlApplicationContext context)
     {
@@ -73,7 +73,7 @@ public class MessageController extends ControllerBase
         {
             _topicProduceController.sendText(eventType);
         }
-        catch (JMSException e)
+        catch (Exception e)
         {
             // TODO Auto-generated catch block
             e.printStackTrace();

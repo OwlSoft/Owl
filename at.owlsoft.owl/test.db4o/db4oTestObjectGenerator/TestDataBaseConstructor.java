@@ -141,12 +141,12 @@ public class TestDataBaseConstructor
         calendar.setTime(new Date());
         calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DATE) + 7, 0, 0, 0);
-        rental = new Rental(calendar.getTime());
-        rental.setStartDate(new Date());
-        rental.setCustomer(userTwo);
-        userTwo.addActivity(rental);
-        rental.setMediumExemplar(bookTwoCopy);
-        bookTwoCopy.addActivity(rental);
+        Rental rental2 = new Rental(calendar.getTime());
+        rental2.setStartDate(new Date());
+        rental2.setCustomer(userTwo);
+        userTwo.addActivity(rental2);
+        rental2.setMediumExemplar(bookTwoCopy);
+        bookTwoCopy.addActivity(rental2);
         bookTwoCopy.addMediumExemplarStatusEntry(new MediumExemplarStatusEntry(
                 new Date(), bookTwoCopy, MediumExemplarStatus.Rented));
 
@@ -158,15 +158,20 @@ public class TestDataBaseConstructor
 
         DaoManager.getInstance(TEST_DB).getSystemUserDao().store(userOne);
         DaoManager.getInstance(TEST_DB).getSystemUserDao().store(userZero);
+        DaoManager.getInstance(TEST_DB).getSystemUserDao().store(userTwo);
         DaoManager.getInstance(TEST_DB).getMediumDao().store(bookOne);
         DaoManager.getInstance(TEST_DB).getMediumDao().store(bookZero);
+        DaoManager.getInstance(TEST_DB).getMediumDao().store(bookTwo);
         DaoManager.getInstance(TEST_DB).getMediumExemplarDao()
                 .store(bookOneCopy);
         DaoManager.getInstance(TEST_DB).getMediumExemplarDao()
                 .store(bookZeroCopy);
         DaoManager.getInstance(TEST_DB).getMediumExemplarDao()
                 .store(bookZeroCopy2);
+        DaoManager.getInstance(TEST_DB).getMediumExemplarDao()
+                .store(bookTwoCopy);
         DaoManager.getInstance(TEST_DB).getRentalDao().store(rental);
+        DaoManager.getInstance(TEST_DB).getRentalDao().store(rental2);
         DaoManager.getInstance(TEST_DB).getReservationDao().store(reservation);
 
     }

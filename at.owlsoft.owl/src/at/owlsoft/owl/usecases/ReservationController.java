@@ -9,6 +9,7 @@ import at.owlsoft.owl.business.OwlApplicationContext;
 import at.owlsoft.owl.dao.DaoManager;
 import at.owlsoft.owl.model.IDefaultRoles;
 import at.owlsoft.owl.model.NoPermissionException;
+import at.owlsoft.owl.model.accounting.Activity;
 import at.owlsoft.owl.model.accounting.ActivityStatus;
 import at.owlsoft.owl.model.accounting.ActivityStatusEntry;
 import at.owlsoft.owl.model.accounting.Reservation;
@@ -24,7 +25,7 @@ public class ReservationController extends ControllerBase
     /**
      * 
      */
-    private static final long serialVersionUID = 2299438480633459950L;
+    private static final long       serialVersionUID = 2299438480633459950L;
     private Reservation             _reservation;
     private List<ValidationMessage> _messages;
 
@@ -183,6 +184,23 @@ public class ReservationController extends ControllerBase
                     ValidationMessageStatus.Error);
             _messages.add(vm);
             hasNoError = false;
+        }
+        for (Activity reservation : _reservation.getMedium().getActivities())
+        {
+            if (reservation instanceof Reservation
+                    && reservation.getCurrentStatus().equals(
+                            ActivityStatus.Open))
+            {
+                if (reservation.getCustomer()
+                        .equals(_reservation.getCustomer()))
+                {
+                    String message = "Medium has already a reservation of same user";
+                    ValidationMessage vm = new ValidationMessage(message,
+                            ValidationMessageStatus.Error);
+                    _messages.add(vm);
+                    hasNoError = false;
+                }
+            }
         }
 
         return hasNoError;

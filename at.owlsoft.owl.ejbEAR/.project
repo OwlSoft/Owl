@@ -9,6 +9,8 @@
 		<project>at.owlsoft.owl.rmi.share</project>
 		<project>at.owlsoft.owl</project>
 		<project>at.owlsoft.owl.modelbase</project>
+		<project>WebOwlet</project>
+		<project>OwlWebService</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

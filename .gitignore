@@ -4,6 +4,7 @@
 **/build/classes/*
 **/src-gen/*
 **/dist 
+*dist/*
 
 # ignore project files
 DB4OFILENAME

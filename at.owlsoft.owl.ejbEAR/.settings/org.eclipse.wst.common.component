@@ -33,5 +33,13 @@
         <dependent-module archiveName="log4j-1.2.16.jar" deploy-path="/lib" handle="module:/classpath/lib/at.owlsoft.owl/lib/log4j-1.2.16.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="WebOwlet.war" deploy-path="/" handle="module:/resource/WebOwlet/WebOwlet">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="OwlWebService.war" deploy-path="/" handle="module:/resource/OwlWebService/OwlWebService">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>

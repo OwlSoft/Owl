@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is Metro/2.1 (branches/2.1-6728; 2011-02-03T14:14:58+0000) JAXWS-RI/2.2.3 JAXWS/2.2. --><xs:schema xmlns:tns="http://webservice.owl.owlsoft.at/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://webservice.owl.owlsoft.at/">
+
+<xs:element name="NoPermissionException" type="tns:NoPermissionException" />
+
+<xs:element name="getSession" type="tns:getSession" />
+
+<xs:element name="getSessionResponse" type="tns:getSessionResponse" />
+
+<xs:element name="rentMedium" type="tns:rentMedium" />
+
+<xs:element name="rentMediumResponse" type="tns:rentMediumResponse" />
+
+<xs:element name="reserveMedium" type="tns:reserveMedium" />
+
+<xs:element name="reserveMediumResponse" type="tns:reserveMediumResponse" />
+
+<xs:element name="searchMedium" type="tns:searchMedium" />
+
+<xs:element name="searchMediumResponse" type="tns:searchMediumResponse" />
+
+<xs:complexType name="reserveMedium">
+<xs:sequence>
+<xs:element name="session" type="xs:string" minOccurs="0" />
+<xs:element name="mediumId" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="reserveMediumResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="NoPermissionException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="rentMedium">
+<xs:sequence>
+<xs:element name="session" type="xs:string" minOccurs="0" />
+<xs:element name="mediumId" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="rentMediumResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getSession">
+<xs:sequence>
+<xs:element name="username" type="xs:string" minOccurs="0" />
+<xs:element name="password" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getSessionResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="searchMedium">
+<xs:sequence>
+<xs:element name="session" type="xs:string" minOccurs="0" />
+<xs:element name="title" type="xs:string" minOccurs="0" />
+<xs:element name="author" type="xs:string" minOccurs="0" />
+<xs:element name="publisher" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="searchMediumResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:wsMedium" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="wsMedium">
+<xs:sequence>
+<xs:element name="mediumExemplaCount" type="xs:int" />
+<xs:element name="mediumID" type="xs:int" />
+<xs:element name="name" type="xs:string" minOccurs="0" />
+<xs:element name="publisher" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

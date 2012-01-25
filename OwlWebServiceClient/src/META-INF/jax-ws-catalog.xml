@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/E:/Studium/Semester%205%20Projekt/OwlWebService.wsdl" uri="wsdl/OwlWebService.wsdl"/>
+    <system systemId="http://localhost:8080/OwlWebService/OwlWebServiceService?xsd=1" uri="wsdl/localhost_8080/OwlWebService/OwlWebServiceService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/OwlWebService/OwlWebServiceService?wsdl" uri="wsdl/localhost_8080/OwlWebService/OwlWebServiceService.wsdl"/>
+</catalog>

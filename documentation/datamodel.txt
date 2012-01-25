@@ -1,0 +1,13 @@
+Medium-Exemplare können Status haben:
+Rentable - Buch ist in der Bibliothek verfügbar und ausleihbar.
+Rented - Buch wurde ausgeliehen und ist momentan nicht verfügbar.
+Returned - Buch wurde zurückgegeben, ist aber noch nicht wieder im Sortiment ausgelegt/ausleihbar.
+StockItem - Buch ist in der Bibliothek verfügbar, aber nicht ausleihbar, da es ein Bestandsexemplar ist.
+
+User A leiht ein Exemplar von Buch Y aus. User A kann dieses Buch bis zu seiner Rückgabefrist behalten, oder es früher wieder zurückgeben. User A kann die Rückgabefrist auch (mehrfach) verlängern.
+
+Wenn Buch Y nur ein ausleihbares Exemplar besitzt, und User A dieses ausgeliehen hat, dann kann User B eine Reservierung darauf setzen. Dies hat zwei Effekte: Einerseits wird User B der Warteliste hinzugefügt (wer zuerst reserviert besitzt zuerst ein Anrecht darauf, auszuleihen). Andererseits unterbindet User A diese Reservierung, das Exemplar des Buches Y weiter zu verlängern.
+
+Um zu verhindern, dass ein User sich ein Buch ausleiht, und dann die Reservierungs-Warteliste selbst komplett belegt, ist es Usern nur möglich, eine Reservierung auf ein Medium zu haben. Es ist auch möglich, ein Buch erst auszuleihen, und es sofort danach wieder zu reservieren; Dies bringt dem User jedoch nichts, da er dabei seine eigene Verlängerungsmöglichkeit blockiert, und andere Benutzer sich ebenfalls auf die Warteliste setzen können. Dadurch ist es einem Benutzer nicht möglich, ein Medium-Exemplar zu monopolisieren.
+
+
